@@ -1,0 +1,95 @@
+# Modbus Register Map Configuration for Poultry Climate Controllers
+# Supports Welotec egOS RS-485 serial RTU and Ethernet Modbus TCP
+
+controller:
+  model: "Rotem Platinum Pro / Fancom F37 Generic Map"
+  slave_id: 1
+  protocol: "modbus_tcp" # Options: modbus_tcp, modbus_rtu
+  tcp:
+    host: "192.168.1.120"
+    port: 502
+  rtu:
+    port: "/dev/ttyUSB0"
+    baudrate: 19200
+    parity: "N"
+    stopbits: 1
+    bytesize: 8
+
+poll_interval_seconds: 3.0
+
+registers:
+  # Climate Holding / Input Registers
+  holding:
+    - name: "temperature_front_celsius"
+      address: 100
+      type: "int16"
+      scale: 0.1
+      unit: "°C"
+      target_field: "metrics.temperature_celsius"
+      zone: "zone-front"
+
+    - name: "temperature_mid_celsius"
+      address: 101
+      type: "int16"
+      scale: 0.1
+      unit: "°C"
+      target_field: "metrics.temperature_celsius"
+      zone: "zone-mid"
+
+    - name: "temperature_rear_celsius"
+      address: 102
+      type: "int16"
+      scale: 0.1
+      unit: "°C"
+      target_field: "metrics.temperature_celsius"
+      zone: "zone-rear"
+
+    - name: "relative_humidity_percent"
+      address: 103
+      type: "uint16"
+      scale: 0.1
+      unit: "%"
+      target_field: "metrics.relative_humidity_percent"
+
+    - name: "ammonia_nh3_ppm"
+      address: 104
+      type: "uint16"
+      scale: 0.1
+      unit: "ppm"
+      target_field: "metrics.ammonia_nh3_ppm"
+
+    - name: "carbon_dioxide_co2_ppm"
+      address: 105
+      type: "uint16"
+      scale: 1.0
+      unit: "ppm"
+      target_field: "metrics.carbon_dioxide_co2_ppm"
+
+    - name: "air_velocity_mps"
+      address: 106
+      type: "uint16"
+      scale: 0.01
+      unit: "m/s"
+      target_field: "metrics.air_velocity_mps"
+
+    - name: "static_pressure_pa"
+      address: 107
+      type: "uint16"
+      scale: 0.1
+      unit: "Pa"
+      target_field: "metrics.static_pressure_pa"
+
+    # Silo & Feed
+    - name: "silo_1_weight_kg"
+      address: 200
+      type: "uint32"
+      scale: 1.0
+      unit: "kg"
+      target_field: "metrics.silo_1_weight_kg"
+
+    - name: "silo_2_weight_kg"
+      address: 202
+      type: "uint32"
+      scale: 1.0
+      unit: "kg"
+      target_field: "metrics.silo_2_weight_kg"

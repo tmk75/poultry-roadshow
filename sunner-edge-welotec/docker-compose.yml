@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  # Local lightweight MQTT broker for edge cluster testing
+  mosquitto:
+    image: eclipse-mosquitto:2.0
+    container_name: sunner-edge-broker
+    ports:
+      - "1883:1883"
+    volumes:
+      - ./config/mosquitto.conf:/mosquitto/config/mosquitto.conf:ro
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+
+  # Welotec edge telemetry simulator daemon
+  edge-telemetry:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: sunner-edge-telemetry
+    depends_on:
+      - mosquitto
+    environment:
+      - PYTHONUNBUFFERED=1
+      - TZ=Asia/Shanghai
+    command: ["--broker", "mosquitto", "--port", "1883", "--interval", "3.0"]
+    restart: unless-stopped

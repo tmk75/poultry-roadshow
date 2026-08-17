@@ -1,0 +1,24 @@
+[project]
+name = "sunner-digital-twin"
+version = "1.0.0"
+description = "Sunner Industrial Poultry Digital Twin & Autonomous Multi-Agent Environmental Control"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "paho-mqtt>=1.6.1",
+    "pyyaml>=6.0.1",
+    "jsonschema>=4.20.0",
+    "pytest>=8.0.0",
+    "neo4j>=5.15.0",
+    "azure-iot-device>=2.12.0",
+    "azure-eventhub>=5.11.0"
+]
+
+[dependency-groups]
+dev = [
+    "pytest>=8.0.0"
+]
+
+[tool.pytest.ini_options]
+testpaths = ["sunner-cloud-gea/tests", "sunner-edge-welotec/tests"]
+pythonpath = ["sunner-cloud-gea", "sunner-edge-welotec"]

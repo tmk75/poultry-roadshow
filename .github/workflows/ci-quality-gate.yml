@@ -1,0 +1,48 @@
+name: Sunner Digital Twin CI & Quality Gate
+
+on:
+  push:
+    branches: [ main, master, "feature/**" ]
+  pull_request:
+    branches: [ main, master ]
+
+jobs:
+  test-edge-and-cloud:
+    name: Multi-Agent & Edge Quality Gate
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Codebase
+        uses: actions/checkout@v4
+
+      - name: Set up Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+          cache: "pip"
+
+      - name: Install Edge & Cloud Dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r sunner-edge-welotec/requirements.txt
+          pip install -r sunner-cloud-gea/requirements.txt
+
+      - name: Validate CSL/DSL/PIPL Compliance Framework
+        run: |
+          python -c "import json; cfg = json.load(open('.compliance-framework.json')); assert cfg.get('enabled') is True, 'Compliance must be enabled'"
+          echo "CSL / DSL / PIPL Compliance Gate Verified."
+
+      - name: Run Pytest Test Suites (Edge Schemas, Modbus & Multi-Agent Negotiation)
+        env:
+          PYTHONPATH: "${{ github.workspace }}/sunner-cloud-gea:${{ github.workspace }}/sunner-edge-welotec"
+        run: |
+          python -m pytest sunner-cloud-gea/tests sunner-edge-welotec/tests -v --color=yes
+
+      - name: Test Edge Telemetry Simulator Dry-Run
+        run: |
+          python sunner-edge-welotec/src/telemetry_simulator.py --dry-run --count 1
+          python sunner-edge-welotec/src/telemetry_simulator.py --dry-run --count 1 --inject-ammonia-spike
+
+      - name: Test Modbus Register Polling Driver
+        run: |
+          python sunner-edge-welotec/src/modbus_driver.py --dry-run

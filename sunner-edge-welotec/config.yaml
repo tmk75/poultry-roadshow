@@ -1,0 +1,29 @@
+# Welotec egOS Edge Gateway Configuration
+gateway:
+  id: "gw-welotec-np01-b03"
+  hardware_model: "Welotec EG500"
+  firmware_version: "egOS-v3.4.2-sunner"
+  location: "Nanping Farm Site 01, Barn 03"
+
+telemetry:
+  farm_id: "farm-nanping-01"
+  barn_id: "barn-03"
+  zones:
+    - "zone-front"
+    - "zone-mid"
+    - "zone-rear"
+  sampling_interval_seconds: 3.0
+  qos_level: 1
+
+mqtt:
+  broker_host: "mosquitto"
+  broker_port: 1883
+  tls_enabled: false
+  keepalive_seconds: 60
+  client_id_prefix: "sunner-edge-gw"
+
+local_buffer:
+  enabled: true
+  storage_path: "/data/buffer"
+  max_buffer_mb: 256
+  retention_days: 7
