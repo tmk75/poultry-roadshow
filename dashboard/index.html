@@ -3,646 +3,856 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sunner Smart Poultry Digital Twin | Executive Business Story & ESG AI</title>
-  <meta name="description" content="Executive-ready digital twin: How AI transforms poultry farm data into automatic savings, animal welfare, and carbon reduction.">
+  <title>Sunner × GEA • Enterprise Manufacturing Decision OS (Roadshow Keynote)</title>
+  <meta name="description" content="Enterprise Decision OS & Cyber-Physical Data Highway: Sensors to Edge, SCADA, Historian, MES, MOM, SAP, Snowflake, Foundry, Ontology, Digital Twin, and Cortex AI.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
+  <!-- Three.js 3D WebGL Engine -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 </head>
-<body>
-  <div class="dashboard-wrapper">
-    <!-- Header -->
-    <header class="top-header">
-      <div class="brand-block">
-        <div class="brand-icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-          </svg>
+<body class="app-layout-body">
+  <!-- ================================================================= -->
+  <!-- LEFT ENTERPRISE NAVIGATION SIDEBAR                                -->
+  <!-- ================================================================= -->
+  <aside class="app-sidebar" id="app-sidebar">
+    <!-- Sidebar Brand -->
+    <div class="sidebar-brand">
+      <div class="brand-logo-icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+        </svg>
+      </div>
+      <div class="brand-title-box">
+        <span class="brand-title-main">SUNNER × GEA</span>
+        <span class="brand-title-sub">DECISION PLATFORM</span>
+      </div>
+    </div>
+
+    <!-- Facility Switcher Badge -->
+    <div class="facility-badge">
+      <span class="facility-status-dot"></span>
+      <div class="facility-info">
+        <strong>Nanping Complex 01</strong>
+        <small>House 03 • 42.5k Cobb500</small>
+      </div>
+    </div>
+
+    <!-- Main Navigation Menu -->
+    <nav class="sidebar-nav">
+      <div class="nav-section-title">CORE MODULES</div>
+
+      <button class="sidebar-nav-item" id="nav-btn-highway">
+        <span class="nav-icon">⚡</span>
+        <span class="nav-label">Data Highway</span>
+        <span class="nav-chip green">LIVE</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-bi">
+        <span class="nav-icon">📊</span>
+        <span class="nav-label">Executive BI Hub</span>
+        <span class="nav-chip purple">BI</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-esg">
+        <span class="nav-icon">🌱</span>
+        <span class="nav-label">ESG & Carbon Hub</span>
+        <span class="nav-chip">ISO 14064</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-barn">
+        <span class="nav-icon">🐔</span>
+        <span class="nav-label">Barn Spatial Twin</span>
+        <span class="nav-chip">3D CFD</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-roi">
+        <span class="nav-icon">⚖️</span>
+        <span class="nav-label">Autopilot ROI Matrix</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-presentation">
+        <span class="nav-icon">🎙️</span>
+        <span class="nav-label">Keynote Presentation</span>
+        <span class="nav-chip" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.35);">SLIDES</span>
+      </button>
+
+      <div class="nav-section-title">ROADSHOW SHOWCASES</div>
+
+      <button class="scenario-nav-btn active-scen" id="side-scen-closedloop">
+        <span class="scen-dot green"></span>
+        <span>⚡ 0.3s Closed-Loop</span>
+      </button>
+
+      <button class="scenario-nav-btn" id="side-scen-sap">
+        <span class="scen-dot blue"></span>
+        <span>📦 Zero-Touch SAP PO</span>
+      </button>
+
+      <button class="scenario-nav-btn" id="side-scen-esgcert">
+        <span class="scen-dot purple"></span>
+        <span>🌱 ISO Carbon Audit</span>
+      </button>
+
+      <button class="scenario-nav-btn danger-scen" id="side-scen-ammonia">
+        <span class="scen-dot amber"></span>
+        <span>🚨 Ammonia Crisis Flush</span>
+      </button>
+
+      <button class="scenario-nav-btn" id="side-scen-legacy">
+        <span class="scen-dot red"></span>
+        <span>❌ Disconnected Silos</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar Footer -->
+    <div class="sidebar-footer">
+      <div class="user-profile-card">
+        <div class="user-avatar">VL</div>
+        <div class="user-meta">
+          <strong>Victor Lee</strong>
+          <small>CDIO / Operations Lead</small>
         </div>
-        <div>
-          <h1 class="brand-title">SUNNER SMART POULTRY DIGITAL TWIN</h1>
-          <p class="brand-subtitle">Executive Overview • How AI Simplifies Farm Operations, Saves Money, and Protects 2.12M Birds</p>
+      </div>
+      <div class="system-health-strip">
+        <span class="health-dot"></span>
+        <span>Online • Sub-350ms Closed Loop</span>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ================================================================= -->
+  <!-- MAIN COCKPIT VIEWPORT                                             -->
+  <!-- ================================================================= -->
+  <div class="app-main-viewport">
+    <!-- Top Global App Bar -->
+    <header class="app-top-bar">
+      <!-- Breadcrumb & Presentation Return Co-Pilot -->
+      <div class="top-breadcrumb">
+        <!-- Floating Return to Keynote Slide Button (Appears when jumping from presentation to live demo) -->
+        <button class="return-to-deck-pill" id="btn-return-to-deck" style="display: none;" title="Return to Keynote Presentation Slide">
+          <span class="return-deck-icon">🎙️</span>
+          <span class="return-deck-text" id="return-deck-label">◀ Return to Keynote (Slide 1)</span>
+        </button>
+
+        <span class="crumb-dim">Sunner Nanping Plant 01</span>
+        <span class="crumb-sep">/</span>
+        <span class="crumb-dim">House 03</span>
+        <span class="crumb-sep">/</span>
+        <strong class="crumb-active" id="top-view-title">Enterprise Decision OS</strong>
+      </div>
+
+      <!-- Center Roadshow Story Pills & Speed Controls -->
+      <div class="top-controls-group">
+        <!-- View Toggle -->
+        <div class="view-segmented-pill">
+          <button class="seg-btn active" id="btn-view-3d">🚀 3D Highway</button>
+          <button class="seg-btn" id="btn-view-2d">🌐 2D Pipeline</button>
+        </div>
+
+        <!-- Animation Speed Selector -->
+        <div class="speed-control-group">
+          <span class="speed-lbl">Speed:</span>
+          <button class="speed-btn active" id="btn-speed-05" data-speed="0.5">0.5x</button>
+          <button class="speed-btn" id="btn-speed-10" data-speed="1.0">1.0x</button>
+          <button class="speed-btn" id="btn-speed-20" data-speed="2.0">2.0x</button>
         </div>
       </div>
 
-      <div class="header-status-strip">
-        <div class="status-pill esg-pill">
-          <span class="status-dot pulse-green"></span>
-          <span>Sustainability Score: <strong id="val-esg-overall-score">98.8% (Grade AAA)</strong></span>
+      <!-- Right Quick Metrics & Language Switcher -->
+      <div class="top-kpi-strip">
+        <div class="top-kpi-pill">
+          <span class="pill-dot green"></span>
+          <span>Welfare <strong>98.8%</strong></span>
         </div>
-        <div class="status-pill">
-          <span class="status-dot pulse-green"></span>
-          <span>Flock Welfare: <strong>42,500 Birds Healthy</strong></span>
+        <div class="top-kpi-pill">
+          <span class="pill-dot cyan"></span>
+          <span>Power <strong>-28.4%</strong></span>
         </div>
-        <div class="status-pill compliance-pill">
-          <span class="shield-icon">🛡️</span>
-          <span>Audit Status: <strong>100% Automated</strong></span>
+        <div class="top-kpi-pill">
+          <span class="pill-dot blue"></span>
+          <span>Closed-Loop <strong>0.3s</strong></span>
         </div>
-        <div class="time-clock" id="live-clock">2026-08-18 00:20:00 UTC</div>
+
+        <!-- EN / ZH Language Toggle Pill Button -->
+        <button class="lang-toggle-btn" id="btn-toggle-lang" title="Switch Language (EN / 中文)">
+          <span class="lang-globe-icon">🌐</span>
+          <span class="lang-text-label" id="lang-current-label">EN / 中文</span>
+        </button>
       </div>
     </header>
 
-    <!-- Navigation / View Mode Switcher -->
-    <div class="view-mode-bar">
-      <div class="view-mode-tabs">
-        <button class="view-tab-btn active" id="tab-btn-enterprise">⚡ How Data Flows Through the Farm (Step-by-Step)</button>
-        <button class="view-tab-btn" id="tab-btn-esg">🌱 ESG Carbon Savings & Animal Welfare</button>
-        <button class="view-tab-btn" id="tab-btn-barn">🐔 Live Barn 3D Map & Environmental Gauges</button>
-        <button class="view-tab-btn" id="tab-btn-comparison">⚖️ Old Way vs. New AI Way</button>
+    <!-- Top Roadshow Keynote Action Bar -->
+    <div class="keynote-action-bar">
+      <div class="keynote-stories-box">
+        <span class="keynote-tag">ROADSHOW SHOWCASES:</span>
+        <button class="keynote-btn active" id="btn-keynote-closedloop">
+          <span>⚡</span> 0.3s Closed-Loop Power vs Health
+        </button>
+        <button class="keynote-btn" id="btn-keynote-sap">
+          <span>📦</span> Zero-Touch SAP Reorder
+        </button>
+        <button class="keynote-btn" id="btn-keynote-esg">
+          <span>🌱</span> 1-Click ISO 14064 Carbon Audit
+        </button>
       </div>
 
-      <div class="pipeline-live-ticker">
-        <span class="ticker-dot pulse-green"></span>
-        <span>Decision Speed: <strong id="val-pipeline-latency">Instant (0.3 Seconds)</strong></span>
-        <span class="ticker-pipe">|</span>
-        <span>Annual Carbon Saved: <strong id="val-total-ghg-saved" class="text-success">18,885.7 Tons CO₂/yr</strong></span>
+      <!-- Live Interactive Simulator Controls -->
+      <div class="live-simulator-bar">
+        <span class="sim-label">🎮 LIVE SIMULATOR:</span>
+        <div class="sim-slider-box">
+          <label>Ammonia (NH₃): <strong id="lbl-sim-nh3">11.4 ppm</strong></label>
+          <input type="range" id="slider-sim-nh3" min="5" max="35" step="0.5" value="11.4" class="custom-range">
+        </div>
+        <div class="sim-slider-box">
+          <label>Electricity: <strong id="lbl-sim-tariff">Peak (¥1.35)</strong></label>
+          <input type="range" id="slider-sim-tariff" min="1" max="3" step="1" value="3" class="custom-range">
+        </div>
       </div>
     </div>
 
-    <!-- ================================================================= -->
-    <!-- SECTION 1: EXECUTIVE-FRIENDLY DATA HIGHWAY & BUSINESS STORY       -->
-    <!-- ================================================================= -->
-    <section class="card enterprise-pipeline-card" id="section-enterprise-flow">
-      <!-- Top Canvas Controls -->
-      <div class="card-header">
-        <div>
-          <h2 class="card-title">Live Farm Data Highway: From Physical Barn to AI Brain in Real Time</h2>
-          <p class="section-subtext">Watch data travel from wall sensors to farm controllers, business systems, and AI in 0.3 seconds:</p>
-        </div>
-        <div class="pipeline-quick-actions">
-          <button class="btn btn-primary" id="btn-toggle-autocruise">🚀 <strong id="lbl-autocruise">Auto-Tour: ON</strong></button>
-          <button class="btn btn-warning" id="btn-toggle-warpspeed">⚡ <strong id="lbl-warpspeed">High Activity Mode</strong></button>
-          <button class="btn btn-warning" id="btn-sap-po-trigger">📦 <strong>Test: Low Feed Auto-Reorder in SAP</strong></button>
-          <button class="btn btn-danger" id="btn-ammonia-ripple">🚨 <strong>Test: High Ammonia Safety Override</strong></button>
-          <button class="btn btn-outline" id="btn-reset-pipeline">🔄 Reset</button>
-        </div>
-      </div>
+    <!-- Scrollable Workspace Container -->
+    <div class="app-workspace-scroll">
+      <!-- ============================================================= -->
+      <!-- VIEW 1: DATA HIGHWAY & EXECUTIVE COCKPIT (SPLIT VIEW)         -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-enterprise-flow">
+        <div class="cockpit-split-grid">
+          <!-- LEFT / CENTER: HERO CANVAS & INSPECTOR (68%) -->
+          <div class="cockpit-main-column">
+            <!-- Hero Canvas Card -->
+            <div class="hero-canvas-card" id="hero-canvas-card">
+              <!-- 3D THREE.JS WEBGL VIEWPORT (PRIMARY) -->
+              <div class="canvas-wrapper" id="viewport-3d">
+                <div id="canvas-3d-highway-container" style="width: 100%; height: 540px;"></div>
 
-      <!-- CANVAS VIEWPORT -->
-      <div class="canvas-highway-wrapper">
-        <canvas id="canvas-data-highway"></canvas>
-        <div class="canvas-hud-overlay">
-          <div class="hud-item"><span class="hud-dot pulse-cyan"></span> STREAM: <strong>Live Continuous Farm Telemetry</strong></div>
-          <div class="hud-item"><span class="hud-dot pulse-green"></span> AI RESPONSE: <strong>Automatic Closed-Loop Fan Control</strong></div>
-          <div class="hud-item"><span class="hud-dot pulse-blue"></span> BUSINESS INTEGRATION: <strong>Automatic Feed Orders & Inventory</strong></div>
-        </div>
-      </div>
+                <!-- Floating 3D Zoom Controls -->
+                <div class="floating-zoom-controls">
+                  <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (or Mouse Wheel)">🔍+</button>
+                  <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (or Mouse Wheel)">🔍−</button>
+                  <button class="zoom-btn" id="btn-zoom-reset" title="Reset 3D Camera">🎯 Reset</button>
+                  <button class="zoom-btn fullscreen-btn" id="btn-fullscreen-3d" title="Toggle Fullscreen 3D Cyber-Highway (⛶)">⛶ Fullscreen</button>
+                </div>
+              </div>
 
-      <!-- View Style Switcher (Executive Plain English vs Technical Code) -->
-      <div class="view-style-toggle-bar">
-        <div class="style-toggle-left">
-          <span class="style-toggle-label">Explanation Mode:</span>
-          <button class="style-btn active" id="btn-mode-executive">👔 <strong>Executive Business Story (Easy to Understand)</strong></button>
-          <button class="style-btn" id="btn-mode-technical">💻 <strong>Technical Developer Code (JSON Schemas)</strong></button>
-        </div>
-        <span class="style-toggle-hint">Click any step on the map to see what it means for the business</span>
-      </div>
+              <!-- 2D TOPOLOGY VIEWPORT (WITH 5 ADVANCED CAPABILITIES) -->
+              <div class="canvas-2d-container" id="viewport-2d" style="display: none;">
+                <!-- Dedicated 2D Header Toolbar (Cleanly Above Canvas) -->
+                <div class="canvas-2d-toolbar-header">
+                  <div class="filter-chip-group">
+                    <span class="tool-tag">FILTER:</span>
+                    <button class="chip-btn active" id="chip-filter-all" data-filter="all">All 13 Systems</button>
+                    <button class="chip-btn" id="chip-filter-ot" data-filter="ot">⚡ OT & Edge</button>
+                    <button class="chip-btn" id="chip-filter-ops" data-filter="ops">🏢 Ops & ERP</button>
+                    <button class="chip-btn" id="chip-filter-cloud" data-filter="cloud">❄️ Lakehouse</button>
+                    <button class="chip-btn" id="chip-filter-ai" data-filter="ai">🧠 AI Autopilot</button>
+                  </div>
 
-      <!-- 2-Column Split: Left Business Story Box, Right AI Brain Briefing -->
-      <div class="inspector-grid" style="margin-top: 0.75rem;">
-        
-        <!-- LEFT: EXECUTIVE BUSINESS STORY CARD (NO CONFUSING CODE) -->
-        <div class="executive-story-box" id="executive-story-card">
-          <div class="story-card-header">
-            <div class="story-step-badge" id="story-step-badge">STEP 1 OF 10: AT THE BARN</div>
-            <h3 class="story-title" id="story-step-title">🌡️ Barn Sensors & Climate Probes</h3>
-            <p class="story-summary" id="story-step-summary">
-              Sensors mounted on the barn walls measure air temperature, ammonia levels, and silo weights every 10 milliseconds.
-            </p>
-          </div>
+                  <!-- Functional Flow Color Legend -->
+                  <div class="flow-color-legend">
+                    <span class="flow-legend-pill"><span class="flow-dot cyan"></span> Telemetry</span>
+                    <span class="flow-legend-pill"><span class="flow-dot amber"></span> ERP & Orders</span>
+                    <span class="flow-legend-pill"><span class="flow-dot indigo"></span> Lakehouse</span>
+                    <span class="flow-legend-pill"><span class="flow-dot green"></span> AI Autopilot</span>
+                  </div>
 
-          <div class="story-details-grid">
-            <div class="story-detail-item">
-              <span class="detail-label">🏢 What is Happening:</span>
-              <p class="detail-text" id="story-detail-action">
-                The sensors verify that the 42,500 Cobb500 broilers have clean, fresh air (11.4 ppm ammonia) and comfortable warmth (22.4°C).
+                  <div class="tool-action-group">
+                    <button class="tool-toggle-btn" id="btn-toggle-xray" title="Show Live Protocol Badges & Latencies">
+                      <span>🩻</span> X-Ray Protocols
+                    </button>
+                    <button class="tool-toggle-btn active" id="btn-toggle-lineage" title="Illuminate End-to-End Connected Pathways">
+                      <span>🔍</span> Lineage Tracer
+                    </button>
+                    <button class="tool-toggle-btn danger" id="btn-toggle-edge-offline" title="Simulate Internet Disconnect & 48h NVRAM Buffer">
+                      <span>⚡</span> Offline Buffer Sim
+                    </button>
+                    <button class="tool-toggle-btn highlight" id="btn-fullscreen-2d" title="Toggle Fullscreen 2D Architecture Pipeline (⛶)">
+                      <span>⛶</span> Fullscreen
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 2D Canvas Stage -->
+                <div class="canvas-2d-drawing-stage">
+                  <canvas id="canvas-topology-flow" style="width: 100%; height: 500px; display: block;"></canvas>
+                </div>
+              </div>
+
+              <!-- Floating Scrubber Dock with Transport Controls & 13 Step Pills -->
+              <div class="floating-scrubber-dock">
+                <div class="dock-controls-left">
+                  <button class="control-circle-btn primary" id="btn-toggle-autocruise" title="Play or Pause Auto-Tour">
+                    <span id="icon-autocruise">▶</span>
+                  </button>
+                  <button class="control-circle-btn" id="btn-step-prev" title="Previous Node">◀</button>
+                  <button class="control-circle-btn" id="btn-step-next" title="Next Node">▶</button>
+                </div>
+
+                <div class="scrubber-steps" id="step-navigator-container">
+                  <!-- 13 Node Pills rendered here -->
+                </div>
+
+                <div class="dock-controls-right">
+                  <button class="mode-pill-btn active" id="btn-mode-executive">👔 Executive Story</button>
+                  <button class="mode-pill-btn" id="btn-mode-technical">💻 System Schema</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Node Description & Multi-Way Pathway Inspector Card -->
+            <div class="executive-stage-card" id="executive-story-card">
+              <div class="stage-step-tag" id="story-step-badge">LEVEL 0/1 • PHYSICAL FIELD</div>
+              <h1 class="stage-headline" id="story-step-title">⚡ 01. Barn Sensors & PLCs</h1>
+              <p class="stage-description" id="story-step-summary">
+                Shop-floor origin of data: temperature, humidity, ammonia (NH₃), CO₂, ventilation fan RPM, and silo load cell weights polled at 10ms cycles via Modbus RTU / TCP.
               </p>
-            </div>
 
-            <div class="story-detail-item">
-              <span class="detail-label">💡 Why This Matters to You:</span>
-              <p class="detail-text" id="story-detail-benefit">
-                No farm worker has to walk into dusty, hazardous barns to read wall thermometers. Everything is captured automatically.
-              </p>
-            </div>
-          </div>
-
-          <div class="story-kpi-strip" id="story-kpi-strip">
-            <div class="story-kpi-pill">🌡️ Temperature: <strong>22.4°C (Optimal)</strong></div>
-            <div class="story-kpi-pill">💨 Ammonia: <strong>11.4 ppm (Safe)</strong></div>
-            <div class="story-kpi-pill">🌾 Feed Silos: <strong>35.7 Tons (Adequate)</strong></div>
-          </div>
-        </div>
-
-        <!-- HIDDEN TECHNICAL CODE BOX (Only shown if user clicks developer mode) -->
-        <div class="inspector-box" id="technical-code-box" style="display: none;">
-          <div class="inspector-header">
-            <div>
-              <span class="inspector-title" id="inspector-tier-title">Step 1: Siemens S7-1500 PLC & Field Probes</span>
-              <span class="inspector-proto-badge" id="inspector-proto-badge">Modbus TCP / Port 502</span>
-            </div>
-            <span class="inspector-hint">Developer Raw Payload</span>
-          </div>
-          <pre class="inspector-code" id="inspector-code-block">Loading payload schema...</pre>
-        </div>
-
-        <!-- RIGHT: AI BRAIN EXECUTIVE BRIEFING -->
-        <div class="cortex-briefing-box">
-          <div class="cortex-header">
-            <div class="cortex-badge">
-              <span>🧠 AI Decision Brain & Smart Agents</span>
-            </div>
-            <span class="cortex-latency-pill">Reaction Time: 0.3s</span>
-          </div>
-          
-          <div class="cortex-body-text" id="cortex-narrative">
-            "Executive Summary: House 03 is running in nominal eco-saving mode. Because electricity prices are at Peak (¥1.35/kWh), the Energy Agent throttled ventilation fans to 25% to save money, while the Health Agent confirmed bird air quality remains safe. Saved ¥9.72/hour."
-          </div>
-
-          <div class="cortex-agent-roster">
-            <div class="agent-chip chip-health">🩺 Health Agent: <strong id="chip-health-act">Welfare Safe (98.5%)</strong></div>
-            <div class="agent-chip chip-energy">⚡ Energy Agent: <strong id="chip-energy-act">Eco Peak Save (25%)</strong></div>
-            <div class="agent-chip chip-sap">📦 SAP Agent: <strong id="chip-sap-act">Silo Inventory OK (35.7t)</strong></div>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- SECTION 2: ESG & 4-STAGE INDUSTRIAL EVOLUTION MATRIX              -->
-    <!-- ================================================================= -->
-    <section class="card esg-evolution-card" id="section-esg-evolution" style="display: none;">
-      <!-- 4-Stage Evolution Stepper -->
-      <div class="evolution-stepper-container">
-        <div class="stepper-header">
-          <h2 class="card-title">How Farming Evolved: From Manual Timers to Autonomous AI</h2>
-          <span class="skill-tag">ISO 14064 & GHG Protocol Verified</span>
-        </div>
-
-        <div class="evolution-steps-grid">
-          <div class="evo-step-card" id="evo-step-1" data-step="1">
-            <div class="evo-step-badge">STAGE 1 (1980s-2000s)</div>
-            <div class="evo-step-title">1️⃣ Automation</div>
-            <div class="evo-tech">Simple Relays & Wall Thermostats</div>
-            <div class="evo-data-behavior">
-              <strong>What it was:</strong> Dumb timers running exhaust fans at 100% all day and night. Nobody knew if birds were too hot or cold.
-            </div>
-            <div class="evo-esg-metric badge-red">High Power Waste • 4.8% Bird Mortality</div>
-          </div>
-
-          <div class="evo-step-card" id="evo-step-2" data-step="2">
-            <div class="evo-step-badge">STAGE 2 (2000s-2010s)</div>
-            <div class="evo-step-title">2️⃣ Digital Screens & Databases</div>
-            <div class="evo-tech">SCADA Screens & SAP Software</div>
-            <div class="evo-data-behavior">
-              <strong>What it was:</strong> Farm managers had to log into 5 different computer screens and manually write feed orders on paper.
-            </div>
-            <div class="evo-esg-metric badge-amber">Screen Fatigue • Delayed Action • 3.6% Mortality</div>
-          </div>
-
-          <div class="evo-step-card" id="evo-step-3" data-step="3">
-            <div class="evo-step-badge">STAGE 3 (2015-2023)</div>
-            <div class="evo-step-title">3️⃣ Cloud Dashboards & Charts</div>
-            <div class="evo-tech">Cloud Data Lakes & Analytics</div>
-            <div class="evo-data-behavior">
-              <strong>What it was:</strong> Executives could see charts on their phones, but if a fan broke, humans still had to drive to the farm to fix it.
-            </div>
-            <div class="evo-esg-metric badge-cyan">Good Charts • Slow Manual Reaction • 2.4% Mortality</div>
-          </div>
-
-          <div class="evo-step-card active-step" id="evo-step-4" data-step="4">
-            <div class="evo-step-badge">STAGE 4 (2024+ Present)</div>
-            <div class="evo-step-title">4️⃣ Autonomous AI Agents</div>
-            <div class="evo-tech">Health, Energy, SAP & ESG Smart Agents</div>
-            <div class="evo-data-behavior">
-              <strong>What it is now:</strong> AI agents make instant decisions in 0.3s: ordering feed before silos run out, adjusting fans to save power, and protecting bird health.
-            </div>
-            <div class="evo-esg-metric badge-green">-28.4% Power • -9.5% Grain Waste • 1.2% Mortality</div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Scope Scale Switcher Strip -->
-      <div class="esg-scope-bar">
-        <div class="scope-toggle-group">
-          <span class="scope-toggle-label">View Results For:</span>
-          <button class="scope-btn active" id="btn-scope-enterprise">🏢 Whole Company (50 Barns • 2.12 Million Birds • Per Year)</button>
-          <button class="scope-btn" id="btn-scope-single">🐔 Single Barn (House 03 • 42,500 Birds • Per Day)</button>
-        </div>
-        <div class="esg-action-buttons">
-          <button class="btn btn-primary" id="btn-gen-esg-report">📑 <strong>Generate Official ESG Audit Certificate</strong></button>
-          <button class="btn btn-warning" id="btn-esg-grid-shift">⚡ <strong>Simulate Peak Power Cost Savings</strong></button>
-          <button class="btn btn-outline" id="btn-esg-fcr-opt">🌾 <strong>Simulate Feed Waste Reduction</strong></button>
-        </div>
-      </div>
-
-      <!-- ESG 3-Pillar Comparison Matrix (E, S, G) -->
-      <div class="esg-pillars-grid">
-        <!-- Environmental (E) Card -->
-        <div class="esg-pillar-card pillar-e">
-          <div class="pillar-header">
-            <div class="pillar-title">
-              <span class="pillar-icon">🌱</span>
-              <span>ENVIRONMENT & ENERGY (E)</span>
-            </div>
-            <span class="pillar-grade">GRADE A+</span>
-          </div>
-
-          <div class="pillar-metrics-stack">
-            <!-- Scope 2 Grid Electricity Carbon -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Electricity Bill & Carbon Cut</span>
-                <span class="metric-delta text-success" id="val-esg-scope2-delta">-28.4% Power Cut</span>
-              </div>
-              <div class="metric-bar-dual">
-                <div class="bar-legacy" style="width: 100%;"></div>
-                <div class="bar-ai" style="width: 71.6%;"></div>
-              </div>
-              <div class="metric-sub-nums">
-                <span>Old Way: <strong id="val-esg-scope2-base">41,300 kWh/day</strong></span>
-                <span>➔ AI Way: <strong id="val-esg-scope2-ai" class="text-success">29,570 kWh/day</strong></span>
-                <span>(Saved: <strong id="val-esg-scope2-saved">2,487.5 Tons CO₂/yr</strong>)</span>
+              <!-- Multi-Directional Pathway Details -->
+              <div class="data-path-inspect-box">
+                <div class="path-col">
+                  <span class="path-header">📥 INCOMING DATA PATHWAYS:</span>
+                  <ul class="path-list" id="list-incoming-paths">
+                    <li>• <strong>Physical Barn Air & Silos:</strong> Analog millivolt probes (Pt100, 4-20mA load cells).</li>
+                    <li>• <strong>Closed-Loop Autopilot (Return Beam):</strong> Setpoints from Edge Gateway (25% power save / 100% emergency flush).</li>
+                  </ul>
+                </div>
+                <div class="path-col">
+                  <span class="path-header">📤 OUTGOING MULTI-WAY STREAMS:</span>
+                  <ul class="path-list" id="list-outgoing-paths">
+                    <li>• <strong>To Edge Gateway:</strong> 10ms Modbus holding registers (Temp 22.4°C, NH₃ 11.4 ppm, Silo 35.7t).</li>
+                    <li>• <strong>Direct IIoT Stream:</strong> High-arcing bypass stream directly into Snowflake Lakehouse.</li>
+                  </ul>
+                </div>
               </div>
             </div>
 
-            <!-- Scope 3 Feed Supply Chain Carbon -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Feed Saved (Less Grain Wasted)</span>
-                <span class="metric-delta text-success" id="val-esg-scope3-delta">-9.5% Grain Waste</span>
+            <!-- Node 13 Dedicated Executive BI Command Center -->
+            <div class="executive-bi-dashboard-card" id="executive-bi-dashboard-card" style="display: none;">
+              <!-- BI Header Bar -->
+              <div class="bi-dashboard-topbar">
+                <div class="bi-title-box">
+                  <span class="bi-super-tag">LEVEL 6 • PRESENTATION LAYER</span>
+                  <h2 class="bi-main-title">📊 13. Sunner × GEA Corporate BI & Analytics Command Center</h2>
+                </div>
+                <div class="bi-actions-group">
+                  <button class="bi-action-btn" id="btn-bi-export-pbi">📥 Export PowerBI Dataset</button>
+                  <button class="bi-action-btn primary" id="btn-bi-open-fullscreen">⛶ Fullscreen Analytics</button>
+                </div>
               </div>
-              <div class="metric-bar-dual">
-                <div class="bar-legacy" style="width: 100%;"></div>
-                <div class="bar-ai" style="width: 90.5%;"></div>
+
+              <!-- 4 Big BI Metric Cards -->
+              <div class="bi-kpi-summary-grid">
+                <div class="bi-kpi-tile">
+                  <span class="bi-tile-lbl">ANNUAL FLOCK THROUGHPUT</span>
+                  <div class="bi-tile-val">624.5M <small>Birds/yr</small></div>
+                  <span class="bi-tile-sub green">● 100% Traceability (Cobb500/SZ901)</span>
+                </div>
+                <div class="bi-kpi-tile">
+                  <span class="bi-tile-lbl">FLEET FEED CONVERSION (FCR)</span>
+                  <div class="bi-tile-val">1.54 <small>vs 1.68 Target</small></div>
+                  <span class="bi-tile-sub green">● Saved 5,856.5t Soya/Corn</span>
+                </div>
+                <div class="bi-kpi-tile">
+                  <span class="bi-tile-lbl">ENERGY TARIFF ARBITRAGE</span>
+                  <div class="bi-tile-val">¥14.85M <small>CNY Saved</small></div>
+                  <span class="bi-tile-sub green">● -28.4% Peak Power Cut</span>
+                </div>
+                <div class="bi-kpi-tile">
+                  <span class="bi-tile-lbl">VERIFIED CARBON ABATEMENT</span>
+                  <div class="bi-tile-val">18,886 <small>Tons CO₂e</small></div>
+                  <span class="bi-tile-sub green">● ISO 14064-1 Validated</span>
+                </div>
               </div>
-              <div class="metric-sub-nums">
-                <span>Feed Conversion: <strong id="val-esg-fcr-base">1.68</strong> ➔ <strong id="val-esg-fcr-ai" class="text-success">1.52</strong></span>
-                <span>Feed Saved: <strong id="val-esg-feed-saved">5,856.5 Tons/yr</strong></span>
-                <span>(Saved: <strong id="val-esg-scope3-saved">16,398.2 Tons CO₂/yr</strong>)</span>
+
+              <!-- Multi-Complex Filter Pills & Live Production Grid -->
+              <div class="bi-complex-section">
+                <div class="bi-section-head">
+                  <span class="bi-sec-title">ENTERPRISE COMPLEX FLEET PERFORMANCE MATRIX</span>
+                  <div class="bi-filter-chips">
+                    <button class="bi-chip active" data-complex="all">All 50 Complexes</button>
+                    <button class="bi-chip" data-complex="nanping">📍 Nanping (HQ)</button>
+                    <button class="bi-chip" data-complex="sanming">📍 Sanming</button>
+                    <button class="bi-chip" data-complex="ganzhou">📍 Ganzhou</button>
+                    <button class="bi-chip" data-complex="pingliang">📍 Pingliang</button>
+                  </div>
+                </div>
+
+                <div class="bi-table-wrapper">
+                  <table class="bi-data-table" id="bi-fleet-table">
+                    <thead>
+                      <tr>
+                        <th>Complex Name</th>
+                        <th>Houses</th>
+                        <th>Live Birds</th>
+                        <th>Avg Temp</th>
+                        <th>Avg NH₃</th>
+                        <th>Silo Stock</th>
+                        <th>Autopilot Mode</th>
+                        <th>FCR Status</th>
+                        <th>YTD Energy Saved</th>
+                      </tr>
+                    </thead>
+                    <tbody id="bi-table-body">
+                      <!-- Dynamic rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Visual Analytics Visualizations: Growth Curves & Energy Shifting -->
+              <div class="bi-charts-grid">
+                <div class="bi-chart-card">
+                  <div class="bi-chart-head">
+                    <span>📈 Cobb500 Flock Growth Curve (Day 1 - Day 42)</span>
+                    <span class="bi-badge green">FCR 1.54 Ahead</span>
+                  </div>
+                  <div class="bi-chart-content" id="bi-growth-chart">
+                    <!-- SVG Growth Chart -->
+                  </div>
+                </div>
+
+                <div class="bi-chart-card">
+                  <div class="bi-chart-head">
+                    <span>⚡ 24h Peak vs Valley Power Load Shifting</span>
+                    <span class="bi-badge cyan">-28.4% Tariff Arbitrage</span>
+                  </div>
+                  <div class="bi-chart-content" id="bi-tariff-chart">
+                    <!-- SVG Tariff Shifting Chart -->
+                  </div>
+                </div>
               </div>
             </div>
 
-            <!-- Ammonia Atmospheric Plume -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Barn Air & Odor Reduction</span>
-                <span class="metric-delta text-success">-34.0% Cleaner Air</span>
+            <!-- Technical Schema Box -->
+            <div class="developer-code-card" id="technical-code-box" style="display: none;">
+              <div class="code-header">
+                <div class="code-title-group">
+                  <span class="code-title" id="inspector-tier-title">Step 1: Siemens S7-1500 PLC & Field Probes</span>
+                  <span class="code-proto-badge" id="inspector-proto-badge">Modbus TCP / Port 502</span>
+                </div>
+                <span class="code-hint">Live System Schema Payload</span>
               </div>
-              <div class="metric-sub-nums">
-                <span>AI prevents litter moisture from rotting, keeping nearby communities odor-free.</span>
-              </div>
+              <pre class="code-block" id="inspector-code-block">Loading schema...</pre>
             </div>
           </div>
-        </div>
 
-        <!-- Social & Animal Welfare (S) Card -->
-        <div class="esg-pillar-card pillar-s">
-          <div class="pillar-header">
-            <div class="pillar-title">
-              <span class="pillar-icon">🐥</span>
-              <span>ANIMAL WELFARE & WORKERS (S)</span>
-            </div>
-            <span class="pillar-grade">GRADE A+</span>
-          </div>
+          <!-- RIGHT: EXECUTIVE COCKPIT & LIVE AI AGENTS (32%) -->
+          <div class="cockpit-right-column">
+            <!-- 1. Live Cortex AI Multi-Agent Consensus Stream -->
+            <div class="executive-cockpit-card">
+              <div class="cockpit-card-head">
+                <div class="cockpit-title">
+                  <span class="brain-sparkle">✦</span>
+                  <span>CORTEX AI MULTI-AGENT CONSENSUS</span>
+                </div>
+                <span class="live-pulse-badge">310ms Loop</span>
+              </div>
 
-          <div class="pillar-metrics-stack">
-            <!-- Animal Welfare Score -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Humane Treatment & Welfare Score</span>
-                <span class="metric-delta text-success">98.8% (Industry Leading)</span>
-              </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill fill-green" style="width: 98.8%;"></div>
-              </div>
-              <div class="metric-sub-nums">
-                <span>Optimal Room Temperature: <strong>99.4% of the time</strong></span>
-                <span>Clean Breathing Air: <strong>98.2% of the time</strong></span>
-              </div>
-            </div>
+              <!-- 4 Live Smart Agents -->
+              <div class="agents-consensus-stack">
+                <div class="agent-pill-card health" id="card-agent-health">
+                  <div class="agent-meta">
+                    <span class="agent-icon">🩺</span>
+                    <div>
+                      <strong>Health & Welfare Agent</strong>
+                      <small id="txt-agent-health">NH₃ 11.4 ppm (Safe) • Optimal Air</small>
+                    </div>
+                  </div>
+                  <span class="agent-vote-badge approved" id="badge-agent-health">VOTE: PASS</span>
+                </div>
 
-            <!-- Flock Mortality Reduction -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Mortality Reduction (Birds Saved)</span>
-                <span class="metric-delta text-success" id="val-esg-mortality-delta">75% Fewer Bird Losses</span>
-              </div>
-              <div class="metric-sub-nums">
-                <span>Old Loss Rate: <strong id="val-esg-mort-base">4.8%</strong></span>
-                <span>➔ With AI Twin: <strong id="val-esg-mort-ai" class="text-success">1.2%</strong></span>
-              </div>
-              <div class="highlight-callout">
-                🐤 <strong>Real Impact:</strong> <span id="val-esg-birds-saved">497,250 healthy chickens saved per year</span> across all 50 company farms.
-              </div>
-            </div>
+                <div class="agent-pill-card energy" id="card-agent-energy">
+                  <div class="agent-meta">
+                    <span class="agent-icon">⚡</span>
+                    <div>
+                      <strong>Energy & Tariff Agent</strong>
+                      <small id="txt-agent-energy">Peak Tariff (¥1.35/kWh) • Throttling Fans 25%</small>
+                    </div>
+                  </div>
+                  <span class="agent-vote-badge saving" id="badge-agent-energy">SAVING: -28.4%</span>
+                </div>
 
-            <!-- Worker Safety & Biohazard Exposure -->
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Worker Health & Safety</span>
-                <span class="metric-delta text-success" id="val-esg-worker-delta">-82.9% Less Toxic Air Inhaled</span>
-              </div>
-              <div class="metric-sub-nums">
-                <span>Workers spend 82.9% less time breathing ammonia dust. Everything is monitored on screens.</span>
-              </div>
-            </div>
-          </div>
-        </div>
+                <div class="agent-pill-card sap" id="card-agent-sap">
+                  <div class="agent-meta">
+                    <span class="agent-icon">📦</span>
+                    <div>
+                      <strong>SAP Supply Chain Agent</strong>
+                      <small id="txt-agent-sap">Silos 35.7t • Reorder Threshold: 15.0t</small>
+                    </div>
+                  </div>
+                  <span class="agent-vote-badge standby" id="badge-agent-sap">STANDBY</span>
+                </div>
 
-        <!-- Governance & Anti-Greenwashing (G) Card -->
-        <div class="esg-pillar-card pillar-g">
-          <div class="pillar-header">
-            <div class="pillar-title">
-              <span class="pillar-icon">🏛️</span>
-              <span>TRUST & AUDIT READINESS (G)</span>
-            </div>
-            <span class="pillar-grade">100% VERIFIED</span>
-          </div>
+                <div class="agent-pill-card esg" id="card-agent-esg">
+                  <div class="agent-meta">
+                    <span class="agent-icon">🌱</span>
+                    <div>
+                      <strong>Decarbonization & ESG Agent</strong>
+                      <small id="txt-agent-esg">Scope 2: -28.4% • ISO 14064 Active</small>
+                    </div>
+                  </div>
+                  <span class="agent-vote-badge approved" id="badge-agent-esg">GRADE A+</span>
+                </div>
+              </div>
 
-          <div class="pillar-metrics-stack">
-            <div class="esg-metric-row">
-              <div class="metric-top">
-                <span class="metric-name">Automated Audit Proof (Zero Greenwashing)</span>
-                <span class="metric-delta text-success">100% Verifiable</span>
-              </div>
-              <div class="progress-bar-bg">
-                <div class="progress-bar-fill fill-blue" style="width: 100%;"></div>
-              </div>
-              <div class="metric-sub-nums">
-                <span>Every kilowatt, feed shipment, and fan change is stamped with an immutable digital signature.</span>
+              <!-- Real-Time Decision Narrative -->
+              <div class="cortex-narrative-box">
+                <div class="narrative-meta">
+                  <span class="narrative-dot"></span>
+                  <span>AUTONOMOUS ACTION EXECUTED:</span>
+                </div>
+                <p class="narrative-content" id="cortex-narrative">
+                  "Electricity is at Peak tariff (¥1.35/kWh). Energy Agent throttled ventilation fans to 25% while Health Agent confirmed bird air quality remains safe. Saved ¥9.72/hour."
+                </p>
               </div>
             </div>
 
-            <div class="gov-standards-list">
-              <div class="gov-item">✅ <strong>International GHG Protocol</strong> (Carbon Accounting Certified)</div>
-              <div class="gov-item">✅ <strong>ISO 14064 Greenhouse Gas Standard</strong> (Ready for Banks & Investors)</div>
-              <div class="gov-item">✅ <strong>China Green Agriculture & Food Safety Law</strong> Fully Compliant</div>
+            <!-- 2. Apple-Style Big KPI Cards -->
+            <div class="kpi-cockpit-grid" id="story-kpi-strip">
+              <div class="hero-stat-card">
+                <span class="stat-lbl">TEMPERATURE</span>
+                <span class="stat-big">22.4<small>°C</small></span>
+                <span class="stat-sub positive">● Optimal (21-24°C)</span>
+              </div>
+              <div class="hero-stat-card">
+                <span class="stat-lbl">AMMONIA (NH₃)</span>
+                <span class="stat-big">11.4<small>ppm</small></span>
+                <span class="stat-sub positive">● Safe (&lt; 20 ppm)</span>
+              </div>
+              <div class="hero-stat-card">
+                <span class="stat-lbl">FEED SILOS</span>
+                <span class="stat-big">35.7<small>Tons</small></span>
+                <span class="stat-sub positive">● Healthy (&gt; 15t)</span>
+              </div>
             </div>
 
-            <div class="audit-cert-snippet" id="audit-cert-box">
-              <div class="cert-title">🔐 Live Digital Proof Certificate</div>
-              <div class="cert-body" id="cert-body-text">
-                Certificate ID: ESG-AUDIT-SUNNER-2026<br>
-                Annual Carbon Prevented: 18,885.72 Tons CO₂e<br>
-                Verification Hash: SHA256:e8b4f2c99a10583d73b2241cf892305aa7842c56910bbaec0924719d380f2d48
+            <!-- 3. Real-Time Immutable Event Log -->
+            <div class="live-event-ticker-card">
+              <div class="ticker-head">
+                <span>🔐 REAL-TIME AUDIT TRAIL</span>
+                <small>Immutable Ledger</small>
+              </div>
+              <div class="ticker-feed" id="live-audit-ticker">
+                <div class="ticker-row">
+                  <span class="tick-time">13:30:02</span>
+                  <span class="tick-msg">Modbus holding registers polled (10ms)</span>
+                </div>
+                <div class="ticker-row">
+                  <span class="tick-time">13:30:04</span>
+                  <span class="tick-msg">Snowflake Snowpipe streamed 41.2 kWh energy</span>
+                </div>
+                <div class="ticker-row">
+                  <span class="tick-time">13:30:06</span>
+                  <span class="tick-msg">Cortex AI consensus reached (310ms)</span>
+                </div>
+                <div class="ticker-row highlight">
+                  <span class="tick-time">13:30:08</span>
+                  <span class="tick-msg">Closed-loop return beam modulated fan speed</span>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- SECTION 3: OLD WAY VS NEW AI WAY COMPARISON                       -->
-    <!-- ================================================================= -->
-    <section class="card comparison-card" id="section-comparison" style="display: none;">
-      <div class="card-header">
-        <h2 class="card-title">Clear Comparison: Traditional Poultry Farming vs. Sunner AI Digital Twin</h2>
-        <span class="skill-tag">Executive Summary</span>
-      </div>
-
-      <div class="comparison-grid">
-        <!-- Legacy Nightmare -->
-        <div class="comparison-column col-legacy">
-          <div class="comp-col-header">
-            <h3>❌ The Traditional Old Way</h3>
-            <span class="badge-red">Manual • Wasteful • Slow</span>
-          </div>
-          <ul class="comp-list">
-            <li><strong>Manual Paperwork:</strong> Farm managers spend 2 hours a day logging into SAP to order chicken feed on paper.</li>
-            <li><strong>High Power Bills:</strong> Fans run at 100% even when electricity is expensive, wasting thousands in power bills.</li>
-            <li><strong>Dangerous Ammonia Spikes:</strong> It takes 45 minutes for a human to notice toxic air, leading to sick birds.</li>
-            <li><strong>Hard to Audit:</strong> Carbon and environmental data are estimated on Excel spreadsheets weeks after the fact.</li>
-          </ul>
-        </div>
-
-        <!-- AI Agent Simplicity -->
-        <div class="comparison-column col-ai">
-          <div class="comp-col-header">
-            <h3>✅ The Sunner AI Digital Twin</h3>
-            <span class="badge-green">Automated • 28% Energy Cut • 0.3s Action</span>
-          </div>
-          <ul class="comp-list">
-            <li><strong>Automatic Feed Orders:</strong> The AI detects low silos ($< 15\text{t}$) and orders 25 tons from the supplier in SAP instantly with zero human effort.</li>
-            <li><strong>Smart Power Savings:</strong> The AI lowers fan speeds during peak electricity hours, saving **-28.4%** in energy bills.</li>
-            <li><strong>Instant Bird Protection:</strong> If ammonia rises, the Health AI overrides power savings in **0.3 seconds** to save bird lives.</li>
-            <li><strong>100% Certified Carbon Audit:</strong> Instant, audit-ready ESG reports for banks and regulators with one click.</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ================================================================= -->
-    <!-- SECTION 4: SPATIAL BARN TWIN & SENSOR GAUGES                      -->
-    <!-- ================================================================= -->
-    <div id="section-spatial-gauges" style="display: none;">
-      <section class="kpi-grid">
-        <div class="kpi-card">
-          <div class="kpi-label">Flock Welfare Score</div>
-          <div class="kpi-val-row">
-            <span class="kpi-value" id="val-welfare">98.5%</span>
-            <span class="kpi-badge badge-green" id="badge-welfare">EXCELLENT</span>
-          </div>
-          <div class="kpi-subtext">Flock Batch: Cobb500 (Day 26) • 42,500 Birds</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Electricity Price Tier</div>
-          <div class="kpi-val-row">
-            <span class="kpi-value" id="val-tariff-tier">PEAK</span>
-            <span class="kpi-rate" id="val-tariff-rate">¥1.35 / kWh</span>
-          </div>
-          <div class="kpi-subtext" id="val-tariff-sub">AI is saving power right now</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Ventilation Fan Speed</div>
-          <div class="kpi-val-row">
-            <span class="kpi-value" id="val-fan-rate">25.0%</span>
-            <span class="kpi-badge badge-cyan" id="badge-fan-mode">ECO-SAVING</span>
-          </div>
-          <div class="kpi-subtext">Variable Speed Fans Running Smoothly</div>
-        </div>
-
-        <div class="kpi-card">
-          <div class="kpi-label">Chicken Feed in Silos</div>
-          <div class="kpi-val-row">
-            <span class="kpi-value" id="val-feed-total">35.7 Tons</span>
-            <span class="kpi-badge badge-blue">HEALTHY</span>
-          </div>
-          <div class="kpi-subtext">Auto-Reorder Triggers Below 15 Tons</div>
         </div>
       </section>
 
-      <main class="main-layout" style="margin-top: 1.5rem;">
-        <div class="col-spatial">
-          <section class="card barn-card">
-            <div class="card-header">
-              <h2 class="card-title">Live Barn 3D Map (House 03 — 120m × 16m)</h2>
-              <div class="zone-selector-group">
-                <button class="zone-btn active" data-zone="zone-front">Zone 1: Front (Air Inlets)</button>
-                <button class="zone-btn" data-zone="zone-mid">Zone 2: Center (Birds)</button>
-                <button class="zone-btn" data-zone="zone-rear">Zone 3: Rear (Exhaust Fans)</button>
-              </div>
+      <!-- ============================================================= -->
+      <!-- VIEW 2: ESG & 4-STAGE EVOLUTION MATRIX                        -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-esg-evolution" style="display: none;">
+        <div class="section-hero-card">
+          <div class="section-header-row">
+            <div>
+              <span class="section-super-title">INDUSTRIAL EVOLUTION</span>
+              <h2 class="section-main-title">From Manual Timers to Autonomous Closed-Loop AI</h2>
             </div>
-
-            <div class="barn-schematic-container">
-              <div class="barn-building">
-                <div class="barn-zone" id="zone-view-front">
-                  <div class="zone-tag">ZONE 1 (AIR INLETS)</div>
-                  <div class="zone-telemetry-mini">
-                    <div>Temp: <span>21.8°C</span></div>
-                    <div>Air Quality: <span>Clean</span></div>
-                  </div>
-                </div>
-
-                <div class="barn-zone" id="zone-view-mid">
-                  <div class="zone-tag">ZONE 2 (42,500 BIRDS)</div>
-                  <div class="zone-bird-density">
-                    <div class="flock-silhouette">🐔 🐔 🐔 🐔 🐔</div>
-                  </div>
-                  <div class="zone-telemetry-mini">
-                    <div>Temp: <span>22.1°C</span></div>
-                    <div>Health: <span>Optimal</span></div>
-                  </div>
-                </div>
-
-                <div class="barn-zone" id="zone-view-rear">
-                  <div class="zone-tag">ZONE 3 (EXHAUST FANS)</div>
-                  <div class="fan-animation-box">
-                    <div class="fan-blade spinning" id="fan-blade-1">⚙️</div>
-                    <div class="fan-blade spinning" id="fan-blade-2">⚙️</div>
-                  </div>
-                  <div class="zone-telemetry-mini">
-                    <div>Temp: <span>22.6°C</span></div>
-                    <div>Ammonia: <span>11.4 ppm</span></div>
-                  </div>
-                </div>
-              </div>
+            <div class="scope-switch-group">
+              <button class="scope-pill-btn active" id="btn-scope-enterprise">🏢 Whole Company (50 Barns • 2.12M Birds)</button>
+              <button class="scope-pill-btn" id="btn-scope-single">🐔 Single Barn (House 03 • 42,500 Birds)</button>
             </div>
-          </section>
+          </div>
 
-          <section class="card sensor-card">
-            <div class="card-header">
-              <h2 class="card-title">Live Environmental Dials</h2>
-              <span class="schema-pill">Updated Every 10ms</span>
+          <div class="evolution-grid">
+            <div class="evo-card" id="evo-step-1">
+              <span class="evo-era">ERA 1 (1980-2000)</span>
+              <h3 class="evo-name">1. Automation</h3>
+              <p class="evo-desc">Wall timers running fans at 100% 24/7 without knowing bird temperature.</p>
+              <div class="evo-kpi red">High Power Waste • 4.8% Mortality</div>
             </div>
-
-            <div class="gauges-grid">
-              <div class="gauge-box">
-                <div class="gauge-header">
-                  <span>Ammonia (NH₃)</span>
-                  <span class="gauge-limit">Safety Limit: 20 ppm</span>
-                </div>
-                <div class="gauge-value-display">
-                  <span class="gauge-big-num">11.4</span>
-                  <span class="gauge-unit">ppm</span>
-                </div>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill fill-green" style="width: 28%;"></div>
-                </div>
-                <div class="gauge-status-sub">Air is Safe for Birds to Breathe</div>
-              </div>
-
-              <div class="gauge-box">
-                <div class="gauge-header">
-                  <span>Temperature</span>
-                  <span class="gauge-limit">Ideal: 21.6°C</span>
-                </div>
-                <div class="gauge-value-display">
-                  <span class="gauge-big-num">22.4</span>
-                  <span class="gauge-unit">°C</span>
-                </div>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill fill-blue" style="width: 52%;"></div>
-                </div>
-                <div class="gauge-status-sub">Comfortable Warmth</div>
-              </div>
-
-              <div class="gauge-box">
-                <div class="gauge-header">
-                  <span>Humidity</span>
-                  <span class="gauge-limit">Ideal: 55-65%</span>
-                </div>
-                <div class="gauge-value-display">
-                  <span class="gauge-big-num">62.8</span>
-                  <span class="gauge-unit">%</span>
-                </div>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill fill-cyan" style="width: 62.8%;"></div>
-                </div>
-                <div class="gauge-status-sub">Litter is Dry and Clean</div>
-              </div>
-
-              <div class="gauge-box">
-                <div class="gauge-header">
-                  <span>Carbon Dioxide</span>
-                  <span class="gauge-limit">Limit: 3,000 ppm</span>
-                </div>
-                <div class="gauge-value-display">
-                  <span class="gauge-big-num">1,780</span>
-                  <span class="gauge-unit">ppm</span>
-                </div>
-                <div class="progress-bar-bg">
-                  <div class="progress-bar-fill fill-amber" style="width: 59%;"></div>
-                </div>
-                <div class="gauge-status-sub">High Oxygenation</div>
-              </div>
+            <div class="evo-card" id="evo-step-2">
+              <span class="evo-era">ERA 2 (2000-2015)</span>
+              <h3 class="evo-name">2. Digital SCADA</h3>
+              <p class="evo-desc">Managers had 5 computer screens and manually ordered feed on paper.</p>
+              <div class="evo-kpi amber">Screen Fatigue • 3.6% Mortality</div>
             </div>
-          </section>
+            <div class="evo-card" id="evo-step-3">
+              <span class="evo-era">ERA 3 (2015-2023)</span>
+              <h3 class="evo-name">3. Cloud Charts</h3>
+              <p class="evo-desc">Pretty dashboards on mobile, but humans still had to drive to fix problems.</p>
+              <div class="evo-kpi blue">Slow Response • 2.4% Mortality</div>
+            </div>
+            <div class="evo-card active" id="evo-step-4">
+              <span class="evo-era">ERA 4 (PRESENT)</span>
+              <h3 class="evo-name">4. Autonomous AI</h3>
+              <p class="evo-desc">AI agents order feed, cut power bills, and protect birds in 0.3s automatically.</p>
+              <div class="evo-kpi green">-28.4% Power • 1.2% Mortality</div>
+            </div>
+          </div>
         </div>
 
-        <div class="col-agents">
-          <section class="card agent-console-card">
-            <div class="card-header">
-              <h2 class="card-title">AI Smart Agents at Work</h2>
-              <span class="skill-tag">Autonomous Control</span>
+        <!-- ESG 3-Pillars Cards -->
+        <div class="esg-cards-grid">
+          <div class="esg-card card-e">
+            <div class="esg-card-top">
+              <div class="esg-icon-badge green">🌱</div>
+              <div>
+                <h3>Environment & Energy (E)</h3>
+                <span class="esg-sub">Scope 2 & Scope 3 Decarbonization</span>
+              </div>
+              <span class="grade-badge">GRADE A+</span>
             </div>
 
-            <div class="agent-perspectives">
-              <div class="perspective-box health-box">
-                <div class="persp-title">
-                  <span>🩺 Bird Health Agent</span>
-                  <span class="persp-target">Status: OK</span>
+            <div class="esg-metrics-list">
+              <div class="esg-stat-row">
+                <div class="stat-top-line">
+                  <span>Electricity Bill & Carbon</span>
+                  <strong class="green-text">-28.4% Power Cut</strong>
                 </div>
-                <div class="persp-body">
-                  • Ammonia is low (11.4 ppm)<br>• Birds are comfortable (98.5%)<br>• Permission to save power: YES
+                <div class="esg-stat-details">
+                  <span>Saved: <strong id="val-esg-scope2-saved">2,487.5 Tons CO₂/yr</strong></span>
+                  <span>Daily: <strong id="val-esg-scope2-ai">29,570 kWh/day</strong></span>
                 </div>
               </div>
 
-              <div class="perspective-box energy-box">
-                <div class="persp-title">
-                  <span>⚡ Power Cost Agent</span>
-                  <span class="persp-target">Saving: 25%</span>
+              <div class="esg-stat-row">
+                <div class="stat-top-line">
+                  <span>Feed Grain Saved (Scope 3)</span>
+                  <strong class="green-text">-9.5% Grain Waste</strong>
                 </div>
-                <div class="persp-body">
-                  • Electricity is at Peak (¥1.35/kWh)<br>• Lowered fans to 25%<br>• Saving ¥9.72 every hour
+                <div class="esg-stat-details">
+                  <span>Feed Saved: <strong id="val-esg-feed-saved">5,856.5 Tons/yr</strong></span>
+                  <span>(16,398.2 t CO₂e avoided)</span>
                 </div>
               </div>
+            </div>
+          </div>
+
+          <div class="esg-card card-s">
+            <div class="esg-card-top">
+              <div class="esg-icon-badge blue">🐥</div>
+              <div>
+                <h3>Flock Welfare & Workers (S)</h3>
+                <span class="esg-sub">Humane Living Standards</span>
+              </div>
+              <span class="grade-badge">GRADE A+</span>
             </div>
 
-            <div class="resolution-summary-box">
-              <div class="res-badge-row">
-                <span class="res-status-badge badge-green">POWER SAVING ACTIVE</span>
-                <span class="res-rule-id">RULE: Eco-Saver</span>
+            <div class="esg-metrics-list">
+              <div class="esg-stat-row">
+                <div class="stat-top-line">
+                  <span>Bird Welfare Quality</span>
+                  <strong class="cyan-text">98.8% Industry Leading</strong>
+                </div>
+                <div class="esg-stat-details">
+                  <span>Mortality: <strong id="val-esg-mort-ai">1.2%</strong> (Old: 4.8%)</span>
+                </div>
               </div>
-              <div class="res-decision-text">
-                Bird air quality is completely safe. The AI safely reduced fan power to cut your electricity bill.
+
+              <div class="callout-banner">
+                🐤 <strong>Humane Impact:</strong> <span id="val-esg-birds-saved">497,250 healthy chickens preserved per year</span> across all 50 company houses.
               </div>
-              <div class="res-actuation-bar">
-                <span>Fan Setting: <strong>25.0% Speed</strong></span>
-                <div class="fan-power-indicator">Power Draw: 4.8 kW</div>
+
+              <div class="esg-stat-row">
+                <div class="stat-top-line">
+                  <span>Worker Safety Gain</span>
+                  <strong class="green-text">-82.9% Toxic Air Exposure</strong>
+                </div>
               </div>
             </div>
-          </section>
+          </div>
+
+          <div class="esg-card card-g">
+            <div class="esg-card-top">
+              <div class="esg-icon-badge purple">🏛️</div>
+              <div>
+                <h3>Governance & Trust (G)</h3>
+                <span class="esg-sub">Zero-Greenwashing Proof</span>
+              </div>
+              <span class="grade-badge">100% VERIFIED</span>
+            </div>
+
+            <div class="esg-metrics-list">
+              <div class="cert-box">
+                <div class="cert-head">
+                  <span>🔐 ISO 14064 & GHG Protocol Certified</span>
+                  <button class="cert-download-btn" id="btn-gen-esg-report">Generate Certificate</button>
+                </div>
+                <p class="cert-text" id="cert-body-text">
+                  Document: ESG-AUDIT-SUNNER-2026<br>
+                  Avoided Carbon: 18,885.72 t CO₂e/yr<br>
+                  SHA-256: e8b4f2c99a10583d73b2241cf892305a
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
-      </main>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- VIEW 3: SPATIAL BARN TWIN & SENSORS                           -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-spatial-gauges" style="display: none;">
+        <div class="barn-twin-card">
+          <div class="section-header-row">
+            <div>
+              <span class="section-super-title">PHYSICAL DIGITAL TWIN</span>
+              <h2 class="section-main-title">House 03 • 42,500 Cobb500 Broilers (120m × 16m)</h2>
+            </div>
+            <div class="zone-pill-group">
+              <button class="zone-pill-btn active" data-zone="zone-front">Zone 1 (Inlets)</button>
+              <button class="zone-pill-btn" data-zone="zone-mid">Zone 2 (Flock)</button>
+              <button class="zone-pill-btn" data-zone="zone-rear">Zone 3 (Exhaust Fans)</button>
+            </div>
+          </div>
+
+          <div class="barn-cutaway">
+            <div class="barn-room" id="zone-view-front" data-zone="zone-front">
+              <span class="room-title">ZONE 1: AIR INLETS</span>
+              <div class="room-icon-visual">💨 💨 💨</div>
+              <div class="room-stats">
+                <div>Temp: <strong>21.8°C</strong></div>
+                <div>Pressure: <strong>-18.2 Pa</strong></div>
+                <div>Status: <span class="green-text">Optimal Fresh</span></div>
+              </div>
+            </div>
+
+            <div class="barn-room highlight" id="zone-view-mid" data-zone="zone-mid">
+              <span class="room-title">ZONE 2: 42,500 COBB500 FLOCK</span>
+              <div class="birds-visual">🐔 🐔 🐔 🐔 🐔 🐔</div>
+              <div class="room-stats">
+                <div>Temp: <strong>22.1°C</strong></div>
+                <div>Comfort: <strong>98.5%</strong></div>
+                <div>Weight Gain: <span class="green-text">+68.5 g/d</span></div>
+              </div>
+            </div>
+
+            <div class="barn-room" id="zone-view-rear" data-zone="zone-rear">
+              <span class="room-title">ZONE 3: EXHAUST FANS & NH₃</span>
+              <div class="fan-rotors">
+                <span class="fan-rotor spin">⚙️</span>
+                <span class="fan-rotor spin">⚙️</span>
+              </div>
+              <div class="room-stats">
+                <div>Ammonia: <strong>11.4 ppm</strong></div>
+                <div>Speed: <strong>850 RPM</strong></div>
+                <div>Tariff Saving: <span class="cyan-text">-28.4%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Dynamic Zone Micro-Diagnostics Inspector -->
+          <div class="zone-details-card" id="zone-details-card">
+            <div class="zone-details-header">
+              <div class="zone-badge-tag" id="zone-detail-badge">ZONE 2 • 42,500 COBB500 FLOCK MICROCLIMATE</div>
+              <span class="zone-status-pill green" id="zone-detail-status">● OPTIMAL THERMAL COMFORT</span>
+            </div>
+            <div class="zone-details-grid" id="zone-detail-metrics">
+              <!-- Dynamically populated -->
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- VIEW 4: ROI IMPACT COMPARISON                                 -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-comparison" style="display: none;">
+        <div class="comparison-container">
+          <div class="comp-card legacy">
+            <div class="comp-head">
+              <span class="comp-badge red">❌ THE OLD WAY</span>
+              <h3>Manual Disconnected Silos</h3>
+            </div>
+            <ul class="comp-points">
+              <li><strong>Manual Paperwork:</strong> Farm managers spend 2 hours a day logging into SAP to order feed.</li>
+              <li><strong>High Power Bills:</strong> Fans run at 100% even during peak electricity tariffs.</li>
+              <li><strong>Slow Safety Reaction:</strong> Takes 45 minutes for a human to notice toxic ammonia spikes.</li>
+              <li><strong>Estimated Carbon:</strong> Carbon emissions guessed on Excel spreadsheets.</li>
+            </ul>
+          </div>
+
+          <div class="comp-card modern">
+            <div class="comp-head">
+              <span class="comp-badge green">✅ THE SUNNER AI TWIN</span>
+              <h3>Autonomous Closed-Loop Fabric</h3>
+            </div>
+            <ul class="comp-points">
+              <li><strong>Zero-Touch Purchasing:</strong> AI automatically orders 25t of feed in SAP when silos drop below 15t.</li>
+              <li><strong>-28.4% Power Cut:</strong> AI throttles ventilation during peak pricing while keeping air 100% safe.</li>
+              <li><strong>0.3s Emergency Action:</strong> AI overrides power savings instantly if ammonia rises, saving bird lives.</li>
+              <li><strong>Certified ESG Audit:</strong> Instant ISO 14064 verified carbon audit with digital cryptographic signature.</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- VIEW 5: EXECUTIVE PRESENTATION & KEYNOTE SPEAKER DECK         -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-presentation-deck" style="display: none;">
+        <div class="presentation-container">
+          <!-- Top Presentation Control Bar -->
+          <div class="deck-top-bar">
+            <div class="deck-title-group">
+              <span class="deck-super-tag" id="deck-super-tag">EXECUTIVE ROADSHOW & KEYNOTE DECK</span>
+              <h2 class="deck-main-title" id="deck-main-title">Sunner × GEA • Enterprise Manufacturing Decision OS</h2>
+            </div>
+
+            <!-- Slide Pills (8 Master Slides) -->
+            <div class="slide-pill-nav" id="slide-pill-nav">
+              <button class="slide-pill active" data-slide="0">01. Vision</button>
+              <button class="slide-pill" data-slide="1">02. 13-Nodes</button>
+              <button class="slide-pill" data-slide="2">03. 48h Buffer</button>
+              <button class="slide-pill" data-slide="3">04. Cortex AI</button>
+              <button class="slide-pill" data-slide="4">05. Auto-PO</button>
+              <button class="slide-pill" data-slide="5">06. Barn Twin</button>
+              <button class="slide-pill" data-slide="6">07. ROI BI</button>
+              <button class="slide-pill" data-slide="7">08. ISO ESG</button>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="deck-actions-group">
+              <button class="deck-btn" id="btn-slide-prev">◀ Prev</button>
+              <span class="slide-counter-badge" id="slide-counter-badge">Slide 1 / 8</span>
+              <button class="deck-btn" id="btn-slide-next">Next ▶</button>
+              <button class="deck-btn highlight" id="btn-deck-fullscreen">⛶ Fullscreen</button>
+              <button class="deck-btn notes-toggle active" id="btn-deck-toggle-notes">📝 Speaker Script</button>
+            </div>
+          </div>
+
+          <!-- Main Slide Stage -->
+          <div class="deck-stage-card" id="deck-stage-card">
+            <!-- Dynamically populated slide content -->
+          </div>
+
+          <!-- Live Speaker Teleprompter & Talking Points Panel -->
+          <div class="speaker-teleprompter-card" id="speaker-teleprompter-card">
+            <div class="teleprompter-header">
+              <div class="teleprompter-badge" id="teleprompter-badge">🎙️ EXECUTIVE SPEAKER SCRIPT & TALKING POINTS</div>
+              <div class="teleprompter-timer" id="teleprompter-timer">⏱️ Target Time: 1.5 - 2.0 mins</div>
+            </div>
+            <div class="teleprompter-body" id="teleprompter-body">
+              <!-- Dynamically populated script -->
+            </div>
+          </div>
+        </div>
+      </section>
     </div>
   </div>
 
-  <script src="canvas_stream.js"></script>
+  <script src="i18n.js"></script>
+  <script src="three_stream.js"></script>
+  <script src="data_flow_engine.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

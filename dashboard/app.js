@@ -1,511 +1,2179 @@
 /**
- * Sunner Smart Poultry Digital Twin, Enterprise Cyber Highway & ESG Engine
- * Supports Executive Business Story View and Technical Developer Code View.
+ * Sunner Intelligence • Enterprise Manufacturing Decision OS
+ * Roadshow Keynote & Autonomous Auto-Tour Controller:
+ * - Global Autonomous Auto-Tour Engine (Cycles 01-13 in both 3D & 2D with live synced narratives)
+ * - 2D Subsystem Filter Chips (All, OT, Ops, Cloud, AI)
+ * - 2D Live Protocol & Latency X-Ray Toggle
+ * - 2D Lineage Tracer Focus & Dim Toggle
+ * - 2D Offline Edge Fault & 48h NVRAM Buffer Simulation
+ * - 2D Click-to-Inspect Flying Packet popovers
+ * - Keynote Showcases & Live Crisis Simulation Sliders
  */
 
-// Executive Business Story Dictionary (Plain English for Farm Owners & Executives)
-const executiveBusinessStories = {
-  1: {
-    badge: "STEP 1 OF 10: AT THE BARN",
-    title: "🌡️ Barn Sensors & Climate Probes",
-    summary: "Sensors mounted on barn walls measure air temperature, ammonia levels, and feed silo weights every 10 milliseconds.",
-    action: "Verifying that all 42,500 Cobb500 broilers have clean, fresh air (11.4 ppm ammonia) and comfortable warmth (22.4°C).",
-    benefit: "Eliminates manual clipboard checks. Farm workers don't have to walk into dusty, hazardous barns just to read thermometers.",
-    pills: [
-      { label: "🌡️ Temperature", val: "22.4°C (Optimal)" },
-      { label: "💨 Ammonia", val: "11.4 ppm (Safe)" },
-      { label: "🌾 Feed Silos", val: "35.7 Tons (Adequate)" }
-    ]
+// 13 System Nodes Executive Data Dictionary
+const nodeDescriptions = {
+  sensors: {
+    tag: "LEVEL 0/1 • PHYSICAL FIELD SENSORS",
+    title: "⚡ 01. Barn Sensors & PLCs",
+    summary: "Shop-floor origin of data: temperature, humidity, ammonia (NH₃), CO₂, ventilation fan RPM, and silo load cell weights polled at 10ms cycles via Modbus RTU / TCP.",
+    incoming: [
+      "• <strong>Physical Barn Air & Silos:</strong> Analog millivolt probes (Pt100, 4-20mA load cells).",
+      "• <strong>Closed-Loop Autopilot (Return Beam):</strong> Setpoints from Edge Gateway (25% power save / 100% emergency flush)."
+    ],
+    outgoing: [
+      "• <strong>To Edge Gateway:</strong> 10ms Modbus holding registers (Temp 22.4°C, NH₃ 11.4 ppm, Silo 35.7t).",
+      "• <strong>Direct IIoT Stream:</strong> High-arcing bypass stream directly into Snowflake Lakehouse."
+    ],
+    stats: [
+      { label: "TEMPERATURE", val: "22.4", unit: "°C", sub: "● Optimal (21-24°C)", state: "positive" },
+      { label: "AMMONIA (NH₃)", val: "11.4", unit: "ppm", sub: "● Safe (< 20 ppm)", state: "positive" },
+      { label: "FEED SILOS", val: "35.7", unit: "Tons", sub: "● Healthy (> 15t)", state: "positive" }
+    ],
+    cortex: "Sensors operating normally. 12 holding registers polled via Modbus TCP at 10ms cycle. Closed-loop fan setpoint active."
   },
-  2: {
-    badge: "STEP 2 OF 10: ON-SITE GATEWAY",
-    title: "📟 Secure Farm Computer (Welotec Edge)",
-    summary: "A ruggedized industrial computer on the farm wall encrypts the sensor data and transmits it securely to the cloud.",
-    action: "Packaging telemetry with high-grade encryption while buffering 48 hours of backup memory in case of internet loss.",
-    benefit: "Zero downtime risk. Your poultry ventilation never shuts off or loses control, even during severe weather storms.",
-    pills: [
-      { label: "🔒 Security", val: "Encrypted TLS 1.3" },
-      { label: "💾 Local Buffer", val: "48 Hours Backup" },
-      { label: "⚡ Gateway Health", val: "100% Online" }
-    ]
+  edge: {
+    tag: "LEVEL 2 • ON-SITE INDUSTRIAL GATEWAY",
+    title: "📟 02. Edge Gateway (Welotec egOS)",
+    summary: "Connects OT protocols (Modbus, OPC-UA, Profinet), encrypts signals, buffers 48h backup telemetry, and splits streams simultaneously to local SCADA and cloud lakehouse.",
+    incoming: [
+      "• <strong>From Sensors/PLCs:</strong> Raw RS-485 Modbus registers.",
+      "• <strong>From Cloud Autopilot:</strong> Sub-350ms emergency control overrides."
+    ],
+    outgoing: [
+      "• <strong>To Local SCADA:</strong> OPC-UA real-time tags (Tag M7.Speed, Alarm Normal).",
+      "• <strong>To Snowflake (Direct Bypass):</strong> High-arcing MQTT Sparkplug B raw telemetry (41.2 kWh energy, climate)."
+    ],
+    stats: [
+      { label: "SECURITY", val: "TLS 1.3", unit: "", sub: "● High-Grade Encryption", state: "positive" },
+      { label: "LOCAL BACKUP", val: "48", unit: "Hours", sub: "● Zero-Loss Buffer", state: "positive" },
+      { label: "UPTIME", val: "100", unit: "%", sub: "● Online & Healthy", state: "positive" }
+    ],
+    cortex: "Edge gateway validated cryptographic checksums. Local safety fallback rules loaded into NVRAM."
   },
-  3: {
-    badge: "STEP 3 OF 10: PLANT FLOOR",
-    title: "🖥️ Farm Control Room Screens (SCADA)",
-    summary: "The central touchscreen display in the farm office showing real-time fan speeds and house environmental conditions.",
-    action: "Displays live green status indicators across all 3 barn zones (Front Inlets, Center Flock, Rear Exhaust Fans).",
-    benefit: "Gives farm managers one simple screen to check the whole complex at a glance without walking miles across the farm.",
-    pills: [
-      { label: "🚨 Alarm Status", val: "Green (Normal)" },
-      { label: "⚙️ Fan Speed", val: "850 RPM" },
-      { label: "⚡ Motor Load", val: "14.2 Amps" }
-    ]
+  scada: {
+    tag: "LEVEL 3 • PLANT FLOOR CONTROL",
+    title: "🖥️ 03. SCADA & HMI (Ignition)",
+    summary: "Supervises barn houses in real time: displays zone microclimates, fan motor currents, and alarm thresholds, feeding status to MES and the plant historian.",
+    incoming: [
+      "• <strong>From Edge Gateway:</strong> Real-time process values, fan RPM, and alarm limits."
+    ],
+    outgoing: [
+      "• <strong>To Process Historian:</strong> High-frequency time-series snapshot (1s delta).",
+      "• <strong>To MES (Flock Lifecycle):</strong> Machine state RUN, OEE 91.4%, and ventilation status."
+    ],
+    stats: [
+      { label: "ALARM STATUS", val: "NOMINAL", unit: "", sub: "● All Zones Green", state: "positive" },
+      { label: "FAN SPEED", val: "850", unit: "RPM", sub: "● Eco-Modulated", state: "positive" },
+      { label: "MOTOR DRAW", val: "14.2", unit: "Amps", sub: "● 75% Energy Cut", state: "positive" }
+    ],
+    cortex: "SCADA synchronized setpoints with Edge Gateway. Fan speed modulated to 25% to minimize peak kilowatt consumption."
   },
-  4: {
-    badge: "STEP 4 OF 10: HISTORICAL DATA",
-    title: "📈 Historical Farm Archive (OSIsoft PI)",
-    summary: "A high-speed digital flight recorder storing every second of farm history for the past 5 years.",
-    action: "Compressing and archiving millions of temperature, humidity, and ammonia readings with 99.9% accuracy.",
-    benefit: "Enables agronomists and veterinarians to see exactly how weather shifts affected flock growth over time.",
-    pills: [
-      { label: "📊 Data Points", val: "1.2 Million / Day" },
-      { label: "💾 Storage Efficiency", val: "92% Compression" },
-      { label: "📅 History Depth", val: "5 Years Available" }
-    ]
+  hist: {
+    tag: "LEVEL 3 • HISTORICAL STORE",
+    title: "📈 04. Process Historian (OSIsoft PI)",
+    summary: "High-frequency time-series black box flight recorder: compresses and archives 5+ years of flock climate and energy data with 99.9% precision.",
+    incoming: [
+      "• <strong>From SCADA:</strong> Sub-second raw process snapshots and alarm event logs."
+    ],
+    outgoing: [
+      "• <strong>To Snowflake Data Cloud:</strong> 5-year historical archive export for long-term cohort analytics."
+    ],
+    stats: [
+      { label: "DAILY RECORDS", val: "1.2M", unit: "", sub: "● Continuous Logging", state: "positive" },
+      { label: "COMPRESSION", val: "92", unit: "%", sub: "● Swinging Door Method", state: "positive" },
+      { label: "HISTORY DEPTH", val: "5", unit: "Years", sub: "● Full Audit Trail", state: "positive" }
+    ],
+    cortex: "Historical archive indexed. Cortex AI correlated current flock growth rate against 48 historical flock batches."
   },
-  5: {
-    badge: "STEP 5 OF 10: FLOCK BATCH",
-    title: "📋 Flock Growth & Biosecurity Manager (MES)",
-    summary: "Tracks the lifecycle of Batch #2026-B08 (42,500 Cobb500 broilers, currently at Day 26).",
-    action: "Comparing daily bird weight gain (target: 68.5g/day) against actual feed consumed (Feed Conversion Ratio: 1.54).",
-    benefit: "Predicts harvest readiness date and ensures birds meet premium export weight standards.",
-    pills: [
-      { label: "🐣 Flock Age", val: "Day 26" },
-      { label: "🐔 Bird Count", val: "42,500 Broilers" },
-      { label: "🌾 Feed Conversion", val: "1.54 (Excellent)" }
-    ]
+  mes: {
+    tag: "LEVEL 3 • FLOCK LIFECYCLE EXECUTION",
+    title: "📋 05. MES (Manufacturing Execution)",
+    summary: "Executes flock lifecycle: tracks Batch #2026-B08 (42,500 broilers, Day 26), daily weight gain vs feed eaten (FCR 1.54), bird mortality, and biosecurity audit logs.",
+    incoming: [
+      "• <strong>From SCADA:</strong> Live house climate and equipment runtime.",
+      "• <strong>From MOM:</strong> Daily feeding plans, harvest targets, and labor assignments."
+    ],
+    outgoing: [
+      "• <strong>To MOM:</strong> Order progress, daily gain (68.5g/d), and biosecurity audit pass.",
+      "• <strong>To Snowflake:</strong> Batch traceability lots and quality event streams."
+    ],
+    stats: [
+      { label: "FLOCK AGE", val: "Day 26", unit: "", sub: "● 42,500 Cobb500 Broilers", state: "positive" },
+      { label: "DAILY GAIN", val: "68.5", unit: "g/day", sub: "● 102% Target Pacing", state: "positive" },
+      { label: "FEED RATIO (FCR)", val: "1.54", unit: "", sub: "● Benchmark: 1.68", state: "positive" }
+    ],
+    cortex: "MES flock trajectory is on track for optimal Day 42 processing weight. Biosecurity audit score: Level 3 Passed."
   },
-  6: {
-    badge: "STEP 6 OF 10: BUSINESS & FINANCE",
-    title: "🏢 Automatic Feed Purchasing (SAP S/4HANA ERP)",
-    summary: "Connects farm feed silos directly to your central SAP enterprise inventory ledger.",
-    action: "If feed drops below 15 tons, the AI automatically creates a signed Purchase Order for 25 tons from Fujian Feed Co.",
-    benefit: "Never run out of feed. Eliminates 2 hours of daily manual paperwork for farm managers.",
-    pills: [
-      { label: "🌾 Silo Stock", val: "35.7 Tons" },
-      { label: "⚠️ Reorder Trigger", val: "15.0 Tons" },
-      { label: "📦 Auto-PO Status", val: "Ready (No Delay)" }
-    ]
+  mom: {
+    tag: "LEVEL 3/4 • OPERATIONS MANAGEMENT",
+    title: "🏭 06. MOM (Operations Management)",
+    summary: "Orchestrates operations across all 50 houses: feed distribution dispatch, harvest logistics, vaccination scheduling, and labor health & safety.",
+    incoming: [
+      "• <strong>From SAP ERP:</strong> Released purchase orders, grain BOM specs, and supplier logistics.",
+      "• <strong>From MES:</strong> Daily flock progress, feed consumption totals, and labor hours.",
+      "• <strong>From Palantir Foundry:</strong> Autonomous closed-loop work orders and fan overrides."
+    ],
+    outgoing: [
+      "• <strong>To SAP ERP:</strong> Grain consumption postings and job closures.",
+      "• <strong>To MES:</strong> Dispatch work orders, feeding curves, and priority shifts.",
+      "• <strong>To Edge Gateway (Closed-Loop):</strong> Sub-350ms fan speed actuation commands.",
+      "• <strong>To Snowflake:</strong> Shift reports, ops events, and labor safety metrics."
+    ],
+    stats: [
+      { label: "HOUSES MANAGED", val: "50", unit: "Barns", sub: "● 2,125,000 Total Birds", state: "positive" },
+      { label: "WORK ORDERS", val: "142", unit: "Active", sub: "● Zero Bottlenecks", state: "positive" },
+      { label: "SCHEDULE MATCH", val: "99.4", unit: "%", sub: "● On-Time Operations", state: "positive" }
+    ],
+    cortex: "MOM synchronized feed dispatch schedule. All 50 houses operating within nominal variance."
   },
-  7: {
-    badge: "STEP 7 OF 10: ENTERPRISE LAKEHOUSE",
-    title: "❄️ Central Company Data Cloud (Snowflake)",
-    summary: "Aggregates live data across all 50 company farms into clean executive dashboards and financial reports.",
-    action: "Combines electricity kilowatt costs, feed consumption, and bird mortality into daily profit/loss figures.",
-    benefit: "CFOs and executives see company-wide operational efficiency in real time, not at the end of the quarter.",
-    pills: [
-      { label: "🏢 Farms Connected", val: "50 Barns (2.12M Birds)" },
-      { label: "⚡ Daily Telemetry", val: "45 GB / Day" },
-      { label: "⏱️ Query Speed", val: "0.08 Seconds" }
-    ]
+  sap: {
+    tag: "LEVEL 4 • ENTERPRISE BUSINESS BACKBONE",
+    title: "🏢 07. SAP S/4HANA (Enterprise ERP)",
+    summary: "Enterprise business backbone: manages grain purchasing contracts, BOM recipes, silo inventory levels, and financial accounting.",
+    incoming: [
+      "• <strong>From MOM:</strong> Silo consumption totals and completed feed delivery receipts.",
+      "• <strong>From AI Agents (BAPI):</strong> Autonomous Purchase Orders when silos drop below 15 tons."
+    ],
+    outgoing: [
+      "• <strong>To MOM:</strong> Approved POs, supplier contracts, and material availability.",
+      "• <strong>To Snowflake:</strong> Material masters, grain pricing, and costing snapshots."
+    ],
+    stats: [
+      { label: "SILO INVENTORY", val: "35.7", unit: "Tons", sub: "● Adequate Reserve", state: "positive" },
+      { label: "REORDER TRIGGER", val: "15.0", unit: "Tons", sub: "● Auto-PO Threshold", state: "positive" },
+      { label: "SAP STATUS", val: "READY", unit: "", sub: "● Auto-Signature Enabled", state: "positive" }
+    ],
+    cortex: "SAP Supply Chain Agent monitoring silo depletion rate. Projected next reorder window: 3 days."
   },
-  8: {
-    badge: "STEP 8 OF 10: ONTOLOGY",
-    title: "🧬 Enterprise Knowledge Map (Palantir Foundry)",
-    summary: "Connects physical chickens to feed contracts, farm buildings, and customer delivery orders.",
-    action: "Creates a complete 'Farm-to-Fork' digital link from the grain supplier to the final supermarket package.",
-    benefit: "100% food traceability. If a customer scans a chicken package QR code, it proves humane, certified origin.",
-    pills: [
-      { label: "🔗 Traceability", val: "Farm-to-Fork" },
-      { label: "🌐 Connected Entities", val: "142,000 Objects" },
-      { label: "📋 Audit Ready", val: "100% Verified" }
-    ]
+  snowflake: {
+    tag: "LEVEL 5 • CENTRAL DATA LAKEHOUSE",
+    title: "❄️ 08. Snowflake Data Cloud",
+    summary: "Central data cloud: ingests direct high-frequency IIoT streams via Snowpipe, runs Medallion data cleaning, and serves feature tables for Cortex AI.",
+    incoming: [
+      "• <strong>From Edge Gateways (Direct Bypass):</strong> High-arcing IIoT MQTT raw telemetry stream.",
+      "• <strong>From Historian:</strong> 5-year historical trend datasets.",
+      "• <strong>From MES / MOM / SAP:</strong> Batch lots, shift operations, and ERP costing snapshots.",
+      "• <strong>From Palantir Foundry:</strong> Enriched write-back and governance audit logs."
+    ],
+    outgoing: [
+      "• <strong>To Palantir Foundry:</strong> Cleaned Silver and Gold Medallion feature tables."
+    ],
+    stats: [
+      { label: "DAILY INGESTION", val: "45", unit: "GB/day", sub: "● Snowpipe Streaming", state: "positive" },
+      { label: "MEDALLION LAYERS", val: "3", unit: "Tiers", sub: "● Bronze -> Silver -> Gold", state: "positive" },
+      { label: "QUERY SPEED", val: "0.08", unit: "Sec", sub: "● Sub-second Analytics", state: "positive" }
+    ],
+    cortex: "Snowflake Medallion dynamic tables refreshed. Silver layer cleaned 1.2M raw Modbus events with zero dropouts."
   },
-  9: {
-    badge: "STEP 9 OF 10: DIGITAL TWIN",
-    title: "🕸️ Virtual 3D Farm Digital Twin (Neo4j)",
-    summary: "A living virtual simulation of the entire barn layout, sensor networks, and fan physics.",
-    action: "Simulates airflow dynamics inside House 03 to predict microclimate dead-zones before they harm birds.",
-    benefit: "Enables AI agents to test 'what-if' weather scenarios without risking real chickens.",
-    pills: [
-      { label: "🗺️ Virtual Zones", val: "3 Active Zones" },
-      { label: "🎯 Simulation Match", val: "99.2% Accuracy" },
-      { label: "🔄 Physics Loop", val: "Live Real-Time" }
-    ]
+  foundry: {
+    tag: "LEVEL 5 • SEMANTIC ORCHESTRATION",
+    title: "🧬 09. Palantir Foundry",
+    summary: "Unifies disparate OT and IT data into one semantic model, orchestrates automated workflows, and enforces data governance.",
+    incoming: [
+      "• <strong>From Snowflake:</strong> Unified enterprise datasets and OLAP feature tables.",
+      "• <strong>From Cortex AI (Agents):</strong> ML predictions and consensus action triggers."
+    ],
+    outgoing: [
+      "• <strong>To Snowflake:</strong> Enriched write-back tables and governance audit logs.",
+      "• <strong>To Enterprise Ontology:</strong> Continuous object graph synchronization.",
+      "• <strong>To MOM (Closed-Loop):</strong> Autonomous work order dispatch and equipment commands."
+    ],
+    stats: [
+      { label: "CONNECTED ENTITIES", val: "142k", unit: "Objects", sub: "● Full Semantic Graph", state: "positive" },
+      { label: "AUTOMATION JOBS", val: "38", unit: "Active", sub: "● Zero-Touch Workflows", state: "positive" },
+      { label: "GOVERNANCE", val: "100%", unit: "", sub: "● Full Lineage Tracked", state: "positive" }
+    ],
+    cortex: "Foundry ontology mapped 42,500 broilers in House 03 to Silo Feed Batch #SF-8802 and export packing line A."
   },
-  10: {
-    badge: "STEP 10 OF 10: AI DECISION BRAIN",
-    title: "🧠 AI Decision Brain & Autonomous Smart Agents",
-    summary: "Four specialized AI agents collaborate continuously to protect birds, cut power bills, and order feed.",
-    action: "The Health Agent guarantees fresh air, the Energy Agent cuts power during peak rates, and the SAP Agent manages feed.",
-    benefit: "Autonomous closed-loop action in 0.3 seconds. Cuts power bills by 28.4% and saves 1,500 bird lives per flock.",
-    pills: [
-      { label: "⚡ Decision Speed", val: "0.3 Seconds" },
-      { label: "💰 Power Cut", val: "-28.4% Bill Reduction" },
-      { label: "🐤 Lives Saved", val: "497,250 Birds / Year" }
-    ]
+  ontology: {
+    tag: "LEVEL 5 • LIVE OBJECT GRAPH",
+    title: "🔗 10. Enterprise Ontology",
+    summary: "Live connected digital entities: 42,500 Birds linked to House 03, Silo Feed Batch #SF-8802, Power Meters, and Supermarket Export Orders.",
+    incoming: [
+      "• <strong>From Palantir Foundry:</strong> Continuous real-time object state synchronization."
+    ],
+    outgoing: [
+      "• <strong>To Digital Twin:</strong> Live object states and what-if simulation inputs.",
+      "• <strong>To ML & Cortex AI:</strong> Feature tables and target prediction variables.",
+      "• <strong>To Dashboards:</strong> Instant role-based application queries."
+    ],
+    stats: [
+      { label: "LIVE OBJECTS", val: "142,000", unit: "", sub: "● Birds, Houses, Silos, POs", state: "positive" },
+      { label: "GRAPH LINKS", val: "480k", unit: "Edges", sub: "● Bi-Directional Relations", state: "positive" },
+      { label: "TRACEABILITY", val: "Farm-to-Fork", unit: "", sub: "● 100% Certified Origin", state: "positive" }
+    ],
+    cortex: "Ontology synchronized live object graph. Digital twin and ML feature pipelines updated in real time."
+  },
+  twin: {
+    tag: "LEVEL 6 • 3D SPATIAL DIGITAL TWIN",
+    title: "🕸️ 11. Digital Twin (Neo4j)",
+    summary: "3D virtual physics model of the barn layout: runs real-time airflow and thermal simulations to predict dead-zones without risking live chickens.",
+    incoming: [
+      "• <strong>From Ontology:</strong> Real-time environmental sensor coordinates and flock counts."
+    ],
+    outgoing: [
+      "• <strong>To ML & Cortex AI:</strong> Predicted microclimate dead-zone heatmaps for preemptive tuning."
+    ],
+    stats: [
+      { label: "VIRTUAL ZONES", val: "3", unit: "Zones", sub: "● Inlets, Mid, Exhaust", state: "positive" },
+      { label: "PHYSICS MATCH", val: "99.2", unit: "%", sub: "● CFD Thermal Calibrated", state: "positive" },
+      { label: "WHAT-IF SIMS", val: "120/hr", unit: "", sub: "● Preemptive Validation", state: "positive" }
+    ],
+    cortex: "Spatial graph running CFD microclimate simulation. Predicted zone temperature uniformity: 98.6%."
+  },
+  ml: {
+    tag: "LEVEL 6 • MULTI-AGENT AI CORTEX",
+    title: "🧠 12. ML & Cortex AI Smart Agents",
+    summary: "Multi-agent consensus engine: Health Agent guarantees bird welfare, Energy Agent cuts peak power (-28.4%), and SAP Agent triggers autonomous POs in 0.3s.",
+    incoming: [
+      "• <strong>From Ontology:</strong> Feature tables, pricing tariffs, and flock health indicators.",
+      "• <strong>From Digital Twin:</strong> Thermal prediction maps."
+    ],
+    outgoing: [
+      "• <strong>To Palantir Foundry (Closed-Loop):</strong> Consensual action triggers (Fan modulation, SAP Auto-PO).",
+      "• <strong>To Dashboards:</strong> Natural language executive briefings."
+    ],
+    stats: [
+      { label: "REACTION TIME", val: "0.3", unit: "Sec", sub: "● Sub-second Closed-Loop", state: "positive" },
+      { label: "ENERGY SAVINGS", val: "-28.4", unit: "%", sub: "● Peak Tariff Optimization", state: "positive" },
+      { label: "LIVES PRESERVED", val: "497k", unit: "Birds/yr", sub: "● 1.2% vs 4.8% Mortality", state: "positive" }
+    ],
+    cortex: "All 4 AI Agents reached consensus. Health Agent verified welfare score (98.8%), Energy Agent saved ¥9.72/hr."
+  },
+  dash: {
+    tag: "LEVEL 6 • PRESENTATION & BI",
+    title: "📊 13. Role-Based Dashboards & BI",
+    summary: "Live decision apps: executive profit/loss tracking, flock welfare scores, certified ISO 14064 ESG audit reports, and operator control screens.",
+    incoming: [
+      "• <strong>From Ontology:</strong> Live object states and production metrics.",
+      "• <strong>From Cortex AI:</strong> Automated natural language executive briefings and alerts."
+    ],
+    outgoing: [
+      "• <strong>To Executive Decision Makers:</strong> 1-click ISO 14064 ESG certificates and P&L drilldowns."
+    ],
+    stats: [
+      { label: "DASHBOARD LATENCY", val: "< 100", unit: "ms", sub: "● Real-Time Streaming", state: "positive" },
+      { label: "ESG ACCURACY", val: "100%", unit: "", sub: "● ISO 14064 Verified", state: "positive" },
+      { label: "ROLE VIEWS", val: "4", unit: "Personas", sub: "● Exec, Ops, Vet, ESG", state: "positive" }
+    ],
+    cortex: "Dashboards displaying live truth from the ontology. Zero manual reconciliation needed."
   }
 };
 
-// Technical Developer Payload Dictionary (JSON Schemas)
-const technicalTierSchemas = {
-  1: {
-    title: "Step 1: Siemens S7-1500 PLC & Physical Field Probes",
-    proto: "Modbus TCP / Profinet (Port 502)",
+// 13 Technical System Schemas Dictionary
+const technicalSchemas = {
+  sensors: {
+    title: "Step 01: Siemens S7-1500 PLC & Field Probes",
+    proto: "Modbus TCP / Port 502",
     payload: {
       plc_device: "Siemens-S7-1516-3PN/DP",
-      ip_address: "192.168.1.10",
-      scan_cycle_time_ms: 10,
-      modbus_holding_registers: {
-        "40100_TEMP_PV": 224,      // 22.4 °C (scale 0.1)
-        "40101_HUMIDITY_PV": 625,  // 62.5 % (scale 0.1)
-        "40102_NH3_PV": 114,       // 11.4 ppm (scale 0.1)
-        "40103_CO2_PV": 1820,      // 1820 ppm (scale 1.0)
-        "40200_SILO1_KG": 18500,   // Silo 1 load cell
-        "40202_SILO2_KG": 17200    // Silo 2 load cell
+      ip_address: "192.168.10.12",
+      scan_cycle_ms: 10,
+      holding_registers: {
+        "40100_TEMP_FRONT": 218,
+        "40101_TEMP_MID": 221,
+        "40102_TEMP_REAR": 226,
+        "40103_HUMIDITY_PCT": 625,
+        "40104_NH3_PPM": 114,
+        "40105_CO2_PPM": 1280,
+        "40200_SILO1_WEIGHT_KG": 18500,
+        "40201_SILO2_WEIGHT_KG": 17200,
+        "40300_FAN1_RPM": 850,
+        "40301_FAN1_AMPS": 142
       }
     }
   },
-  2: {
-    title: "Step 2: Welotec egOS Industrial Edge Gateway (EG500)",
-    proto: "MQTT v5 / Sparkplug B with TLS 1.3",
+  edge: {
+    title: "Step 02: Welotec egOS Edge Gateway",
+    proto: "MQTT v5 / Sparkplug B TLS 1.3",
     payload: {
-      topic: "sunner/farm-nanping-01/barn-03/zone-rear/climate",
       gateway_id: "gw-welotec-np01-b03",
-      firmware: "egOS-v3.4.2-sunner",
-      timestamp: new Date().toISOString(),
-      metrics: {
-        temperature_celsius: 22.4,
-        relative_humidity_percent: 62.5,
-        ammonia_nh3_ppm: 11.4,
-        carbon_dioxide_co2_ppm: 1820.0
-      },
-      silos: { total_feed_tons: 35.7 },
-      quality_flag: "GOOD"
+      firmware: "egOS-v3.4.2-hardened",
+      security: { tls: "TLS_AES_256_GCM_SHA384", cert: "CN=sunner-edge-03.fujian.internal" },
+      buffer_status: { local_nvram_hours: 48, buffered_events: 0 },
+      sparkplug_payload: {
+        timestamp: Date.now(),
+        metrics: [
+          { name: "House03/Climate/AvgTemp_C", value: 22.4, type: "Float" },
+          { name: "House03/Climate/NH3_ppm", value: 11.4, type: "Float" },
+          { name: "House03/Inventory/TotalFeed_Tons", value: 35.7, type: "Float" },
+          { name: "House03/Power/ActiveKW", value: 41.2, type: "Float" }
+        ]
+      }
     }
   },
-  3: {
-    title: "Step 3: Inductive Ignition SCADA & HMI",
-    proto: "OPC UA Server (Port 4840)",
+  scada: {
+    title: "Step 03: Ignition SCADA / HMI Server",
+    proto: "OPC UA / Port 4840",
     payload: {
-      scada_tag_path: "[Sunner_OT]/Nanping_01/Barn_03/Zone_Rear/NH3_PV",
-      alarm_state: "NORMAL",
-      hmi_screen: "Screen_Barn03_Overview",
-      fan_feedback_rpm: 850.0
+      server_node: "opc.tcp://scada-nanping.sunner:4840",
+      monitored_tags: {
+        "[Sunner_OT]/Barn_03/Zone_Rear/NH3_PV": { value: 11.4, quality: "GOOD_192", timestamp: new Date().toISOString() },
+        "[Sunner_OT]/Barn_03/Ventilation/Fan_Master_RPM": { value: 850.0, target: 850.0, mode: "AI_MODULATED" },
+        "[Sunner_OT]/Barn_03/Alarms/Ammonia_Hazard": { state: "CLEAR", threshold: 20.0 }
+      }
     }
   },
-  4: {
-    title: "Step 4: OSIsoft PI Process Historian",
+  hist: {
+    title: "Step 04: OSIsoft PI Process Historian",
     proto: "PI Web API / Swinging Door Compression",
     payload: {
       pi_server: "PISERVER-NANPING-PROD",
-      pi_points: [
-        { name: "NP01_B03_ZR_NH3.PV", value: 11.4, status: "Good", compression: "Swinging Door Ex 0.05" },
-        { name: "NP01_B03_ZR_TEMP.PV", value: 22.4, status: "Good" }
+      point_name: "NP01_B03_ZR_NH3.PV",
+      compression_algorithm: "Swinging Door (CompDev=0.15)",
+      retention_policy: "5 Years Online / S3 Cold Archive",
+      latest_events: [
+        { time: "2026-08-18T03:20:00Z", val: 11.41 },
+        { time: "2026-08-18T03:21:00Z", val: 11.38 },
+        { time: "2026-08-18T03:22:00Z", val: 11.42 }
       ]
     }
   },
-  5: {
-    title: "Step 5: MES / MOM (Manufacturing Execution System)",
-    proto: "ISA-88 Batch Record / REST API",
+  mes: {
+    title: "Step 05: MES / MOM Batch Manager",
+    proto: "ISA-88 Batch Record Schema",
     payload: {
       batch_id: "FLOCK-2026-B08",
-      house_id: "BARN-03",
+      house_id: "NANPING-HOUSE-03",
       breed: "Cobb500 Broiler",
-      bird_count: 42500,
-      flock_age_days: 26,
-      actual_fcr: 1.54,
-      biosecurity_audit_status: "PASSED_LEVEL_3"
+      placement_date: "2026-07-23",
+      current_age_days: 26,
+      initial_chicks: 42500,
+      active_birds: 41990,
+      actual_mortality_pct: 1.2,
+      target_growth_curve: { target_fcr: 1.68, actual_fcr: 1.54, daily_gain_g: 68.5 },
+      biosecurity_audit: { level: 3, last_inspection: "PASSED_2026-08-17" }
     }
   },
-  6: {
-    title: "Step 6: SAP S/4HANA Cloud (Enterprise ERP)",
-    proto: "SAP OData / BAPI RFC (BAPI_PO_CREATE1)",
+  mom: {
+    title: "Step 06: MOM Multi-House Operations Hub",
+    proto: "ISA-95 Operations Dispatch JSON",
     payload: {
-      material_id: "MAT-FEED-SOYA-500",
-      plant: "PLANT-NANPING-1000",
+      fleet_overview: { total_barns: 50, total_live_birds: 2125000 },
+      work_orders: [
+        { wo_id: "WO-2026-8801", type: "FEED_DISPATCH", house: "House 03", qty_tons: 25.0, status: "DISPATCHED" },
+        { wo_id: "WO-2026-8802", type: "VACCINATION_CHECK", house: "House 07", status: "COMPLETED" },
+        { wo_id: "WO-2026-8803", type: "FAN_BEARING_MAINTENANCE", house: "House 12", status: "SCHEDULED" }
+      ],
+      safety_index: 99.4
+    }
+  },
+  sap: {
+    title: "Step 07: SAP S/4HANA Enterprise ERP",
+    proto: "SAP RFC / BAPI (BAPI_PO_CREATE1)",
+    payload: {
+      system: "SAP S/4HANA Cloud 2026",
+      material_master: "MAT-FEED-SOYA-500",
+      company_code: "1000 (Fujian Sunner Development Co.)",
+      silo_threshold_tons: 15.0,
       current_inventory_tons: 35.7,
-      reorder_threshold_tons: 15.0,
-      reorder_status: "INVENTORY_HEALTHY",
-      automated_purchase_order: null
+      autonomous_po_rule: {
+        trigger: "STOCK_TONS < 15.0",
+        vendor: "VEND_FUJIAN_FEED_CO_882",
+        order_quantity_tons: 25.0,
+        currency: "CNY",
+        auto_sign: true
+      }
     }
   },
-  7: {
-    title: "Step 7: Snowflake Data Cloud (Lakehouse Medallion)",
-    proto: "Snowpipe Streaming / SQL Dynamic Tables",
+  snowflake: {
+    title: "Step 08: Snowflake Data Cloud Lakehouse",
+    proto: "Snowpipe Streaming / SQL Medallion",
     payload: {
-      bronze: "SUNNER_LAKEHOUSE.BRONZE.RAW_MQTT_EVENTS",
-      silver: "SUNNER_LAKEHOUSE.SILVER.CLEAN_CLIMATE_METRICS",
-      gold: "SUNNER_LAKEHOUSE.GOLD.FLOCK_DAILY_ECONOMICS"
+      database: "SUNNER_ENTERPRISE_LAKE",
+      medallion_layers: {
+        bronze: "BRONZE.RAW_MQTT_TELEMETRY (Direct Snowpipe Ingestion, <100ms)",
+        silver: "SILVER.CLEAN_CLIMATE_HOURLY (Deduplicated, Schema-Enforced)",
+        gold: "GOLD.FLOCK_PROFIT_AND_LOSS (Aggregated Feed Cost, Power Tariffs, FCR)"
+      },
+      active_streams: ["STREAM_EDGE_INGEST_03", "STREAM_MES_BATCH_B08", "STREAM_SAP_COSTING"]
     }
   },
-  8: {
-    title: "Step 8: Palantir Foundry Enterprise Ontology",
-    proto: "Semantic Archetype / Object Graph Sync",
+  foundry: {
+    title: "Step 09: Palantir Foundry Semantic Orchestration",
+    proto: "Foundry Archetype / Action Bus",
     payload: {
-      root_object: "FlockBatchObject:FLOCK-2026-B08",
-      linked_ontology_objects: [
-        "BarnZoneObject:barn-03/zone-rear",
-        "FeedInventoryObject:SILO-01-02",
-        "AnimalWelfareRiskObject:PROFILE_GREEN"
+      ontology_rid: "ri.ontology.main.object.flock-batch",
+      semantic_bindings: {
+        "FlockBatch": { pk: "batch_id", title: "Batch #2026-B08", grain: "unit_flock" },
+        "BarnZone": { pk: "zone_id", title: "House 03 Rear Exhaust", grain: "spatial_zone" }
+      },
+      action_types: [
+        { action: "TriggerFanSpeedOverride", auth: "AI_CONSENSUS_LEVEL_3", max_response_sec: 0.5 },
+        { action: "ReleaseSAPFeedPO", auth: "AUTONOMOUS_PURCHASING_AGENT", limit_cny: 150000 }
       ]
     }
   },
-  9: {
-    title: "Step 9: Neo4j Knowledge Graph & Digital Twin",
-    proto: "Bolt Protocol (bolt://localhost:7687)",
+  ontology: {
+    title: "Step 10: Enterprise Object Graph Ontology",
+    proto: "Graph Object Archetype (142,000 Entities)",
     payload: {
-      nodes_synchronized: ["Farm:farm-nanping-01", "Barn:barn-03", "Zone:zone-rear", "Flock:FLOCK-2026-B08"],
-      edges_active: 12
+      root_entity: "Flock:2026-B08",
+      linked_objects: [
+        { type: "PhysicalBarn", id: "Barn-03", relation: "HOUSES" },
+        { type: "FeedSilo", id: "Silo-03-A", capacity_tons: 40.0, current_tons: 35.7, relation: "FEEDS_FROM" },
+        { type: "VeterinaryBatch", id: "Vet-Cert-882", welfare_grade: "A+", relation: "CERTIFIED_BY" },
+        { type: "CustomerExportOrder", id: "ORD-KFC-EX-9921", relation: "DESTINED_FOR" }
+      ]
     }
   },
-  10: {
-    title: "Step 10: Snowflake Cortex AI & Multi-Agent Cognitive Fabric",
-    proto: "Cortex LLM API / Agentic Closed-Loop Event Bus",
+  twin: {
+    title: "Step 11: Neo4j 3D Spatial Digital Twin",
+    proto: "Bolt Protocol (Port 7687) / CFD Mesh",
     payload: {
-      cortex_llm_model: "snowflake-cortex-arctic-instruct",
-      consensus: {
-        health_agent: "Welfare Safe (98.5%)",
-        energy_agent: "Eco Peak Save (25%)",
-        sap_agent: "Silo Inventory OK (35.7t)",
-        esg_agent: "Carbon Reduced -28.4%"
+      graph_database: "neo4j://sunner-spatial-twin:7687",
+      barn_dimensions_m: { length: 120, width: 16, height: 4.2 },
+      spatial_zones: [
+        { zone: "front", target_temp_c: 21.8, actual_temp_c: 21.8, velocity_ms: 1.8 },
+        { zone: "mid", target_temp_c: 22.1, actual_temp_c: 22.1, velocity_ms: 2.2 },
+        { zone: "rear", target_temp_c: 22.4, actual_temp_c: 22.6, velocity_ms: 2.5 }
+      ],
+      cfd_prediction: "Optimal uniform air tunnel distribution. Zero stagnant hot-spots detected."
+    }
+  },
+  ml: {
+    title: "Step 12: Snowflake Cortex AI Multi-Agent Core",
+    proto: "Cortex LLM Agent Bus / Consensus Engine",
+    payload: {
+      model: "snowflake-cortex-agent-orchestrator",
+      consensus_decision: {
+        health_agent: { status: "APPROVED", air_score: "98.8%", reason: "NH3 at 11.4 ppm safely below 20 ppm limit." },
+        energy_agent: { status: "SAVING", fan_power: "25%", tariff: "Peak (¥1.35/kWh)", hourly_savings: "¥9.72" },
+        sap_agent: { status: "STANDBY", silo_stock: "35.7t", reorder_threshold: "15.0t" },
+        esg_agent: { status: "TRACKING", scope2_reduction_rate: "-28.4%" }
       },
-      natural_language_briefing: "Cortex AI Operational Briefing: House 03 operating in nominal eco-modulation. Energy Agent reduced fan power to 25% during Peak Tariff, saving 7.2 kWh/hour (CNY 9.72/hr). Feed inventory is healthy (35.7t)."
+      decision_latency_ms: 310
+    }
+  },
+  dash: {
+    title: "Step 13: Role-Based Presentation Dashboards",
+    proto: "GraphQL / Real-Time WebSocket",
+    payload: {
+      active_personas: ["CFO Executive Suite", "Plant Operations Desk", "Chief Agronomist", "ESG Auditor"],
+      kpis_delivered: {
+        daily_avoided_carbon_tons: 6.81,
+        total_annual_avoided_co2: "18,885.72 t CO2e",
+        bird_preservation_count: "497,250 birds/yr",
+        electricity_cost_savings_pct: "-28.4%",
+        iso_certification: "ISO 14064-1 Validated"
+      }
     }
   }
 };
 
-// UI State
-let currentExplanationMode = 'executive'; // 'executive' or 'technical'
-let activeTier = 1;
-let isEnterpriseScope = true;
+const nodeOrder = ['sensors', 'edge', 'scada', 'hist', 'mes', 'mom', 'sap', 'snowflake', 'foundry', 'ontology', 'twin', 'ml', 'dash'];
+let activeNodeId = 'sensors';
 
-// DOM View Style Switcher (Executive vs Technical Code)
-const btnModeExec = document.getElementById('btn-mode-executive');
-const btnModeTech = document.getElementById('btn-mode-technical');
-const boxExecStory = document.getElementById('executive-story-card');
-const boxTechCode = document.getElementById('technical-code-box');
+// Global Autonomous Tour State
+let isAutoTourRunning = true;
+let autoTourInterval = null;
+const TOUR_STEP_INTERVAL_MS = 4000;
 
-function setExplanationMode(mode) {
-  currentExplanationMode = mode;
-  btnModeExec.classList.toggle('active', mode === 'executive');
-  btnModeTech.classList.toggle('active', mode === 'technical');
+// Append to Live Audit Ticker
+function addAuditLog(msg, isHighlight = false) {
+  const ticker = document.getElementById('live-audit-ticker');
+  if (!ticker) return;
+  const now = new Date();
+  const timeStr = now.toTimeString().split(' ')[0];
 
-  if (mode === 'executive') {
-    boxExecStory.style.display = 'flex';
-    boxTechCode.style.display = 'none';
-  } else {
-    boxExecStory.style.display = 'none';
-    boxTechCode.style.display = 'flex';
+  const row = document.createElement('div');
+  row.className = `ticker-row ${isHighlight ? 'highlight' : ''}`;
+  row.innerHTML = `
+    <span class="tick-time">${timeStr}</span>
+    <span class="tick-msg">${msg}</span>
+  `;
+
+  ticker.insertBefore(row, ticker.firstChild);
+  if (ticker.children.length > 5) {
+    ticker.removeChild(ticker.lastChild);
   }
-  renderTierView(activeTier);
 }
 
-if (btnModeExec) btnModeExec.addEventListener('click', () => setExplanationMode('executive'));
-if (btnModeTech) btnModeTech.addEventListener('click', () => setExplanationMode('technical'));
+// Initialize Scrubber Pills (13 Nodes)
+function initScrubber() {
+  const container = document.getElementById('step-navigator-container');
+  if (!container) return;
 
-// Render Selected Tier Information
-function renderTierView(tierNum) {
-  activeTier = tierNum;
+  container.innerHTML = '';
+  nodeOrder.forEach((id, idx) => {
+    const btn = document.createElement('button');
+    btn.className = `step-pill-btn ${id === activeNodeId ? 'active' : ''}`;
+    btn.id = `pill-node-${id}`;
+    btn.textContent = `0${idx + 1}`.slice(-2);
+    btn.title = nodeDescriptions[id].title;
+    btn.addEventListener('click', () => {
+      pauseTour();
+      selectNode(id);
+    });
+    container.appendChild(btn);
+  });
+}
 
-  // 1. Render Executive Business Story Card
-  const story = executiveBusinessStories[tierNum];
-  if (story) {
-    document.getElementById('story-step-badge').textContent = story.badge;
-    document.getElementById('story-step-title').textContent = story.title;
-    document.getElementById('story-step-summary').textContent = story.summary;
-    document.getElementById('story-detail-action').textContent = story.action;
-    document.getElementById('story-detail-benefit').textContent = story.benefit;
+// Render Selected Node Details
+function renderNodeDetails(id) {
+  activeNodeId = id;
 
-    const kpiContainer = document.getElementById('story-kpi-strip');
-    if (kpiContainer) {
-      kpiContainer.innerHTML = story.pills.map(p => `
-        <div class="story-kpi-pill">${p.label}: <strong>${p.val}</strong></div>
-      `).join('');
+  nodeOrder.forEach(nid => {
+    const pill = document.getElementById(`pill-node-${nid}`);
+    if (pill) pill.classList.toggle('active', nid === id);
+  });
+
+  const cardStory = document.getElementById('executive-story-card');
+  const cardBi = document.getElementById('executive-bi-dashboard-card');
+
+  // If Node 13 (dash) is selected, render the dedicated Executive BI Command Center!
+  if (id === 'dash') {
+    if (cardStory) cardStory.style.display = 'none';
+    if (cardBi) cardBi.style.display = 'flex';
+    renderBiTable('all');
+    renderBiCharts();
+  } else {
+    if (cardStory && document.getElementById('btn-mode-technical')?.classList.contains('active') === false) {
+      cardStory.style.display = 'flex';
     }
+    if (cardBi) cardBi.style.display = 'none';
   }
 
-  // 2. Render Technical Code Box (If opened)
-  const tech = technicalTierSchemas[tierNum];
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const desc = isZh ? (window.i18n.nodesZh[id] || nodeDescriptions[id]) : nodeDescriptions[id];
+  if (desc) {
+    const sBadge = document.getElementById('story-step-badge');
+    const sTitle = document.getElementById('story-step-title');
+    const sSumm = document.getElementById('story-step-summary');
+
+    if (sBadge) sBadge.textContent = desc.tag;
+    if (sTitle) sTitle.textContent = desc.title;
+    if (sSumm) sSumm.textContent = desc.summary;
+
+    const inList = document.getElementById('list-incoming-paths');
+    if (inList) inList.innerHTML = desc.incoming.map(i => `<li>${i}</li>`).join('');
+
+    const outList = document.getElementById('list-outgoing-paths');
+    if (outList) outList.innerHTML = desc.outgoing.map(o => `<li>${o}</li>`).join('');
+
+    const kpiStrip = document.getElementById('story-kpi-strip');
+    if (kpiStrip) {
+      kpiStrip.innerHTML = desc.stats.map(s => `
+        <div class="hero-stat-card">
+          <span class="stat-lbl">${s.label}</span>
+          <span class="stat-big">${s.val}<small>${s.unit}</small></span>
+          <span class="stat-sub ${s.state}">${s.sub}</span>
+        </div>
+      `).join('');
+    }
+
+    const narrEl = document.getElementById('cortex-narrative');
+    if (narrEl) narrEl.textContent = `"${desc.cortex}"`;
+  }
+
+  const tech = technicalSchemas[id];
   if (tech) {
     const elTitle = document.getElementById('inspector-tier-title');
     const elProto = document.getElementById('inspector-proto-badge');
     const elCode = document.getElementById('inspector-code-block');
+
     if (elTitle) elTitle.textContent = tech.title;
     if (elProto) elProto.textContent = tech.proto;
     if (elCode) elCode.textContent = JSON.stringify(tech.payload, null, 2);
   }
 }
 
-// Synchronize Canvas Auto-Tour with UI
-window.selectTierFromCanvas = function(tierNum) {
-  renderTierView(tierNum);
-};
+// =================================================================
+// 6. EXECUTIVE BI & ANALYTICS COMMAND CENTER (NODE 13)
+// =================================================================
+const biComplexDataEn = [
+  { complex: 'nanping', name: 'Nanping Complex 01 (HQ)', houses: 140, birds: '5.95M', temp: '22.1°C', nh3: '11.4 ppm', silo: '35.7t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.54 (Optimal)', energy: '¥4.25M' },
+  { complex: 'nanping', name: 'Nanping Complex 02', houses: 120, birds: '5.10M', temp: '22.4°C', nh3: '12.8 ppm', silo: '42.0t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.55 (Optimal)', energy: '¥3.65M' },
+  { complex: 'sanming', name: 'Sanming Complex 01', houses: 96, birds: '4.08M', temp: '21.9°C', nh3: '10.8 ppm', silo: '28.4t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.53 (Optimal)', energy: '¥2.88M' },
+  { complex: 'sanming', name: 'Sanming Complex 02', houses: 80, birds: '3.40M', temp: '22.6°C', nh3: '14.1 ppm', silo: '31.2t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.56 (Optimal)', energy: '¥2.40M' },
+  { complex: 'ganzhou', name: 'Ganzhou Complex 01', houses: 110, birds: '4.67M', temp: '22.8°C', nh3: '13.5 ppm', silo: '38.5t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.54 (Optimal)', energy: '¥3.35M' },
+  { complex: 'pingliang', name: 'Pingliang Complex 01', houses: 85, birds: '3.61M', temp: '21.5°C', nh3: '9.8 ppm', silo: '26.0t', mode: 'CLOSED-LOOP ACTIVE', fcr: '1.52 (Optimal)', energy: '¥2.55M' }
+];
 
-// DOM Tab Switching
-const tabEnterprise = document.getElementById('tab-btn-enterprise');
-const tabEsg = document.getElementById('tab-btn-esg');
-const tabBarn = document.getElementById('tab-btn-barn');
-const tabComp = document.getElementById('tab-btn-comparison');
+const biComplexDataZh = [
+  { complex: 'nanping', name: '南平第一核心基地 (总部)', houses: 140, birds: '595万羽', temp: '22.1°C', nh3: '11.4 ppm', silo: '35.7吨', mode: '全域闭环自愈中', fcr: '1.54 (行业最优)', energy: '¥425.0万' },
+  { complex: 'nanping', name: '南平第二养殖基地', houses: 120, birds: '510万羽', temp: '22.4°C', nh3: '12.8 ppm', silo: '42.0吨', mode: '全域闭环自愈中', fcr: '1.55 (行业最优)', energy: '¥365.0万' },
+  { complex: 'sanming', name: '三明第一养殖基地', houses: 96, birds: '408万羽', temp: '21.9°C', nh3: '10.8 ppm', silo: '28.4吨', mode: '全域闭环自愈中', fcr: '1.53 (行业最优)', energy: '¥288.0万' },
+  { complex: 'sanming', name: '三明第二养殖基地', houses: 80, birds: '340万羽', temp: '22.6°C', nh3: '14.1 ppm', silo: '31.2吨', mode: '全域闭环自愈中', fcr: '1.56 (行业最优)', energy: '¥240.0万' },
+  { complex: 'ganzhou', name: '赣州第一核心基地', houses: 110, birds: '467万羽', temp: '22.8°C', nh3: '13.5 ppm', silo: '38.5吨', mode: '全域闭环自愈中', fcr: '1.54 (行业最优)', energy: '¥335.0万' },
+  { complex: 'pingliang', name: '平凉第一养殖基地', houses: 85, birds: '361万羽', temp: '21.5°C', nh3: '9.8 ppm', silo: '26.0吨', mode: '全域闭环自愈中', fcr: '1.52 (行业最优)', energy: '¥255.0万' }
+];
 
-const secEnterprise = document.getElementById('section-enterprise-flow');
-const secEsg = document.getElementById('section-esg-evolution');
-const secBarn = document.getElementById('section-spatial-gauges');
-const secComp = document.getElementById('section-comparison');
+let activeBiComplexFilter = 'all';
 
-function switchTab(activeTab, activeSec) {
-  [tabEnterprise, tabEsg, tabBarn, tabComp].forEach(t => t.classList.remove('active'));
-  [secEnterprise, secEsg, secBarn, secComp].forEach(s => s.style.display = 'none');
-  
-  activeTab.classList.add('active');
-  activeSec.style.display = 'block';
+function renderBiTable(complexFilter = 'all') {
+  activeBiComplexFilter = complexFilter;
+  const tbody = document.getElementById('bi-table-body');
+  if (!tbody) return;
+
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const data = isZh ? biComplexDataZh : biComplexDataEn;
+
+  const rows = complexFilter === 'all'
+    ? data
+    : data.filter(c => c.complex === complexFilter);
+
+  const unitBarns = isZh ? "栋" : "Barns";
+
+  tbody.innerHTML = rows.map(r => `
+    <tr>
+      <td><strong>${r.name}</strong></td>
+      <td>${r.houses} ${unitBarns}</td>
+      <td>${r.birds}</td>
+      <td>${r.temp}</td>
+      <td>${r.nh3}</td>
+      <td>${r.silo}</td>
+      <td><span class="bi-status-badge green">${r.mode}</span></td>
+      <td><strong style="color: #10b981;">${r.fcr}</strong></td>
+      <td><strong style="color: #38bdf8;">${r.energy}</strong></td>
+    </tr>
+  `).join('');
 }
 
-if (tabEnterprise) tabEnterprise.addEventListener('click', () => switchTab(tabEnterprise, secEnterprise));
-if (tabEsg) tabEsg.addEventListener('click', () => switchTab(tabEsg, secEsg));
-if (tabBarn) tabBarn.addEventListener('click', () => switchTab(tabBarn, secBarn));
-if (tabComp) tabComp.addEventListener('click', () => switchTab(tabComp, secComp));
+function renderBiCharts() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const growthEl = document.getElementById('bi-growth-chart');
+  if (growthEl) {
+    const lblD1 = isZh ? "第1天 (42克)" : "Day 01 (42g)";
+    const lblD26 = isZh ? "第26天 (1,480克)" : "Day 26 (1,480g)";
+    const lblD42 = isZh ? "第42天 (2,850克)" : "Day 42 (2,850g)";
 
-// 4-Stage Evolution Stepper Clicks
-document.querySelectorAll('.evo-step-card').forEach(card => {
-  card.addEventListener('click', () => {
-    document.querySelectorAll('.evo-step-card').forEach(c => c.classList.remove('active-step'));
-    card.classList.add('active-step');
-  });
-});
+    growthEl.innerHTML = `
+      <svg viewBox="0 0 400 100" style="width: 100%; height: 100%;">
+        <defs>
+          <linearGradient id="growthGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+            <stop offset="0%" stop-color="#10b981" stop-opacity="0.35"/>
+            <stop offset="100%" stop-color="#10b981" stop-opacity="0.0"/>
+          </linearGradient>
+        </defs>
+        <line x1="40" y1="20" x2="380" y2="20" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <line x1="40" y1="50" x2="380" y2="50" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        <line x1="40" y1="80" x2="380" y2="80" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+        
+        <path d="M 40 85 Q 200 65 380 28" fill="none" stroke="rgba(255,255,255,0.35)" stroke-width="1.5" stroke-dasharray="4,4"/>
+        <path d="M 40 85 Q 200 55 380 18 L 380 85 Z" fill="url(#growthGrad)"/>
+        <path d="M 40 85 Q 200 55 380 18" fill="none" stroke="#10b981" stroke-width="2.5"/>
+        
+        <circle cx="200" cy="55" r="3.5" fill="#10b981"/>
+        <circle cx="380" cy="18" r="4" fill="#38bdf8"/>
+        <text x="45" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">${lblD1}</text>
+        <text x="175" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">${lblD26}</text>
+        <text x="305" y="96" fill="#38bdf8" font-weight="bold" font-size="8.5" font-family="JetBrains Mono">${lblD42}</text>
+      </svg>
+    `;
+  }
 
-// ESG Scope Toggle (Enterprise 50 Barns vs Single Barn)
-const btnScopeEnterprise = document.getElementById('btn-scope-enterprise');
-const btnScopeSingle = document.getElementById('btn-scope-single');
+  const tariffEl = document.getElementById('bi-tariff-chart');
+  if (tariffEl) {
+    const valTitle = isZh ? "谷段电价 (¥0.38)" : "VALLEY (¥0.38)";
+    const valSub = isZh ? "预蓄冷 100%通风" : "Pre-cooling 100%";
+    const peakTitle = isZh ? "尖峰电价 (¥1.35) -28.4%" : "PEAK (¥1.35) -28.4%";
+    const peakSub = isZh ? "风机智能降频至 25%" : "Fans Modulated to 25%";
+    const normTitle = isZh ? "平段电价 (¥0.85)" : "NORMAL (¥0.85)";
+    const normSub = isZh ? "风机经济运行 60%" : "Fans Modulated 60%";
 
-const elFleetBirds = document.getElementById('val-fleet-birds');
-const elTotalGhg = document.getElementById('val-total-ghg-saved');
-const elScope2Base = document.getElementById('val-esg-scope2-base');
-const elScope2Ai = document.getElementById('val-esg-scope2-ai');
-const elScope2Saved = document.getElementById('val-esg-scope2-saved');
-const elScope3Saved = document.getElementById('val-esg-scope3-saved');
-const elFeedSaved = document.getElementById('val-esg-feed-saved');
-const elMortBase = document.getElementById('val-esg-mort-base');
-const elMortAi = document.getElementById('val-esg-mort-ai');
-const elBirdsSaved = document.getElementById('val-esg-birds-saved');
-const elWorkerSaved = document.getElementById('val-esg-worker-saved');
-
-function renderEsgMetrics(enterprise) {
-  isEnterpriseScope = enterprise;
-  if (btnScopeEnterprise) btnScopeEnterprise.classList.toggle('active', enterprise);
-  if (btnScopeSingle) btnScopeSingle.classList.toggle('active', !enterprise);
-
-  if (enterprise) {
-    if (elFleetBirds) elFleetBirds.textContent = "2,125,000 Birds (50 Barns)";
-    if (elTotalGhg) elTotalGhg.textContent = "18,885.7 t CO₂e/yr";
-    if (elScope2Base) elScope2Base.textContent = "41,300 kWh/day";
-    if (elScope2Ai) elScope2Ai.textContent = "29,570 kWh/day";
-    if (elScope2Saved) elScope2Saved.textContent = "2,487.5 t CO₂e/yr";
-    if (elScope3Saved) elScope3Saved.textContent = "16,398.2 t CO₂e/yr";
-    if (elFeedSaved) elFeedSaved.textContent = "5,856.5 tons/yr";
-    if (elMortBase) elMortBase.textContent = "4.8% (102,000 lost/batch)";
-    if (elMortAi) elMortAi.textContent = "1.2% (25,500 lost/batch)";
-    if (elBirdsSaved) elBirdsSaved.textContent = "497,250 broiler lives preserved per year";
-    if (elWorkerSaved) elWorkerSaved.textContent = "52,925 worker hrs/year";
-  } else {
-    if (elFleetBirds) elFleetBirds.textContent = "42,500 Birds (House 03)";
-    if (elTotalGhg) elTotalGhg.textContent = "377.7 t CO₂e/yr";
-    if (elScope2Base) elScope2Base.textContent = "826.0 kWh/day";
-    if (elScope2Ai) elScope2Ai.textContent = "591.4 kWh/day";
-    if (elScope2Saved) elScope2Saved.textContent = "49.75 t CO₂e/yr";
-    if (elScope3Saved) elScope3Saved.textContent = "327.9 t CO₂e/yr";
-    if (elFeedSaved) elFeedSaved.textContent = "117.1 tons/yr";
-    if (elMortBase) elMortBase.textContent = "4.8% (2,040 lost/batch)";
-    if (elMortAi) elMortAi.textContent = "1.2% (510 lost/batch)";
-    if (elBirdsSaved) elBirdsSaved.textContent = "9,945 broiler lives preserved per year";
-    if (elWorkerSaved) elWorkerSaved.textContent = "1,058 worker hrs/year";
+    tariffEl.innerHTML = `
+      <svg viewBox="0 0 400 100" style="width: 100%; height: 100%;">
+        <rect x="40" y="20" width="80" height="65" fill="rgba(56, 189, 248, 0.25)" rx="3"/>
+        <text x="80" y="55" fill="#38bdf8" font-size="8.5" font-weight="bold" text-anchor="middle" font-family="JetBrains Mono">${valTitle}</text>
+        <text x="80" y="70" fill="#ffffff" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono">${valSub}</text>
+        
+        <rect x="130" y="45" width="130" height="40" fill="rgba(244, 63, 94, 0.25)" rx="3"/>
+        <text x="195" y="65" fill="#fda4af" font-size="8.5" font-weight="bold" text-anchor="middle" font-family="JetBrains Mono">${peakTitle}</text>
+        <text x="195" y="78" fill="#ffffff" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono">${peakSub}</text>
+        
+        <rect x="270" y="32" width="100" height="53" fill="rgba(16, 185, 129, 0.25)" rx="3"/>
+        <text x="320" y="60" fill="#10b981" font-size="8.5" font-weight="bold" text-anchor="middle" font-family="JetBrains Mono">${normTitle}</text>
+        <text x="320" y="73" fill="#ffffff" font-size="7.5" text-anchor="middle" font-family="JetBrains Mono">${normSub}</text>
+        
+        <line x1="40" y1="85" x2="370" y2="85" stroke="rgba(255,255,255,0.2)" stroke-width="1"/>
+        <text x="40" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">00:00</text>
+        <text x="130" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">08:00</text>
+        <text x="260" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">18:00</text>
+        <text x="355" y="96" fill="#94a3b8" font-size="8.5" font-family="JetBrains Mono">24:00</text>
+      </svg>
+    `;
   }
 }
 
-if (btnScopeEnterprise) btnScopeEnterprise.addEventListener('click', () => renderEsgMetrics(true));
-if (btnScopeSingle) btnScopeSingle.addEventListener('click', () => renderEsgMetrics(false));
+// Attach Event Listeners to BI Filters and Export Buttons
+document.querySelectorAll('.bi-chip').forEach(chip => {
+  chip.addEventListener('click', () => {
+    document.querySelectorAll('.bi-chip').forEach(c => c.classList.remove('active'));
+    chip.classList.add('active');
+    renderBiTable(chip.dataset.complex);
+    addAuditLog(`BI Table filtered by ${chip.textContent.trim()}`);
+  });
+});
 
-// Generate Certified ESG Audit Report
-const btnGenEsg = document.getElementById('btn-gen-esg-report');
-if (btnGenEsg) {
-  btnGenEsg.addEventListener('click', () => {
-    const docId = `ESG-AUDIT-SUNNER-${Date.now()}`;
-    const certBox = document.getElementById('cert-body-text');
-    if (certBox) {
-      certBox.innerHTML = `
-        <strong>Document ID:</strong> ${docId}<br>
-        <strong>Certification:</strong> GHG Protocol & ISO 14064-1:2018 Certified<br>
-        <strong>Scope:</strong> 50 Broiler Houses (2,125,000 Birds)<br>
-        <strong>Annual Carbon Avoided:</strong> 18,885.72 metric tons CO₂e<br>
-        <strong>Humane Lives Preserved:</strong> 497,250 broilers/yr (Mortality: 1.2% vs 4.8%)<br>
-        <strong>Worker Safety Gain:</strong> 52,925 hours/yr (-82.9%)<br>
-        <strong>Digital Signature:</strong> SHA256:e8b4f2c99a10583d73b2241cf892305aa7842c56910bbaec0924719d380f2d48
+document.getElementById('btn-bi-export-pbi')?.addEventListener('click', () => {
+  addAuditLog("📥 Snowflake Gold Layer DirectQuery schema exported to PowerBI dataset", true);
+  alert("PowerBI DirectQuery Schema (.pbix / JSON) exported successfully from Snowflake Gold Layer!");
+});
+
+document.getElementById('btn-bi-open-fullscreen')?.addEventListener('click', () => {
+  const cardBi = document.getElementById('executive-bi-dashboard-card');
+  if (cardBi) {
+    if (!document.fullscreenElement) {
+      cardBi.requestFullscreen?.();
+    } else {
+      document.exitFullscreen?.();
+    }
+  }
+});
+
+function selectNode(id) {
+  renderNodeDetails(id);
+
+  if (window.highway3D) {
+    const idx = nodeOrder.indexOf(id);
+    if (idx !== -1) {
+      window.highway3D.setActiveNode(idx);
+    }
+  }
+
+  if (window.topologyCanvas) {
+    window.topologyCanvas.selectedNodeId = id;
+  }
+}
+
+window.selectNodeFrom3D = function(nodeId, index) {
+  renderNodeDetails(nodeId);
+};
+
+window.onTopologyNodeSelected = function(nodeId) {
+  pauseTour();
+  renderNodeDetails(nodeId);
+};
+
+// =================================================================
+// GLOBAL AUTONOMOUS AUTO-TOUR ENGINE (3D & 2D SYNCHRONIZED)
+// =================================================================
+const btnTour = document.getElementById('btn-toggle-autocruise');
+const iconTour = document.getElementById('icon-autocruise');
+
+function advanceAutoTour() {
+  const currentIdx = nodeOrder.indexOf(activeNodeId);
+  const nextIdx = (currentIdx + 1) % nodeOrder.length;
+  const nextNodeId = nodeOrder[nextIdx];
+  selectNode(nextNodeId);
+}
+
+function playTour() {
+  isAutoTourRunning = true;
+  if (iconTour) iconTour.textContent = "⏸";
+  if (btnTour) btnTour.className = "control-circle-btn primary";
+
+  if (window.highway3D) window.highway3D.autoTour = true;
+
+  if (autoTourInterval) clearInterval(autoTourInterval);
+  autoTourInterval = setInterval(() => {
+    advanceAutoTour();
+  }, TOUR_STEP_INTERVAL_MS);
+}
+
+function pauseTour() {
+  isAutoTourRunning = false;
+  if (iconTour) iconTour.textContent = "▶";
+  if (btnTour) btnTour.className = "control-circle-btn";
+
+  if (window.highway3D) window.highway3D.autoTour = false;
+
+  if (autoTourInterval) {
+    clearInterval(autoTourInterval);
+    autoTourInterval = null;
+  }
+}
+
+if (btnTour) {
+  btnTour.addEventListener('click', () => {
+    if (isAutoTourRunning) {
+      pauseTour();
+      addAuditLog("Autonomous Auto-Tour paused by presenter");
+    } else {
+      playTour();
+      addAuditLog("Autonomous Auto-Tour engaged across all 13 nodes", true);
+    }
+  });
+}
+
+document.getElementById('btn-step-prev')?.addEventListener('click', () => {
+  pauseTour();
+  const currentIdx = nodeOrder.indexOf(activeNodeId);
+  const prevIdx = currentIdx > 0 ? currentIdx - 1 : nodeOrder.length - 1;
+  selectNode(nodeOrder[prevIdx]);
+});
+
+document.getElementById('btn-step-next')?.addEventListener('click', () => {
+  pauseTour();
+  const currentIdx = nodeOrder.indexOf(activeNodeId);
+  const nextIdx = (currentIdx + 1) % nodeOrder.length;
+  selectNode(nodeOrder[nextIdx]);
+});
+
+// =================================================================
+// 1. 2D INTERACTIVE GRAPH CAPABILITIES (5 ADVANCED FEATURES)
+// =================================================================
+const filterBtns = document.querySelectorAll('.chip-btn');
+filterBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    filterBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const fKey = btn.dataset.filter || 'all';
+    if (window.topologyCanvas) {
+      window.topologyCanvas.setSubsystem(fKey);
+    }
+    addAuditLog(`2D Subsystem filtered: ${btn.textContent.trim()}`);
+  });
+});
+
+const btnToggleXray = document.getElementById('btn-toggle-xray');
+btnToggleXray?.addEventListener('click', () => {
+  if (window.topologyCanvas) {
+    const active = window.topologyCanvas.toggleXray();
+    btnToggleXray.classList.toggle('active', active);
+    addAuditLog(`X-Ray Protocol View: ${active ? 'ENGAGED' : 'DISENGAGED'}`, active);
+  }
+});
+
+const btnToggleLineage = document.getElementById('btn-toggle-lineage');
+btnToggleLineage?.addEventListener('click', () => {
+  if (window.topologyCanvas) {
+    const active = window.topologyCanvas.toggleLineage();
+    btnToggleLineage.classList.toggle('active', active);
+    addAuditLog(`End-to-End Lineage Tracer: ${active ? 'ENGAGED' : 'DISENGAGED'}`);
+  }
+});
+
+const btnToggleOffline = document.getElementById('btn-toggle-edge-offline');
+btnToggleOffline?.addEventListener('click', () => {
+  if (window.topologyCanvas) {
+    const isOffline = window.topologyCanvas.toggleEdgeOffline();
+    btnToggleOffline.classList.toggle('active', isOffline);
+    if (isOffline) {
+      btnToggleOffline.textContent = "🔄 Reconnect Buffer";
+      document.getElementById('cortex-narrative').textContent = '"FAULT INJECTION: Cloud internet severed! Welotec Edge Gateway engaged 48h local NVRAM circular buffer. Zero on-site data loss."';
+      addAuditLog("🚨 Cloud link severed! Edge Gateway buffering to NVRAM (48h)", true);
+    } else {
+      btnToggleOffline.textContent = "⚡ Offline Buffer Sim";
+      document.getElementById('cortex-narrative').textContent = '"LINK RESTORED: Edge Gateway flushed 1,420 buffered Sparkplug B events into Snowflake Snowpipe. Zero dropped packets."';
+      addAuditLog("✅ Cloud link restored: 1,420 buffered NVRAM events flushed to Snowflake", true);
+    }
+  }
+});
+
+// =================================================================
+// =================================================================
+// 2. ROADSHOW KEYNOTE SHOWCASE MODES (FULLY LIBERAL & SEAMLESS CLICKS)
+// =================================================================
+const btnKeyClosedLoop = document.getElementById('btn-keynote-closedloop');
+const btnKeySap = document.getElementById('btn-keynote-sap');
+const btnKeyEsg = document.getElementById('btn-keynote-esg');
+
+function resetKeynoteButtons() {
+  document.querySelectorAll('.keynote-btn').forEach(b => b.classList.remove('active'));
+}
+
+btnKeyClosedLoop?.addEventListener('click', () => {
+  // 1. Ensure Main Decision OS View is Visible
+  document.getElementById('nav-btn-highway')?.click();
+
+  // 2. Set Button Active
+  resetKeynoteButtons();
+  btnKeyClosedLoop.classList.add('active');
+  pauseTour();
+
+  // 3. Reset Sliders to Nominal Peak Condition
+  const slNH3 = document.getElementById('slider-sim-nh3');
+  const slTar = document.getElementById('slider-sim-tariff');
+  const lblNH3 = document.getElementById('lbl-sim-nh3');
+  const lblTar = document.getElementById('lbl-sim-tariff');
+  if (slNH3) slNH3.value = "11.4";
+  if (lblNH3) lblNH3.textContent = "11.4 ppm";
+  if (slTar) slTar.value = "3";
+  if (lblTar) lblTar.textContent = "Peak (¥1.35)";
+
+  // 4. Update Agent Votes
+  const hTxt = document.getElementById('txt-agent-health');
+  const hBadge = document.getElementById('badge-agent-health');
+  if (hTxt) hTxt.textContent = "NH₃ 11.4 ppm (Safe) • Optimal Air";
+  if (hBadge) { hBadge.className = "agent-vote-badge approved"; hBadge.textContent = "VOTE: PASS"; }
+
+  const eTxt = document.getElementById('txt-agent-energy');
+  const eBadge = document.getElementById('badge-agent-energy');
+  if (eTxt) eTxt.textContent = "Peak Tariff (¥1.35/kWh) • Throttling Fans 25%";
+  if (eBadge) { eBadge.className = "agent-vote-badge saving"; eBadge.textContent = "SAVING: -28.4%"; }
+
+  // 5. Update Cortex AI Narrative
+  const narrEl = document.getElementById('cortex-narrative');
+  if (narrEl) {
+    narrEl.textContent = '"Peak electricity active (¥1.35/kWh). Energy Agent throttled ventilation fans to 25% while Health Agent confirmed flock air quality remains safe. Saved ¥9.72/hour."';
+  }
+  addAuditLog("Cortex AI closed-loop setpoint: 25% Fan RPM modulation (-28.4% energy)", true);
+
+  if (window.highway3D) window.highway3D.setSimulatedAmmonia(11.4);
+  selectNode('ml');
+});
+
+btnKeySap?.addEventListener('click', () => {
+  // 1. Ensure Main Decision OS View is Visible
+  document.getElementById('nav-btn-highway')?.click();
+
+  // 2. Set Button Active
+  resetKeynoteButtons();
+  btnKeySap.classList.add('active');
+  pauseTour();
+
+  // 3. Update SAP Agent Status
+  const sTxt = document.getElementById('txt-agent-sap');
+  const sBadge = document.getElementById('badge-agent-sap');
+  if (sTxt) sTxt.textContent = "Silo 11.0t (< 15t Threshold) • Auto-PO Issued";
+  if (sBadge) { sBadge.className = "agent-vote-badge approved"; sBadge.textContent = "PO #45008 SIGNED"; }
+
+  nodeDescriptions.sap.stats = [
+    { label: "SILO INVENTORY", val: "11.0", unit: "Tons", sub: "● Below Threshold (<15t)", state: "positive" },
+    { label: "AUTO-PO ISSUED", val: "#PO_45008", unit: "", sub: "● 25.0t Soya Meal", state: "positive" },
+    { label: "EST. DELIVERY", val: "08:00", unit: "Tomorrow", sub: "● Zero-Touch ERP", state: "positive" }
+  ];
+  nodeDescriptions.sap.cortex = "SAP Supply Chain Agent detected low silo inventory (11.0t < 15.0t). Generated BAPI Purchase Order #PO_4500892140 with Fujian Feed Co. Zero human paperwork required.";
+
+  // 4. Update Cortex Narrative
+  const narrEl = document.getElementById('cortex-narrative');
+  if (narrEl) {
+    narrEl.textContent = '"SAP Agent detected Silo Inventory at 11.0t (below 15t threshold). Auto-executed BAPI_PO_CREATE1 for 25 tons feed delivery without human paperwork."';
+  }
+  addAuditLog("SAP BAPI_PO_CREATE1 triggered PO #4500892140 for 25.0t feed replenishment", true);
+
+  selectNode('sap');
+});
+
+btnKeyEsg?.addEventListener('click', () => {
+  // 1. Switch to ESG View
+  document.getElementById('nav-btn-esg')?.click();
+
+  // 2. Set Button Active
+  resetKeynoteButtons();
+  btnKeyEsg.classList.add('active');
+  pauseTour();
+
+  // 3. Trigger ESG Certificate
+  document.getElementById('btn-gen-esg-report')?.click();
+  addAuditLog("ISO 14064 Carbon Certificate generated with cryptographic SHA-256", true);
+});
+
+// =================================================================
+// 3. LIVE INTERACTIVE SIMULATOR SLIDERS
+// =================================================================
+const sliderNH3 = document.getElementById('slider-sim-nh3');
+const lblNH3 = document.getElementById('lbl-sim-nh3');
+
+sliderNH3?.addEventListener('input', (e) => {
+  pauseTour();
+  const val = parseFloat(e.target.value);
+  if (lblNH3) lblNH3.textContent = `${val.toFixed(1)} ppm`;
+
+  if (window.highway3D) window.highway3D.setSimulatedAmmonia(val);
+
+  if (val >= 20.0) {
+    document.getElementById('txt-agent-health').textContent = `🚨 NH₃ AT ${val.toFixed(1)} ppm • EMERGENCY FLOCK FLUSH`;
+    document.getElementById('badge-agent-health').className = "agent-vote-badge danger";
+    document.getElementById('badge-agent-health').textContent = "OVERRULE: 100% FAN";
+
+    document.getElementById('txt-agent-energy').textContent = "Energy savings overridden by Health Priority Rule.";
+    document.getElementById('badge-agent-energy').className = "agent-vote-badge standby";
+    document.getElementById('badge-agent-energy').textContent = "YIELDED";
+
+    document.getElementById('cortex-narrative').textContent = `"PRIORITY OVERRIDE: Ammonia rose to ${val.toFixed(1)} ppm (>=20 ppm threshold). Health Agent overrules Energy savings and commands 100% ventilation emergency air flush in 0.28s."`;
+    addAuditLog(`🚨 EMERGENCY: NH3 spiked to ${val.toFixed(1)} ppm! Fan emergency flush engaged (0.28s)`, true);
+
+    selectNode('ml');
+  } else {
+    document.getElementById('txt-agent-health').textContent = `NH₃ ${val.toFixed(1)} ppm (Safe) • Optimal Air`;
+    document.getElementById('badge-agent-health').className = "agent-vote-badge approved";
+    document.getElementById('badge-agent-health').textContent = "VOTE: PASS";
+
+    document.getElementById('txt-agent-energy').textContent = "Peak Tariff (¥1.35/kWh) • Throttling Fans 25%";
+    document.getElementById('badge-agent-energy').className = "agent-vote-badge saving";
+    document.getElementById('badge-agent-energy').textContent = "SAVING: -28.4%";
+
+    document.getElementById('cortex-narrative').textContent = `"Nominal flock safety confirmed. Air NH3 at ${val.toFixed(1)} ppm. Energy Agent modulating fans for optimal electricity cost reduction."`;
+  }
+});
+
+const sliderTariff = document.getElementById('slider-sim-tariff');
+const lblTariff = document.getElementById('lbl-sim-tariff');
+sliderTariff?.addEventListener('input', (e) => {
+  const level = parseInt(e.target.value);
+  if (level === 3) {
+    if (lblTariff) lblTariff.textContent = "Peak (¥1.35)";
+    document.getElementById('txt-agent-energy').textContent = "Peak Tariff (¥1.35/kWh) • Throttling Fans 25%";
+    document.getElementById('badge-agent-energy').textContent = "SAVING: -28.4%";
+  } else if (level === 2) {
+    if (lblTariff) lblTariff.textContent = "Normal (¥0.85)";
+    document.getElementById('txt-agent-energy').textContent = "Normal Tariff (¥0.85/kWh) • Fans at 60%";
+    document.getElementById('badge-agent-energy').textContent = "BALANCED";
+  } else {
+    if (lblTariff) lblTariff.textContent = "Valley (¥0.38)";
+    document.getElementById('txt-agent-energy').textContent = "Valley Tariff (¥0.38/kWh) • Pre-cooling Barn";
+    document.getElementById('badge-agent-energy').textContent = "PRE-COOLING";
+  }
+});
+
+// =================================================================
+// 4. SIDEBAR ROUTING & CONTROLS
+// =================================================================
+const navModules = {
+  'nav-btn-highway': { secId: 'section-enterprise-flow', titleEn: 'Enterprise Decision OS', titleZh: '全链路智能制造决策系统' },
+  'nav-btn-bi': { secId: 'section-enterprise-flow', titleEn: 'Executive BI & Corporate Analytics Command Center', titleZh: '集团数字化运营指挥与决策大屏', node: 'dash' },
+  'nav-btn-esg': { secId: 'section-esg-evolution', titleEn: 'ESG Carbon Accounting Hub', titleZh: 'ESG 碳资产全生命周期核算中心' },
+  'nav-btn-barn': { secId: 'section-spatial-gauges', titleEn: 'Physical Barn Digital Twin', titleZh: '鸡舍三维空间物理数字孪生' },
+  'nav-btn-roi': { secId: 'section-comparison', titleEn: 'Autopilot vs Legacy ROI Matrix', titleZh: 'AI 闭环自愈与传统模式经济效益对比' },
+  'nav-btn-presentation': { secId: 'section-presentation-deck', titleEn: 'Executive Keynote Presentation & Speech Deck', titleZh: '圣农 × GEA 智能制造操作系统高管汇报演讲台' }
+};
+
+Object.keys(navModules).forEach(navId => {
+  const btn = document.getElementById(navId);
+  if (btn) {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.sidebar-nav-item').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.main-module-view').forEach(s => s.style.display = 'none');
+
+      btn.classList.add('active');
+      const targetSec = document.getElementById(navModules[navId].secId);
+      if (targetSec) targetSec.style.display = 'block';
+
+      const isZh = window.i18n && window.i18n.currentLang === 'zh';
+      const topTitle = document.getElementById('top-view-title');
+      if (topTitle) topTitle.textContent = isZh ? navModules[navId].titleZh : navModules[navId].titleEn;
+
+      if (navId === 'nav-btn-highway') {
+        if (window.highway3D) window.highway3D.onResize();
+        if (window.topologyCanvas) window.topologyCanvas.resize();
+      } else if (navId === 'nav-btn-bi') {
+        pauseTour();
+        selectNode('dash');
+        if (window.highway3D) window.highway3D.onResize();
+        if (window.topologyCanvas) window.topologyCanvas.resize();
+        addAuditLog(isZh ? "📊 集团商业智能大屏已从导航栏开启" : "📊 Executive BI Command Center opened from sidebar navigation", true);
+      } else if (navId === 'nav-btn-presentation') {
+        pauseTour();
+        renderPresentationSlide(activePresentationSlide);
+        addAuditLog(isZh ? "🎙️ 集团高管汇报演讲台已就绪" : "🎙️ Keynote Presentation & Speaker Deck initialized", true);
+      }
+    });
+  }
+});
+
+function resetScenarioButtons() {
+  document.querySelectorAll('.scenario-nav-btn').forEach(b => b.classList.remove('active-scen'));
+}
+
+document.getElementById('side-scen-closedloop')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-closedloop')?.classList.add('active-scen');
+  document.getElementById('btn-keynote-closedloop')?.click();
+});
+
+document.getElementById('side-scen-sap')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-sap')?.classList.add('active-scen');
+  document.getElementById('btn-keynote-sap')?.click();
+});
+
+document.getElementById('side-scen-esgcert')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-esgcert')?.classList.add('active-scen');
+  document.getElementById('btn-keynote-esg')?.click();
+});
+
+document.getElementById('side-scen-ammonia')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-ammonia')?.classList.add('active-scen');
+  resetKeynoteButtons();
+
+  document.getElementById('nav-btn-highway')?.click();
+  pauseTour();
+
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  const hTxt = document.getElementById('txt-agent-health');
+  const hBadge = document.getElementById('badge-agent-health');
+  if (hTxt) hTxt.textContent = isZh ? "🚨 氨气浓度达到 28.5 ppm • 行使最高否决权 (100%全速排风)" : "🚨 NH₃ AT 28.5 ppm • EMERGENCY VETO (100% FAN COMMAND)";
+  if (hBadge) { hBadge.className = "agent-vote-badge danger"; hBadge.textContent = isZh ? "最高否决: 100%风机" : "OVERRULE: 100% FAN"; }
+
+  const eTxt = document.getElementById('txt-agent-energy');
+  const eBadge = document.getElementById('badge-agent-energy');
+  if (eTxt) eTxt.textContent = isZh ? "能耗优化主动让步，让行鸡群健康安全底线规则。" : "Energy savings yielded to flock health priority rule.";
+  if (eBadge) { eBadge.className = "agent-vote-badge standby"; eBadge.textContent = isZh ? "让步让行" : "YIELDED"; }
+
+  const sTxt = document.getElementById('txt-agent-sap');
+  const sBadge = document.getElementById('badge-agent-sap');
+  if (sTxt) sTxt.textContent = isZh ? "料塔库存 35.7吨 • 供应充足受控" : "Silo 35.7t • Normal Supply Flow";
+  if (sBadge) { sBadge.className = "agent-vote-badge standby"; sBadge.textContent = isZh ? "待命" : "STANDBY"; }
+
+  const narrEl = document.getElementById('cortex-narrative');
+  if (narrEl) {
+    narrEl.textContent = isZh
+      ? '"🚨 危机仲裁超驰：氨气浓度突增至 28.5 ppm (>=20.0 ppm 危险红线)。生物健康智能体行使最高否决权，瞬间压制峰谷节电策略，指令变频风机 0.28秒内 100% 全速应急排风，保全 42,500羽鸡群生命安全。"'
+      : '"🚨 PRIORITY OVERRULE: Ammonia spiked to 28.5 ppm (>=20.0 ppm safety threshold). Biological Health Agent executes hard priority veto, overruling Energy savings and commanding 100% ventilation emergency flush in 0.28s to preserve 42,500 bird lives."';
+  }
+
+  addAuditLog(isZh ? "🚨 紧急危机：氨气浓度突破 28.5 ppm！健康智能体触发最高否决权，0.28秒全速强排" : "🚨 EMERGENCY CRISIS: Ammonia spiked to 28.5 ppm! Cortex AI biological veto engaged: 100% fan flush in 0.28s", true);
+
+  if (window.topologyCanvas) {
+    window.topologyCanvas.nodes.sensors.metric = isZh ? "🚨 28.5 ppm (超标危险)" : "🚨 28.5 ppm (CRITICAL)";
+  }
+  if (window.highway3D) {
+    window.highway3D.setActiveNode(11);
+  }
+
+  selectNode('ml');
+});
+
+document.getElementById('side-scen-legacy')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-legacy')?.classList.add('active-scen');
+  resetKeynoteButtons();
+
+  document.getElementById('nav-btn-highway')?.click();
+  pauseTour();
+
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  const hTxt = document.getElementById('txt-agent-health');
+  const hBadge = document.getElementById('badge-agent-health');
+  if (hTxt) hTxt.textContent = isZh ? "❌ 依赖人工巡检 • 45分钟严重察觉滞后" : "❌ Manual Walkthrough • 45-Min Detection Lag";
+  if (hBadge) { hBadge.className = "agent-vote-badge danger"; hBadge.textContent = isZh ? "无自动超驰" : "NO AUTO VETO"; }
+
+  const eTxt = document.getElementById('txt-agent-energy');
+  const eBadge = document.getElementById('badge-agent-energy');
+  if (eTxt) eTxt.textContent = isZh ? "❌ 定频风机全速傻转 • 0% 避峰电费优化" : "❌ Fixed Speed Fans • 0% Tariff Optimization";
+  if (eBadge) { eBadge.className = "agent-vote-badge danger"; eBadge.textContent = isZh ? "0% 节电" : "0% SAVING"; }
+
+  const sTxt = document.getElementById('txt-agent-sap');
+  const sBadge = document.getElementById('badge-agent-sap');
+  if (sTxt) sTxt.textContent = isZh ? "❌ 人工填报纸质单据 • 周度批处理滞后" : "❌ Manual Paper Orders • Weekly Batch Entry";
+  if (sBadge) { sBadge.className = "agent-vote-badge danger"; sBadge.textContent = isZh ? "人工录入" : "PAPERWORK"; }
+
+  const narrEl = document.getElementById('cortex-narrative');
+  if (narrEl) {
+    narrEl.textContent = isZh
+      ? '"❌ 传统孤岛模式：云端实时闭环断开。养殖场依赖场长手工记录台账、微信表格汇总与周度 SAP 手工补录。氨气超标察觉耗时 45分钟以上，极易造成大批死淘。"'
+      : '"❌ DISCONNECTED LEGACY SILOS: Direct cloud streams severed. Operations rely on manual paper logs, Excel emails, and delayed weekly SAP manual batch entry. Reaction time to ammonia spikes exceeds 45 minutes, risking bird mortality."';
+  }
+
+  addAuditLog(isZh ? "⚠️ 场景切换：传统信息孤岛模式已激活 (人工滞后，无AI闭环)" : "⚠️ SCENARIO: Legacy Disconnected Silos active (Manual batch lag, no AI closed-loop)", true);
+  selectNode('sensors');
+});
+
+// Viewport Switcher
+const btnView3D = document.getElementById('btn-view-3d');
+const btnView2D = document.getElementById('btn-view-2d');
+const vp3D = document.getElementById('viewport-3d');
+const vp2D = document.getElementById('viewport-2d');
+
+if (btnView3D && btnView2D && vp3D && vp2D) {
+  btnView3D.addEventListener('click', () => {
+    btnView3D.classList.add('active');
+    btnView2D.classList.remove('active');
+    vp3D.style.display = 'block';
+    vp2D.style.display = 'none';
+    if (window.highway3D) window.highway3D.onResize();
+  });
+
+  btnView2D.addEventListener('click', () => {
+    btnView2D.classList.add('active');
+    btnView3D.classList.remove('active');
+    vp2D.style.display = 'block';
+    vp3D.style.display = 'none';
+    if (window.topologyCanvas) window.topologyCanvas.resize();
+  });
+}
+
+// Speed Buttons
+const speedBtns = document.querySelectorAll('.speed-btn');
+speedBtns.forEach(btn => {
+  btn.addEventListener('click', () => {
+    speedBtns.forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    const spd = parseFloat(btn.dataset.speed || '1.0');
+    if (window.topologyCanvas) window.topologyCanvas.setSpeed(spd);
+  });
+});
+
+// Zoom Controls
+document.getElementById('btn-zoom-in')?.addEventListener('click', () => {
+  if (window.highway3D) window.highway3D.zoomIn();
+});
+document.getElementById('btn-zoom-out')?.addEventListener('click', () => {
+  if (window.highway3D) window.highway3D.zoomOut();
+});
+document.getElementById('btn-zoom-reset')?.addEventListener('click', () => {
+  if (window.highway3D) window.highway3D.resetView();
+});
+
+// Mode Switcher
+const btnExec = document.getElementById('btn-mode-executive');
+const btnTech = document.getElementById('btn-mode-technical');
+const cardExec = document.getElementById('executive-story-card');
+const cardTech = document.getElementById('technical-code-box');
+
+if (btnExec && btnTech) {
+  btnExec.addEventListener('click', () => {
+    btnExec.classList.add('active');
+    btnTech.classList.remove('active');
+    if (activeNodeId === 'dash') {
+      const cardBi = document.getElementById('executive-bi-dashboard-card');
+      if (cardBi) cardBi.style.display = 'flex';
+      if (cardExec) cardExec.style.display = 'none';
+    } else {
+      if (cardExec) cardExec.style.display = 'flex';
+    }
+    if (cardTech) cardTech.style.display = 'none';
+  });
+
+  btnTech.addEventListener('click', () => {
+    btnTech.classList.add('active');
+    btnExec.classList.remove('active');
+    if (cardExec) cardExec.style.display = 'none';
+    const cardBi = document.getElementById('executive-bi-dashboard-card');
+    if (cardBi) cardBi.style.display = 'none';
+    if (cardTech) cardTech.style.display = 'block';
+    renderNodeDetails(activeNodeId);
+  });
+}
+
+// Scope Switcher in ESG view
+const btnScopeEnt = document.getElementById('btn-scope-enterprise');
+const btnScopeSng = document.getElementById('btn-scope-single');
+if (btnScopeEnt && btnScopeSng) {
+  btnScopeEnt.addEventListener('click', () => {
+    btnScopeEnt.classList.add('active');
+    btnScopeSng.classList.remove('active');
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    document.getElementById('val-esg-scope2-saved').textContent = isZh ? "2,487.5 吨 CO₂/年" : "2,487.5 Tons CO₂/yr";
+    document.getElementById('val-esg-scope2-ai').textContent = isZh ? "29,570 度电/天" : "29,570 kWh/day";
+    document.getElementById('val-esg-feed-saved').textContent = isZh ? "5,856.5 吨/年" : "5,856.5 Tons/yr";
+    document.getElementById('val-esg-birds-saved').textContent = isZh ? "全集团年挽救 497,250羽 白羽肉鸡" : "497,250 healthy chickens preserved per year";
+  });
+
+  btnScopeSng.addEventListener('click', () => {
+    btnScopeSng.classList.add('active');
+    btnScopeEnt.classList.remove('active');
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    document.getElementById('val-esg-scope2-saved').textContent = isZh ? "49.75 吨 CO₂/年" : "49.75 Tons CO₂/yr";
+    document.getElementById('val-esg-scope2-ai').textContent = isZh ? "591.4 度电/天" : "591.4 kWh/day";
+    document.getElementById('val-esg-feed-saved').textContent = isZh ? "117.1 吨/年" : "117.1 Tons/yr";
+    document.getElementById('val-esg-birds-saved').textContent = isZh ? "单栋鸡舍年挽救 9,945羽 白羽肉鸡" : "9,945 healthy chickens preserved per year";
+  });
+}
+
+// ESG Certificate Generation
+document.getElementById('btn-gen-esg-report')?.addEventListener('click', () => {
+  const certEl = document.getElementById('cert-body-text');
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  if (certEl) {
+    if (isZh) {
+      certEl.innerHTML = `
+        认证报告编号: ESG-AUDIT-SUNNER-${Date.now()}<br>
+        核算认证标准: ISO 14064-1 国际温室气体核查标准与 GHG Protocol 官方认证<br>
+        集团年核证减排量: 18,885.72 吨二氧化碳当量 (CO₂e)<br>
+        全群死淘率优化: 1.2% (每年多成活 497,250羽 健康优质肉鸡)<br>
+        数字防伪哈希: e8b4f2c99a10583d73b2241cf892305aa7842c56910bbaec0924719d380f2d48
+      `;
+    } else {
+      certEl.innerHTML = `
+        Document ID: ESG-AUDIT-SUNNER-${Date.now()}<br>
+        Standard: ISO 14064-1 & GHG Protocol Certified<br>
+        Annual Avoided Carbon: 18,885.72 metric tons CO₂e<br>
+        Bird Mortality: 1.2% (Preserving 497,250 birds/yr)<br>
+        SHA-256: e8b4f2c99a10583d73b2241cf892305aa7842c56910bbaec0924719d380f2d48
       `;
     }
+  }
+});
+
+// =================================================================
+// 5. BARN SPATIAL TWIN ZONE CONTROLLER (ZONES 1, 2, 3)
+// =================================================================
+const barnZoneDataEn = {
+  'zone-front': {
+    badge: "ZONE 1 • AIR INLET & STATIC PRESSURE MANIFOLD",
+    status: "● OPTIMAL FRESH INTAKE",
+    statusClass: "green",
+    metrics: [
+      { label: "STATIC PRESSURE", val: "-18.2 Pa", sub: "● Tunnel Target: -15 to -22 Pa" },
+      { label: "INLET LOUVER ANGLE", val: "42.0°", sub: "● Modulated for Broiler Day 26" },
+      { label: "INTAKE AIRFLOW", val: "38,500 m³/h", sub: "● Fresh Oxygen Replenishment" },
+      { label: "INLET TEMP / RH", val: "21.8°C / 62%", sub: "● Ideal Pre-Conditioned Air" }
+    ]
+  },
+  'zone-mid': {
+    badge: "ZONE 2 • 42,500 COBB500 FLOCK MICROCLIMATE",
+    status: "● OPTIMAL THERMAL COMFORT",
+    statusClass: "green",
+    metrics: [
+      { label: "FLOCK POPULATION", val: "42,500 Birds", sub: "● Batch #2026-B08 (Day 26)" },
+      { label: "FLOOR DENSITY", val: "34.8 kg/m²", sub: "● Standard Broiler Distribution" },
+      { label: "THERMAL COMFORT", val: "98.5%", sub: "● Uniform Spread (No Huddling)" },
+      { label: "GROWTH / DAILY GAIN", val: "+68.5 g/day", sub: "● FCR 1.54 Ahead of Cohort" }
+    ]
+  },
+  'zone-rear': {
+    badge: "ZONE 3 • EXHAUST FANS & AMMONIA EVACUATION",
+    status: "● ECO-MODULATED SPEED (25%)",
+    statusClass: "green",
+    metrics: [
+      { label: "TUNNEL AIR SPEED", val: "2.4 m/s", sub: "● Wind Chill Index Optimal" },
+      { label: "ACTIVE FAN MOTORS", val: "4 of 8 (850 RPM)", sub: "● 4 Fans on Eco Standby" },
+      { label: "AMMONIA (NH₃)", val: "11.4 ppm", sub: "● Safe Level (< 20 ppm Veto Limit)" },
+      { label: "POWER DRAW / SAVING", val: "14.2 kW (-28.4%)", sub: "● Peak Tariff Energy Savings" }
+    ]
+  }
+};
+
+const barnZoneDataZh = {
+  'zone-front': {
+    badge: "1区 • 进风小窗与负压导流系统",
+    status: "● 适温新风循环正常",
+    statusClass: "green",
+    metrics: [
+      { label: "静压负压", val: "-18.2 Pa", sub: "● 隧道负压标定: -15 至 -22 Pa" },
+      { label: "进风小窗开度", val: "42.0°", sub: "● 根据 26日龄白羽肉鸡智能调制" },
+      { label: "进风量", val: "38,500 m³/h", sub: "● 充足氧气连续置换" },
+      { label: "进风温度/湿度", val: "21.8°C / 62%", sub: "● 预调温洁净新风" }
+    ]
+  },
+  'zone-mid': {
+    badge: "2区 • 42,500羽 白羽肉鸡微气候生活区",
+    status: "● 动物热舒适度 98.5%",
+    statusClass: "green",
+    metrics: [
+      { label: "存栏羽数", val: "42,500 羽", sub: "● 批次 #2026-B08 (第26天)" },
+      { label: "养殖密度", val: "34.8 kg/m²", sub: "● 均匀散布 (无扎堆喘息)" },
+      { label: "舒适度指数", val: "98.5%", sub: "● 体表微气候舒适稳定" },
+      { label: "日均增重", val: "+68.5 g/天", sub: "● FCR 1.54 大幅优于标杆" }
+    ]
+  },
+  'zone-rear': {
+    badge: "3区 • 变频排风机组与氨气监控",
+    status: "● 避峰节能调制运转 (25%)",
+    statusClass: "green",
+    metrics: [
+      { label: "过道风速", val: "2.4 m/s", sub: "● 风冷效应指数最佳" },
+      { label: "运行风机", val: "4台 / 共8台 (850转)", sub: "● 4台备用低耗待命" },
+      { label: "氨气浓度 (NH₃)", val: "11.4 ppm", sub: "● 远低于 20 ppm 否决红线" },
+      { label: "能耗节约", val: "14.2 kW (-28.4%)", sub: "● 尖峰电价避峰套利" }
+    ]
+  }
+};
+
+let activeBarnZoneKey = 'zone-front';
+
+function selectBarnZone(zoneKey) {
+  activeBarnZoneKey = zoneKey;
+  // Update Buttons
+  document.querySelectorAll('.zone-pill-btn').forEach(btn => {
+    btn.classList.toggle('active', btn.dataset.zone === zoneKey);
   });
+
+  // Update Rooms
+  document.querySelectorAll('.barn-room').forEach(room => {
+    room.classList.toggle('highlight', room.dataset.zone === zoneKey);
+  });
+
+  // Update Details Card
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const data = isZh ? barnZoneDataZh[zoneKey] : barnZoneDataEn[zoneKey];
+  if (!data) return;
+
+  const badgeEl = document.getElementById('zone-detail-badge');
+  const statusEl = document.getElementById('zone-detail-status');
+  const gridEl = document.getElementById('zone-detail-metrics');
+
+  if (badgeEl) badgeEl.textContent = data.badge;
+  if (statusEl) {
+    statusEl.textContent = data.status;
+    statusEl.className = `zone-status-pill ${data.statusClass}`;
+  }
+
+  if (gridEl) {
+    gridEl.innerHTML = data.metrics.map(m => `
+      <div class="zone-stat-box">
+        <span class="zone-stat-lbl">${m.label}</span>
+        <span class="zone-stat-val">${m.val}</span>
+        <span class="zone-stat-sub">${m.sub}</span>
+      </div>
+    `).join('');
+  }
 }
 
-// Canvas HUD Controls: Auto-Cruise & Warp Speed
-const btnToggleAutoCruise = document.getElementById('btn-toggle-autocruise');
-const lblAutoCruise = document.getElementById('lbl-autocruise');
-if (btnToggleAutoCruise) {
-  btnToggleAutoCruise.addEventListener('click', () => {
-    if (window.highwayViz) {
-      const state = window.highwayViz.toggleAutoCruise();
-      lblAutoCruise.textContent = `Auto-Tour: ${state ? 'ON' : 'OFF'}`;
-      btnToggleAutoCruise.className = state ? 'btn btn-primary' : 'btn btn-outline';
+// Attach Event Listeners to Zone Buttons and Cutaway Room Elements
+document.querySelectorAll('.zone-pill-btn').forEach(btn => {
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectBarnZone(btn.dataset.zone);
+  });
+});
+
+document.querySelectorAll('.barn-room').forEach(room => {
+  room.addEventListener('click', (e) => {
+    e.stopPropagation();
+    selectBarnZone(room.dataset.zone);
+  });
+});
+
+// Expose global render hook for i18n
+window.renderCurrentNode = () => {
+  renderNodeDetails(activeNodeId);
+  selectBarnZone(activeBarnZoneKey);
+};
+
+// Language Toggle Switcher (EN / 中文 ZH)
+document.getElementById('btn-toggle-lang')?.addEventListener('click', () => {
+  if (window.i18n) {
+    const newLang = window.i18n.toggle();
+    addAuditLog(`🌐 Language switched to ${newLang.toUpperCase()} (${newLang === 'zh' ? '简体中文' : 'English'})`, true);
+  }
+});
+
+// Initialize Default Zone 1 on startup
+selectBarnZone('zone-front');
+
+// =================================================================
+// 7. EXECUTIVE PRESENTATION & KEYNOTE SPEAKER DECK (8 MASTER SLIDES)
+// =================================================================
+const presentationSlidesEn = [
+  // Slide 0: Executive Vision
+  {
+    topic: "01. STRATEGIC VISION & PARADIGM SHIFT",
+    title: "Sunner × GEA: Autonomous Manufacturing Decision OS",
+    subtitle: "Bridging Shopfloor OT to Enterprise IT Across 50 Industrial Complexes (600M+ Broilers/Year)",
+    pill: "SUB-350MS CLOSED LOOP",
+    time: "⏱️ Target Time: 1.5 - 2.0 mins",
+    demoAction: {
+      badge: "LIVE DEMO ACTION",
+      title: "Experience the real-time 3D cyber data pipeline connecting 50 breeding complexes with autonomous auto-cruise.",
+      btnText: "🚀 Launch 3D Cyber-Highway Demo",
+      targetNav: "nav-btn-highway",
+      viewMode: "3d",
+      scenario: "closedloop"
+    },
+    cards: [
+      { icon: "🏭", title: "Enterprise Fleet Scale", metric: "50 Complexes", text: "Connecting <strong>50 industrial complexes</strong> and 600M+ birds across Fujian, Jiangxi, and Gansu with real-time telemetry." },
+      { icon: "❌", title: "The Legacy Bottleneck", metric: "45-Min Lag", text: "Manual silo inspections, uncoordinated peak electricity bills, and <strong>45-minute delayed reaction</strong> to toxic ammonia spikes." },
+      { icon: "⚡", title: "The Autonomous Twin", metric: "0.3s Closed Loop", text: "Direct cloud conduits and multi-agent AI arbitration uniting <strong>Modbus PLCs, Snowflake, SAP S/4HANA, and Foundry</strong>." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Good morning leadership and esteemed partners. Today, I am proud to present the Sunner × GEA Enterprise Manufacturing Decision OS.</span></p>
+      <p>Sunner is China's leading white-feathered broiler enterprise, harvesting over 600 million birds every year across 50 massive complexes. For decades, the primary bottleneck in livestock manufacturing has been the gap between on-site farm control and corporate business planning.</p>
+      <div class="script-callout">
+        <strong>Key Takeaway for Leadership:</strong> We have transformed agricultural farming into precision high-tech manufacturing by closing the loop in sub-350ms between biological sensors and corporate SAP systems.
+      </div>
+      <p>Click the <strong>'Launch 3D Cyber-Highway Demo'</strong> button above to watch live data packets flow from shopfloor sensors to the cloud in real-time."</p>
+    `
+  },
+  // Slide 1: 13-Node Architecture
+  {
+    topic: "02. ARCHITECTURAL TOPOLOGY & INTEGRATION",
+    title: "13-Tier Nervous System: Shopfloor Edge to Snowflake & Foundry",
+    subtitle: "Zero Data Loss with 48h NVRAM Buffering and Standard Open Industrial Protocols",
+    pill: "LEVEL 0 TO LEVEL 6",
+    time: "⏱️ Target Time: 2.0 mins",
+    demoAction: {
+      badge: "LIVE ARCHITECTURE DEMO",
+      title: "Inspect the 2D precision engineering pipeline, subsystem filters, and protocol X-Ray schemas.",
+      btnText: "🌐 Explore 2D Precision Pipeline",
+      targetNav: "nav-btn-highway",
+      viewMode: "2d",
+      nodeId: "edge"
+    },
+    cards: [
+      { icon: "📟", title: "Shopfloor Edge Tier", metric: "48h Zero Loss", text: "Welotec egOS gateways poll Modbus sensors every 10ms with <strong>TLS 1.3 encryption</strong> and 48-hour local flash buffering." },
+      { icon: "❄️", title: "Cloud Data Lakehouse", metric: "250k rows/sec", text: "High-throughput Snowpipe streaming ingesting real-time microclimate and feed metrics directly to <strong>Snowflake & Palantir Foundry</strong>." },
+      { icon: "🧠", title: "Decision & ERP Tier", metric: "0.2s SAP BAPI", text: "Sub-second closed-loop dispatch back to on-site fans and automated <strong>SAP purchase order generation</strong>." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Here you see the end-to-end industrial nervous system connecting all 13 critical tiers.</span></p>
+      <p>Starting at Level 0 on the farm floor, high-precision Pt100 temperature probes and Modbus ammonia sensors poll conditions every 10ms. Our industrial Welotec edge gateways ensure <strong>48-hour offline buffering</strong>—even in typhoons or severe network outages, zero telemetry is lost.</p>
+      <div class="script-callout">
+        <strong>Architecture Highlight:</strong> Data bypasses traditional vendor lock-in via Sparkplug B directly into Snowflake, linking live sensor states to Palantir Foundry's enterprise ontology.
+      </div>
+      <p>Let's click <strong>'Explore 2D Precision Pipeline'</strong> to inspect how the layers interact."</p>
+    `
+  },
+  // Slide 2: Edge 48h Buffer
+  {
+    topic: "03. EDGE RELIABILITY & FAULT TOLERANCE",
+    title: "Welotec egOS: 48-Hour Zero-Loss Local Buffer Protection",
+    subtitle: "Built for Severe Industrial Conditions: Typhoons, WAN Disruptions, and Mountain Power Cuts",
+    pill: "100% TELEMETRY INTEGRITY",
+    time: "⏱️ Target Time: 1.5 mins",
+    demoAction: {
+      badge: "LIVE FAULT SIMULATION",
+      title: "Simulate a severe network disconnection on Edge Node 03 and watch the NVRAM buffer drain automatically.",
+      btnText: "⚡ Simulate 48h Offline Buffer & Drain",
+      targetNav: "nav-btn-highway",
+      viewMode: "2d",
+      action: "toggleOffline"
+    },
+    cards: [
+      { icon: "🛡️", title: "NVRAM Flash Buffer", metric: "48h / 1.7M Pkts", text: "Guarantees zero dropped packets during telecom fiber cuts, automatically syncing to Snowflake on reconnect." },
+      { icon: "🔒", title: "Industrial Security", metric: "TLS 1.3 + mTLS", text: "Hardware root-of-trust with hardware cryptographic encryption preventing unauthorized OT network intrusion." },
+      { icon: "⚡", title: "Edge Autonomy", metric: "<10ms Loop", text: "Edge intelligence maintains local climate control and emergency fans even if completely severed from the cloud." }
+    ],
+    script: `
+      <p><span class="script-highlight">"In harsh agricultural environments, network reliability is a primary concern.</span></p>
+      <p>Our Welotec edge nodes feature a dedicated 48-hour local flash buffer. If a mountain fiber optic cable is severed during a thunderstorm, the edge node retains over 1.7 million telemetry records locally and maintains continuous ventilation safety.</p>
+      <div class="script-callout">
+        <strong>Zero-Loss Assurance:</strong> Upon network restoration, the queue drains automatically into Snowflake with verified timestamp integrity.
+      </div>
+      <p>Let's simulate a network outage now by clicking <strong>'Simulate 48h Offline Buffer'</strong>."</p>
+    `
+  },
+  // Slide 3: Cortex AI Conflict Resolution
+  {
+    topic: "04. AUTONOMOUS AGENT DECISION ENGINE",
+    title: "Cortex AI: Health Priority Veto Over Peak Tariff Savings",
+    subtitle: "Finding the True Pareto Optimal Frontier between Energy Cost & Biological Welfare",
+    pill: "0.28S EMERGENCY VETO",
+    time: "⏱️ Target Time: 2.0 - 2.5 mins",
+    demoAction: {
+      badge: "LIVE AGENT CRISIS DEMO",
+      title: "Trigger a toxic ammonia spike and watch Cortex AI execute an emergency fan override in 0.28 seconds.",
+      btnText: "🚨 Trigger Ammonia Crisis Veto (0.28s)",
+      targetNav: "nav-btn-highway",
+      scenario: "ammonia"
+    },
+    cards: [
+      { icon: "⚡", title: "Energy Optimization", metric: "-28.4% Tariff", text: "Pre-cools the barn during cheap valley hours (¥0.38/kWh) and modulates ventilation fans down to 25% during peak hours (¥1.35/kWh)." },
+      { icon: "🐔", title: "Health Priority Veto", metric: "100% Flush", text: "If ammonia reaches 20 ppm, the Biological Agent instantly executes a <strong>hard veto in 0.28s</strong>, commanding 100% fan speed." },
+      { icon: "📜", title: "Foundry Ledger", metric: "Immutable Audit", text: "Every multi-agent negotiation, conflict vote, and actuation is cryptographically logged in Palantir Foundry." }
+    ],
+    script: `
+      <p><span class="script-highlight">"The core intelligence lies in our Cortex AI Multi-Agent Consensus Engine.</span></p>
+      <p>In traditional farms, managers face an impossible dilemma: running fans at full speed wastes electricity, but turning them down risks suffocating birds with toxic ammonia gas.</p>
+      <div class="script-callout">
+        <strong>The Golden Negotiation Rule:</strong> Our Energy Agent shifts power loads to save 28.4% in tariffs. BUT the moment ammonia crosses 20 ppm, the Biological Health Agent exercises an absolute veto, overriding energy savings in 0.28 seconds to protect the flock.
+      </div>
+      <p>Click <strong>'Trigger Ammonia Crisis Veto'</strong> to watch the emergency consensus vote in real-time."</p>
+    `
+  },
+  // Slide 4: Supply Chain & SAP Auto-PO
+  {
+    topic: "05. AUTONOMOUS SUPPLY CHAIN INTEGRATION",
+    title: "Zero-Touch Procurement: 0.2s SAP S/4HANA Auto-PO",
+    subtitle: "Real-Time Silo Loadcell Telemetry Eliminates Feed Shortages & Manual Clerical Overhead",
+    pill: "100% PAPERLESS SAP",
+    time: "⏱️ Target Time: 1.5 mins",
+    demoAction: {
+      badge: "LIVE SAP INTEGRATION DEMO",
+      title: "Simulate silo stock falling below 15t and trigger automated SAP Purchase Order generation via BAPI in 0.2s.",
+      btnText: "📦 Execute Zero-Touch SAP Auto-PO",
+      targetNav: "nav-btn-highway",
+      scenario: "sap"
+    },
+    cards: [
+      { icon: "⚖️", title: "Silo Loadcells", metric: "±0.5% Accuracy", text: "Continuous weight sensors transmit live feed stock directly into the unified data stream every 100ms." },
+      { icon: "📦", title: "Autonomous Order", metric: "25t Feed PO", text: "When stock breaches 15-ton threshold, AI signs purchase order in SAP without human intervention in <strong>0.2 seconds</strong>." },
+      { icon: "⏱️", title: "Labor Efficiency", metric: "2 hrs/day Saved", text: "Farm managers never fill out paper reorder forms again, completely eliminating manual requisition errors." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Supply chain disruption is another major risk eliminated by our system.</span></p>
+      <p>Using real-time silo loadcell telemetry, Cortex AI continuously forecasts feed consumption rates. The moment silo reserves drop below the 15-ton safety threshold, the system communicates with SAP S/4HANA via BAPI and issues a 25-ton soybean meal purchase order in 0.2 seconds.</p>
+      <div class="script-callout">
+        <strong>Supply Chain Value:</strong> Zero stockouts, zero delayed deliveries, and two hours of daily administrative paperwork eliminated for every farm manager.
+      </div>
+      <p>Click <strong>'Execute Zero-Touch SAP Auto-PO'</strong> to see the automated order generation."</p>
+    `
+  },
+  // Slide 5: Barn Spatial Twin
+  {
+    topic: "06. PHYSICAL SPATIAL DIGITAL TWIN",
+    title: "120m Barn CFD Twin: Precision Microclimate Across 3 Zones",
+    subtitle: "Real-Time Dynamic Monitoring of Static Pressure, 42,500 Broilers, and Variable Exhaust Fans",
+    pill: "3-ZONE CFD TWIN",
+    time: "⏱️ Target Time: 1.5 mins",
+    demoAction: {
+      badge: "LIVE SPATIAL TWIN DEMO",
+      title: "Jump into the Physical Barn Spatial Twin to inspect Zone 1 Inlets, Zone 2 Flock Microclimate, and Zone 3 Exhaust Fans.",
+      btnText: "🐔 Inspect 3-Zone Spatial Digital Twin",
+      targetNav: "nav-btn-barn",
+      zoneKey: "zone-mid"
+    },
+    cards: [
+      { icon: "🚪", title: "Zone 1: Air Inlets", metric: "28.5 Pa Pressure", text: "Auto-calibrated air vents maintain negative pressure to prevent cold air dropping directly on young chicks." },
+      { icon: "🐔", title: "Zone 2: Flock Zone", metric: "42,500 Birds", text: "Real-time thermal comfort index, 61.2 g/day growth rate, and uniform temperature distribution (28.4°C)." },
+      { icon: "🌀", title: "Zone 3: Exhaust Fans", metric: "12 VFD Fans", text: "Smart fan staging dynamically modulates airflow based on real-time ammonia and heat accumulation." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Here we visualize the physical 3D spatial digital twin of a standard 120-meter broiler house.</span></p>
+      <p>We divide the barn into three synchronized zones: Zone 1 precisely controls inlet openings and static pressure (28.5 Pa); Zone 2 monitors the welfare and thermal comfort of 42,500 broilers; and Zone 3 coordinates 12 variable-frequency exhaust fans.</p>
+      <div class="script-callout">
+        <strong>Physical Twin Advantage:</strong> Operators can click on any zone to view real-time microclimate diagnostics and sensor readings down to the centimeter.
+      </div>
+      <p>Click <strong>'Inspect 3-Zone Spatial Digital Twin'</strong> to explore the physical model."</p>
+    `
+  },
+  // Slide 6: ROI & Executive BI Hub
+  {
+    topic: "07. FINANCIAL ROI & EXECUTIVE BI HUB",
+    title: "Quantified Value: ¥14.85M Annual Energy Arbitrage & FCR 1.54",
+    subtitle: "50-Complex Enterprise Fleet Matrix with Payback Period Under 9 Months",
+    pill: "< 9 MONTH PAYBACK",
+    time: "⏱️ Target Time: 2.0 mins",
+    demoAction: {
+      badge: "LIVE BI HUB DEMO",
+      title: "Launch the Executive BI & Corporate Analytics Command Center to filter all 50 complexes and analyze Cobb500 growth curves.",
+      btnText: "📊 Open Executive BI Command Center",
+      targetNav: "nav-btn-bi",
+      nodeId: "dash"
+    },
+    cards: [
+      { icon: "🌾", title: "Feed Conversion (FCR)", metric: "1.54 FCR", text: "Outperforms standard industry benchmark of 1.68, saving <strong>5,856.5 tons of feed grain</strong> annually across all 50 complexes." },
+      { icon: "💰", title: "Peak Energy Arbitrage", metric: "¥14.85M / yr", text: "Autonomous time-of-use tariff scheduling generates <strong>¥14.85 Million in annual electricity savings</strong>." },
+      { icon: "📈", title: "Flock Preservation", metric: "497,250 Birds", text: "Mortality rate slashed from 4.8% down to 1.2%, delivering <strong>497,250 additional market-ready chickens</strong> each year." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Now let's examine the quantified financial return on investment.</span></p>
+      <p>By optimizing microclimate consistency, our Feed Conversion Ratio improved to 1.54—saving nearly 6,000 tons of soybean and corn feed every year. Combined with ¥14.85 million in electricity peak-valley arbitrage, each complex saves over ¥300,000 annually.</p>
+      <div class="script-callout">
+        <strong>Financial Summary:</strong> Across all 50 complexes, the total annual economic gain exceeds ¥38 Million, achieving a capital payback period of under 9 months.
+      </div>
+      <p>Click <strong>'Open Executive BI Command Center'</strong> to inspect the 50-complex performance matrix."</p>
+    `
+  },
+  // Slide 7: ISO ESG & Rollout Roadmap
+  {
+    topic: "08. SUSTAINABILITY & 3-PHASE ROADMAP",
+    title: "1-Click ISO 14064 Carbon Certification & Enterprise Rollout",
+    subtitle: "18,885.72 t CO₂e Decarbonization with Containerized Zero-Downtime Deployment",
+    pill: "PHASE 1 COMPLETE",
+    time: "⏱️ Target Time: 1.5 mins",
+    demoAction: {
+      badge: "LIVE ESG AUDIT DEMO",
+      title: "Generate a certified ISO 14064 greenhouse gas disclosure report with cryptographic SHA-256 validation.",
+      btnText: "🌱 Generate Certified ISO Audit Report",
+      targetNav: "nav-btn-esg",
+      action: "genEsg"
+    },
+    cards: [
+      { icon: "🌱", title: "Scope 2 & 3 Abatement", metric: "18,885.7 t CO₂e", text: "Verified carbon reduction across grid electricity and upstream soybean deforestation footprints." },
+      { icon: "🔐", title: "ISO 14064 Trust", metric: "SHA-256 Validated", text: "Instant 1-click export of ISO 14064-1 & GHG Protocol compliant audit certificate with cryptographic hash." },
+      { icon: "🚀", title: "3-Phase Rollout", metric: "50 Complexes", text: "Phase 1 (Nanping Pilot Complete) ➔ Phase 2 (50 Complexes in 6mo) ➔ Phase 3 (Global Smart Farming Standard)." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Finally, we address global ESG sustainability and enterprise rollout readiness.</span></p>
+      <p>Sunner's Decision OS abates 18,885 tons of CO₂ equivalent annually. Every gram is verified through cryptographic SHA-256 audit trails, qualifying Sunner products for premium European and global green export markets.</p>
+      <div class="script-callout">
+        <strong>Closing Call to Action:</strong> Phase 1 is 100% operational in Nanping. In Phase 2, we will deploy containerized edge nodes across all 50 complexes with zero downtime.
+      </div>
+      <p>Click <strong>'Generate Certified ISO Audit Report'</strong> to view the live certified disclosure. Thank you!"</p>
+    `
+  }
+];
+
+const presentationSlidesZh = [
+  // 幻灯片 0: 愿景与战略
+  {
+    topic: "01. 集团战略愿景与工业范式跃迁",
+    title: "圣农 × GEA: 全域智能制造自主决策操作系统",
+    subtitle: "打通现场 OT 到企业 IT 全域链路，统筹全集团 50大基地与年出栏 6亿羽肉鸡",
+    pill: "<350MS 实时闭环",
+    time: "⏱️ 建议演讲用时: 1.5 - 2.0 分钟",
+    demoAction: {
+      badge: "实时系统联动演示",
+      title: "体验连接 50大养殖基地的三维赛博数据管道与全域自主巡航。",
+      btnText: "🚀 启动 3D 赛博数据管道演示",
+      targetNav: "nav-btn-highway",
+      viewMode: "3d",
+      scenario: "closedloop"
+    },
+    cards: [
+      { icon: "🏭", title: "集团超大规模体量", metric: "50大养殖基地", text: "实时互联闽、赣、陇 <strong>50大现代养殖基地</strong>，年出栏肉鸡超 6亿羽，全面掌控底层物联与微气候数据。" },
+      { icon: "❌", title: "传统农牧数字化痛点", metric: "45分钟察觉滞后", text: "依赖人工看表抄录、用电尖峰电费浪费严重、氨气突发超标需 <strong>45分钟以上巡检滞后</strong>，极易引发死淘。" },
+      { icon: "⚡", title: "自主 AI 闭环自愈中枢", metric: "0.3秒闭环响应", text: "直通云端数据流与多智能体博弈仲裁，无缝整合 <strong>Modbus PLC、Snowflake 湖仓、SAP ERP 与 Foundry 本体</strong>。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“各位领导、各位行业专家，上午好！今天非常荣幸向大家汇报《圣农 × GEA 智能制造闭环决策操作系统》。</span></p>
+      <p>圣农作为中国白羽肉鸡全产业链的领军龙头，年出栏肉鸡超 6亿羽，拥有 50座大型养殖综合体。在过去，制约大型肉禽养殖效益的核心痛点，正是现场环控（OT）与集团经营决策（IT）之间的严重脱节与数据断层。</p>
+      <div class="script-callout">
+        <strong>核心管理价值：</strong> 我们通过构建 <350ms 的端到端自愈闭环，将传统农牧养殖彻底升级为高精度、可自愈的现代高科技制造业。
+      </div>
+      <p>请点击上方的<strong>“启动 3D 赛博数据管道演示”</strong>，观看实时传感器报文如何从现场瞬间直达云端。”</p>
+    `
+  },
+  // 幻灯片 1: 13大层级架构
+  {
+    topic: "02. 全域拓扑架构与数据神经中枢",
+    title: "13大层级神经系统：从鸡舍现场边缘到 Snowflake 与 Foundry",
+    subtitle: "内置 48小时无损断网缓存，全面兼容开放工业标准协议，杜绝厂商锁定",
+    pill: "从第0层到第6层",
+    time: "⏱️ 建议演讲用时: 2.0 分钟",
+    demoAction: {
+      badge: "架构深度互动演示",
+      title: "进入 2D 工业拓扑管道，探索各子系统协议透视与数据血缘聚焦。",
+      btnText: "🌐 探索 2D 工业拓扑与协议透视",
+      targetNav: "nav-btn-highway",
+      viewMode: "2d",
+      nodeId: "edge"
+    },
+    cards: [
+      { icon: "📟", title: "现场工业边缘层", metric: "48小时无损缓存", text: "德国 Welotec egOS 边缘网关每 10ms 轮询 Modbus，搭载 <strong>TLS 1.3 国密级加密</strong> 与 48小时 NVRAM 本地缓存。" },
+      { icon: "❄️", title: "全域数据云与湖仓", metric: "25万行/秒吞吐", text: "Snowpipe Streaming 毫秒级流式写入，将底层微气候与能耗实时直通 <strong>Snowflake 与 Palantir Foundry 语义中台</strong>。" },
+      { icon: "🧠", title: "AI 决策与 ERP 闭环", metric: "0.2秒 SAP 接口", text: "亚秒级自愈指令即时反向控制底层变频风机，并由 AI 自动在 <strong>SAP S/4HANA 签发饲料采购订单</strong>。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“大家在屏幕上看到的是贯通 13个层级的全域工业神经中枢架构。</span></p>
+      <p>从最底层的 0/1层鸡舍现场开始，高精度 Pt100 温度探头与氨气传感器以 10毫秒周期稳定采集。我们部署在各栋舍的工业级 Welotec 边缘网关具备 <strong>48小时断网缓存</strong> 能力，即使遭遇台风或骨干网中断，现场数据也绝不丢失一条。</p>
+      <div class="script-callout">
+        <strong>技术架构亮点：</strong> 数据通过标准 Sparkplug B 协议直接汇入 Snowflake 湖仓，彻底打破传统自动化厂商的封闭壁垒，与 Palantir Foundry 本体知识图谱深度融合。
+      </div>
+      <p>点击<strong>“探索 2D 工业拓扑与协议透视”</strong>可查看各工业节点的报文结构。”</p>
+    `
+  },
+  // 幻灯片 2: 边缘48小时缓存
+  {
+    topic: "03. 边缘高可靠与极端工况容灾",
+    title: "Welotec egOS 边缘网关：48小时断网无损本地缓存",
+    subtitle: "专为山区恶劣环境设计：台风暴雨、骨干网中断与电力扰动零数据丢包",
+    pill: "100% 数据完整性",
+    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    demoAction: {
+      badge: "极端断网演练演示",
+      title: "模拟 03号边缘节点断网工况，观察 NVRAM 队列排队及恢复后毫秒级追补刷新。",
+      btnText: "⚡ 模拟 48小时断网与回补刷新",
+      targetNav: "nav-btn-highway",
+      viewMode: "2d",
+      action: "toggleOffline"
+    },
+    cards: [
+      { icon: "🛡️", title: "NVRAM 闪存缓存", metric: "48h / 170万条", text: "骨干光纤中断期间 100% 留存，网络恢复后以每秒 5万条速率平滑回写 Snowflake 湖仓。" },
+      { icon: "🔒", title: "工业级网络安全", metric: "TLS 1.3 双向认证", text: "硬件级安全信任根（TPM 2.0），全面阻断针对养殖 OT 现场的恶意网络扫描与侵入。" },
+      { icon: "⚡", title: "离线自主运行", metric: "<10ms 环控闭环", text: "即使脱离云端连接，边缘控制器仍能独立自主维持鸡舍负压与应急排风安全。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“在农牧业实际落地中，山区网络与电力基础设施常面临恶劣考验。</span></p>
+      <p>我们采用的 Welotec 工业边缘网关搭载了 48小时 NVRAM 固态缓存。雷暴或台风导致通信中断时，本地可存留 170万条完整指标，现场风机闭环毫不停摆。”</p>
+      <div class="script-callout">
+        <strong>零丢包承诺：</strong> 网络一旦恢复，历史数据自动打上精确纳秒时间戳追补写入 Snowflake。
+      </div>
+      <p>请点击<strong>“模拟 48小时断网与回补刷新”</strong>，现场体验边缘断网自愈过程。”</p>
+    `
+  },
+  // 幻灯片 3: Cortex AI 博弈
+  {
+    topic: "04. 多智能体自主协同决策大脑",
+    title: "Cortex AI：生物健康安全底线压倒峰谷节电策略",
+    subtitle: "在电费降本与动物福利之间寻找真正的帕累托最优解",
+    pill: "0.28秒紧急超驰",
+    time: "⏱️ 建议演讲用时: 2.0 - 2.5 分钟",
+    demoAction: {
+      badge: "智能体应急演练",
+      title: "触发突发氨气浓度骤升危机，观看 Cortex AI 在 0.28秒内执行最高否决权排风超驰。",
+      btnText: "🚨 触发 0.28秒氨气危机超驰排风",
+      targetNav: "nav-btn-highway",
+      scenario: "ammonia"
+    },
+    cards: [
+      { icon: "⚡", title: "能耗优化智能体", metric: "避峰节电 -28.4%", text: "利用谷段低电价 (¥0.38/度) 提前对栋舍预蓄冷，在用电尖峰期 (¥1.35/度) 将风机负荷智能下调至 25%。" },
+      { icon: "🐔", title: "生物健康最高否决权", metric: "100%全速排风", text: "一旦舍内氨气浓度达到 20 ppm，健康智能体 <strong>0.28秒内强行否决节电</strong>，指令风机 100% 全速应急排风保鸡。" },
+      { icon: "📜", title: "Foundry 审计账本", metric: "不可篡改存证", text: "多智能体每次博弈、投票结果与下发动作均被实时记录于 Palantir Foundry 审计账本。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“系统的智慧核心，在于我们自主研发的 Cortex AI 多智能体博弈协同中枢。</span></p>
+      <p>在传统鸡舍管理中，场长面临两难抉择：全速开风机电费极贵；降频省电又极易导致氨气超标、鸡群大批死淘。</p>
+      <div class="script-callout">
+        <strong>黄金仲裁机制：</strong> 我们的能耗智能体根据峰谷电价曲线为基地省电 28.4%；但是，只要氨气浓度触碰 20 ppm 红线，生物健康智能体便行使绝对否决权，0.28秒瞬间压制省电指令，全速排风保全 42,500羽鸡群生命。
+      </div>
+      <p>请点击<strong>“触发 0.28秒氨气危机超驰排风”</strong>，观看多智能体仲裁驾驶舱的实时投票。”</p>
+    `
+  },
+  // 幻灯片 4: 供应链 SAP 自动补料
+  {
+    topic: "05. 自主供应链与全自动补料闭环",
+    title: "零触控采购：0.2秒直连 SAP S/4HANA 签发采购单",
+    subtitle: "料塔称重传感器精准感知库存，彻底杜绝断料风险与繁琐人工单据录入",
+    pill: "100% 无纸化 SAP",
+    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    demoAction: {
+      badge: "SAP 自动化演示",
+      title: "模拟料塔余量跌破 15吨安全线，由 AI 自动在 0.2秒内调用 SAP BAPI 签发 25吨采购单。",
+      btnText: "📦 触发料塔缺料与 SAP 自动下单",
+      targetNav: "nav-btn-highway",
+      scenario: "sap"
+    },
+    cards: [
+      { icon: "⚖️", title: "料塔称重传感器", metric: "±0.5% 称重精度", text: "高精度压电称重传感器每 100ms 直播饲料余量，实时动态测算鸡群摄食速率。" },
+      { icon: "📦", title: "自主签发订单", metric: "25吨 大豆饲料单", text: "余量触碰 15吨警戒线瞬间，AI <strong>0.2秒内完成 SAP 采购订单签发</strong>，全程免人工干预。" },
+      { icon: "⏱️", title: "管理工时解放", metric: "日均节省 2小时", text: "场长不再需要每天爬料塔抄数、手工登入 ERP 提单，采购流转效率提升 99%。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“饲料断料是规模化肉鸡养殖的重大经营风险，我们的系统实现了全自动化闭环。</span></p>
+      <p>通过料塔高精度称重传感器，AI 实时推演鸡群采食曲线。当料塔余量降至 15吨安全线以下时，系统直接通过 BAPI 接口在 SAP S/4HANA 中自动生成并签发 25吨大豆饲料订单，耗时仅 0.2秒。”</p>
+      <div class="script-callout">
+        <strong>供应链价值：</strong> 零断料风险、零送货延误，为每座基地的管理人员每天节省 2小时手工提单繁琐流程。
+      </div>
+      <p>点击<strong>“触发料塔缺料与 SAP 自动下单”</strong>可查看采购单生成全过程。”</p>
+    `
+  },
+  // 幻灯片 5: 三维空间物理数字孪生
+  {
+    topic: "06. 鸡舍三维空间物理数字孪生",
+    title: "120米标准栋舍 CFD 数字孪生：三区微气候精细化管控",
+    subtitle: "实时动静态负压、42,500羽鸡群微气候与 12台变频排风机组全息可视化",
+    pill: "三区流体动力学孪生",
+    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    demoAction: {
+      badge: "物理空间孪生演示",
+      title: "进入鸡舍三维空间数字孪生，逐一诊断 1区进风小窗、2区鸡群微气候与 3区变频风机。",
+      btnText: "🐔 深度检视鸡舍三维数字孪生",
+      targetNav: "nav-btn-barn",
+      zoneKey: "zone-mid"
+    },
+    cards: [
+      { icon: "🚪", title: "1区：进风与小窗", metric: "28.5 Pa 负压", text: "自动微调进风小窗开度，维持恒定舍内负压，避免外界冷风直接下坠吹打雏鸡造成应激。" },
+      { icon: "🐔", title: "2区：鸡群核心区", metric: "42,500羽", text: "实时监控鸡体感舒适度指数，日均增重达 61.2克/天，全舍温差控制在 ±0.3°C 极窄区间。" },
+      { icon: "🌀", title: "3区：变频排风组", metric: "12台 变频风机", text: "基于氨气与舍温智能梯次启闭，消除通风死角，达成极致空气对流置换效率。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“大家现在看到的是标准 120米现代化鸡舍的物理三维数字孪生模型。</span></p>
+      <p>我们将整栋鸡舍解构为 3个核心微气候控制区：1区精确控制进风口开度与 28.5 Pa 静压负压；2区呵护 42,500羽白羽肉鸡的体感温度与福利指数；3区统一协同 12台大功率变频排风机组。”</p>
+      <div class="script-callout">
+        <strong>数字孪生优势：</strong> 运维人员可点击任意区域查看厘米级精度的流场分布与实时探头诊断数据。
+      </div>
+      <p>请点击<strong>“深度检视鸡舍三维数字孪生”</strong>进入物理孪生大厅。”</p>
+    `
+  },
+  // 幻灯片 6: 商业 ROI 与 BI 看板
+  {
+    topic: "07. 财务投资回报率与集团运营大屏",
+    title: "量化价值：年节约电费 ¥1,485万元 与料肉比 1.54",
+    subtitle: "50大养殖基地全景绩效矩阵，智能化技改投资回收期低于 9个月",
+    pill: "< 9个月投资回收",
+    time: "⏱️ 建议演讲用时: 2.0 分钟",
+    demoAction: {
+      badge: "商业智能看板演示",
+      title: "开启集团商业智能大屏，筛选 50大基地运营指标与白羽肉鸡生长曲线。",
+      btnText: "📊 打开集团商业智能看板 (BI Hub)",
+      targetNav: "nav-btn-bi",
+      nodeId: "dash"
+    },
+    cards: [
+      { icon: "🌾", title: "综合料肉比 (FCR)", metric: "FCR 1.54", text: "大幅优于行业标杆 1.68，全集团 50大基地年累计 <strong>节省饲料大豆 5,856.5吨</strong>，显著压降饲养成本。" },
+      { icon: "💰", title: "峰谷电价套利收益", metric: "年节约 ¥1,485万", text: "基于分时电价的自适应削峰填谷调度，全集团年累计 <strong>减少电费支出 ¥1,485万元</strong>。" },
+      { icon: "📈", title: "鸡群成活保护", metric: "多成活 49.7万羽", text: "全群综合死淘率从 4.8% 压降至 1.2%，每年为集团 <strong>挽救 497,250羽 优质健康肉鸡</strong>。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“接下来向各位领导汇报扎实的商业投资回报率（ROI）。</span></p>
+      <p>得益于三维微气候与精准饲喂的闭环自愈，全群综合料肉比（FCR）优化至 1.54，每年节约饲料近 6,000吨。叠加 ¥1,485万元 的峰谷用电套利，单座大型基地年均节约成本超 30万元。</p>
+      <div class="script-callout">
+        <strong>财务综合测算：</strong> 50大基地全面上线后，每年为圣农集团创造超 3,800万元 综合经济效益，整体智能化技改投资回收期低于 9个月。
+      </div>
+      <p>点击<strong>“打开集团商业智能看板 (BI Hub)”</strong>可查阅 50大基地矩阵明细。”</p>
+    `
+  },
+  // 幻灯片 7: ISO ESG 与 推广路线图
+  {
+    topic: "08. ESG 绿色低碳与集团推广路线图",
+    title: "一键生成 ISO 14064 碳审计证书与全集团推广三步走",
+    subtitle: "年减排二氧化碳 18,885吨，容器化边缘节点架构支持零停机快速复制",
+    pill: "第一阶段已顺利投产",
+    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    demoAction: {
+      badge: "权威碳审计演示",
+      title: "现场一键生成经过 SHA-256 哈希加密防伪的 ISO 14064 国际官方温室气体核查报告。",
+      btnText: "🌱 一键生成 ISO 14064 碳核算证书",
+      targetNav: "nav-btn-esg",
+      action: "genEsg"
+    },
+    cards: [
+      { icon: "🌱", title: "范围二与三核证减排", metric: "18,885.7 吨 CO₂e", text: "精准计量尖峰用电转移与大豆饲料节约所减少的农业碳排放与森林砍伐足迹。" },
+      { icon: "🔐", title: "ISO 14064 权威认证", metric: "SHA-256 哈希认证", text: "1键生成符合 ISO 14064-1 国际标准的 <strong>防篡改数字碳资产证书</strong>，助力出口准入。" },
+      { icon: "🚀", title: "实施路线三步走", metric: "50大核心基地", text: "第一阶段南平试点完成 ➔ 第二阶段 6个月内推广 50大基地 ➔ 第三阶段联合 GEA 制定全球行业标准。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“最后向各位领导汇报国际权威 ESG 碳资产认证与规模化落地规划。</span></p>
+      <p>系统每年核证减排二氧化碳当量达 18,885吨。每一笔数据均通过 SHA-256 不可篡改算法存证，为圣农肉类产品进军全球高端绿色零售市场提供强大通行证。”</p>
+      <div class="script-callout">
+        <strong>总结与号召：</strong> 第一阶段南平试点已圆满成功。在接下来的 6个月中，我们将通过标准化 Docker 边缘镜像快速复制至全集团 50大基地，现场零停机平滑上线！
+      </div>
+      <p>点击<strong>“一键生成 ISO 14064 碳核算证书”</strong>可现场查验证书。感谢各位领导！”</p>
+    `
+  }
+];
+
+let activePresentationSlide = 0;
+
+function executeSlideDemo(slideIndex) {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const slides = isZh ? presentationSlidesZh : presentationSlidesEn;
+  const slide = slides[slideIndex];
+  if (!slide || !slide.demoAction) return;
+
+  const act = slide.demoAction;
+
+  // 1. Show the return button in top app bar
+  const returnBtn = document.getElementById('btn-return-to-deck');
+  const returnLbl = document.getElementById('return-deck-label');
+  if (returnBtn && returnLbl) {
+    returnBtn.style.display = 'inline-flex';
+    returnLbl.textContent = isZh
+      ? `◀ 返回幻灯片 (第 0${slideIndex + 1} 页)`
+      : `◀ Return to Keynote (Slide 0${slideIndex + 1})`;
+  }
+
+  // 2. Switch to the target nav module
+  const navBtn = document.getElementById(act.targetNav);
+  if (navBtn) {
+    navBtn.click();
+  }
+
+  // 3. Perform slide-specific action triggers
+  if (act.viewMode === '3d') {
+    document.getElementById('btn-view-3d')?.click();
+  } else if (act.viewMode === '2d') {
+    document.getElementById('btn-view-2d')?.click();
+    if (act.nodeId) selectNode(act.nodeId);
+    if (act.action === 'toggleOffline') {
+      const offBtn = document.getElementById('btn-toggle-offline');
+      if (offBtn && !offBtn.classList.contains('active')) offBtn.click();
+    }
+  }
+
+  if (act.scenario) {
+    if (act.scenario === 'ammonia') {
+      document.getElementById('side-scen-ammonia')?.click();
+    } else if (act.scenario === 'sap') {
+      document.getElementById('side-scen-sap')?.click();
+    } else if (act.scenario === 'closedloop') {
+      document.getElementById('side-scen-closedloop')?.click();
+    }
+  }
+
+  if (act.zoneKey) {
+    selectBarnZone(act.zoneKey);
+  }
+
+  if (act.nodeId === 'dash') {
+    selectNode('dash');
+  }
+
+  if (act.action === 'genEsg') {
+    setTimeout(() => {
+      const btnGen = document.getElementById('btn-generate-audit');
+      if (btnGen) btnGen.click();
+    }, 250);
+  }
+
+  addAuditLog(isZh ? `🎙️ 演讲联动演示：已启动第 0${slideIndex + 1} 页对应现场互动模块` : `🎙️ Keynote Co-Pilot: Launched live demo for Slide 0${slideIndex + 1}`, true);
+}
+
+function renderPresentationSlide(index = 0) {
+  activePresentationSlide = Math.max(0, Math.min(7, index));
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const slides = isZh ? presentationSlidesZh : presentationSlidesEn;
+  const slide = slides[activePresentationSlide];
+  if (!slide) return;
+
+  // 1. Update Slide Counter
+  const counterEl = document.getElementById('slide-counter-badge');
+  if (counterEl) {
+    counterEl.textContent = isZh
+      ? `第 0${activePresentationSlide + 1} 页 / 共 8 页`
+      : `Slide 0${activePresentationSlide + 1} / 8`;
+  }
+
+  // 2. Update Slide Pill Buttons (8 Pills)
+  document.querySelectorAll('.slide-pill').forEach((pill, idx) => {
+    pill.classList.toggle('active', idx === activePresentationSlide);
+    if (isZh) {
+      const labelsZh = ["01. 愿景战略", "02. 13大架构", "03. 48h缓存", "04. Cortex决策", "05. 自动补料", "06. 空间孪生", "07. 商业ROI", "08. ISO碳核算"];
+      pill.textContent = labelsZh[idx] || `0${idx + 1}. 幻灯片`;
+    } else {
+      const labelsEn = ["01. Vision", "02. 13-Nodes", "03. 48h Buffer", "04. Cortex AI", "05. Auto-PO", "06. Barn Twin", "07. ROI BI", "08. ISO ESG"];
+      pill.textContent = labelsEn[idx] || `Slide 0${idx + 1}`;
     }
   });
+
+  // 3. Render Main Slide Stage Content & Interactive Demo Action Banner
+  const stageEl = document.getElementById('deck-stage-card');
+  if (stageEl) {
+    stageEl.innerHTML = `
+      <div class="slide-header-box">
+        <div>
+          <span class="slide-topic-badge">${slide.topic}</span>
+          <h2 class="slide-title">${slide.title}</h2>
+          <p class="slide-subtitle">${slide.subtitle}</p>
+        </div>
+        <span class="slide-badge-pill">${slide.pill}</span>
+      </div>
+
+      <div class="slide-grid-3col">
+        ${slide.cards.map((c, i) => `
+          <div class="slide-card-block">
+            <div class="slide-card-icon">${c.icon}</div>
+            <h3 class="slide-card-title">${c.title}</h3>
+            <div class="slide-card-metric ${i === 1 ? 'cyan' : (i === 2 ? 'gold' : '')}">${c.metric}</div>
+            <p class="slide-card-text">${c.text}</p>
+          </div>
+        `).join('')}
+      </div>
+
+      ${slide.demoAction ? `
+        <div class="slide-live-demo-banner">
+          <div class="demo-banner-left">
+            <span class="demo-banner-badge">🎮 ${slide.demoAction.badge}</span>
+            <span class="demo-banner-title">${slide.demoAction.title}</span>
+          </div>
+          <button class="btn-launch-live-demo" id="btn-slide-demo-trigger" onclick="executeSlideDemo(${activePresentationSlide})">
+            ${slide.demoAction.btnText}
+          </button>
+        </div>
+      ` : ''}
+    `;
+  }
+
+  // 4. Render Live Speaker Script Teleprompter
+  const scriptEl = document.getElementById('teleprompter-body');
+  const timerEl = document.getElementById('teleprompter-timer');
+  if (scriptEl) scriptEl.innerHTML = slide.script;
+  if (timerEl) timerEl.textContent = slide.time;
 }
 
-const btnToggleWarp = document.getElementById('btn-toggle-warpspeed');
-const lblWarp = document.getElementById('lbl-warpspeed');
-if (btnToggleWarp) {
-  btnToggleWarp.addEventListener('click', () => {
-    if (window.highwayViz) {
-      const state = window.highwayViz.toggleWarpSpeed();
-      lblWarp.textContent = state ? 'High Activity: 50x' : 'High Activity Mode';
-      btnToggleWarp.className = state ? 'btn btn-primary' : 'btn btn-warning';
-    }
+// Slide Navigation Event Listeners
+document.querySelectorAll('.slide-pill').forEach(pill => {
+  pill.addEventListener('click', () => {
+    const sIdx = parseInt(pill.dataset.slide || '0');
+    renderPresentationSlide(sIdx);
   });
-}
+});
 
-// Trigger Low-Feed Auto PO in SAP (Plain English Story)
-const btnSapTrigger = document.getElementById('btn-sap-po-trigger');
-if (btnSapTrigger) {
-  btnSapTrigger.addEventListener('click', () => {
-    executiveBusinessStories[6].action = "🚨 Silo level dropped to 11.0 tons (< 15.0 ton safety limit). The AI generated signed Purchase Order #PO_4500892140 for 25.0 tons with Fujian Feed Co.";
-    executiveBusinessStories[6].pills = [
-      { label: "🌾 Silo Stock", val: "11.0 Tons (Critical Low)" },
-      { label: "📦 Auto-PO Created", val: "#PO_4500892140 Signed" },
-      { label: "🚚 Delivery", val: "Tomorrow 08:00 UTC" }
-    ];
+document.getElementById('btn-slide-prev')?.addEventListener('click', () => {
+  if (activePresentationSlide > 0) {
+    renderPresentationSlide(activePresentationSlide - 1);
+  }
+});
 
-    const elCortexNarrative = document.getElementById('cortex-narrative');
-    if (elCortexNarrative) {
-      elCortexNarrative.textContent = "Executive Alert: Feed silos reached low reorder threshold (11.0t < 15.0t). The SAP Supply Chain AI Agent autonomously ordered 25.0 tons from Fujian Feed Co. with zero human paperwork required.";
+document.getElementById('btn-slide-next')?.addEventListener('click', () => {
+  if (activePresentationSlide < 7) {
+    renderPresentationSlide(activePresentationSlide + 1);
+  }
+});
+
+// Fullscreen Presentation Mode Toggle
+document.getElementById('btn-deck-fullscreen')?.addEventListener('click', () => {
+  const container = document.getElementById('section-presentation-deck');
+  if (!document.fullscreenElement) {
+    if (container && container.requestFullscreen) {
+      container.requestFullscreen();
     }
-
-    const elChipSap = document.getElementById('chip-sap-act');
-    if (elChipSap) elChipSap.innerHTML = "📦 SAP Agent: <strong>Auto-PO #PO_4500892140 Signed (25t)</strong>";
-
-    renderTierView(6);
-  });
-}
-
-// Trigger Ammonia Hazard (Plain English Story)
-const btnAmmoniaRipple = document.getElementById('btn-ammonia-ripple');
-if (btnAmmoniaRipple) {
-  btnAmmoniaRipple.addEventListener('click', () => {
-    if (window.highwayViz) {
-      window.highwayViz.triggerCrisisMode(9000);
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
     }
-    const elChipHealth = document.getElementById('chip-health-act');
-    if (elChipHealth) elChipHealth.innerHTML = "🩺 Health Agent: <strong>🚨 100% Emergency Fan Flush</strong>";
-    
-    const elCortexNarrative = document.getElementById('cortex-narrative');
-    if (elCortexNarrative) {
-      elCortexNarrative.textContent = "Critical Safety Action: Ammonia surged to 28.5 ppm in Zone 3. The Health AI Agent instantly overrode peak electricity savings to run fans at 100%, protecting 42,500 chickens from respiratory damage in 0.3 seconds.";
+  }
+});
+
+// Toggle Speaker Script Prompter Visibility
+document.getElementById('btn-deck-toggle-notes')?.addEventListener('click', () => {
+  const prompter = document.getElementById('speaker-teleprompter-card');
+  const btn = document.getElementById('btn-deck-toggle-notes');
+  if (prompter) {
+    const isHidden = prompter.style.display === 'none';
+    prompter.style.display = isHidden ? 'flex' : 'none';
+    if (btn) btn.classList.toggle('active', isHidden);
+  }
+});
+
+// Return to Keynote Deck from Live Demo Overlay Button
+document.getElementById('btn-return-to-deck')?.addEventListener('click', () => {
+  const returnBtn = document.getElementById('btn-return-to-deck');
+  if (returnBtn) returnBtn.style.display = 'none';
+
+  const presBtn = document.getElementById('nav-btn-presentation');
+  if (presBtn) presBtn.click();
+  renderPresentationSlide(activePresentationSlide);
+});
+
+// Expose globally
+window.executeSlideDemo = executeSlideDemo;
+window.renderPresentationSlide = renderPresentationSlide;
+
+// =================================================================
+// 8. FULLSCREEN CANVAS TOGGLE CONTROLLER (3D & 2D DATA HIGHWAY)
+// =================================================================
+function toggleCanvasFullscreen() {
+  const card = document.getElementById('hero-canvas-card');
+  if (!card) return;
+
+  if (!document.fullscreenElement) {
+    if (card.requestFullscreen) {
+      card.requestFullscreen();
+    } else if (card.webkitRequestFullscreen) {
+      card.webkitRequestFullscreen();
     }
-    renderTierView(10);
-  });
+  } else {
+    if (document.exitFullscreen) {
+      document.exitFullscreen();
+    } else if (document.webkitExitFullscreen) {
+      document.webkitExitFullscreen();
+    }
+  }
 }
 
-// Reset
-const btnReset = document.getElementById('btn-reset-pipeline');
-if (btnReset) {
-  btnReset.addEventListener('click', () => {
-    renderTierView(1);
-  });
-}
+document.addEventListener('fullscreenchange', () => {
+  const isFs = !!document.fullscreenElement;
+  const card = document.getElementById('hero-canvas-card');
+  if (card) {
+    card.classList.toggle('is-fullscreen', isFs);
+  }
 
-// Clock
-setInterval(() => {
-  const clockEl = document.getElementById('live-clock');
-  if (clockEl) clockEl.textContent = new Date().toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
-}, 1000);
+  const btn3d = document.getElementById('btn-fullscreen-3d');
+  const btn2d = document.getElementById('btn-fullscreen-2d');
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
 
-// Initialize default view
-setExplanationMode('executive');
-renderEsgMetrics(true);
-renderTierView(1);
+  if (btn3d) {
+    btn3d.textContent = isFs
+      ? (isZh ? '🗗 退出全屏' : '🗗 Exit Fullscreen')
+      : (isZh ? '⛶ 全屏' : '⛶ Fullscreen');
+  }
+
+  if (btn2d) {
+    btn2d.innerHTML = isFs
+      ? `<span>🗗</span> ${isZh ? '退出全屏' : 'Exit Fullscreen'}`
+      : `<span>⛶</span> ${isZh ? '全屏' : 'Fullscreen'}`;
+  }
+
+  // Trigger 3D WebGL and 2D HTML5 canvas resize
+  setTimeout(() => {
+    if (window.highway3D) window.highway3D.onResize();
+    if (window.topologyCanvas) window.topologyCanvas.resize();
+  }, 50);
+  setTimeout(() => {
+    if (window.highway3D) window.highway3D.onResize();
+    if (window.topologyCanvas) window.topologyCanvas.resize();
+  }, 200);
+
+  addAuditLog(isFs ? (isZh ? "⛶ 数据管道已进入全屏拓扑模式" : "⛶ Data Highway entered fullscreen mode") : (isZh ? "🗗 数据管道已退出全屏模式" : "🗗 Data Highway exited fullscreen mode"), true);
+});
+
+// Event listeners for Fullscreen triggers
+document.getElementById('btn-fullscreen-3d')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleCanvasFullscreen();
+});
+
+document.getElementById('btn-fullscreen-2d')?.addEventListener('click', (e) => {
+  e.stopPropagation();
+  toggleCanvasFullscreen();
+});
+
+// Initialize default slide
+renderPresentationSlide(0);
+
+// Initialize UI and Start Autonomous Auto-Tour
+initScrubber();
+selectNode('sensors');
+playTour();
+addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
