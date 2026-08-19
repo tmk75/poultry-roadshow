@@ -669,11 +669,26 @@ class Highway3DEngine {
 
   onResize() {
     if (!this.container || !this.renderer || !this.camera) return;
-    const width = this.container.clientWidth;
-    const height = this.container.clientHeight || 540;
-    this.camera.aspect = width / height;
+    const width = this.container.clientWidth || window.innerWidth;
+    const height = this.container.clientHeight || Math.max(420, window.innerHeight - 180);
+    const aspect = width / Math.max(1, height);
+
+    // Auto-adaptive framing based on screen aspect ratio & resolution
+    if (aspect < 1.25) {
+      // Narrow screens / Tablets: Wider FOV to keep 13 nodes in frame
+      this.camera.fov = 60;
+    } else if (aspect < 1.7) {
+      // Standard laptops / 16:10 / 1080p
+      this.camera.fov = 48;
+    } else {
+      // Ultra-wide / 4K Video Walls / 21:9
+      this.camera.fov = 42;
+    }
+
+    this.camera.aspect = aspect;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(width, height);
+    this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   }
 
   animate() {

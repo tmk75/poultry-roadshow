@@ -3785,6 +3785,19 @@ window.inspectComplexDetails = inspectComplexDetails;
 // Initialize default slide
 renderPresentationSlide(0);
 
+// Global Dynamic Resize & Orientation Adaptation Listener
+let resizeTimeout = null;
+window.addEventListener('resize', () => {
+  if (resizeTimeout) clearTimeout(resizeTimeout);
+  resizeTimeout = setTimeout(() => {
+    if (window.highway3D) window.highway3D.onResize();
+    if (window.topologyCanvas) window.topologyCanvas.resize();
+    if (typeof window.renderExecutiveBiHub === 'function' && document.getElementById('section-bi-hub')?.style.display !== 'none') {
+      window.renderExecutiveBiHub();
+    }
+  }, 100);
+});
+
 // Initialize UI and Start Autonomous Auto-Tour
 initScrubber();
 selectNode('sensors');
@@ -3797,4 +3810,5 @@ initDigitalProductPassport();
 initExecutiveBiHub();
 initGlobalClickInteractivity();
 addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
+
 
