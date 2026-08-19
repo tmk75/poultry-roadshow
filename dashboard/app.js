@@ -1024,6 +1024,7 @@ sliderTariff?.addEventListener('input', (e) => {
 // =================================================================
 const navModules = {
   'nav-btn-highway': { secId: 'section-enterprise-flow', titleEn: 'Enterprise Decision OS', titleZh: '全链路智能制造决策系统' },
+  'nav-btn-warroom': { secId: 'section-financial-warroom', titleEn: 'CFO Financial War Room & Sensitivity Simulator', titleZh: '集团财务作战室 • 宏观压力测试与第一性原理敏感度模拟舱' },
   'nav-btn-bi': { secId: 'section-enterprise-flow', titleEn: 'Executive BI & Corporate Analytics Command Center', titleZh: '集团数字化运营指挥与决策大屏', node: 'dash' },
   'nav-btn-esg': { secId: 'section-esg-evolution', titleEn: 'ESG Carbon Accounting Hub', titleZh: 'ESG 碳资产全生命周期核算中心' },
   'nav-btn-barn': { secId: 'section-spatial-gauges', titleEn: 'Physical Barn Digital Twin', titleZh: '鸡舍三维空间物理数字孪生' },
@@ -2169,6 +2170,521 @@ document.getElementById('btn-fullscreen-2d')?.addEventListener('click', (e) => {
   toggleCanvasFullscreen();
 });
 
+// =================================================================
+// 9. CFO FINANCIAL WAR ROOM & EBITDA SIMULATOR ENGINE
+// =================================================================
+let warroomFeedPct = 0;
+let warroomHeatOffset = 0;
+let warroomPeakTariff = 1.38;
+let warroomFleetScale = 600; // Million birds
+
+function updateWarroomMath() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const flockScaleRatio = warroomFleetScale / 600;
+  const baselineMeatTons = 1560000 * flockScaleRatio; // 600M * 2.6kg
+  const currentFeedPrice = 3200 * (1 + warroomFeedPct / 100);
+
+  // FCR reduction: baseline 0.06 savings, adjusted for heat stress
+  const fcrReduction = Math.max(0.035, 0.060 - (warroomHeatOffset * 0.002));
+  const feedSavingsM = (baselineMeatTons * fcrReduction * currentFeedPrice) / 1000000;
+
+  // Mortality avoided: base ¥188.7M + heatwave loss avoidance buffer (up to ¥44.5M)
+  const baseMortAvoidedM = 188.70 * flockScaleRatio;
+  const heatLossDeflectedM = warroomHeatOffset > 0 ? (warroomHeatOffset * 6.8 * flockScaleRatio) : 0;
+  const mortSavingsM = baseMortAvoidedM + heatLossDeflectedM;
+
+  // Power arbitrage: tariff spread against base ¥0.42 valley price
+  const tariffSpread = Math.max(0.20, warroomPeakTariff - 0.42);
+  const powerSavingsM = (45000 * 365 * tariffSpread * flockScaleRatio) / 1000000;
+
+  // Export green premium: ¥0.40/kg on 300,000t certified export meat
+  const exportGreenM = 120.00 * flockScaleRatio;
+
+  // Total EBITDA
+  const totalEbitdaM = feedSavingsM + mortSavingsM + powerSavingsM + exportGreenM;
+  const fcrSensM = (baselineMeatTons * 0.01 * currentFeedPrice) / 1000000;
+  const marginPerBird = (totalEbitdaM * 1000000) / (warroomFleetScale * 1000000);
+
+  // Update KPI displays
+  const elEbitda = document.getElementById('val-wk-ebitda');
+  const elFcr = document.getElementById('val-wk-fcr');
+  const elTail = document.getElementById('val-wk-tailrisk');
+  if (elEbitda) elEbitda.innerHTML = `+¥${totalEbitdaM.toFixed(2)}<small>M / yr</small>`;
+  if (elFcr) elFcr.innerHTML = `¥${fcrSensM.toFixed(2)}<small>M</small>`;
+  if (elTail) elTail.innerHTML = `${(92.3 - (warroomHeatOffset * 0.4)).toFixed(1)}<small>%</small>`;
+
+  // Update Waterfall Bar Values & Widths
+  const maxBar = Math.max(feedSavingsM, mortSavingsM, powerSavingsM, exportGreenM, 350);
+
+  const elBarFeed = document.getElementById('wf-bar-feed');
+  const elValFeed = document.getElementById('wf-val-feed');
+  if (elBarFeed) elBarFeed.style.width = `${Math.min(100, Math.max(8, (feedSavingsM / maxBar) * 100))}%`;
+  if (elValFeed) elValFeed.textContent = `+¥${feedSavingsM.toFixed(2)}M`;
+
+  const elBarMort = document.getElementById('wf-bar-mort');
+  const elValMort = document.getElementById('wf-val-mort');
+  if (elBarMort) elBarMort.style.width = `${Math.min(100, Math.max(8, (mortSavingsM / maxBar) * 100))}%`;
+  if (elValMort) elValMort.textContent = `+¥${mortSavingsM.toFixed(2)}M`;
+
+  const elBarPower = document.getElementById('wf-bar-power');
+  const elValPower = document.getElementById('wf-val-power');
+  if (elBarPower) elBarPower.style.width = `${Math.min(100, Math.max(8, (powerSavingsM / maxBar) * 100))}%`;
+  if (elValPower) elValPower.textContent = `+¥${powerSavingsM.toFixed(2)}M`;
+
+  const elBarGreen = document.getElementById('wf-bar-green');
+  const elValGreen = document.getElementById('wf-val-green');
+  if (elBarGreen) elBarGreen.style.width = `${Math.min(100, Math.max(8, (exportGreenM / maxBar) * 100))}%`;
+  if (elValGreen) elValGreen.textContent = `+¥${exportGreenM.toFixed(2)}M`;
+
+  const elTotalVal = document.getElementById('wf-total-val');
+  const elMarginBird = document.getElementById('wf-margin-per-bird');
+  if (elTotalVal) elTotalVal.textContent = `+¥${totalEbitdaM.toFixed(2)} MILLION RMB`;
+  if (elMarginBird) elMarginBird.textContent = isZh ? `+¥${marginPerBird.toFixed(2)} 元 / 羽 净利贡献提升` : `+¥${marginPerBird.toFixed(2)} / Broiler Profit Delta`;
+}
+
+function initFinancialWarRoom() {
+  const sFeed = document.getElementById('slider-warroom-feed');
+  const sHeat = document.getElementById('slider-warroom-heat');
+  const sTariff = document.getElementById('slider-warroom-tariff');
+  const sFleet = document.getElementById('slider-warroom-fleet');
+
+  const dFeed = document.getElementById('val-disp-feed');
+  const dHeat = document.getElementById('val-disp-heat');
+  const dTariff = document.getElementById('val-disp-tariff');
+  const dFleet = document.getElementById('val-disp-fleet');
+
+  sFeed?.addEventListener('input', (e) => {
+    warroomFeedPct = parseFloat(e.target.value);
+    const p = 3200 * (1 + warroomFeedPct / 100);
+    if (dFeed) dFeed.textContent = `${warroomFeedPct >= 0 ? '+' : ''}${warroomFeedPct}% (¥${Math.round(p)}/t)`;
+    updateWarroomMath();
+  });
+
+  sHeat?.addEventListener('input', (e) => {
+    warroomHeatOffset = parseFloat(e.target.value);
+    if (dHeat) dHeat.textContent = `+${warroomHeatOffset.toFixed(1)}°C (${warroomHeatOffset > 3 ? 'Extreme Heatwave' : 'Ambient Summer'})`;
+    updateWarroomMath();
+  });
+
+  sTariff?.addEventListener('input', (e) => {
+    warroomPeakTariff = parseFloat(e.target.value);
+    if (dTariff) dTariff.textContent = `¥${warroomPeakTariff.toFixed(2)} / kWh (Peak)`;
+    updateWarroomMath();
+  });
+
+  sFleet?.addEventListener('input', (e) => {
+    warroomFleetScale = parseFloat(e.target.value);
+    if (dFleet) dFleet.textContent = `${warroomFleetScale}M Broilers (${Math.round(warroomFleetScale / 12)} Complexes)`;
+    updateWarroomMath();
+  });
+
+  // Reset Button
+  document.getElementById('btn-reset-warroom-sliders')?.addEventListener('click', () => {
+    if (sFeed) sFeed.value = 0;
+    if (sHeat) sHeat.value = 0;
+    if (sTariff) sTariff.value = 1.38;
+    if (sFleet) sFleet.value = 600;
+    warroomFeedPct = 0; warroomHeatOffset = 0; warroomPeakTariff = 1.38; warroomFleetScale = 600;
+    if (dFeed) dFeed.textContent = "0% (¥3,200/t)";
+    if (dHeat) dHeat.textContent = "+0.0°C (Normal Summer)";
+    if (dTariff) dTariff.textContent = "¥1.38 / kWh (Peak)";
+    if (dFleet) dFleet.textContent = "600M Broilers (50 Complexes)";
+    updateWarroomMath();
+    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
+  });
+
+  // Crisis Preset Triggers
+  document.getElementById('btn-preset-heatwave')?.addEventListener('click', () => {
+    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('btn-preset-heatwave')?.classList.add('active');
+    if (sHeat) sHeat.value = 4.5;
+    if (sTariff) sTariff.value = 2.50;
+    warroomHeatOffset = 4.5; warroomPeakTariff = 2.50;
+    if (dHeat) dHeat.textContent = "+4.5°C (Extreme Heatwave)";
+    if (dTariff) dTariff.textContent = "¥2.50 / kWh (Grid Crisis)";
+    updateWarroomMath();
+    addAuditLog("☀️ [WAR ROOM] Loaded Extreme Summer Heatwave (41°C + ¥2.50/kWh peak tariff) scenario.", true);
+  });
+
+  document.getElementById('btn-preset-soybean')?.addEventListener('click', () => {
+    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('btn-preset-soybean')?.classList.add('active');
+    if (sFeed) sFeed.value = 35;
+    warroomFeedPct = 35;
+    if (dFeed) dFeed.textContent = "+35% (¥4,320/t Global Shock)";
+    updateWarroomMath();
+    addAuditLog("🌾 [WAR ROOM] Loaded Global Soybean Commodity Shock (+35% feed cost) scenario.", true);
+  });
+
+  document.getElementById('btn-preset-inverter')?.addEventListener('click', () => {
+    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('btn-preset-inverter')?.classList.add('active');
+    updateWarroomMath();
+    addAuditLog("🚨 [WAR ROOM] Loaded 02:15 AM Inverter Power Outage & 0.28s Veto Bypass scenario.", true);
+  });
+
+  document.getElementById('btn-preset-cbam')?.addEventListener('click', () => {
+    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
+    document.getElementById('btn-preset-cbam')?.classList.add('active');
+    updateWarroomMath();
+    addAuditLog("🇪🇺 [WAR ROOM] Loaded EU CBAM & Export Green Specification tender simulation.", true);
+  });
+
+  // Playbook execution button
+  document.getElementById('btn-execute-warroom-playbook')?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    addAuditLog(isZh ? "⚡ 集团调度中枢：已向 50大基地群发下达 AI 优化运行参数指令！" : "⚡ Enterprise Dispatch: Broadcasted AI optimal operational parameters across all 50 complexes!", true);
+    alert(isZh ? "✅ 优化策略已下发至 50大基地 Welotec 边缘网关！已锁定每年 ¥655.5M 预测收益。" : "✅ Optimization playbook dispatched to all 50 Welotec edge gateways! ¥655.5M EBITDA target locked.");
+  });
+
+  updateWarroomMath();
+}
+
+// =================================================================
+// 10. GROK-STYLE CONVERSATIONAL COPILOT CONTROLLER
+// =================================================================
+function initGrokCopilot() {
+  const drawer = document.getElementById('copilot-drawer');
+  const btnToggle = document.getElementById('btn-toggle-copilot');
+  const btnClose = document.getElementById('btn-close-copilot');
+  const input = document.getElementById('copilot-input-field');
+  const btnSend = document.getElementById('btn-copilot-send');
+  const btnVoice = document.getElementById('btn-copilot-voice');
+  const msgs = document.getElementById('copilot-messages');
+
+  const toggleDrawer = () => {
+    const isHidden = drawer.style.display === 'none' || !drawer.style.display;
+    drawer.style.display = isHidden ? 'flex' : 'none';
+    if (isHidden) input?.focus();
+  };
+
+  btnToggle?.addEventListener('click', toggleDrawer);
+  btnClose?.addEventListener('click', () => { drawer.style.display = 'none'; });
+
+  // Handle preset prompt clicks
+  document.querySelectorAll('.cp-pill').forEach(pill => {
+    pill.addEventListener('click', () => {
+      const q = pill.dataset.prompt;
+      if (q) handleCopilotQuery(q);
+    });
+  });
+
+  const sendQuery = () => {
+    const q = input?.value.trim();
+    if (q) {
+      handleCopilotQuery(q);
+      if (input) input.value = '';
+    }
+  };
+
+  btnSend?.addEventListener('click', sendQuery);
+  input?.addEventListener('keydown', (e) => { if (e.key === 'Enter') sendQuery(); });
+
+  btnVoice?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    if (input) input.value = isZh ? "分析南平一厂当前体感温度与饲料转化率" : "Analyze Nanping Complex 1 current thermal comfort and FCR";
+    sendQuery();
+  });
+
+  function handleCopilotQuery(promptText) {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+    // 1. Add User Message
+    const uMsg = document.createElement('div');
+    uMsg.className = 'copilot-msg user';
+    uMsg.innerHTML = `<div class="msg-body"><p>${promptText}</p></div>`;
+    msgs?.appendChild(uMsg);
+    msgs?.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
+
+    // 2. Add Assistant Thinking Bubble
+    const aMsg = document.createElement('div');
+    aMsg.className = 'copilot-msg assistant';
+    aMsg.innerHTML = `
+      <div class="msg-avatar">🤖</div>
+      <div class="msg-body">
+        <p class="copilot-thinking-text">🧠 <em>${isZh ? '正在从 50大基地 Welotec 边缘网关、Snowflake 与 SAP 提取实时遥测进行 Chain-of-Thought 推理...' : 'Querying 50 Welotec edge nodes, Snowflake Lakehouse, and SAP S/4HANA with Chain-of-Thought...'}</em></p>
+      </div>
+    `;
+    msgs?.appendChild(aMsg);
+    msgs?.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
+
+    // 3. Resolve Answer with Deep Reasoning
+    setTimeout(() => {
+      let answerHtml = "";
+      let cotHtml = "";
+
+      const lower = promptText.toLowerCase();
+      if (lower.includes('fcr') || lower.includes('drift') || lower.includes('料肉比') || lower.includes('南平')) {
+        cotHtml = isZh
+          ? `[CoT 推理链路] 1. 查询 Snowflake Silver 表 CLEAN_CLIMATE_METRICS ➔ 2. 匹配 Nanping-01-House03 实时均重 (2.14 kg vs 标准 2.05 kg) ➔ 3. 测算料肉比为 1.54 (行业基线 1.60，优于同批次 3.8%) ➔ 4. 换算年节约大豆饲料 5,856.5 吨。`
+          : `[Chain of Thought] 1. Queried Snowflake Silver table CLEAN_CLIMATE_METRICS -> 2. Matched Nanping-01-House03 live bird mass (2.14 kg vs 2.05 kg standard) -> 3. Calculated FCR at 1.54 (industry avg 1.60, +3.8% efficiency) -> 4. Evaluated feed grain savings at 5,856.5 tons/yr.`;
+        answerHtml = isZh
+          ? `<p><strong>南平一厂 03栋料肉比 (FCR) 分析报告：</strong></p><p>当前批次 42,500羽 白羽肉鸡料肉比达到 <strong>1.54</strong>（领跑行业基准 1.60）。主要归功于 AI 在夜间尖峰电价后实施的 0.3°C 均温微气候补偿，促进了肌间脂肪沉淀并加速日均增重达 +68.5 g/天。</p><p><strong>财务贡献：</strong> 单栋鸡舍年增效 ¥117,100 元，全集团年化增效 <strong>¥299.52M 元</strong>。</p>`
+          : `<p><strong>Nanping Complex 01 • House 03 FCR Diagnostic:</strong></p><p>Current flock (42,500 broilers) FCR stands at an industry-leading <strong>1.54</strong> (vs 1.60 benchmark). The key driver is AI's nocturnal thermal compensation (+0.3°C precision control) which boosts nutrient absorption and daily weight gain (+68.5 g/day).</p><p><strong>Financial Impact:</strong> Yields <strong>+¥299.52M / year</strong> EBITDA across the 50-complex fleet.</p>`;
+      } else if (lower.includes('heatwave') || lower.includes('42') || lower.includes('热浪') || lower.includes('高温')) {
+        cotHtml = isZh
+          ? `[CoT 推理链路] 1. 读取环境气象预测 (41.5°C 尖峰) ➔ 2. 检索鸡舍热容储能模型 ➔ 3. 规划谷电期 (00:00-08:00) 预冷 -1.2°C ➔ 4. 尖峰期启动微雾降温与 0.28s 氨气安全闸门 ➔ 5. 规避 44.5M 元死淘与高温应激损失。`
+          : `[Chain of Thought] 1. Ingested weather forecast (41.5°C peak) -> 2. Retrieved barn thermal mass inertia model -> 3. Scheduled -1.2°C pre-cooling during valley tariff (00:00-08:00) -> 4. Staged micro-misting and 0.28s ammonia safety override during 14:00-17:00 -> 5. Avoided ¥44.5M mortality risk.`;
+        answerHtml = isZh
+          ? `<p><strong>42°C 极端热浪防御预案已就绪：</strong></p><p>系统已激活<strong>“蓄冷热电池”</strong>策略：今夜谷电期（¥0.42/度）自动将舍温微降 1.2°C 储存冷量；明日 14:00 尖峰电价期自动阶梯降频排风机至 35%，并同步以 15秒脉冲周期开启高压微雾降温。</p><p><strong>防灾成效：</strong> 阻断 92.3% 高温死淘风险，单次热浪保全资产 <strong>¥44.5M 元</strong>。</p>`
+          : `<p><strong>42°C Extreme Heatwave Defense Active:</strong></p><p>The AI pre-cooling thermal battery is armed: barns will be sub-cooled by 1.2°C during tonight's valley tariff (¥0.42/kWh). Tomorrow during peak hours (14:00-17:00), exhaust fans throttle to 35% while high-pressure pulse misting maintains bird comfort.</p><p><strong>Value Protected:</strong> <strong>¥44.5M ($6.3M USD)</strong> in mortality loss prevented.</p>`;
+      } else if (lower.includes('ammonia') || lower.includes('veto') || lower.includes('氨气') || lower.includes('否决')) {
+        cotHtml = isZh
+          ? `[CoT 推理链路] 1. 监测到 Zone 3 氨气探头由 11.4 ppm 跃升至 28.5 ppm ➔ 2. 触碰 >=20.0 ppm 生物安全红线 ➔ 3. 触发 Rule-BIO-01 最高优先权 ➔ 4. 压制 Energy Agent 节电诉求 ➔ 5. 0.28秒执行 100% (850 RPM) 排风。`
+          : `[Chain of Thought] 1. Monitored Zone 3 NH3 surge from 11.4 to 28.5 ppm -> 2. Exceeded >=20.0 ppm biological danger redline -> 3. Invoked Rule-BIO-01 Health Priority Veto -> 4. Overruled Energy Agent cost optimization -> 5. Dispatched 100% (850 RPM) emergency fan command in 0.28s.`;
+        answerHtml = isZh
+          ? `<p><strong>0.28秒 氨气最高否决权判定过程：</strong></p><p>当 3区氨气浓度升至 <strong>28.5 ppm</strong>（超越 20.0 ppm 警戒阈值），生物健康智能体依据底层宪章行使<strong>绝对最高否决权</strong>，在 0.28秒内瞬间剥夺能耗智能体的节电权限，强制所有 12台变频风机拉满 100% 转速（850 RPM）强排氨气。</p><p><strong>生命价值：</strong> 避免了 45分钟人工巡检延迟可能造成的 42,500羽 肉鸡呼吸道死淘。</p>`
+          : `<p><strong>0.28s Biological Veto Execution Log:</strong></p><p>When Zone 3 NH₃ reached <strong>28.5 ppm</strong> (>20.0 ppm safety limit), the Health Agent invoked its <strong>constitutional priority veto</strong> in 0.28 seconds, immediately overriding the Energy Agent and spinning all 12 VFD fans to 100% (850 RPM).</p><p><strong>Flock Saved:</strong> Prevented asphyxiation risk for 42,500 broilers during nocturnal hours.</p>`;
+      } else if (lower.includes('sap') || lower.includes('feed') || lower.includes('po') || lower.includes('采购') || lower.includes('料塔')) {
+        cotHtml = isZh
+          ? `[CoT 推理链路] 1. 读取 1号与 2号料塔称重探头数据 (合计 14.8吨) ➔ 2. 触碰 <=15.0吨 警戒线 ➔ 3. 验证最近 24小时采食消耗速率 (12.4吨/天) ➔ 4. 调用 SAP BAPI_PO_CREATE1 ➔ 5. 签发 PO-2026-AUG-889104 (25吨优质大豆料，供应商 VEND-FUJIAN-01)。`
+          : `[Chain of Thought] 1. Read Silo 1 & 2 loadcell telemetry (14.8t total) -> 2. Crossed <=15.0t threshold -> 3. Evaluated 24h consumption rate (12.4t/day) -> 4. Called SAP BAPI_PO_CREATE1 -> 5. Created PO-2026-AUG-889104 for 25t feed from VEND-FUJIAN-01.`;
+        answerHtml = isZh
+          ? `<p><strong>SAP S/4HANA 0.2秒 自动采购单签发成功：</strong></p><p>料塔库存跌至 14.8吨时，AI 自动生成采购订单 <strong>PO-2026-AUG-889104</strong>，采购 25.0吨 <code>MAT-FEED-SOYA-500</code>。供应商（福建饲料一厂）已接收自动排产计划，预计 6小时内送达。</p><p><strong>管理效益：</strong> 零断料风险，每日为基地场长节省 2小时手工提单时间。</p>`
+          : `<p><strong>SAP S/4HANA Zero-Touch Auto-PO Executed:</strong></p><p>Silo dropped to 14.8t. AI automatically created Purchase Order <strong>PO-2026-AUG-889104</strong> for 25.0 tons of <code>MAT-FEED-SOYA-500</code> via BAPI in 0.2 seconds. Delivery ETA: 6 hours.</p><p><strong>Efficiency:</strong> Zero human paperwork, 100% feed continuity guaranteed.</p>`;
+      } else {
+        cotHtml = isZh
+          ? `[CoT 推理链路] 1. 解析自然语言指令 ➔ 2. 全网扫描 13大节点数字血缘 ➔ 3. 验证设备与算法闭环自愈响应 ➔ 4. 生成第一性原理决策建议。`
+          : `[Chain of Thought] 1. Parsed natural language intent -> 2. Scanned 13-node industrial graph -> 3. Validated autonomous closed-loop state -> 4. Formulated first-principles recommendation.`;
+        answerHtml = isZh
+          ? `<p><strong>圣农决策中枢实时响应：</strong></p><p>当前全域 50大基地（600M羽白羽肉鸡）系统运行健康度 <strong>99.8%</strong>，闭环响应延迟 &lt;350ms。各项微气候探头与 SAP 自动流转均处于第一性原理最优帕累托前沿。</p>`
+          : `<p><strong>Sunner Cortex Decision Hub Response:</strong></p><p>All 50 complexes (600M broilers) are operating at <strong>99.8%</strong> system health with &lt;350ms closed-loop latency. Telemetry, energy arbitrage, and SAP procurement are running on the Pareto frontier.</p>`;
+      }
+
+      const bodyEl = aMsg.querySelector('.msg-body');
+      if (bodyEl) {
+        bodyEl.innerHTML = `
+          <div class="copilot-cot-box">${cotHtml}</div>
+          <div class="copilot-answer-text">${answerHtml}</div>
+        `;
+      }
+      msgs?.scrollTo({ top: msgs.scrollHeight, behavior: 'smooth' });
+      addAuditLog(isZh ? `🧠 [COPILOT] 完成高阶自然语言推理：“${promptText}”` : `🧠 [COPILOT] Resolved natural language reasoning: "${promptText}"`, true);
+    }, 400);
+  }
+}
+
+// =================================================================
+// 11. BIO-ACOUSTIC SPECTROGRAM & THERMAL FLIR SUITE
+// =================================================================
+let spectrogramAnimationId = null;
+let coughSpikeActive = false;
+let flirThermalActive = false;
+
+function initBioAcousticSpectrogram() {
+  const canvas = document.getElementById('canvas-bio-spectrogram');
+  if (!canvas) return;
+  const ctx = canvas.getContext('2d');
+  if (!ctx) return;
+
+  const numBins = 48;
+  const binWidth = canvas.width / numBins;
+  let phase = 0;
+
+  function renderSpectrogram() {
+    ctx.fillStyle = '#010118';
+    ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+    // Draw grid lines
+    ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+    ctx.lineWidth = 1;
+    for (let y = 20; y < canvas.height; y += 30) {
+      ctx.beginPath();
+      ctx.moveTo(0, y);
+      ctx.lineTo(canvas.width, y);
+      ctx.stroke();
+    }
+
+    // Draw audio frequency bars (chirps in 1.5 - 3.5 kHz range)
+    for (let i = 0; i < numBins; i++) {
+      const freq = (i / numBins) * 8.0; // 0 - 8 kHz
+      let amp = 0;
+
+      // Normal healthy broiler chirp band around 2.0 - 2.8 kHz
+      if (freq >= 1.8 && freq <= 3.2) {
+        amp = 40 + Math.sin(phase * 3 + i * 0.4) * 25 + Math.random() * 15;
+      } else {
+        amp = 10 + Math.sin(phase + i) * 6 + Math.random() * 5;
+      }
+
+      // If cough spike injected, trigger high-energy harsh rales spike at 4.0 - 6.5 kHz
+      if (coughSpikeActive && freq >= 4.0 && freq <= 6.5) {
+        amp = 85 + Math.random() * 25;
+      }
+
+      const x = i * binWidth;
+      const h = Math.min(canvas.height - 10, amp);
+      const y = canvas.height - h;
+
+      // Gradient color: Cyan/Green for normal, Amber/Red for cough
+      const grad = ctx.createLinearGradient(0, y, 0, canvas.height);
+      if (coughSpikeActive && freq >= 4.0 && freq <= 6.5) {
+        grad.addColorStop(0, '#f43f5e');
+        grad.addColorStop(1, '#f59e0b');
+      } else {
+        grad.addColorStop(0, '#38bdf8');
+        grad.addColorStop(0.5, '#06b6d4');
+        grad.addColorStop(1, '#10b981');
+      }
+
+      ctx.fillStyle = grad;
+      ctx.fillRect(x + 2, y, binWidth - 4, h);
+    }
+
+    phase += 0.05;
+    spectrogramAnimationId = requestAnimationFrame(renderSpectrogram);
+  }
+
+  renderSpectrogram();
+
+  // Cough Spike Injection Button
+  document.getElementById('btn-simulate-cough-spike')?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    coughSpikeActive = true;
+
+    const badge = document.getElementById('bio-cough-status');
+    const lbl = document.getElementById('bio-cough-status-lbl');
+    if (badge) { badge.className = "bio-status-badge danger"; }
+    if (lbl) { lbl.textContent = isZh ? "🚨 48h 早期呼吸道杂音预警 • 异常指数 0.38 (检出咳嗽)" : "🚨 48h PRE-SYMPTOMATIC WARNING • ANOMALY 0.38 (COUGH RALES)"; }
+
+    addAuditLog(isZh ? "🔬 [生物声学] 2区麦克风捕获异常高频咳嗽杂音 (5.2 kHz)！已提前 48小时启动气溶胶预防护。" : "🔬 [BIO-ACOUSTICS] Captured atypical cough rales (5.2 kHz) in Zone 2! Dispatched 48h early aerosol defense.", true);
+
+    setTimeout(() => {
+      coughSpikeActive = false;
+      if (badge) { badge.className = "bio-status-badge green"; }
+      if (lbl) { lbl.textContent = isZh ? "● 0 异常杂音 / 100% 健康鸣叫曲线" : "● 0 Atypical Rales / 100% Healthy Vocalization"; }
+    }, 4500);
+  });
+
+  // FLIR Thermal Mode Toggle Button
+  document.getElementById('btn-toggle-flir-thermal')?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    flirThermalActive = !flirThermalActive;
+    const btn = document.getElementById('btn-toggle-flir-thermal');
+    const cutaway = document.getElementById('barn-cutaway-container');
+
+    if (btn) btn.classList.toggle('active', flirThermalActive);
+    if (cutaway) cutaway.classList.toggle('flir-active', flirThermalActive);
+
+    addAuditLog(isZh ? (flirThermalActive ? "🔥 红外热成像视界已开启：鸡群分布均匀无聚堆" : "🔥 红外热成像视界已关闭") : (flirThermalActive ? "🔥 FLIR Thermal Vision Active: Uniform flock distribution, zero huddling" : "🔥 FLIR Thermal Vision Deactivated"), true);
+  });
+}
+
+// =================================================================
+// 12. TIME-TRAVEL & BLACK-BOX INCIDENT REPLAY ENGINE
+// =================================================================
+let isTimeReplayPlaying = false;
+
+function initTimeTravelReplay() {
+  const btnBookmark = document.getElementById('btn-replay-incident-0214');
+  const btnPlay = document.getElementById('btn-time-toggle-play');
+  const btnLive = document.getElementById('btn-time-live');
+  const timeDisp = document.getElementById('time-travel-timestamp');
+
+  btnBookmark?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    if (timeDisp) timeDisp.innerHTML = `<span style="color: #f43f5e;">🔴 REPLAY: 02:14:32 AM (Aug 16)</span>`;
+    if (btnPlay) btnPlay.textContent = isZh ? "⏸ 暂停复盘" : "⏸ Pause Replay";
+    isTimeReplayPlaying = true;
+
+    // Trigger Ammonia Crisis Veto directly
+    document.getElementById('side-scen-ammonia')?.click();
+    addAuditLog(isZh ? "⏳ [黑匣子复盘] 已跳跃至 02:14:32 AM：变频风机断电跳闸，氨气飙升至 28.5 ppm，AI 在 0.28秒内执行应急强排。" : "⏳ [BLACK-BOX REPLAY] Jumped to 02:14:32 AM: Inverter tripped, NH3 spiked to 28.5 ppm, AI executed 0.28s emergency veto flush.", true);
+  });
+
+  btnLive?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    if (timeDisp) timeDisp.textContent = "LIVE (Now: 13:30:00)";
+    if (btnPlay) btnPlay.textContent = isZh ? "▶ 复盘" : "▶ Replay";
+    isTimeReplayPlaying = false;
+    document.getElementById('side-scen-closedloop')?.click();
+    addAuditLog(isZh ? "🔴 时空回溯已恢复至实时在线流 (Live Stream)" : "🔴 Time-travel restored to Real-Time Live Stream", true);
+  });
+
+  btnPlay?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    isTimeReplayPlaying = !isTimeReplayPlaying;
+    if (btnPlay) btnPlay.textContent = isTimeReplayPlaying ? (isZh ? "⏸ 暂停复盘" : "⏸ Pause Replay") : (isZh ? "▶ 复盘" : "▶ Replay");
+  });
+}
+
+// =================================================================
+// 13. DIGITAL PRODUCT PASSPORT (DPP) MODAL CONTROLLER
+// =================================================================
+function initDigitalProductPassport() {
+  const modal = document.getElementById('modal-dpp');
+  const btnClose = document.getElementById('btn-close-dpp');
+  const btnKeynoteDpp = document.getElementById('btn-keynote-dpp');
+  const btnDownload = document.getElementById('btn-download-dpp-cert');
+
+  const openDpp = () => {
+    if (modal) modal.style.display = 'flex';
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    addAuditLog(isZh ? "🏷️ [数字护照] 已调取 03栋 BATCH-2026-08A 绿色肉鸡数字产品护照 (DPP)" : "🏷️ [DPP] Loaded Digital Product Passport for BATCH-2026-08A (A+ Green Certified)", true);
+  };
+
+  const closeDpp = () => {
+    if (modal) modal.style.display = 'none';
+  };
+
+  btnKeynoteDpp?.addEventListener('click', openDpp);
+  document.getElementById('btn-keynote-warroom')?.addEventListener('click', () => {
+    document.getElementById('nav-btn-warroom')?.click();
+  });
+
+  btnClose?.addEventListener('click', closeDpp);
+  modal?.addEventListener('click', (e) => {
+    if (e.target === modal) closeDpp();
+  });
+
+  btnDownload?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    alert(isZh ? "📄 经过 SHA-256 哈希加密存证的百胜/麦当劳出口数字肉鸡护照 (PDF) 下载成功！" : "📄 Export DPP Certificate (PDF with SHA-256 blockchain signature) downloaded successfully!");
+  });
+}
+
+// =================================================================
+// 14. 1-CLICK 3-MINUTE AUTONOMOUS EXECUTIVE PITCH RUNNER
+// =================================================================
+function startAutonomousPitch() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  addAuditLog(isZh ? "🎬 [全自动路演] 启动 3分钟高管全自主演示巡航！" : "🎬 [AUTO-PITCH] Launched autonomous 3-minute executive investor pitch!", true);
+
+  // Step 1: Jump to 3D Cyber Highway
+  document.getElementById('nav-btn-highway')?.click();
+  document.getElementById('btn-view-3d')?.click();
+
+  // Step 2: In 3.5 seconds, trigger Ammonia Emergency
+  setTimeout(() => {
+    document.getElementById('side-scen-ammonia')?.click();
+  }, 3500);
+
+  // Step 3: In 7.5 seconds, jump to CFO Financial War Room
+  setTimeout(() => {
+    document.getElementById('nav-btn-warroom')?.click();
+    document.getElementById('btn-preset-heatwave')?.click();
+  }, 7500);
+
+  // Step 4: In 12 seconds, open Barn Spatial Twin with Bio-Acoustics & FLIR
+  setTimeout(() => {
+    document.getElementById('nav-btn-barn')?.click();
+    document.getElementById('btn-toggle-flir-thermal')?.click();
+  }, 12000);
+
+  // Step 5: In 16.5 seconds, open Digital Product Passport
+  setTimeout(() => {
+    document.getElementById('btn-keynote-dpp')?.click();
+  }, 16500);
+
+  // Step 6: In 21 seconds, close DPP and open Keynote Presentation Deck
+  setTimeout(() => {
+    document.getElementById('btn-close-dpp')?.click();
+    document.getElementById('nav-btn-presentation')?.click();
+  }, 21000);
+}
+
+document.getElementById('btn-auto-pitch')?.addEventListener('click', startAutonomousPitch);
+
 // Initialize default slide
 renderPresentationSlide(0);
 
@@ -2176,4 +2692,9 @@ renderPresentationSlide(0);
 initScrubber();
 selectNode('sensors');
 playTour();
+initFinancialWarRoom();
+initGrokCopilot();
+initBioAcousticSpectrogram();
+initTimeTravelReplay();
+initDigitalProductPassport();
 addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);

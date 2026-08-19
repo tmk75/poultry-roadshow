@@ -43,10 +43,16 @@
     <nav class="sidebar-nav">
       <div class="nav-section-title">CORE MODULES</div>
 
-      <button class="sidebar-nav-item" id="nav-btn-highway">
+      <button class="sidebar-nav-item active" id="nav-btn-highway">
         <span class="nav-icon">⚡</span>
         <span class="nav-label">Data Highway</span>
         <span class="nav-chip green">LIVE</span>
+      </button>
+
+      <button class="sidebar-nav-item" id="nav-btn-warroom">
+        <span class="nav-icon">💰</span>
+        <span class="nav-label">CFO Financial War Room</span>
+        <span class="nav-chip green" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">¥655M</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-bi">
@@ -160,7 +166,7 @@
         </div>
       </div>
 
-      <!-- Right Quick Metrics & Language Switcher -->
+      <!-- Right Quick Metrics & Actions -->
       <div class="top-kpi-strip">
         <div class="top-kpi-pill">
           <span class="pill-dot green"></span>
@@ -174,6 +180,18 @@
           <span class="pill-dot blue"></span>
           <span>Closed-Loop <strong>0.3s</strong></span>
         </div>
+
+        <!-- 1-Click Autonomous 3-Min Executive Pitch -->
+        <button class="auto-pitch-btn" id="btn-auto-pitch" title="Launch Autonomous 3-Minute Executive Pitch">
+          <span>🚀</span>
+          <span id="lbl-auto-pitch">Auto-Pitch</span>
+        </button>
+
+        <!-- Grok-Style Conversational AI Copilot Button -->
+        <button class="copilot-toggle-btn" id="btn-toggle-copilot" title="Open Sunner Cortex AI Copilot (Natural Language & Reasoning)">
+          <span class="copilot-glow-icon">🧠</span>
+          <span id="lbl-copilot-btn">Grok Copilot</span>
+        </button>
 
         <!-- EN / ZH Language Toggle Pill Button -->
         <button class="lang-toggle-btn" id="btn-toggle-lang" title="Switch Language (EN / 中文)">
@@ -195,6 +213,12 @@
         </button>
         <button class="keynote-btn" id="btn-keynote-esg">
           <span>🌱</span> 1-Click ISO 14064 Carbon Audit
+        </button>
+        <button class="keynote-btn highlight" id="btn-keynote-warroom">
+          <span>💰</span> ¥655M EBITDA Simulator
+        </button>
+        <button class="keynote-btn" id="btn-keynote-dpp">
+          <span>🏷️</span> Digital Product Passport
         </button>
       </div>
 
@@ -218,6 +242,23 @@
       <!-- VIEW 1: DATA HIGHWAY & EXECUTIVE COCKPIT (SPLIT VIEW)         -->
       <!-- ============================================================= -->
       <section class="main-module-view" id="section-enterprise-flow">
+        <!-- Time-Travel & Black-Box Incident Replay Bar -->
+        <div class="time-travel-replay-bar" id="time-travel-bar">
+          <div class="time-travel-left">
+            <span class="time-badge">⏳ TIME TRAVEL REPLAY:</span>
+            <span class="time-current-display" id="time-travel-timestamp">LIVE (Now: 13:30:00)</span>
+            <button class="time-bookmark-btn" id="btn-replay-incident-0214" title="Replay 02:14:32 AM Inverter Trip & Ammonia Crisis">
+              <span>🚨</span> Bookmark: 02:14:32 AM Inverter Failure (0.28s Veto)
+            </button>
+          </div>
+          <div class="time-travel-controls">
+            <button class="time-btn" id="btn-time-rewind" title="Rewind 30 Seconds">⏪ -30s</button>
+            <button class="time-btn primary" id="btn-time-toggle-play" title="Play or Pause Replay">▶ Replay</button>
+            <button class="time-btn" id="btn-time-forward" title="Fast Forward 30 Seconds">⏩ +30s</button>
+            <button class="time-btn" id="btn-time-live" title="Return to Real-Time Live Stream">🔴 Live Now</button>
+          </div>
+        </div>
+
         <div class="cockpit-split-grid">
           <!-- LEFT / CENTER: HERO CANVAS & INSPECTOR (68%) -->
           <div class="cockpit-main-column">
@@ -712,10 +753,13 @@
               <button class="zone-pill-btn active" data-zone="zone-front">Zone 1 (Inlets)</button>
               <button class="zone-pill-btn" data-zone="zone-mid">Zone 2 (Flock)</button>
               <button class="zone-pill-btn" data-zone="zone-rear">Zone 3 (Exhaust Fans)</button>
+              <button class="zone-pill-btn flir-btn" id="btn-toggle-flir-thermal">
+                <span>🔥</span> FLIR Thermal Vision
+              </button>
             </div>
           </div>
 
-          <div class="barn-cutaway">
+          <div class="barn-cutaway" id="barn-cutaway-container">
             <div class="barn-room" id="zone-view-front" data-zone="zone-front">
               <span class="room-title">ZONE 1: AIR INLETS</span>
               <div class="room-icon-visual">💨 💨 💨</div>
@@ -728,7 +772,7 @@
 
             <div class="barn-room highlight" id="zone-view-mid" data-zone="zone-mid">
               <span class="room-title">ZONE 2: 42,500 COBB500 FLOCK</span>
-              <div class="birds-visual">🐔 🐔 🐔 🐔 🐔 🐔</div>
+              <div class="birds-visual" id="birds-visual-layer">🐔 🐔 🐔 🐔 🐔 🐔</div>
               <div class="room-stats">
                 <div>Temp: <strong>22.1°C</strong></div>
                 <div>Comfort: <strong>98.5%</strong></div>
@@ -758,6 +802,40 @@
             </div>
             <div class="zone-details-grid" id="zone-detail-metrics">
               <!-- Dynamically populated -->
+            </div>
+          </div>
+
+          <!-- Bio-Acoustic Respiratory Spectrogram & Predictive Health Card -->
+          <div class="bio-acoustic-suite-card">
+            <div class="bio-acoustic-header">
+              <div class="bio-title-group">
+                <div class="bio-icon">🔬</div>
+                <div>
+                  <h3 id="bio-spectrogram-title">Bio-Acoustic Cough Spectrogram & Flock Audio AI</h3>
+                  <span class="bio-sub" id="bio-spectrogram-sub">Edge Audio ML: 48h Pre-Symptomatic Respiratory Infection Early Warning</span>
+                </div>
+              </div>
+              <div class="bio-status-badge green" id="bio-cough-status">
+                <span class="bio-pulse-dot"></span>
+                <span id="bio-cough-status-lbl">● 0 Atypical Rales / 100% Healthy Vocalization</span>
+              </div>
+            </div>
+            <div class="spectrogram-canvas-stage">
+              <canvas id="canvas-bio-spectrogram" width="900" height="120"></canvas>
+            </div>
+            <div class="bio-acoustic-footer">
+              <div class="bio-stat-pill">
+                <span>Dominant Frequency:</span> <strong>2.4 kHz (Normal Chirp)</strong>
+              </div>
+              <div class="bio-stat-pill">
+                <span>Rales Anomaly Index:</span> <strong>0.02 (Safe &lt; 0.15)</strong>
+              </div>
+              <div class="bio-stat-pill">
+                <span>Pre-Symptomatic Defense:</span> <strong class="green-text">Active (48h Buffer)</strong>
+              </div>
+              <button class="bio-test-btn" id="btn-simulate-cough-spike">
+                <span>🧪</span> Inject Cough Spike
+              </button>
             </div>
           </div>
         </div>
@@ -847,6 +925,431 @@
           </div>
         </div>
       </section>
+
+      <!-- ============================================================= -->
+      <!-- VIEW 6: CFO FINANCIAL WAR ROOM & EBITDA SENSITIVITY SIMULATOR -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-financial-warroom" style="display: none;">
+        <div class="warroom-container">
+          <!-- Top Header & First-Principles Badge -->
+          <div class="section-hero-card">
+            <div class="section-header-row">
+              <div>
+                <span class="section-super-title" id="warroom-super-title">FIRST-PRINCIPLES UNIT ECONOMICS & EBITDA MULTIPLIER</span>
+                <h2 class="section-main-title" id="warroom-main-title">CFO Financial War Room • Macro Stress-Testing & "What-If" Sensitivity Simulator</h2>
+              </div>
+              <div class="warroom-head-badge">
+                <span class="badge-dot green"></span>
+                <span>600M Broiler Fleet Model</span>
+              </div>
+            </div>
+
+            <!-- 4 Big Financial KPI Hero Cards -->
+            <div class="warroom-kpi-grid">
+              <div class="warroom-kpi-card highlight-green">
+                <span class="wk-label" id="lbl-wk-ebitda">ANNUAL RECURRING EBITDA CREATION</span>
+                <span class="wk-value" id="val-wk-ebitda">+¥655.50<small>M / yr</small></span>
+                <span class="wk-sub" id="sub-wk-ebitda">● $92.3M USD Direct Bottom-Line Delta</span>
+              </div>
+              <div class="warroom-kpi-card highlight-cyan">
+                <span class="wk-label" id="lbl-wk-fcr">FCR MARGIN SENSITIVITY (0.01 FCR)</span>
+                <span class="wk-value" id="val-wk-fcr">¥49.92<small>M</small></span>
+                <span class="wk-sub" id="sub-wk-fcr">● 15,600t Feed Saved per 0.01 FCR</span>
+              </div>
+              <div class="warroom-kpi-card highlight-purple">
+                <span class="wk-label" id="lbl-wk-payback">FLEET CAPEX PAYBACK PERIOD</span>
+                <span class="wk-value" id="val-wk-payback">&lt; 2.5<small>Months</small></span>
+                <span class="wk-sub" id="sub-wk-payback">● CapEx ¥45M Across 50 Complexes</span>
+              </div>
+              <div class="warroom-kpi-card highlight-amber">
+                <span class="wk-label" id="lbl-wk-tailrisk">TAIL RISK DEFLECTION RATIO</span>
+                <span class="wk-value" id="val-wk-tailrisk">92.3<small>%</small></span>
+                <span class="wk-sub" id="sub-wk-tailrisk">● 0.28s Veto Prevents Suffocation Losses</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- 4 Extreme Crisis Scenario Preset Cards -->
+          <div class="warroom-presets-section">
+            <div class="preset-section-head">
+              <span class="preset-tag" id="warroom-presets-tag">⚡ 4 EXTREME "WHAT-IF" CRISIS STRESS TESTS (CLICK TO LOAD):</span>
+            </div>
+            <div class="crisis-presets-grid">
+              <button class="crisis-preset-card active" id="btn-preset-heatwave">
+                <div class="preset-card-top">
+                  <span class="preset-icon">☀️</span>
+                  <strong id="preset-1-title">Summer Heatwave & Grid Crash</strong>
+                </div>
+                <p id="preset-1-desc">41°C Heatwave + State Grid Peak Tariff Surge (¥2.50/kWh). Pre-cool thermal storage saves ¥44.5M.</p>
+                <span class="preset-roi-badge green" id="preset-1-badge">+¥44.5M Loss Deflected</span>
+              </button>
+
+              <button class="crisis-preset-card" id="btn-preset-soybean">
+                <div class="preset-card-top">
+                  <span class="preset-icon">🌾</span>
+                  <strong id="preset-2-title">Global Soybean Crisis (+35%)</strong>
+                </div>
+                <p id="preset-2-desc">Feed commodity spikes to ¥4,320/t (+¥268M cost). Microclimate tuning drops FCR by 0.03 to recover margin.</p>
+                <span class="preset-roi-badge green" id="preset-2-badge">+¥149.8M Margin Recovered</span>
+              </button>
+
+              <button class="crisis-preset-card" id="btn-preset-inverter">
+                <div class="preset-card-top">
+                  <span class="preset-icon">🚨</span>
+                  <strong id="preset-3-title">02:15 AM Inverter Trip & NH₃</strong>
+                </div>
+                <p id="preset-3-desc">Fan power fails in cold snap (NH₃ spikes to 38 ppm). 0.28s damper bypass saves 480k birds.</p>
+                <span class="preset-roi-badge green" id="preset-3-badge">+¥10.8M Flock Saved</span>
+              </button>
+
+              <button class="crisis-preset-card" id="btn-preset-cbam">
+                <div class="preset-card-top">
+                  <span class="preset-icon">🇪🇺</span>
+                  <strong id="preset-4-title">EU CBAM & Green Export Tender</strong>
+                </div>
+                <p id="preset-4-desc">Cryptographic Digital Product Passport secures 300,000t export tender with +¥0.40/kg green premium.</p>
+                <span class="preset-roi-badge green" id="preset-4-badge">+¥120.0M New Revenue</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Split Workbench: Interactive Macro Sliders & Real-Time Dynamic EBITDA Waterfall -->
+          <div class="warroom-workbench-grid">
+            <!-- Left: Interactive Sensitivity Controls -->
+            <div class="warroom-control-card">
+              <div class="card-head-title">
+                <h3>🎛️ Macroeconomic & Climate Sensitivity Controls</h3>
+                <button class="btn-reset-sliders" id="btn-reset-warroom-sliders">↺ Reset Baseline</button>
+              </div>
+
+              <div class="slider-control-item">
+                <div class="slider-header-row">
+                  <label for="slider-warroom-feed" id="lbl-slider-feed">🌽 Soybean Meal / Feed Price Delta:</label>
+                  <strong class="slider-val-badge" id="val-disp-feed">0% (¥3,200/t)</strong>
+                </div>
+                <input type="range" id="slider-warroom-feed" min="-40" max="40" step="5" value="0" class="custom-range">
+                <div class="slider-scale-ticks">
+                  <span>-40% (Deflation)</span>
+                  <span>Baseline (¥3,200/t)</span>
+                  <span>+40% (Global Shock)</span>
+                </div>
+              </div>
+
+              <div class="slider-control-item">
+                <div class="slider-header-row">
+                  <label for="slider-warroom-heat" id="lbl-slider-heat">☀️ Summer Heatwave Ambient Offset:</label>
+                  <strong class="slider-val-badge" id="val-disp-heat">+0.0°C (Normal Summer)</strong>
+                </div>
+                <input type="range" id="slider-warroom-heat" min="0" max="8" step="0.5" value="0" class="custom-range">
+                <div class="slider-scale-ticks">
+                  <span>+0°C (Normal)</span>
+                  <span>+4°C (Severe Heatwave)</span>
+                  <span>+8°C (Extreme 43°C Peak)</span>
+                </div>
+              </div>
+
+              <div class="slider-control-item">
+                <div class="slider-header-row">
+                  <label for="slider-warroom-tariff" id="lbl-slider-tariff">⚡ State Grid Peak Electricity Tariff:</label>
+                  <strong class="slider-val-badge" id="val-disp-tariff">¥1.38 / kWh (Peak)</strong>
+                </div>
+                <input type="range" id="slider-warroom-tariff" min="0.8" max="3.0" step="0.1" value="1.38" class="custom-range">
+                <div class="slider-scale-ticks">
+                  <span>¥0.80/kWh</span>
+                  <span>¥1.38/kWh (Current)</span>
+                  <span>¥3.00/kWh (Grid Crisis)</span>
+                </div>
+              </div>
+
+              <div class="slider-control-item">
+                <div class="slider-header-row">
+                  <label for="slider-warroom-fleet" id="lbl-slider-fleet">🐔 Enterprise Fleet Production Scale:</label>
+                  <strong class="slider-val-badge" id="val-disp-fleet">600M Broilers (50 Complexes)</strong>
+                </div>
+                <input type="range" id="slider-warroom-fleet" min="50" max="600" step="50" value="600" class="custom-range">
+                <div class="slider-scale-ticks">
+                  <span>50M Birds</span>
+                  <span>300M Birds</span>
+                  <span>600M Birds (Full Scale)</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Dynamic EBITDA Waterfall & AI Mitigation Playbook -->
+            <div class="warroom-results-column">
+              <!-- EBITDA Waterfall Card -->
+              <div class="waterfall-card">
+                <div class="card-head-title">
+                  <h3 id="waterfall-chart-title">📊 Simulated EBITDA Value Waterfall (First Principles)</h3>
+                  <span class="live-math-badge" id="waterfall-math-badge">∑ Annual Recurring Value</span>
+                </div>
+
+                <div class="waterfall-bars-container">
+                  <!-- Bar 1: Feed FCR -->
+                  <div class="waterfall-bar-row">
+                    <div class="wf-bar-meta">
+                      <span class="wf-dot green"></span>
+                      <span class="wf-name" id="wf-name-feed">Feed Conversion (FCR 1.54 vs 1.60)</span>
+                      <strong class="wf-val green-text" id="wf-val-feed">+¥299.52M</strong>
+                    </div>
+                    <div class="wf-progress-bg">
+                      <div class="wf-progress-fill green" id="wf-bar-feed" style="width: 45%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Bar 2: Mortality Avoided -->
+                  <div class="waterfall-bar-row">
+                    <div class="wf-bar-meta">
+                      <span class="wf-dot cyan"></span>
+                      <span class="wf-name" id="wf-name-mort">Mortality & Extreme Heatwave Defense</span>
+                      <strong class="wf-val cyan-text" id="wf-val-mort">+¥188.70M</strong>
+                    </div>
+                    <div class="wf-progress-bg">
+                      <div class="wf-progress-fill cyan" id="wf-bar-mort" style="width: 29%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Bar 3: Peak Power Arbitrage -->
+                  <div class="waterfall-bar-row">
+                    <div class="wf-bar-meta">
+                      <span class="wf-dot blue"></span>
+                      <span class="wf-name" id="wf-name-power">Peak Power Tariff Pre-Cooling Arbitrage</span>
+                      <strong class="wf-val blue-text" id="wf-val-power">+¥15.77M</strong>
+                    </div>
+                    <div class="wf-progress-bg">
+                      <div class="wf-progress-fill blue" id="wf-bar-power" style="width: 12%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Bar 4: Export Green Premium -->
+                  <div class="waterfall-bar-row">
+                    <div class="wf-bar-meta">
+                      <span class="wf-dot purple"></span>
+                      <span class="wf-name" id="wf-name-green">ISO 14064 Export Green Premium (+¥0.40/kg)</span>
+                      <strong class="wf-val purple-text" id="wf-val-green">+¥120.00M</strong>
+                    </div>
+                    <div class="wf-progress-bg">
+                      <div class="wf-progress-fill purple" id="wf-bar-green" style="width: 18%;"></div>
+                    </div>
+                  </div>
+
+                  <!-- Total Net Row -->
+                  <div class="waterfall-total-banner">
+                    <div>
+                      <span class="total-label" id="wf-total-label">TOTAL SIMULATED ANNUAL EBITDA CREATION:</span>
+                      <div class="total-big-val" id="wf-total-val">+¥655.50 MILLION RMB</div>
+                    </div>
+                    <div class="total-unit-margin" id="wf-margin-per-bird">+¥1.09 / Broiler Profit Delta</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- AI Prescriptive Mitigation Playbook Card -->
+              <div class="ai-playbook-card" id="warroom-playbook-card">
+                <div class="playbook-head">
+                  <div class="playbook-title-group">
+                    <span class="playbook-icon">🧠</span>
+                    <div>
+                      <h4 id="playbook-title">Cortex AI Prescriptive Mitigation Strategy</h4>
+                      <span class="playbook-sub" id="playbook-sub">Autonomous Parameter Optimization Playbook</span>
+                    </div>
+                  </div>
+                  <button class="btn-execute-playbook" id="btn-execute-warroom-playbook">
+                    <span>⚡</span> <span id="lbl-btn-playbook">Apply AI Playbook to Fleet</span>
+                  </button>
+                </div>
+                <div class="playbook-steps-list" id="playbook-steps-list">
+                  <div class="playbook-step-row">
+                    <span class="step-num">01</span>
+                    <span class="step-desc" id="pb-step-1"><strong>Nighttime Pre-Cooling Buffer:</strong> Sub-cool all 50 complexes by 1.2°C during valley tariff (¥0.42/kWh) to store thermal mass.</span>
+                  </div>
+                  <div class="playbook-step-row">
+                    <span class="step-num">02</span>
+                    <span class="step-desc" id="pb-step-2"><strong>Micro-Misting Dynamic Staging:</strong> Throttle VFD exhaust fans during 14:00-17:00 peak pricing while pulse-misting maintains bird comfort.</span>
+                  </div>
+                  <div class="playbook-step-row">
+                    <span class="step-num">03</span>
+                    <span class="step-desc" id="pb-step-3"><strong>0.28s Biological Safety Gate:</strong> Instant hard override to 100% fan ventilation if ammonia exceeds 15.0 ppm threshold.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+
+  <!-- ================================================================= -->
+  <!-- SLIDE-OUT GROK-STYLE CONVERSATIONAL AI COPILOT DRAWER             -->
+  <!-- ================================================================= -->
+  <aside class="copilot-drawer" id="copilot-drawer" style="display: none;">
+    <div class="copilot-header">
+      <div class="copilot-header-title">
+        <span class="copilot-header-icon">🧠</span>
+        <div>
+          <h4>SUNNER CORTEX AI COPILOT</h4>
+          <span class="copilot-header-sub">Grok-Style Real-Time Reasoning & Factory Dispatch</span>
+        </div>
+      </div>
+      <button class="copilot-close-btn" id="btn-close-copilot" title="Close Copilot">✕</button>
+    </div>
+
+    <!-- Preset Prompt Pills -->
+    <div class="copilot-prompts-bar">
+      <span class="cp-tag">PROMPT PRESETS:</span>
+      <button class="cp-pill" data-prompt="Analyze Nanping Complex FCR Drift">📊 Analyze FCR Drift</button>
+      <button class="cp-pill" data-prompt="Simulate 42°C Summer Heatwave Defense">🔥 42°C Heatwave Defense</button>
+      <button class="cp-pill" data-prompt="Explain 0.28s Ammonia Veto Decision Logic">🚨 Explain Ammonia Veto</button>
+      <button class="cp-pill" data-prompt="Trigger 25t JIT Feed Order in SAP">📦 Execute SAP 25t PO</button>
+      <button class="cp-pill" data-prompt="Generate Cryptographic ISO 14064 Certificate">🌱 ISO 14064 Audit Proof</button>
+    </div>
+
+    <!-- Chat Message Stream -->
+    <div class="copilot-messages-container" id="copilot-messages">
+      <div class="copilot-msg assistant">
+        <div class="msg-avatar">🤖</div>
+        <div class="msg-body">
+          <p><strong>Sunner Cortex AI Online.</strong> I have real-time telemetry access across all 50 complexes (600M broilers), Welotec edge NVRAM buffers, Snowflake lakehouse, and SAP S/4HANA.</p>
+          <p>Ask me anything about flock health, FCR optimization, electricity tariff arbitrage, or dispatch autonomous commands.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Input Bar -->
+    <div class="copilot-input-bar">
+      <input type="text" id="copilot-input-field" placeholder="Ask Cortex AI or type a factory dispatch command..." autocomplete="off">
+      <button class="copilot-voice-btn" id="btn-copilot-voice" title="Voice Input (Simulated)">🎤</button>
+      <button class="copilot-send-btn" id="btn-copilot-send">Send ➔</button>
+    </div>
+  </aside>
+
+  <!-- ================================================================= -->
+  <!-- DIGITAL PRODUCT PASSPORT (DPP) EXPORT VERIFICATION MODAL          -->
+  <!-- ================================================================= -->
+  <div class="modal-backdrop" id="modal-dpp" style="display: none;">
+    <div class="dpp-modal-card">
+      <div class="dpp-modal-header">
+        <div class="dpp-modal-title">
+          <span class="dpp-badge-icon">🏷️</span>
+          <div>
+            <h3>DIGITAL PRODUCT PASSPORT (DPP)</h3>
+            <span class="dpp-sub">Verified Low-Carbon Poultry Export Pedigree • Yum! / McDonald's / EU Standard</span>
+          </div>
+        </div>
+        <button class="modal-close-btn" id="btn-close-dpp">✕</button>
+      </div>
+
+      <div class="dpp-modal-body">
+        <!-- Left: Verified Certificate Details -->
+        <div class="dpp-details-col">
+          <div class="dpp-batch-header">
+            <span class="dpp-batch-id">BATCH: HOUSE-03-2026-08A</span>
+            <span class="dpp-grade-badge">GRADE A+ GREEN CERTIFIED</span>
+          </div>
+
+          <div class="dpp-grid">
+            <div class="dpp-item">
+              <span class="dpp-lbl">Product:</span>
+              <strong>Cobb500 Broiler Breast Meat</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">Farm Complex:</span>
+              <strong>Nanping Complex 01 • House 03</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">Flock Quantity:</span>
+              <strong>42,500 Broilers</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">FCR Achieved:</span>
+              <strong class="green-text">1.54 (Industry Best)</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">Carbon Footprint:</span>
+              <strong class="green-text">1.42 kg CO₂e / kg (-28.3%)</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">Antibiotic Usage:</span>
+              <strong class="cyan-text">0.00 mg (100% Free)</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">Animal Welfare Index:</span>
+              <strong class="purple-text">99.2% Gold Tier</strong>
+            </div>
+            <div class="dpp-item">
+              <span class="dpp-lbl">SAP Material PO:</span>
+              <strong>PO-2026-AUG-889104</strong>
+            </div>
+          </div>
+
+          <div class="dpp-hash-box">
+            <span>🔐 SHA-256 Cryptographic Audit Hash:</span>
+            <code>e8b4f2c99a10583d73b2241cf892305a7f9201bd4e9104fa281c82903741890a</code>
+          </div>
+        </div>
+
+        <!-- Right: Scannable QR Passport Card -->
+        <div class="dpp-qr-col">
+          <div class="qr-box">
+            <!-- Procedural Scannable QR Representation -->
+            <svg class="qr-svg" viewBox="0 0 160 160" width="160" height="160">
+              <rect width="160" height="160" fill="#ffffff" rx="8"/>
+              <!-- Corner 1 -->
+              <rect x="12" y="12" width="36" height="36" fill="#000000"/>
+              <rect x="18" y="18" width="24" height="24" fill="#ffffff"/>
+              <rect x="24" y="24" width="12" height="12" fill="#000000"/>
+              <!-- Corner 2 -->
+              <rect x="112" y="12" width="36" height="36" fill="#000000"/>
+              <rect x="118" y="18" width="24" height="24" fill="#ffffff"/>
+              <rect x="124" y="24" width="12" height="12" fill="#000000"/>
+              <!-- Corner 3 -->
+              <rect x="12" y="112" width="36" height="36" fill="#000000"/>
+              <rect x="18" y="118" width="24" height="24" fill="#ffffff"/>
+              <rect x="24" y="124" width="12" height="12" fill="#000000"/>
+              <!-- Data Matrix Pixels -->
+              <rect x="56" y="16" width="8" height="8" fill="#000000"/>
+              <rect x="72" y="16" width="8" height="8" fill="#000000"/>
+              <rect x="88" y="16" width="8" height="8" fill="#000000"/>
+              <rect x="56" y="32" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="32" width="8" height="8" fill="#000000"/>
+              <rect x="96" y="32" width="8" height="8" fill="#000000"/>
+              <rect x="56" y="48" width="8" height="8" fill="#000000"/>
+              <rect x="64" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="104" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="16" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="32" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="128" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="144" y="56" width="8" height="8" fill="#000000"/>
+              <rect x="56" y="72" width="8" height="8" fill="#000000"/>
+              <rect x="72" y="72" width="8" height="8" fill="#000000"/>
+              <rect x="96" y="72" width="8" height="8" fill="#000000"/>
+              <rect x="112" y="72" width="8" height="8" fill="#000000"/>
+              <rect x="64" y="88" width="8" height="8" fill="#000000"/>
+              <rect x="88" y="88" width="8" height="8" fill="#000000"/>
+              <rect x="104" y="88" width="8" height="8" fill="#000000"/>
+              <rect x="56" y="104" width="8" height="8" fill="#000000"/>
+              <rect x="72" y="104" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="112" width="8" height="8" fill="#000000"/>
+              <rect x="96" y="112" width="8" height="8" fill="#000000"/>
+              <rect x="112" y="112" width="8" height="8" fill="#000000"/>
+              <rect x="136" y="112" width="8" height="8" fill="#000000"/>
+              <rect x="64" y="128" width="8" height="8" fill="#000000"/>
+              <rect x="88" y="128" width="8" height="8" fill="#000000"/>
+              <rect x="120" y="128" width="8" height="8" fill="#000000"/>
+              <rect x="144" y="128" width="8" height="8" fill="#000000"/>
+              <rect x="56" y="144" width="8" height="8" fill="#000000"/>
+              <rect x="80" y="144" width="8" height="8" fill="#000000"/>
+              <rect x="104" y="144" width="8" height="8" fill="#000000"/>
+            </svg>
+            <span class="qr-caption">Scan to Verify Full Pedigree & Cold Chain on Blockchain</span>
+          </div>
+          <button class="btn-download-dpp-pdf" id="btn-download-dpp-cert">
+            <span>📥</span> Download Certified Export DPP (PDF)
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 

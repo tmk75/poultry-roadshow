@@ -28,16 +28,22 @@ const i18nDictionary = {
     keynote_closedloop: "0.3s Closed-Loop Power vs Health",
     keynote_sap: "Zero-Touch SAP Reorder",
     keynote_esg: "1-Click ISO 14064 Carbon Audit",
+    keynote_warroom: "¥655M EBITDA Simulator",
+    keynote_dpp: "Digital Product Passport",
+    lbl_auto_pitch: "Auto-Pitch",
+    lbl_copilot_btn: "Grok Copilot",
 
     // Sidebar
     nav_sec_core: "CORE MODULES",
     nav_highway: "Data Highway",
+    nav_warroom: "CFO Financial War Room",
     nav_bi: "Executive BI Hub",
     nav_esg: "ESG & Carbon Hub",
     nav_barn: "Barn Spatial Twin",
     nav_roi: "Autopilot ROI Matrix",
     nav_presentation: "Keynote Presentation",
     app_title_presentation: "Executive Keynote Presentation & Speech Deck",
+    app_title_warroom: "CFO Financial War Room • Macro Stress-Testing & Sensitivity Simulator",
     nav_sec_showcases: "ROADSHOW SHOWCASES",
     scen_closedloop: "⚡ 0.3s Closed-Loop",
     scen_sap: "📦 Zero-Touch SAP PO",
@@ -181,16 +187,22 @@ const i18nDictionary = {
     keynote_closedloop: "0.3秒闭环：能耗 vs 鸡群健康仲裁",
     keynote_sap: "零触控 SAP 智能补料",
     keynote_esg: "一键生成 ISO 14064 碳核算证书",
+    keynote_warroom: "¥6.55亿 财务敏感度模拟",
+    keynote_dpp: "数字产品护照 (DPP)",
+    lbl_auto_pitch: "全自动路演",
+    lbl_copilot_btn: "Grok 智能副驾",
 
     // Sidebar
     nav_sec_core: "核心功能模块",
     nav_highway: "全链路数据管道",
+    nav_warroom: "集团财务作战室",
     nav_bi: "集团商业智能看板",
     nav_esg: "ESG 碳资产核算中心",
     nav_barn: "鸡舍三维空间数字孪生",
     nav_roi: "AI 闭环与传统模式 ROI",
     nav_presentation: "集团高管汇报演讲台",
     app_title_presentation: "圣农 × GEA 智能制造操作系统高管汇报演讲台",
+    app_title_warroom: "集团财务作战室 • 宏观压力测试与第一性原理敏感度模拟舱",
     nav_sec_showcases: "重点演示场景",
     scen_closedloop: "⚡ 0.3秒闭环自愈",
     scen_sap: "📦 零触控 SAP 采购单",
@@ -590,12 +602,14 @@ window.i18n = {
 
     // 4. Sidebar Nav Labels
     const navHwy = document.querySelector('#nav-btn-highway .nav-label');
+    const navWarroom = document.querySelector('#nav-btn-warroom .nav-label');
     const navBi = document.querySelector('#nav-btn-bi .nav-label');
     const navEsg = document.querySelector('#nav-btn-esg .nav-label');
     const navBarn = document.querySelector('#nav-btn-barn .nav-label');
     const navRoi = document.querySelector('#nav-btn-roi .nav-label');
     const navPres = document.querySelector('#nav-btn-presentation .nav-label');
     if (navHwy) navHwy.textContent = dict.nav_highway;
+    if (navWarroom) navWarroom.textContent = dict.nav_warroom;
     if (navBi) navBi.textContent = dict.nav_bi;
     if (navEsg) navEsg.textContent = dict.nav_esg;
     if (navBarn) navBarn.textContent = dict.nav_barn;
@@ -622,11 +636,16 @@ window.i18n = {
     if (userMetaSmall) userMetaSmall.textContent = dict.user_role;
     if (healthStripSpan) healthStripSpan.textContent = dict.health_status;
 
-    // 7. Top App Bar Breadcrumb
+    // 7. Top App Bar Breadcrumb & Buttons
     const crumb1 = document.querySelector('.top-breadcrumb .crumb-dim:nth-child(1)');
     const crumb2 = document.querySelector('.top-breadcrumb .crumb-dim:nth-child(3)');
     if (crumb1) crumb1.textContent = dict.crumb_plant;
     if (crumb2) crumb2.textContent = dict.crumb_house;
+
+    const lblAutoPitch = document.getElementById('lbl-auto-pitch');
+    const lblCopilot = document.getElementById('lbl-copilot-btn');
+    if (lblAutoPitch) lblAutoPitch.textContent = dict.lbl_auto_pitch;
+    if (lblCopilot) lblCopilot.textContent = dict.lbl_copilot_btn;
 
     // 8. Top 3D / 2D Buttons & Speed Label
     const el3d = document.getElementById('btn-view-3d');
@@ -649,10 +668,14 @@ window.i18n = {
     const btnCl = document.getElementById('btn-keynote-closedloop');
     const btnSap = document.getElementById('btn-keynote-sap');
     const btnEsg = document.getElementById('btn-keynote-esg');
+    const btnWarroom = document.getElementById('btn-keynote-warroom');
+    const btnDpp = document.getElementById('btn-keynote-dpp');
     if (kTag) kTag.textContent = dict.roadshow_tag;
     if (btnCl) btnCl.innerHTML = `<span>⚡</span> ${dict.keynote_closedloop}`;
     if (btnSap) btnSap.innerHTML = `<span>📦</span> ${dict.keynote_sap}`;
     if (btnEsg) btnEsg.innerHTML = `<span>🌱</span> ${dict.keynote_esg}`;
+    if (btnWarroom) btnWarroom.innerHTML = `<span>💰</span> ${dict.keynote_warroom}`;
+    if (btnDpp) btnDpp.innerHTML = `<span>🏷️</span> ${dict.keynote_dpp}`;
 
     // 11. 2D Toolbar Level Bands, Filter Chips, Action Buttons & Legend
     const b02 = document.querySelector('.level-badge-02');
