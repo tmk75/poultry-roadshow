@@ -1443,242 +1443,237 @@ selectBarnZone('zone-front');
 // 7. EXECUTIVE PRESENTATION & KEYNOTE SPEAKER DECK (8 MASTER SLIDES)
 // =================================================================
 const presentationSlidesEn = [
-  // Slide 0: Executive Vision
+  // Slide 0: Executive Vision & First-Principles Strategy
   {
     topic: "01. STRATEGIC VISION & PARADIGM SHIFT",
     title: "Sunner × GEA: Autonomous Manufacturing Decision OS",
-    subtitle: "Bridging Shopfloor OT to Enterprise IT Across 50 Industrial Complexes (600M+ Broilers/Year)",
-    pill: "SUB-350MS CLOSED LOOP",
+    subtitle: "Bridging Shopfloor OT to IT Across 50 Industrial Complexes (600M Broilers/Year) with +¥655.5M Annual EBITDA",
+    pill: "+¥655.5M/YR RECURRING EBITDA",
     time: "⏱️ Target Time: 1.5 - 2.0 mins",
     demoAction: {
-      badge: "LIVE DEMO ACTION",
+      badge: "LIVE 3D HIGHWAY DEMO",
       title: "Experience the real-time 3D cyber data pipeline connecting 50 breeding complexes with autonomous auto-cruise.",
-      btnText: "🚀 Launch 3D Cyber-Highway Demo",
+      btnText: "🚀 Launch 3D Cyber Data Highway Cruise",
       targetNav: "nav-btn-highway",
       viewMode: "3d",
       scenario: "closedloop"
     },
     cards: [
-      { icon: "🏭", title: "Enterprise Fleet Scale", metric: "50 Complexes", text: "Connecting <strong>50 industrial complexes</strong> and 600M+ birds across Fujian, Jiangxi, and Gansu with real-time telemetry." },
-      { icon: "❌", title: "The Legacy Bottleneck", metric: "45-Min Lag", text: "Manual silo inspections, uncoordinated peak electricity bills, and <strong>45-minute delayed reaction</strong> to toxic ammonia spikes." },
-      { icon: "⚡", title: "The Autonomous Twin", metric: "0.3s Closed Loop", text: "Direct cloud conduits and multi-agent AI arbitration uniting <strong>Modbus PLCs, Snowflake, SAP S/4HANA, and Foundry</strong>." }
+      { icon: "🏭", title: "Enterprise Scale", metric: "600M Broilers", text: "Connecting <strong>50 industrial complexes</strong> and 600M+ broilers across Fujian, Jiangxi, and Gansu with real-time millisecond telemetry." },
+      { icon: "⚡", title: "Autonomous Closed-Loop", metric: "< 350ms Latency", text: "Sub-second autonomous AI arbitration uniting <strong>Siemens Modbus PLCs, Snowflake, SAP S/4HANA, and Palantir Foundry</strong>." },
+      { icon: "💰", title: "First-Principles EBITDA", metric: "+¥655.50M / yr", text: "Quantified recurring bottom-line value creation with capital investment payback in <strong>under 2.5 months</strong>." }
     ],
     script: `
-      <p><span class="script-highlight">"Good morning leadership and esteemed partners. Today, I am proud to present the Sunner × GEA Enterprise Manufacturing Decision OS.</span></p>
-      <p>Sunner is China's leading white-feathered broiler enterprise, harvesting over 600 million birds every year across 50 massive complexes. For decades, the primary bottleneck in livestock manufacturing has been the gap between on-site farm control and corporate business planning.</p>
+      <p><span class="script-highlight">"Good morning leadership, board members, and esteemed partners. Today, I am proud to present the Sunner × GEA Enterprise Manufacturing Decision OS.</span></p>
+      <p>Sunner is China's undisputed leader in poultry manufacturing, harvesting over 600 million broilers annually across 50 massive complexes. In traditional operations, the primary bottleneck has been the gap between on-site barn control (OT) and enterprise ERP planning (IT).</p>
       <div class="script-callout">
-        <strong>Key Takeaway for Leadership:</strong> We have transformed agricultural farming into precision high-tech manufacturing by closing the loop in sub-350ms between biological sensors and corporate SAP systems.
+        <strong>First-Principles Value Creation:</strong> We have transformed agricultural farming into precision high-tech manufacturing, closing the operational loop in sub-350ms and delivering <strong>+¥655.50 Million RMB ($92.3M USD) in annual recurring EBITDA</strong>.
       </div>
-      <p>Click the <strong>'Launch 3D Cyber-Highway Demo'</strong> button above to watch live data packets flow from shopfloor sensors to the cloud in real-time."</p>
+      <p>Click <strong>'Launch 3D Cyber Data Highway Cruise'</strong> above to watch live shopfloor data flow directly into the cloud in real-time."</p>
     `
   },
-  // Slide 1: 13-Node Architecture
+  // Slide 1: 13-Node Architecture & China Cloud Compliance
   {
-    topic: "02. ARCHITECTURAL TOPOLOGY & INTEGRATION",
-    title: "13-Tier Nervous System: Shopfloor Edge to Snowflake & Foundry",
-    subtitle: "Zero Data Loss with 48h NVRAM Buffering and Standard Open Industrial Protocols",
-    pill: "LEVEL 0 TO LEVEL 6",
+    topic: "02. 13-TIER TOPOLOGY & CHINA CLOUD COMPLIANCE",
+    title: "13-Tier Nervous System: Barn Floor to 21Vianet Azure China East 2",
+    subtitle: "TLS 1.3 Encryption, 48h NVRAM Local Buffer, CSL/DSL/PIPL Data Localization & MLPS 2.0 Level 3",
+    pill: "100% CSL / PIPL COMPLIANT",
     time: "⏱️ Target Time: 2.0 mins",
     demoAction: {
       badge: "LIVE ARCHITECTURE DEMO",
       title: "Inspect the 2D precision engineering pipeline, subsystem filters, and protocol X-Ray schemas.",
-      btnText: "🌐 Explore 2D Precision Pipeline",
+      btnText: "🌐 Explore 2D Precision Pipeline & Protocol X-Ray",
       targetNav: "nav-btn-highway",
       viewMode: "2d",
       nodeId: "edge"
     },
     cards: [
-      { icon: "📟", title: "Shopfloor Edge Tier", metric: "48h Zero Loss", text: "Welotec egOS gateways poll Modbus sensors every 10ms with <strong>TLS 1.3 encryption</strong> and 48-hour local flash buffering." },
-      { icon: "❄️", title: "Cloud Data Lakehouse", metric: "250k rows/sec", text: "High-throughput Snowpipe streaming ingesting real-time microclimate and feed metrics directly to <strong>Snowflake & Palantir Foundry</strong>." },
-      { icon: "🧠", title: "Decision & ERP Tier", metric: "0.2s SAP BAPI", text: "Sub-second closed-loop dispatch back to on-site fans and automated <strong>SAP purchase order generation</strong>." }
+      { icon: "📟", title: "Industrial Edge Tier", metric: "48h Zero Loss", text: "German Welotec egOS gateways poll Modbus sensors every 10ms with <strong>TLS 1.3 encryption</strong> and 48-hour NVRAM flash backup." },
+      { icon: "🇨🇳", title: "21Vianet Azure China", metric: "MLPS 2.0 Level 3", text: "100% in-country data localization in Shanghai China East 2, fully complying with <strong>CSL, DSL, and PIPL regulatory standards</strong>." },
+      { icon: "❄️", title: "Lakehouse & Ontology", metric: "250k rows/sec", text: "Snowpipe Streaming streams live telemetry into <strong>Snowflake and Palantir Foundry</strong> enterprise ontology models." }
     ],
     script: `
-      <p><span class="script-highlight">"Here you see the end-to-end industrial nervous system connecting all 13 critical tiers.</span></p>
-      <p>Starting at Level 0 on the farm floor, high-precision Pt100 temperature probes and Modbus ammonia sensors poll conditions every 10ms. Our industrial Welotec edge gateways ensure <strong>48-hour offline buffering</strong>—even in typhoons or severe network outages, zero telemetry is lost.</p>
+      <p><span class="script-highlight">"Here you see the end-to-end industrial nervous system connecting all 13 critical tiers from Level 0 to Level 6.</span></p>
+      <p>At Level 0 on the farm floor, Pt100 temperature probes and ammonia sensors poll conditions every 10ms. Our industrial Welotec edge gateways ensure <strong>48-hour offline buffering</strong>—even in mountain typhoons or severed fiber connections, zero data packets are lost.</p>
       <div class="script-callout">
-        <strong>Architecture Highlight:</strong> Data bypasses traditional vendor lock-in via Sparkplug B directly into Snowflake, linking live sensor states to Palantir Foundry's enterprise ontology.
+        <strong>China Cloud Compliance:</strong> All telemetry and ML models are hosted within 21Vianet Microsoft Azure China East 2 (Shanghai), guaranteeing 100% compliance with China's Cyber Security Law and PIPL data protection standards.
       </div>
-      <p>Let's click <strong>'Explore 2D Precision Pipeline'</strong> to inspect how the layers interact."</p>
+      <p>Click <strong>'Explore 2D Precision Pipeline & Protocol X-Ray'</strong> to inspect the live message payloads."</p>
     `
   },
-  // Slide 2: Edge 48h Buffer
+  // Slide 2: Bio-Acoustics & 48h Pre-Symptomatic Early Warning
   {
-    topic: "03. EDGE RELIABILITY & FAULT TOLERANCE",
-    title: "Welotec egOS: 48-Hour Zero-Loss Local Buffer Protection",
-    subtitle: "Built for Severe Industrial Conditions: Typhoons, WAN Disruptions, and Mountain Power Cuts",
-    pill: "100% TELEMETRY INTEGRITY",
+    topic: "03. BIO-ACOUSTICS & PRE-SYMPTOMATIC DEFENSE",
+    title: "Edge Audio ML: Capturing Respiratory Rales 48 Hours Early",
+    subtitle: "Real-Time 0-8 kHz Audio Spectrogram & False-Color FLIR Thermal Vision Density Mapping",
+    pill: "48H PRE-SYMPTOMATIC ALERT",
     time: "⏱️ Target Time: 1.5 mins",
     demoAction: {
-      badge: "LIVE FAULT SIMULATION",
-      title: "Simulate a severe network disconnection on Edge Node 03 and watch the NVRAM buffer drain automatically.",
-      btnText: "⚡ Simulate 48h Offline Buffer & Drain",
-      targetNav: "nav-btn-highway",
-      viewMode: "2d",
-      action: "toggleOffline"
+      badge: "LIVE BIO-ACOUSTICS & FLIR DEMO",
+      title: "Inspect the live audio spectrogram and toggle FLIR Thermal False-Color Vision in the Barn Spatial Twin.",
+      btnText: "🔬 Launch Bio-Acoustics & FLIR Thermal Suite",
+      targetNav: "nav-btn-barn",
+      action: "flir"
     },
     cards: [
-      { icon: "🛡️", title: "NVRAM Flash Buffer", metric: "48h / 1.7M Pkts", text: "Guarantees zero dropped packets during telecom fiber cuts, automatically syncing to Snowflake on reconnect." },
-      { icon: "🔒", title: "Industrial Security", metric: "TLS 1.3 + mTLS", text: "Hardware root-of-trust with hardware cryptographic encryption preventing unauthorized OT network intrusion." },
-      { icon: "⚡", title: "Edge Autonomy", metric: "<10ms Loop", text: "Edge intelligence maintains local climate control and emergency fans even if completely severed from the cloud." }
+      { icon: "🎙️", title: "Acoustic Spectrogram", metric: "0 - 8 kHz ML", text: "Continuous sound frequency analysis detecting atypical vocalizations and coughing rales <strong>48h before clinical symptoms</strong>." },
+      { icon: "🔥", title: "FLIR Thermal Vision", metric: "±0.1°C FLIR Mode", text: "False-color thermal density heatmap reveals bird clustering, cold drafts, and microclimate dead-zones in real-time." },
+      { icon: "🛡️", title: "Prophylactic Defense", metric: "Zero Antibiotics", text: "Instant aerosol misting defense triggers automatically, preserving flock health and maintaining <strong>100% antibiotic-free</strong> certification." }
     ],
     script: `
-      <p><span class="script-highlight">"In harsh agricultural environments, network reliability is a primary concern.</span></p>
-      <p>Our Welotec edge nodes feature a dedicated 48-hour local flash buffer. If a mountain fiber optic cable is severed during a thunderstorm, the edge node retains over 1.7 million telemetry records locally and maintains continuous ventilation safety.</p>
+      <p><span class="script-highlight">"Flock biosecurity is revolutionized by our Edge Bio-Acoustic and Thermal Vision Suite.</span></p>
+      <p>Broilers communicate stress and early infection through vocalizations. By running a 48-bin audio spectrogram model directly on the edge, the system detects respiratory rales and coughing frequencies (4.0-6.5 kHz) <strong>48 hours before any human veterinarian can observe symptoms</strong>.</p>
       <div class="script-callout">
-        <strong>Zero-Loss Assurance:</strong> Upon network restoration, the queue drains automatically into Snowflake with verified timestamp integrity.
+        <strong>Biosecurity Breakthrough:</strong> Combined with FLIR Thermal Vision to detect flock crowding, the system triggers targeted prophylactic misting, preventing viral outbreaks with zero antibiotics.
       </div>
-      <p>Let's simulate a network outage now by clicking <strong>'Simulate 48h Offline Buffer'</strong>."</p>
+      <p>Click <strong>'Launch Bio-Acoustics & FLIR Thermal Suite'</strong> to inspect the live audio spectrum."</p>
     `
   },
-  // Slide 3: Cortex AI Conflict Resolution
+  // Slide 3: Cortex Multi-Agent Negotiation & 0.28s Veto
   {
-    topic: "04. AUTONOMOUS AGENT DECISION ENGINE",
-    title: "Cortex AI: Health Priority Veto Over Peak Tariff Savings",
-    subtitle: "Finding the True Pareto Optimal Frontier between Energy Cost & Biological Welfare",
+    topic: "04. CORTEX MULTI-AGENT CONSENSUS",
+    title: "The Golden Negotiation Rule: Biological Welfare Over Energy Savings",
+    subtitle: "0.28s Welfare Priority Veto Preserves 480,000 Broilers During Midnight Inverter Power Outage",
     pill: "0.28S EMERGENCY VETO",
-    time: "⏱️ Target Time: 2.0 - 2.5 mins",
+    time: "⏱️ Target Time: 2.0 mins",
     demoAction: {
-      badge: "LIVE AGENT CRISIS DEMO",
+      badge: "LIVE CRISIS VETO DEMO",
       title: "Trigger a toxic ammonia spike and watch Cortex AI execute an emergency fan override in 0.28 seconds.",
-      btnText: "🚨 Trigger Ammonia Crisis Veto (0.28s)",
+      btnText: "🚨 Replay 02:14:32 AM Midnight Ammonia Veto",
       targetNav: "nav-btn-highway",
       scenario: "ammonia"
     },
     cards: [
-      { icon: "⚡", title: "Energy Optimization", metric: "-28.4% Tariff", text: "Pre-cools the barn during cheap valley hours (¥0.38/kWh) and modulates ventilation fans down to 25% during peak hours (¥1.35/kWh)." },
-      { icon: "🐔", title: "Health Priority Veto", metric: "100% Flush", text: "If ammonia reaches 20 ppm, the Biological Agent instantly executes a <strong>hard veto in 0.28s</strong>, commanding 100% fan speed." },
-      { icon: "📜", title: "Foundry Ledger", metric: "Immutable Audit", text: "Every multi-agent negotiation, conflict vote, and actuation is cryptographically logged in Palantir Foundry." }
+      { icon: "⚡", title: "Energy Optimization", metric: "-28.4% Tariff", text: "Pre-cools the barn during cheap valley hours (¥0.42/kWh) and throttles fans during peak tariff hours (¥1.38/kWh)." },
+      { icon: "🐔", title: "Health Priority Veto", metric: "0.28s Hard Veto", text: "If ammonia reaches 20 ppm, the Health Agent instantly executes a <strong>hard veto in 0.28s</strong>, commanding 100% fan speed." },
+      { icon: "📜", title: "Palantir Ledger", metric: "Immutable Audit", text: "Every multi-agent vote, priority override, and fan actuation is cryptographically logged in Palantir Foundry." }
     ],
     script: `
       <p><span class="script-highlight">"The core intelligence lies in our Cortex AI Multi-Agent Consensus Engine.</span></p>
-      <p>In traditional farms, managers face an impossible dilemma: running fans at full speed wastes electricity, but turning them down risks suffocating birds with toxic ammonia gas.</p>
+      <p>In conventional operations, managers face an impossible conflict: running fans at full speed wastes electricity, but throttling them down risks suffocating birds with toxic ammonia gas.</p>
       <div class="script-callout">
-        <strong>The Golden Negotiation Rule:</strong> Our Energy Agent shifts power loads to save 28.4% in tariffs. BUT the moment ammonia crosses 20 ppm, the Biological Health Agent exercises an absolute veto, overriding energy savings in 0.28 seconds to protect the flock.
+        <strong>The Golden Negotiation Rule:</strong> Our Energy Agent shifts power loads to save 28.4% in bills. BUT the moment ammonia crosses the 20.0 ppm safety limit, the Biological Health Agent exercises an absolute veto, overriding energy savings in <strong>0.28 seconds</strong> to spin all fans to 100% (850 RPM).
       </div>
-      <p>Click <strong>'Trigger Ammonia Crisis Veto'</strong> to watch the emergency consensus vote in real-time."</p>
+      <p>Click <strong>'Replay 02:14:32 AM Midnight Ammonia Veto'</strong> to watch the emergency consensus vote in real-time."</p>
     `
   },
-  // Slide 4: Supply Chain & SAP Auto-PO
+  // Slide 4: Grok Conversational Copilot & SAP Auto-PO
   {
-    topic: "05. AUTONOMOUS SUPPLY CHAIN INTEGRATION",
-    title: "Zero-Touch Procurement: 0.2s SAP S/4HANA Auto-PO",
-    subtitle: "Real-Time Silo Loadcell Telemetry Eliminates Feed Shortages & Manual Clerical Overhead",
-    pill: "100% PAPERLESS SAP",
+    topic: "05. GROK CONVERSATIONAL COPILOT & SCM",
+    title: "Zero-Touch 0.2s SAP S/4HANA PO & Grok CoT Reasoning Dispatch",
+    subtitle: "Continuous Silo Loadcell Telemetry + Natural Language Voice Dispatch Across 50 Complexes",
+    pill: "100% ZERO-TOUCH SAP",
     time: "⏱️ Target Time: 1.5 mins",
     demoAction: {
-      badge: "LIVE SAP INTEGRATION DEMO",
-      title: "Simulate silo stock falling below 15t and trigger automated SAP Purchase Order generation via BAPI in 0.2s.",
-      btnText: "📦 Execute Zero-Touch SAP Auto-PO",
-      targetNav: "nav-btn-highway",
-      scenario: "sap"
+      badge: "LIVE COPILOT DEMO",
+      title: "Open the Grok-Style Conversational AI Copilot to execute Chain-of-Thought diagnostics and natural language factory dispatch.",
+      btnText: "🧠 Open Grok-Style Conversational Copilot",
+      action: "openCopilot"
     },
     cards: [
       { icon: "⚖️", title: "Silo Loadcells", metric: "±0.5% Accuracy", text: "Continuous weight sensors transmit live feed stock directly into the unified data stream every 100ms." },
-      { icon: "📦", title: "Autonomous Order", metric: "25t Feed PO", text: "When stock breaches 15-ton threshold, AI signs purchase order in SAP without human intervention in <strong>0.2 seconds</strong>." },
-      { icon: "⏱️", title: "Labor Efficiency", metric: "2 hrs/day Saved", text: "Farm managers never fill out paper reorder forms again, completely eliminating manual requisition errors." }
+      { icon: "📦", title: "SAP Auto-PO", metric: "0.2s Execution", text: "When silo reserves breach 15t, AI signs purchase orders via SAP BAPI (<code>BAPI_PO_CREATE1</code>) in <strong>0.2 seconds</strong>." },
+      { icon: "🤖", title: "Grok AI Copilot", metric: "Chain-of-Thought", text: "Natural language query engine explaining FCR drifts, 42°C heatwave mitigation, and ISO 14064 audit proofs." }
     ],
     script: `
-      <p><span class="script-highlight">"Supply chain disruption is another major risk eliminated by our system.</span></p>
-      <p>Using real-time silo loadcell telemetry, Cortex AI continuously forecasts feed consumption rates. The moment silo reserves drop below the 15-ton safety threshold, the system communicates with SAP S/4HANA via BAPI and issues a 25-ton soybean meal purchase order in 0.2 seconds.</p>
+      <p><span class="script-highlight">"We have embedded Grok-style Conversational Intelligence directly into industrial manufacturing.</span></p>
+      <p>Using real-time silo loadcell telemetry, Cortex AI continuously forecasts feed burn rates. When silo reserves dip below the 15-ton safety threshold, the system communicates with SAP S/4HANA via BAPI and issues a 25-ton purchase order in 0.2 seconds with zero paperwork.</p>
       <div class="script-callout">
-        <strong>Supply Chain Value:</strong> Zero stockouts, zero delayed deliveries, and two hours of daily administrative paperwork eliminated for every farm manager.
+        <strong>Executive Voice Dispatch:</strong> Executives and plant managers can open the Grok Copilot drawer, ask complex questions like 'Analyze Nanping FCR drift', and receive streaming Chain-of-Thought reasoning.
       </div>
-      <p>Click <strong>'Execute Zero-Touch SAP Auto-PO'</strong> to see the automated order generation."</p>
+      <p>Click <strong>'Open Grok-Style Conversational Copilot'</strong> to test live natural language interaction."</p>
     `
   },
-  // Slide 5: Barn Spatial Twin
+  // Slide 5: Executive BI Command Center
   {
-    topic: "06. PHYSICAL SPATIAL DIGITAL TWIN",
-    title: "120m Barn CFD Twin: Precision Microclimate Across 3 Zones",
-    subtitle: "Real-Time Dynamic Monitoring of Static Pressure, 42,500 Broilers, and Variable Exhaust Fans",
-    pill: "3-ZONE CFD TWIN",
-    time: "⏱️ Target Time: 1.5 mins",
-    demoAction: {
-      badge: "LIVE SPATIAL TWIN DEMO",
-      title: "Jump into the Physical Barn Spatial Twin to inspect Zone 1 Inlets, Zone 2 Flock Microclimate, and Zone 3 Exhaust Fans.",
-      btnText: "🐔 Inspect 3-Zone Spatial Digital Twin",
-      targetNav: "nav-btn-barn",
-      zoneKey: "zone-mid"
-    },
-    cards: [
-      { icon: "🚪", title: "Zone 1: Air Inlets", metric: "28.5 Pa Pressure", text: "Auto-calibrated air vents maintain negative pressure to prevent cold air dropping directly on young chicks." },
-      { icon: "🐔", title: "Zone 2: Flock Zone", metric: "42,500 Birds", text: "Real-time thermal comfort index, 61.2 g/day growth rate, and uniform temperature distribution (28.4°C)." },
-      { icon: "🌀", title: "Zone 3: Exhaust Fans", metric: "12 VFD Fans", text: "Smart fan staging dynamically modulates airflow based on real-time ammonia and heat accumulation." }
-    ],
-    script: `
-      <p><span class="script-highlight">"Here we visualize the physical 3D spatial digital twin of a standard 120-meter broiler house.</span></p>
-      <p>We divide the barn into three synchronized zones: Zone 1 precisely controls inlet openings and static pressure (28.5 Pa); Zone 2 monitors the welfare and thermal comfort of 42,500 broilers; and Zone 3 coordinates 12 variable-frequency exhaust fans.</p>
-      <div class="script-callout">
-        <strong>Physical Twin Advantage:</strong> Operators can click on any zone to view real-time microclimate diagnostics and sensor readings down to the centimeter.
-      </div>
-      <p>Click <strong>'Inspect 3-Zone Spatial Digital Twin'</strong> to explore the physical model."</p>
-    `
-  },
-  // Slide 6: ROI & Executive BI Hub
-  {
-    topic: "07. FINANCIAL ROI & EXECUTIVE BI HUB",
-    title: "Quantified Value: ¥14.85M Annual Energy Arbitrage & FCR 1.54",
-    subtitle: "50-Complex Enterprise Fleet Matrix with Payback Period Under 9 Months",
-    pill: "< 9 MONTH PAYBACK",
+    topic: "06. ENTERPRISE BI COMMAND CENTER",
+    title: "50-Complex Operations Matrix, Cobb500 Curves & 24h TOU Power Stack",
+    subtitle: "Real-Time Fleet FCR 1.542 vs 1.620 Benchmark, Saving 5,856.5t Soya & ¥40,684/day Power",
+    pill: "FCR 1.542 / EPEF 438",
     time: "⏱️ Target Time: 2.0 mins",
     demoAction: {
-      badge: "LIVE BI HUB DEMO",
-      title: "Launch the Executive BI & Corporate Analytics Command Center to filter all 50 complexes and analyze Cobb500 growth curves.",
+      badge: "LIVE BI COMMAND CENTER DEMO",
+      title: "Launch the dedicated Executive BI Command Center to inspect the 50-complex operational matrix, SVG growth curves, and TOU tariff shifting.",
       btnText: "📊 Open Executive BI Command Center",
-      targetNav: "nav-btn-bi",
-      nodeId: "dash"
+      targetNav: "nav-btn-bi"
     },
     cards: [
-      { icon: "🌾", title: "Feed Conversion (FCR)", metric: "1.54 FCR", text: "Outperforms standard industry benchmark of 1.68, saving <strong>5,856.5 tons of feed grain</strong> annually across all 50 complexes." },
-      { icon: "💰", title: "Peak Energy Arbitrage", metric: "¥14.85M / yr", text: "Autonomous time-of-use tariff scheduling generates <strong>¥14.85 Million in annual electricity savings</strong>." },
-      { icon: "📈", title: "Flock Preservation", metric: "497,250 Birds", text: "Mortality rate slashed from 4.8% down to 1.2%, delivering <strong>497,250 additional market-ready chickens</strong> each year." }
+      { icon: "🏭", title: "50-Complex Matrix", metric: "2.12M Live Birds", text: "Searchable, sortable operational table with live temperature, ammonia, autopilot status, and 1-click diagnostics." },
+      { icon: "📈", title: "Cohort Growth Curve", metric: "+68.5 g/d ADG", text: "High-precision SVG dual-axis curve tracking Cobb500 / SZ901 daily weight gain and dynamic FCR trajectory (1.542)." },
+      { icon: "⚡", title: "TOU Tariff Arbitrage", metric: "¥40,684 / day", text: "24h stacked area visualization demonstrating pre-cooling thermal inertia storage (¥0.42) and peak load avoidance (¥1.38)." }
     ],
     script: `
-      <p><span class="script-highlight">"Now let's examine the quantified financial return on investment.</span></p>
-      <p>By optimizing microclimate consistency, our Feed Conversion Ratio improved to 1.54—saving nearly 6,000 tons of soybean and corn feed every year. Combined with ¥14.85 million in electricity peak-valley arbitrage, each complex saves over ¥300,000 annually.</p>
+      <p><span class="script-highlight">"Here we present the full-page Executive BI Command Center.</span></p>
+      <p>This command deck provides C-suite executives and regional directors with a high-density, real-time operating matrix covering all 50 complexes. It visualizes genetic growth curves, average daily gain (+68.5 g/day), and an extraordinary European Production Efficiency Factor (EPEF) of 438.</p>
       <div class="script-callout">
-        <strong>Financial Summary:</strong> Across all 50 complexes, the total annual economic gain exceeds ¥38 Million, achieving a capital payback period of under 9 months.
+        <strong>Daily Operational Value:</strong> By synchronizing power loads with provincial Time-of-Use tariffs, the system saves over ¥40,684 every day while maintaining 99.2% flock environmental compliance.
       </div>
-      <p>Click <strong>'Open Executive BI Command Center'</strong> to inspect the 50-complex performance matrix."</p>
+      <p>Click <strong>'Open Executive BI Command Center'</strong> to explore the 50-complex performance matrix."</p>
     `
   },
-  // Slide 7: ISO ESG & Rollout Roadmap
+  // Slide 6: CFO Financial War Room & Sensitivity Simulator
   {
-    topic: "08. SUSTAINABILITY & 3-PHASE ROADMAP",
-    title: "1-Click ISO 14064 Carbon Certification & Enterprise Rollout",
-    subtitle: "18,885.72 t CO₂e Decarbonization with Containerized Zero-Downtime Deployment",
-    pill: "PHASE 1 COMPLETE",
-    time: "⏱️ Target Time: 1.5 mins",
+    topic: "07. CFO FINANCIAL WAR ROOM",
+    title: "First-Principles Unit Economics: +¥655.50M Annual EBITDA Value",
+    subtitle: "Interactive Macro Sliders for Feed Price (±40%), Heatwaves (+8°C), and Peak Tariffs (¥3.00/kWh)",
+    pill: "< 2.5 MONTH PAYBACK",
+    time: "⏱️ Target Time: 2.0 mins",
     demoAction: {
-      badge: "LIVE ESG AUDIT DEMO",
-      title: "Generate a certified ISO 14064 greenhouse gas disclosure report with cryptographic SHA-256 validation.",
-      btnText: "🌱 Generate Certified ISO Audit Report",
-      targetNav: "nav-btn-esg",
-      action: "genEsg"
+      badge: "LIVE CFO WAR ROOM DEMO",
+      title: "Launch the CFO Financial War Room to simulate extreme macroeconomic shocks and recalculate the EBITDA waterfall in real-time.",
+      btnText: "💰 Open CFO Financial War Room",
+      targetNav: "nav-btn-warroom"
     },
     cards: [
-      { icon: "🌱", title: "Scope 2 & 3 Abatement", metric: "18,885.7 t CO₂e", text: "Verified carbon reduction across grid electricity and upstream soybean deforestation footprints." },
-      { icon: "🔐", title: "ISO 14064 Trust", metric: "SHA-256 Validated", text: "Instant 1-click export of ISO 14064-1 & GHG Protocol compliant audit certificate with cryptographic hash." },
-      { icon: "🚀", title: "3-Phase Rollout", metric: "50 Complexes", text: "Phase 1 (Nanping Pilot Complete) ➔ Phase 2 (50 Complexes in 6mo) ➔ Phase 3 (Global Smart Farming Standard)." }
+      { icon: "🌽", title: "Feed Savings (FCR 1.54)", metric: "+¥299.52M / yr", text: "Every 0.01 drop in FCR saves 15,600 tons of feed grain, delivering <strong>¥49.92M RMB in recurring annual profit</strong>." },
+      { icon: "🛡️", title: "Mortality Defense", metric: "+¥188.70M / yr", text: "Mortality slashed from 4.8% to 1.2%, preserving healthy birds and deflecting ¥44.5M in extreme summer heatwave losses." },
+      { icon: "🏷️", title: "ESG Green Premium", metric: "+¥120.00M / yr", text: "Verified low-carbon export meat qualifies for Yum!/McDonald's green tenders with a <strong>+¥0.40/kg price premium</strong>." }
     ],
     script: `
-      <p><span class="script-highlight">"Finally, we address global ESG sustainability and enterprise rollout readiness.</span></p>
-      <p>Sunner's Decision OS abates 18,885 tons of CO₂ equivalent annually. Every gram is verified through cryptographic SHA-256 audit trails, qualifying Sunner products for premium European and global green export markets.</p>
+      <p><span class="script-highlight">"Now let's examine the first-principles financial equation that makes this project irresistible.</span></p>
+      <p>Across Sunner's 600 million annual broilers, total meat output reaches 1.56 million metric tons. Through our interactive CFO sensitivity sliders, board members can simulate global commodity shocks, summer heatwaves, and peak power spikes in real time."</p>
       <div class="script-callout">
-        <strong>Closing Call to Action:</strong> Phase 1 is 100% operational in Nanping. In Phase 2, we will deploy containerized edge nodes across all 50 complexes with zero downtime.
+        <strong>The Bottom-Line Waterfall:</strong> Feed savings (+¥299.5M) + Mortality avoidance (+¥188.7M) + Power arbitrage (+¥15.8M) + Green export premium (+¥120.0M) = <strong>+¥655.50 Million RMB ($92.3M USD) recurring annual EBITDA</strong>, achieving capital payback in under 2.5 months.
       </div>
-      <p>Click <strong>'Generate Certified ISO Audit Report'</strong> to view the live certified disclosure. Thank you!"</p>
+      <p>Click <strong>'Open CFO Financial War Room'</strong> to test the macroeconomic sensitivity sliders."</p>
+    `
+  },
+  // Slide 7: Cryptographic DPP & Global Green Export
+  {
+    topic: "08. CRYPTOGRAPHIC DPP & GREEN EXPORT",
+    title: "SHA-256 Digital Product Passport & 18,886 t CO₂e Carbon Abatement",
+    subtitle: "Verified 1.42 kg CO₂e/kg Carbon Footprint Captures +¥0.40/kg Green Export Premium",
+    pill: "GRADE A+ GREEN CERTIFIED",
+    time: "⏱️ Target Time: 1.5 mins",
+    demoAction: {
+      badge: "LIVE DPP PASSPORT DEMO",
+      title: "Launch the Cryptographic Digital Product Passport modal with scannable QR code and SHA-256 audit stamp.",
+      btnText: "🏷️ Launch Digital Product Passport (DPP)",
+      action: "openDpp"
+    },
+    cards: [
+      { icon: "🌱", title: "Scope 1-3 Decarbonization", metric: "18,886 t CO₂e", text: "Verified carbon reduction across grid power shifting and upstream soybean deforestation footprints." },
+      { icon: "🏷️", title: "Digital Product Passport", metric: "SHA-256 Stamp", text: "Scannable QR passport proving <strong>1.42 kg CO₂e/kg (Grade A+)</strong>, 100% antibiotic-free, and gold welfare score." },
+      { icon: "🇪🇺", title: "Export Tender Capture", metric: "¥520M Contracts", text: "Qualifies Sunner for EU CBAM compliance and premium export supply contracts with Yum! Brands and McDonald's." }
+    ],
+    script: `
+      <p><span class="script-highlight">"Finally, we address global ESG decarbonization and high-margin export market access.</span></p>
+      <p>Sunner's Decision OS abates 18,886 tons of CO₂ equivalent annually. Every flock batch generates a cryptographic <strong>Digital Product Passport (DPP)</strong> with a tamper-proof SHA-256 hash verifying an industry-leading carbon intensity of 1.42 kg CO₂e/kg (-28.3% vs benchmark).</p>
+      <div class="script-callout">
+        <strong>Strategic Export Moat:</strong> This digital pedigree eliminates European CBAM tariff barriers and captures a +¥0.40/kg green price premium on 300,000 tons of export meat (+¥120.0M recurring revenue).
+      </div>
+      <p>Click <strong>'Launch Digital Product Passport (DPP)'</strong> to inspect the live export verification passport. Thank you!"</p>
     `
   }
 ];
 
 const presentationSlidesZh = [
-  // 幻灯片 0: 愿景与战略
+  // 幻灯片 0: 愿景与第一性原理价值跃迁
   {
-    topic: "01. 集团战略愿景与工业范式跃迁",
+    topic: "01. 集团战略愿景与第一性原理价值跃迁",
     title: "圣农 × GEA: 全域智能制造自主决策操作系统",
-    subtitle: "打通现场 OT 到企业 IT 全域链路，统筹全集团 50大基地与年出栏 6亿羽肉鸡",
-    pill: "<350MS 实时闭环",
+    subtitle: "打通现场 OT 到 IT 全域链路，统筹全集团 50大基地与年出栏 6亿羽肉鸡，年创效 +¥6.55亿",
+    pill: "+¥655.5M 经常性年化收益",
     time: "⏱️ 建议演讲用时: 1.5 - 2.0 分钟",
     demoAction: {
       badge: "实时系统联动演示",
@@ -1689,25 +1684,25 @@ const presentationSlidesZh = [
       scenario: "closedloop"
     },
     cards: [
-      { icon: "🏭", title: "集团超大规模体量", metric: "50大养殖基地", text: "实时互联闽、赣、陇 <strong>50大现代养殖基地</strong>，年出栏肉鸡超 6亿羽，全面掌控底层物联与微气候数据。" },
-      { icon: "❌", title: "传统农牧数字化痛点", metric: "45分钟察觉滞后", text: "依赖人工看表抄录、用电尖峰电费浪费严重、氨气突发超标需 <strong>45分钟以上巡检滞后</strong>，极易引发死淘。" },
-      { icon: "⚡", title: "自主 AI 闭环自愈中枢", metric: "0.3秒闭环响应", text: "直通云端数据流与多智能体博弈仲裁，无缝整合 <strong>Modbus PLC、Snowflake 湖仓、SAP ERP 与 Foundry 本体</strong>。" }
+      { icon: "🏭", title: "集团超大规模体量", metric: "年出栏 6亿羽", text: "实时互联闽、赣、陇 <strong>50大现代养殖基地</strong>，年出栏肉鸡超 6亿羽，全面掌控底层物联与微气候数据。" },
+      { icon: "⚡", title: "自主 AI 闭环自愈中枢", metric: "< 350ms 闭环响应", text: "毫秒级多智能体决策仲裁，直连 <strong>Modbus PLC、Snowflake 湖仓、SAP S/4HANA 与 Foundry 本体</strong>。" },
+      { icon: "💰", title: "第一性原理价值创造", metric: "+¥655.50M / 年", text: "第一性原理量化每年为集团新增 EBITDA 收益，整体项目投资回收期 <strong>小于 2.5 个月</strong>。" }
     ],
     script: `
-      <p><span class="script-highlight">“各位领导、各位行业专家，上午好！今天非常荣幸向大家汇报《圣农 × GEA 智能制造闭环决策操作系统》。</span></p>
-      <p>圣农作为中国白羽肉鸡全产业链的领军龙头，年出栏肉鸡超 6亿羽，拥有 50座大型养殖综合体。在过去，制约大型肉禽养殖效益的核心痛点，正是现场环控（OT）与集团经营决策（IT）之间的严重脱节与数据断层。</p>
+      <p><span class="script-highlight">“各位领导、各位行业专家，上午好！今天非常荣幸向大家汇报《圣农 × GEA 全域智能制造自主决策操作系统》。</span></p>
+      <p>圣农作为中国白羽肉鸡全产业链的领军龙头，年出栏肉鸡超 6亿羽，拥有 50座大型现代养殖综合体。在过去，大型肉禽养殖的核心痛点，正是现场环控（OT）与集团经营决策（IT）之间的数据断层与延迟。</p>
       <div class="script-callout">
-        <strong>核心管理价值：</strong> 我们通过构建 <350ms 的端到端自愈闭环，将传统农牧养殖彻底升级为高精度、可自愈的现代高科技制造业。
+        <strong>第一性原理管理价值：</strong> 我们通过构建 <350ms 的端到端自愈闭环，将传统农牧养殖彻底升级为高精度、可自愈的现代高端制造业，每年为全集团带来 <strong>+¥655.50M 元（约 9,230万美元）的经常性 EBITDA 净利润增长</strong>。
       </div>
-      <p>请点击上方的<strong>“启动 3D 赛博数据管道演示”</strong>，观看实时传感器报文如何从现场瞬间直达云端。”</p>
+      <p>请点击上方的<strong>“启动 3D 赛博数据管道演示”</strong>，观看实时传感器报文如何瞬间直达云端。”</p>
     `
   },
-  // 幻灯片 1: 13大层级架构
+  // 幻灯片 1: 13大层级架构与世纪互联蓝云合规
   {
-    topic: "02. 全域拓扑架构与数据神经中枢",
-    title: "13大层级神经系统：从鸡舍现场边缘到 Snowflake 与 Foundry",
-    subtitle: "内置 48小时无损断网缓存，全面兼容开放工业标准协议，杜绝厂商锁定",
-    pill: "从第0层到第6层",
+    topic: "02. 13大拓扑架构与 21Vianet 世纪互联蓝云合规",
+    title: "13大层级工业神经中枢：从鸡舍现场直达 21Vianet 世纪互联蓝云",
+    subtitle: "国密级 TLS 1.3、48小时 NVRAM 本地缓存、CSL/DSL/PIPL 数据本地化与三级等保认证",
+    pill: "100% 国密与三级等保合规",
     time: "⏱️ 建议演讲用时: 2.0 分钟",
     demoAction: {
       badge: "架构深度互动演示",
@@ -1718,186 +1713,181 @@ const presentationSlidesZh = [
       nodeId: "edge"
     },
     cards: [
-      { icon: "📟", title: "现场工业边缘层", metric: "48小时无损缓存", text: "德国 Welotec egOS 边缘网关每 10ms 轮询 Modbus，搭载 <strong>TLS 1.3 国密级加密</strong> 与 48小时 NVRAM 本地缓存。" },
-      { icon: "❄️", title: "全域数据云与湖仓", metric: "25万行/秒吞吐", text: "Snowpipe Streaming 毫秒级流式写入，将底层微气候与能耗实时直通 <strong>Snowflake 与 Palantir Foundry 语义中台</strong>。" },
-      { icon: "🧠", title: "AI 决策与 ERP 闭环", metric: "0.2秒 SAP 接口", text: "亚秒级自愈指令即时反向控制底层变频风机，并由 AI 自动在 <strong>SAP S/4HANA 签发饲料采购订单</strong>。" }
+      { icon: "📟", title: "现场工业边缘层", metric: "48h 无损缓存", text: "德国 Welotec egOS 边缘网关每 10ms 轮询 Modbus，搭载 <strong>TLS 1.3 国密级加密</strong> 与 48小时 NVRAM 缓存。" },
+      { icon: "🇨🇳", title: "世纪互联 Azure 蓝云", metric: "三级等保认证", text: "数据严格落地区域（上海 China East 2），全面满足 <strong>《网络安全法》《数据安全法》与《个人信息保护法》</strong>。" },
+      { icon: "❄️", title: "湖仓与本体图谱", metric: "25万行/秒吞吐", text: "Snowpipe Streaming 毫秒级写入，将底层微气候与能耗实时直通 <strong>Snowflake 与 Palantir Foundry 语义中台</strong>。" }
     ],
     script: `
       <p><span class="script-highlight">“大家在屏幕上看到的是贯通 13个层级的全域工业神经中枢架构。</span></p>
-      <p>从最底层的 0/1层鸡舍现场开始，高精度 Pt100 温度探头与氨气传感器以 10毫秒周期稳定采集。我们部署在各栋舍的工业级 Welotec 边缘网关具备 <strong>48小时断网缓存</strong> 能力，即使遭遇台风或骨干网中断，现场数据也绝不丢失一条。</p>
+      <p>从最底层的鸡舍现场开始，Pt100 温度探头与氨气传感器以 10毫秒周期稳定采集。部署在各栋舍的 Welotec 边缘网关具备 <strong>48小时断网缓存</strong> 能力，即使遭遇台风或骨干光纤中断，现场数据也绝不丢失一条。</p>
       <div class="script-callout">
-        <strong>技术架构亮点：</strong> 数据通过标准 Sparkplug B 协议直接汇入 Snowflake 湖仓，彻底打破传统自动化厂商的封闭壁垒，与 Palantir Foundry 本体知识图谱深度融合。
+        <strong>中国云合规与安全保障：</strong> 所有工业数据与大模型算力全部部署于 21Vianet 世纪互联运营的 Microsoft Azure China East 2（上海数据中心），完全符合国家等保三级与合规红线。
       </div>
       <p>点击<strong>“探索 2D 工业拓扑与协议透视”</strong>可查看各工业节点的报文结构。”</p>
     `
   },
-  // 幻灯片 2: 边缘48小时缓存
+  // 幻灯片 2: 生物声学与48小时早期预警
   {
-    topic: "03. 边缘高可靠与极端工况容灾",
-    title: "Welotec egOS 边缘网关：48小时断网无损本地缓存",
-    subtitle: "专为山区恶劣环境设计：台风暴雨、骨干网中断与电力扰动零数据丢包",
-    pill: "100% 数据完整性",
+    topic: "03. 生物声学音频大模型与红外热成像预警",
+    title: "生物声学边缘 AI：发病前 48小时 捕获咳嗽杂音并启动微雾防御",
+    subtitle: "0-8 kHz 实时音频频谱分析与 FLIR 红外热成像假彩色群体密度热力场",
+    pill: "48小时 提前预警阻断",
     time: "⏱️ 建议演讲用时: 1.5 分钟",
     demoAction: {
-      badge: "极端断网演练演示",
-      title: "模拟 03号边缘节点断网工况，观察 NVRAM 队列排队及恢复后毫秒级追补刷新。",
-      btnText: "⚡ 模拟 48小时断网与回补刷新",
-      targetNav: "nav-btn-highway",
-      viewMode: "2d",
-      action: "toggleOffline"
+      badge: "生物声学与红外热成像演示",
+      title: "进入鸡舍三维数字孪生，实时观察生物声学频谱瀑布流并切换 FLIR 红外热成像模式。",
+      btnText: "🔬 启动生物声学与 FLIR 热成像视图",
+      targetNav: "nav-btn-barn",
+      action: "flir"
     },
     cards: [
-      { icon: "🛡️", title: "NVRAM 闪存缓存", metric: "48h / 170万条", text: "骨干光纤中断期间 100% 留存，网络恢复后以每秒 5万条速率平滑回写 Snowflake 湖仓。" },
-      { icon: "🔒", title: "工业级网络安全", metric: "TLS 1.3 双向认证", text: "硬件级安全信任根（TPM 2.0），全面阻断针对养殖 OT 现场的恶意网络扫描与侵入。" },
-      { icon: "⚡", title: "离线自主运行", metric: "<10ms 环控闭环", text: "即使脱离云端连接，边缘控制器仍能独立自主维持鸡舍负压与应急排风安全。" }
+      { icon: "🎙️", title: "声学频谱大模型", metric: "0 - 8 kHz 音频", text: "边缘音频 ML 持续监测鸡群叫声，在临床症状出现前 <strong>48小时 识别呼吸道咳嗽杂音</strong>。" },
+      { icon: "🔥", title: "FLIR 红外热成像", metric: "±0.1°C 假彩色", text: "动态红外热力图直观呈现鸡群聚集度、局部冷风应激与微气候死角，预防压栏与受凉。" },
+      { icon: "🛡️", title: "主动预防式防御", metric: "100% 零抗生素", text: "早于发病期自动喷洒微雾气溶胶中药预防，保障鸡群健康并确保持续符合 <strong>零抗生素出口标准</strong>。" }
     ],
     script: `
-      <p><span class="script-highlight">“在农牧业实际落地中，山区网络与电力基础设施常面临恶劣考验。</span></p>
-      <p>我们采用的 Welotec 工业边缘网关搭载了 48小时 NVRAM 固态缓存。雷暴或台风导致通信中断时，本地可存留 170万条完整指标，现场风机闭环毫不停摆。”</p>
+      <p><span class="script-highlight">“在鸡群生物安全与疫病防控方面，我们引入了突破性的生物声学与热成像早期防御体系。</span></p>
+      <p>鸡群在感染呼吸道疾病初期会发出特征性杂音。我们在栋舍部署的边缘音频 AI 运行 48频段频谱大模型，能够在人眼观察到病症前 <strong>提前 48小时 精准捕获 4.0-6.5 kHz 的咳嗽杂音</strong>。”</p>
       <div class="script-callout">
-        <strong>零丢包承诺：</strong> 网络一旦恢复，历史数据自动打上精确纳秒时间戳追补写入 Snowflake。
+        <strong>生物安全革命：</strong> 结合 FLIR 红外热成像对鸡群分布密度的实时监测，系统能自动启动靶向微雾气溶胶防御，真正实现“防大于治”，全程无抗养殖。
       </div>
-      <p>请点击<strong>“模拟 48小时断网与回补刷新”</strong>，现场体验边缘断网自愈过程。”</p>
+      <p>点击<strong>“启动生物声学与 FLIR 热成像视图”</strong>可现场查验音频频谱特征。”</p>
     `
   },
-  // 幻灯片 3: Cortex AI 博弈
+  // 幻灯片 3: Cortex 多智能体博弈决策与 0.28秒 否决权
   {
-    topic: "04. 多智能体自主协同决策大脑",
-    title: "Cortex AI：生物健康安全底线压倒峰谷节电策略",
-    subtitle: "在电费降本与动物福利之间寻找真正的帕累托最优解",
-    pill: "0.28秒紧急超驰",
-    time: "⏱️ 建议演讲用时: 2.0 - 2.5 分钟",
+    topic: "04. 多智能体博弈决策与绝对最高否决权",
+    title: "黄金博弈宪章：生物健康福利压倒能耗优化 (0.28秒硬否决)",
+    subtitle: "四大 AI 智能体在帕累托前沿动态博弈，凌晨变频器跳闸 0.28秒 挽救 48万羽在栏鸡群",
+    pill: "0.28秒 亚秒级硬超驰",
+    time: "⏱️ 建议演讲用时: 2.0 分钟",
     demoAction: {
-      badge: "智能体应急演练",
-      title: "触发突发氨气浓度骤升危机，观看 Cortex AI 在 0.28秒内执行最高否决权排风超驰。",
-      btnText: "🚨 触发 0.28秒氨气危机超驰排风",
+      badge: "突发险情否决演示",
+      title: "模拟氨气超标突发险情，观察健康智能体 0.28秒 硬超驰剥夺节电权限并全速排风。",
+      btnText: "🚨 重放 02:14:32 变频器跳闸与氨气否决",
       targetNav: "nav-btn-highway",
       scenario: "ammonia"
     },
     cards: [
-      { icon: "⚡", title: "能耗优化智能体", metric: "避峰节电 -28.4%", text: "利用谷段低电价 (¥0.38/度) 提前对栋舍预蓄冷，在用电尖峰期 (¥1.35/度) 将风机负荷智能下调至 25%。" },
-      { icon: "🐔", title: "生物健康最高否决权", metric: "100%全速排风", text: "一旦舍内氨气浓度达到 20 ppm，健康智能体 <strong>0.28秒内强行否决节电</strong>，指令风机 100% 全速应急排风保鸡。" },
-      { icon: "📜", title: "Foundry 审计账本", metric: "不可篡改存证", text: "多智能体每次博弈、投票结果与下发动作均被实时记录于 Palantir Foundry 审计账本。" }
+      { icon: "⚡", title: "能耗优化智能体", metric: "避峰节电 28.4%", text: "利用夜间谷电（¥0.42/度）预降温蓄冷，在尖峰电价（¥1.38/度）期间阶梯降频排风机。" },
+      { icon: "🐔", title: "健康最高否决权", metric: "0.28秒 硬超驰", text: "一旦氨气浓度触碰 20.0 ppm 安全红线，健康智能体 <strong>0.28秒 强制拉满 100% 变频风机</strong>。" },
+      { icon: "📜", title: "Foundry 链上存证", metric: "不可篡改审计", text: "智能体每次协商、出价、冲突表决与执行动作，均实时写入 Palantir Foundry 留存溯源。" }
     ],
     script: `
-      <p><span class="script-highlight">“系统的智慧核心，在于我们自主研发的 Cortex AI 多智能体博弈协同中枢。</span></p>
-      <p>在传统鸡舍管理中，场长面临两难抉择：全速开风机电费极贵；降频省电又极易导致氨气超标、鸡群大批死淘。</p>
+      <p><span class="script-highlight">“这套系统的核心大脑，是多智能体博弈决策中枢（Cortex AI）。</span></p>
+      <p>在传统养殖场，场长面临两难选择：风机开大浪费高额电费，风机关小又容易导致氨气中毒窒息。我们的四大 AI 智能体在第一性原理的帕累托前沿上自主寻优。”</p>
       <div class="script-callout">
-        <strong>黄金仲裁机制：</strong> 我们的能耗智能体根据峰谷电价曲线为基地省电 28.4%；但是，只要氨气浓度触碰 20 ppm 红线，生物健康智能体便行使绝对否决权，0.28秒瞬间压制省电指令，全速排风保全 42,500羽鸡群生命。
+        <strong>底层黄金法则：</strong> 能耗智能体在尖峰电价期降低转速节电 28.4%；但只要氨气浓度超过 20 ppm 红线，健康智能体便行使<strong>绝对最高否决权</strong>，在 0.28秒内瞬间剥夺节电权限，强制所有风机全速强排保鸡。
       </div>
-      <p>请点击<strong>“触发 0.28秒氨气危机超驰排风”</strong>，观看多智能体仲裁驾驶舱的实时投票。”</p>
+      <p>点击<strong>“重放 02:14:32 变频器跳闸与氨气否决”</strong>可观看现场实时仲裁过程。”</p>
     `
   },
-  // 幻灯片 4: 供应链 SAP 自动补料
+  // 幻灯片 4: Grok 级对话智能体与 SAP 敏捷供应链
   {
-    topic: "05. 自主供应链与全自动补料闭环",
-    title: "零触控采购：0.2秒直连 SAP S/4HANA 签发采购单",
-    subtitle: "料塔称重传感器精准感知库存，彻底杜绝断料风险与繁琐人工单据录入",
-    pill: "100% 无纸化 SAP",
+    topic: "05. Grok 级对话智能体与 SAP 敏捷供应链",
+    title: "零触碰 0.2秒 SAP 自动采购与 Grok 级 Chain-of-Thought 逻辑推理",
+    subtitle: "料塔高精度称重实时感知 + 自然语言语音指令即时调度全域 50大基地",
+    pill: "100% 自动化零人工提单",
     time: "⏱️ 建议演讲用时: 1.5 分钟",
     demoAction: {
-      badge: "SAP 自动化演示",
-      title: "模拟料塔余量跌破 15吨安全线，由 AI 自动在 0.2秒内调用 SAP BAPI 签发 25吨采购单。",
-      btnText: "📦 触发料塔缺料与 SAP 自动下单",
-      targetNav: "nav-btn-highway",
-      scenario: "sap"
+      badge: "Grok 智能体互动演示",
+      title: "展开 Grok 风格的赛博对话终端，体验思维链 (Chain-of-Thought) 推理与自然语言现场调度。",
+      btnText: "🧠 打开 Grok 级智能对话终端",
+      action: "openCopilot"
     },
     cards: [
-      { icon: "⚖️", title: "料塔称重传感器", metric: "±0.5% 称重精度", text: "高精度压电称重传感器每 100ms 直播饲料余量，实时动态测算鸡群摄食速率。" },
-      { icon: "📦", title: "自主签发订单", metric: "25吨 大豆饲料单", text: "余量触碰 15吨警戒线瞬间，AI <strong>0.2秒内完成 SAP 采购订单签发</strong>，全程免人工干预。" },
-      { icon: "⏱️", title: "管理工时解放", metric: "日均节省 2小时", text: "场长不再需要每天爬料塔抄数、手工登入 ERP 提单，采购流转效率提升 99%。" }
+      { icon: "⚖️", title: "料塔称重感知", metric: "±0.5% 高精度", text: "高精度称重传感器每 100ms 实时采集饲料库存并预测鸡群采食消耗速率。" },
+      { icon: "📦", title: "SAP 自动签单", metric: "0.2秒 自动出单", text: "余量低于 15吨 警戒线时，AI 自动调用 SAP BAPI (<code>BAPI_PO_CREATE1</code>) 完成采购闭环。" },
+      { icon: "🤖", title: "Grok 对话中枢", metric: "思维链 CoT 推理", text: "支持自然语言与语音查询料肉比异动、42°C 热浪防御策略及 ISO 碳核算证明。" }
     ],
     script: `
-      <p><span class="script-highlight">“饲料断料是规模化肉鸡养殖的重大经营风险，我们的系统实现了全自动化闭环。</span></p>
-      <p>通过料塔高精度称重传感器，AI 实时推演鸡群采食曲线。当料塔余量降至 15吨安全线以下时，系统直接通过 BAPI 接口在 SAP S/4HANA 中自动生成并签发 25吨大豆饲料订单，耗时仅 0.2秒。”</p>
+      <p><span class="script-highlight">“我们还将 Grok 级别的生成式对话智能深度融入了工业决策。</span></p>
+      <p>料塔称重探头实时监测饲料消耗。当库存跌破 15吨 警戒线，系统在 0.2秒内通过 BAPI 直接在 SAP S/4HANA 签发 25吨采购单，彻底杜绝人工提单疏漏与断料风险。”</p>
       <div class="script-callout">
-        <strong>供应链价值：</strong> 零断料风险、零送货延误，为每座基地的管理人员每天节省 2小时手工提单繁琐流程。
+        <strong>高管语音调度中枢：</strong> 管理层可以随时打开 Grok 智能终端，以自然语言询问‘分析南平一厂料肉比异动’，AI 会展示完整的 Chain-of-Thought 思维链推理过程并直接下达优化指令。
       </div>
-      <p>点击<strong>“触发料塔缺料与 SAP 自动下单”</strong>可查看采购单生成全过程。”</p>
+      <p>点击<strong>“打开 Grok 级智能对话终端”</strong>体验人机协同决策。”</p>
     `
   },
-  // 幻灯片 5: 三维空间物理数字孪生
+  // 幻灯片 5: 集团商业智能大屏 (BI)
   {
-    topic: "06. 鸡舍三维空间物理数字孪生",
-    title: "120米标准栋舍 CFD 数字孪生：三区微气候精细化管控",
-    subtitle: "实时动静态负压、42,500羽鸡群微气候与 12台变频排风机组全息可视化",
-    pill: "三区流体动力学孪生",
-    time: "⏱️ 建议演讲用时: 1.5 分钟",
-    demoAction: {
-      badge: "物理空间孪生演示",
-      title: "进入鸡舍三维空间数字孪生，逐一诊断 1区进风小窗、2区鸡群微气候与 3区变频风机。",
-      btnText: "🐔 深度检视鸡舍三维数字孪生",
-      targetNav: "nav-btn-barn",
-      zoneKey: "zone-mid"
-    },
-    cards: [
-      { icon: "🚪", title: "1区：进风与小窗", metric: "28.5 Pa 负压", text: "自动微调进风小窗开度，维持恒定舍内负压，避免外界冷风直接下坠吹打雏鸡造成应激。" },
-      { icon: "🐔", title: "2区：鸡群核心区", metric: "42,500羽", text: "实时监控鸡体感舒适度指数，日均增重达 61.2克/天，全舍温差控制在 ±0.3°C 极窄区间。" },
-      { icon: "🌀", title: "3区：变频排风组", metric: "12台 变频风机", text: "基于氨气与舍温智能梯次启闭，消除通风死角，达成极致空气对流置换效率。" }
-    ],
-    script: `
-      <p><span class="script-highlight">“大家现在看到的是标准 120米现代化鸡舍的物理三维数字孪生模型。</span></p>
-      <p>我们将整栋鸡舍解构为 3个核心微气候控制区：1区精确控制进风口开度与 28.5 Pa 静压负压；2区呵护 42,500羽白羽肉鸡的体感温度与福利指数；3区统一协同 12台大功率变频排风机组。”</p>
-      <div class="script-callout">
-        <strong>数字孪生优势：</strong> 运维人员可点击任意区域查看厘米级精度的流场分布与实时探头诊断数据。
-      </div>
-      <p>请点击<strong>“深度检视鸡舍三维数字孪生”</strong>进入物理孪生大厅。”</p>
-    `
-  },
-  // 幻灯片 6: 商业 ROI 与 BI 看板
-  {
-    topic: "07. 财务投资回报率与集团运营大屏",
-    title: "量化价值：年节约电费 ¥1,485万元 与料肉比 1.54",
-    subtitle: "50大养殖基地全景绩效矩阵，智能化技改投资回收期低于 9个月",
-    pill: "< 9个月投资回收",
+    topic: "06. 集团数字化运营指挥与决策大屏",
+    title: "50大基地全景运营矩阵、白羽肉鸡生长曲线与 24h 削峰填谷",
+    subtitle: "全群综合料肉比 1.542 (优于标杆 1.620)，年节约大豆饲料 5,856.5吨，日节电 ¥40,684",
+    pill: "料肉比 1.542 / 欧指 438",
     time: "⏱️ 建议演讲用时: 2.0 分钟",
     demoAction: {
-      badge: "商业智能看板演示",
-      title: "开启集团商业智能大屏，筛选 50大基地运营指标与白羽肉鸡生长曲线。",
-      btnText: "📊 打开集团商业智能看板 (BI Hub)",
-      targetNav: "nav-btn-bi",
-      nodeId: "dash"
+      badge: "商业智能大屏演示",
+      title: "进入集团数字化运营指挥中心，查看 50大基地全景矩阵、高精度生长曲线与电价转移图谱。",
+      btnText: "📊 开启集团商业智能大屏 (BI Hub)",
+      targetNav: "nav-btn-bi"
     },
     cards: [
-      { icon: "🌾", title: "综合料肉比 (FCR)", metric: "FCR 1.54", text: "大幅优于行业标杆 1.68，全集团 50大基地年累计 <strong>节省饲料大豆 5,856.5吨</strong>，显著压降饲养成本。" },
-      { icon: "💰", title: "峰谷电价套利收益", metric: "年节约 ¥1,485万", text: "基于分时电价的自适应削峰填谷调度，全集团年累计 <strong>减少电费支出 ¥1,485万元</strong>。" },
-      { icon: "📈", title: "鸡群成活保护", metric: "多成活 49.7万羽", text: "全群综合死淘率从 4.8% 压降至 1.2%，每年为集团 <strong>挽救 497,250羽 优质健康肉鸡</strong>。" }
+      { icon: "🏭", title: "50大基地全景矩阵", metric: "212.5万羽 样本", text: "可搜索、可排序的实时运营大表，掌握各基地温湿度、氨气、料塔与 AI 自愈状态并支持 1键下钻。" },
+      { icon: "📈", title: "遗传生长曲线", metric: "+68.5 g/天 日增重", text: "高精度 SVG 双轴图表实时比对 Cobb500 / 圣泽901 增重趋势与动态料肉比 (1.542)。" },
+      { icon: "⚡", title: "分时电价套利", metric: "¥40,684 / 天 节电", text: "24小时负荷堆叠图展示夜间谷电蓄冷 (¥0.42) 与尖峰避峰 (¥1.38) 的精确电价转移成效。" }
     ],
     script: `
-      <p><span class="script-highlight">“接下来向各位领导汇报扎实的商业投资回报率（ROI）。</span></p>
-      <p>得益于三维微气候与精准饲喂的闭环自愈，全群综合料肉比（FCR）优化至 1.54，每年节约饲料近 6,000吨。叠加 ¥1,485万元 的峰谷用电套利，单座大型基地年均节约成本超 30万元。</p>
+      <p><span class="script-highlight">“请大家看大屏幕，这是集团专属的商业智能运营指挥大屏（Executive BI Command Center）。</span></p>
+      <p>该大屏汇聚了全集团 50大养殖基地的全景矩阵，实时监控日均增重（+68.5 g/天）以及高达 438 的欧洲生产效益指数（EPEF），远超国际优秀标准（>400）。”</p>
       <div class="script-callout">
-        <strong>财务综合测算：</strong> 50大基地全面上线后，每年为圣农集团创造超 3,800万元 综合经济效益，整体智能化技改投资回收期低于 9个月。
+        <strong>日常运营实效：</strong> 借助削峰填谷算法，全集团每天节约电费超过 ¥40,684 元；全群料肉比优化至 1.542，年节约大豆玉米饲料近 6,000 吨。
       </div>
-      <p>点击<strong>“打开集团商业智能看板 (BI Hub)”</strong>可查阅 50大基地矩阵明细。”</p>
+      <p>点击<strong>“开启集团商业智能大屏 (BI Hub)”</strong>查看 50大基地运行详情。”</p>
     `
   },
-  // 幻灯片 7: ISO ESG 与 推广路线图
+  // 幻灯片 6: 集团财务作战室与敏感度模拟
   {
-    topic: "08. ESG 绿色低碳与集团推广路线图",
-    title: "一键生成 ISO 14064 碳审计证书与全集团推广三步走",
-    subtitle: "年减排二氧化碳 18,885吨，容器化边缘节点架构支持零停机快速复制",
-    pill: "第一阶段已顺利投产",
-    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    topic: "07. 集团财务作战室与第一性原理敏感度",
+    title: "第一性原理测算：全集团每年创造 +¥655.50M 经常性 EBITDA",
+    subtitle: "宏观敏感度滑块：大豆粮价冲击 (±40%)、极端热浪 (+8°C) 与电网尖峰电价 (¥3.00/度)",
+    pill: "< 2.5 个月投资回收期",
+    time: "⏱️ 建议演讲用时: 2.0 分钟",
     demoAction: {
-      badge: "权威碳审计演示",
-      title: "现场一键生成经过 SHA-256 哈希加密防伪的 ISO 14064 国际官方温室气体核查报告。",
-      btnText: "🌱 一键生成 ISO 14064 碳核算证书",
-      targetNav: "nav-btn-esg",
-      action: "genEsg"
+      badge: "财务作战室互动演示",
+      title: "进入财务作战室，拖动宏观敏感度滑块或点击 4大极端险情预案，实时查看瀑布流收益重算。",
+      btnText: "💰 开启集团财务作战室",
+      targetNav: "nav-btn-warroom"
     },
     cards: [
-      { icon: "🌱", title: "范围二与三核证减排", metric: "18,885.7 吨 CO₂e", text: "精准计量尖峰用电转移与大豆饲料节约所减少的农业碳排放与森林砍伐足迹。" },
-      { icon: "🔐", title: "ISO 14064 权威认证", metric: "SHA-256 哈希认证", text: "1键生成符合 ISO 14064-1 国际标准的 <strong>防篡改数字碳资产证书</strong>，助力出口准入。" },
-      { icon: "🚀", title: "实施路线三步走", metric: "50大核心基地", text: "第一阶段南平试点完成 ➔ 第二阶段 6个月内推广 50大基地 ➔ 第三阶段联合 GEA 制定全球行业标准。" }
+      { icon: "🌽", title: "料肉比收益 (FCR 1.54)", metric: "+¥299.52M / 年", text: "FCR 每压降 0.01 节约 15,600吨 饲料，为全集团直接贡献 <strong>¥49.92M 元年化经常性利润</strong>。" },
+      { icon: "🛡️", title: "死淘率避险收益", metric: "+¥188.70M / 年", text: "死淘率从 4.8% 降至 1.2%，夏季热浪期单次阻断 180万羽热应激死亡，挽救 ¥44.5M 资产。" },
+      { icon: "🏷️", title: "绿色出口溢价", metric: "+¥120.00M / 年", text: "低碳认证白羽鸡肉斩获百胜/麦当劳绿色订单，享受 <strong>+¥0.40/kg 绿色出口溢价</strong>。" }
     ],
     script: `
-      <p><span class="script-highlight">“最后向各位领导汇报国际权威 ESG 碳资产认证与规模化落地规划。</span></p>
-      <p>系统每年核证减排二氧化碳当量达 18,885吨。每一笔数据均通过 SHA-256 不可篡改算法存证，为圣农肉类产品进军全球高端绿色零售市场提供强大通行证。”</p>
+      <p><span class="script-highlight">“现在，让我们用第一性原理的财务公式，来验证这套系统的硬核投资回报率。</span></p>
+      <p>基于圣农每年 6亿羽白羽肉鸡、156万吨鸡肉的总产出，我们在财务作战室构建了实时动态测算模型。董事会成员可以随意调整大豆原料价格、气温升幅或尖峰电价。”</p>
       <div class="script-callout">
-        <strong>总结与号召：</strong> 第一阶段南平试点已圆满成功。在接下来的 6个月中，我们将通过标准化 Docker 边缘镜像快速复制至全集团 50大基地，现场零停机平滑上线！
+        <strong>EBITDA 净利瀑布流拆解：</strong> 饲料压降 (+¥299.5M) + 规避死淘 (+¥188.7M) + 避峰节电 (+¥15.8M) + 出口绿溢价 (+¥120.0M) = <strong>每年创造 +¥655.50M 元（9,230万美元）经常性 EBITDA 净利</strong>，整套系统软硬件投资在 <strong>2.5个月内即可全额收回</strong>。
       </div>
-      <p>点击<strong>“一键生成 ISO 14064 碳核算证书”</strong>可现场查验证书。感谢各位领导！”</p>
+      <p>点击<strong>“开启集团财务作战室”</strong>可现场拖动滑块体验极端压力测试。”</p>
+    `
+  },
+  // 幻灯片 7: 加密数字产品护照与全球绿色出口
+  {
+    topic: "08. 加密数字产品护照与全球绿色出口",
+    title: "SHA-256 加密数字产品护照 (DPP) 与 ISO 14064 权威真核验",
+    subtitle: "权威核验碳足迹 1.42 kg CO₂e/kg，斩获 30万吨国际绿色出口订单溢价 (+¥0.40/kg)",
+    pill: "国家 A+ 级权威绿色认证",
+    time: "⏱️ 建议演讲用时: 1.5 分钟",
+    demoAction: {
+      badge: "数字产品护照演示",
+      title: "弹出加密数字产品护照 (DPP) 弹窗，扫描真二维码查验区块链 SHA-256 存证哈希与冷链溯源。",
+      btnText: "🏷️ 查看数字产品护照 (DPP)",
+      action: "openDpp"
+    },
+    cards: [
+      { icon: "🌱", title: "范围一至三全流程减排", metric: "18,886 吨 CO₂e", text: "系统全流程核证全集团年减排 18,886吨 二氧化碳，达到 ISO 14064-1 国际标准。" },
+      { icon: "🏷️", title: "数字产品护照 (DPP)", metric: "SHA-256 哈希存证", text: "扫码即验 <strong>1.42 kg CO₂e/kg (A+级)</strong> 碳强度、全程零抗生素与 99.2% 动物福利指数。" },
+      { icon: "🇪🇺", title: "锁定百胜/麦当劳竞标", metric: "¥5.2亿 订单", text: "彻底跨越欧盟 CBAM 碳关税壁垒，赢得国际大客户绿色竞标，年增净利 +¥1.20亿。" }
+    ],
+    script: `
+      <p><span class="script-highlight">“最后，我们汇报全产业链绿色出海与数字产品护照（DPP）的落地成果。</span></p>
+      <p>圣农操作系统每年核减 18,885吨 二氧化碳排放。每个出栏批次均自动生成带有 SHA-256 不可篡改哈希的<strong>数字产品护照（DPP）</strong>，证明产品碳足迹仅为 1.42 kg CO₂e/kg（比行业基准低 28.3%）。”</p>
+      <div class="script-callout">
+        <strong>出海护城河：</strong> 这份可信数字护照完美跨越了欧盟碳关税（CBAM）壁垒，直接锁定百胜全球与麦当劳 30万吨出口配额，实现每公斤 +¥0.40 元的绿色溢价（+¥120.0M 年化收益）。
+      </div>
+      <p>点击<strong>“查看数字产品护照 (DPP)”</strong>可现场扫描二维码查验证书。汇报完毕，感谢各位领导！”</p>
     `
   }
 ];
@@ -1922,13 +1912,29 @@ function executeSlideDemo(slideIndex) {
       : `◀ Return to Keynote (Slide 0${slideIndex + 1})`;
   }
 
-  // 2. Switch to the target nav module
-  const navBtn = document.getElementById(act.targetNav);
-  if (navBtn) {
-    navBtn.click();
+  // 2. Direct Actions (Copilot / DPP)
+  if (act.action === 'openCopilot') {
+    const drawer = document.getElementById('copilot-drawer');
+    if (drawer) drawer.style.display = 'flex';
+    document.getElementById('copilot-input-field')?.focus();
+    addAuditLog(isZh ? `🎙️ 演讲联动演示：已拉出 Grok 风格智能对话终端` : `🎙️ Keynote Co-Pilot: Opened Grok Conversational Copilot`, true);
+    return;
   }
 
-  // 3. Perform slide-specific action triggers
+  if (act.action === 'openDpp') {
+    const modal = document.getElementById('modal-dpp');
+    if (modal) modal.style.display = 'flex';
+    addAuditLog(isZh ? `🎙️ 演讲联动演示：已展示数字产品护照 (DPP) 与二维码` : `🎙️ Keynote Co-Pilot: Opened Digital Product Passport (DPP) modal`, true);
+    return;
+  }
+
+  // 3. Switch to the target nav module
+  if (act.targetNav) {
+    const navBtn = document.getElementById(act.targetNav);
+    if (navBtn) navBtn.click();
+  }
+
+  // 4. Perform slide-specific action triggers
   if (act.viewMode === '3d') {
     document.getElementById('btn-view-3d')?.click();
   } else if (act.viewMode === '2d') {
@@ -1950,19 +1956,9 @@ function executeSlideDemo(slideIndex) {
     }
   }
 
-  if (act.zoneKey) {
-    selectBarnZone(act.zoneKey);
-  }
-
-  if (act.nodeId === 'dash') {
-    selectNode('dash');
-  }
-
-  if (act.action === 'genEsg') {
-    setTimeout(() => {
-      const btnGen = document.getElementById('btn-generate-audit');
-      if (btnGen) btnGen.click();
-    }, 250);
+  if (act.action === 'flir') {
+    const btnFlir = document.getElementById('btn-toggle-flir-thermal');
+    if (btnFlir && !btnFlir.classList.contains('active')) btnFlir.click();
   }
 
   addAuditLog(isZh ? `🎙️ 演讲联动演示：已启动第 0${slideIndex + 1} 页对应现场互动模块` : `🎙️ Keynote Co-Pilot: Launched live demo for Slide 0${slideIndex + 1}`, true);
@@ -1987,10 +1983,10 @@ function renderPresentationSlide(index = 0) {
   document.querySelectorAll('.slide-pill').forEach((pill, idx) => {
     pill.classList.toggle('active', idx === activePresentationSlide);
     if (isZh) {
-      const labelsZh = ["01. 愿景战略", "02. 13大架构", "03. 48h缓存", "04. Cortex决策", "05. 自动补料", "06. 空间孪生", "07. 商业ROI", "08. ISO碳核算"];
+      const labelsZh = ["01. 战略愿景", "02. 13大架构", "03. 生物声学", "04. 决策否决", "05. Grok与SAP", "06. 商业大屏", "07. 财务作战室", "08. 数字护照"];
       pill.textContent = labelsZh[idx] || `0${idx + 1}. 幻灯片`;
     } else {
-      const labelsEn = ["01. Vision", "02. 13-Nodes", "03. 48h Buffer", "04. Cortex AI", "05. Auto-PO", "06. Barn Twin", "07. ROI BI", "08. ISO ESG"];
+      const labelsEn = ["01. Vision", "02. 13-Nodes", "03. Bio-Acoustics", "04. Cortex Veto", "05. Grok & SAP", "06. BI Hub", "07. CFO War Room", "08. DPP Passport"];
       pill.textContent = labelsEn[idx] || `Slide 0${idx + 1}`;
     }
   });
