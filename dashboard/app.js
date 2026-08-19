@@ -2795,17 +2795,17 @@ document.getElementById('btn-auto-pitch')?.addEventListener('click', startAutono
 // 15. DEDICATED EXECUTIVE BI COMMAND CENTER ENGINE
 // =================================================================
 const enterpriseComplexesData = [
-  { id: "NP-01", name: "Nanping Complex 01 (HQ)", region: "Fujian (南平)", houses: 16, birds: 680000, temp: 22.4, nh3: 11.4, silo: 35.7, mode: "0.3s Closed-Loop", fcr: 1.542, powerSaved: 485200, status: "optimal" },
-  { id: "NP-02", name: "Nanping Complex 02 (Guangze)", region: "Fujian (光泽)", houses: 14, birds: 595000, temp: 22.1, nh3: 10.8, silo: 28.4, mode: "0.3s Closed-Loop", fcr: 1.539, powerSaved: 421000, status: "optimal" },
-  { id: "NP-03", name: "Nanping Complex 03 (Pucheng)", region: "Fujian (浦城)", houses: 12, birds: 510000, temp: 22.8, nh3: 12.1, silo: 18.2, mode: "Eco-Throttled", fcr: 1.545, powerSaved: 389000, status: "optimal" },
-  { id: "SM-01", name: "Sanming Complex 01 (Youxi)", region: "Fujian (尤溪)", houses: 12, birds: 510000, temp: 22.3, nh3: 11.9, silo: 24.5, mode: "0.3s Closed-Loop", fcr: 1.541, powerSaved: 362000, status: "optimal" },
-  { id: "SM-02", name: "Sanming Complex 02 (Shaxian)", region: "Fujian (沙县)", houses: 10, birds: 425000, temp: 23.0, nh3: 13.2, silo: 14.8, mode: "Auto SAP Reordered", fcr: 1.548, powerSaved: 310000, status: "warning" },
-  { id: "GZ-01", name: "Ganzhou Complex 01 (Zifang)", region: "Jiangxi (赣州)", houses: 16, birds: 680000, temp: 22.6, nh3: 12.5, silo: 42.0, mode: "0.3s Closed-Loop", fcr: 1.546, powerSaved: 478000, status: "optimal" },
-  { id: "GZ-02", name: "Ganzhou Complex 02 (Ningdu)", region: "Jiangxi (宁都)", houses: 14, birds: 595000, temp: 22.9, nh3: 11.7, silo: 31.2, mode: "0.3s Closed-Loop", fcr: 1.544, powerSaved: 415000, status: "optimal" },
-  { id: "PL-01", name: "Pingliang Complex 01 (Kongtong)", region: "Gansu (平凉)", houses: 14, birds: 595000, temp: 21.8, nh3: 10.2, silo: 38.5, mode: "0.3s Closed-Loop", fcr: 1.551, powerSaved: 395000, status: "optimal" },
-  { id: "PL-02", name: "Pingliang Complex 02 (Jingchuan)", region: "Gansu (泾川)", houses: 12, birds: 510000, temp: 23.4, nh3: 14.1, silo: 21.0, mode: "Pulse-Misting Armed", fcr: 1.553, powerSaved: 360000, status: "warning" },
-  { id: "ZM-01", name: "Zhumadian Complex 01 (Queshan)", region: "Henan (驻马店)", houses: 16, birds: 680000, temp: 22.5, nh3: 11.6, silo: 39.8, mode: "0.3s Closed-Loop", fcr: 1.543, powerSaved: 482000, status: "optimal" },
-  { id: "ZM-02", name: "Zhumadian Complex 02 (Xiping)", region: "Henan (西平)", houses: 12, birds: 510000, temp: 22.7, nh3: 12.0, silo: 26.5, mode: "0.3s Closed-Loop", fcr: 1.545, powerSaved: 375000, status: "optimal" }
+  { id: "NP-01", name: "Nanping Complex 01 (HQ)", region: "Fujian (南平)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.4, nh3: 11.4, silo: 35.7, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 485200, status: "optimal" },
+  { id: "NP-02", name: "Nanping Complex 02 (Guangze)", region: "Fujian (光泽)", breed: "sz901", strainName: "Sunner SZ901", houses: 14, birds: 595000, temp: 22.1, nh3: 10.8, silo: 28.4, mode: "0.3s Closed-Loop", fcr: 1.534, powerSaved: 421000, status: "optimal" },
+  { id: "NP-03", name: "Nanping Complex 03 (Pucheng)", region: "Fujian (浦城)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 22.8, nh3: 12.1, silo: 18.2, mode: "Eco-Throttled", fcr: 1.548, powerSaved: 389000, status: "optimal" },
+  { id: "SM-01", name: "Sanming Complex 01 (Youxi)", region: "Fujian (尤溪)", breed: "sz901", strainName: "Sunner SZ901", houses: 12, birds: 510000, temp: 22.3, nh3: 11.9, silo: 24.5, mode: "0.3s Closed-Loop", fcr: 1.538, powerSaved: 362000, status: "optimal" },
+  { id: "SM-02", name: "Sanming Complex 02 (Shaxian)", region: "Fujian (沙县)", breed: "cobb500", strainName: "Cobb500", houses: 10, birds: 425000, temp: 23.0, nh3: 13.2, silo: 14.8, mode: "Auto SAP Reordered", fcr: 1.550, powerSaved: 310000, status: "warning" },
+  { id: "GZ-01", name: "Ganzhou Complex 01 (Zifang)", region: "Jiangxi (赣州)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.6, nh3: 12.5, silo: 42.0, mode: "0.3s Closed-Loop", fcr: 1.537, powerSaved: 478000, status: "optimal" },
+  { id: "GZ-02", name: "Ganzhou Complex 02 (Ningdu)", region: "Jiangxi (宁都)", breed: "cobb500", strainName: "Cobb500", houses: 14, birds: 595000, temp: 22.9, nh3: 11.7, silo: 31.2, mode: "0.3s Closed-Loop", fcr: 1.546, powerSaved: 415000, status: "optimal" },
+  { id: "PL-01", name: "Pingliang Complex 01 (Kongtong)", region: "Gansu (平凉)", breed: "cobb500", strainName: "Cobb500", houses: 14, birds: 595000, temp: 21.8, nh3: 10.2, silo: 38.5, mode: "0.3s Closed-Loop", fcr: 1.551, powerSaved: 395000, status: "optimal" },
+  { id: "PL-02", name: "Pingliang Complex 02 (Jingchuan)", region: "Gansu (泾川)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 23.4, nh3: 14.1, silo: 21.0, mode: "Pulse-Misting Armed", fcr: 1.553, powerSaved: 360000, status: "warning" },
+  { id: "ZM-01", name: "Zhumadian Complex 01 (Queshan)", region: "Henan (驻马店)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.5, nh3: 11.6, silo: 39.8, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 482000, status: "optimal" },
+  { id: "ZM-02", name: "Zhumadian Complex 02 (Xiping)", region: "Henan (西平)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 22.7, nh3: 12.0, silo: 26.5, mode: "0.3s Closed-Loop", fcr: 1.547, powerSaved: 375000, status: "optimal" }
 ];
 
 let activeBiTab = 'tab-bi-complexes';
@@ -2814,7 +2814,150 @@ let activeBiTime = 'live24';
 let activeBiBreed = 'all';
 let activeBiSearchStr = '';
 
+function renderBiNorthStarTiles() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  
+  // Calculate scaled throughput based on geo & time
+  let throughputNum = "624.50";
+  let throughputUnit = isZh ? "M 羽 / 年" : "M Birds / yr";
+  let throughputSub = isZh ? "● 162万吨白羽鸡肉 • 100% 自主育种谱系" : "● 1.62M Metric Tons • 100% Pedigree";
+  
+  let fcrNum = "1.542";
+  let fcrVs = isZh ? "对比标杆 1.620" : "vs 1.620";
+  let fcrSub = isZh ? "● 年节约饲料大豆玉米 ¥2.995亿元" : "● ¥299.52M Annual Feed Grain Saved";
+  
+  let powerNum = "¥15.77";
+  let powerUnit = isZh ? "M / 年" : "M / yr";
+  let powerSub = isZh ? "● 4,820万度负荷转移至谷电 (¥0.42)" : "● 48.2 GWh Shifted to Valley (¥0.42)";
+  
+  let mortNum = "1.18";
+  let mortUnit = "%";
+  let mortSub = isZh ? "● 单基地多成活 49.7万羽 • 死淘降低 75%" : "● +497,250 Birds Preserved / Complex";
+  
+  let carbonNum = "18,886";
+  let carbonUnit = isZh ? "吨 CO₂e" : "t CO₂e";
+  let carbonSub = isZh ? "● 斩获国家 A+ 级出口绿色数字护照认证" : "● A+ Green Export Passport Certified";
+  
+  let ebitdaNum = "+¥655.5";
+  let ebitdaUnit = isZh ? "M / 年" : "M / yr";
+  let ebitdaSub = isZh ? "● $92.3M 美元经常性 EBITDA 增量" : "● $92.3M USD Bottom-Line Delta";
+
+  // Time multipliers & dynamic formatting
+  if (activeBiTime === 'live24') {
+    const baseDaily = activeBiGeo === 'all' ? 1.71 : (activeBiGeo === 'nanping' ? 0.55 : (activeBiGeo === 'ganzhou' ? 0.41 : 0.35));
+    throughputNum = baseDaily.toFixed(2);
+    throughputUnit = isZh ? "M 羽 / 24小时" : "M Birds / 24h";
+    throughputSub = isZh ? "● 实时 24小时各基地传感器与自动化流水线" : "● Live 24h Real-Time Farm Automation Ingestion";
+
+    powerNum = "¥40.68";
+    powerUnit = isZh ? "k / 日" : "k / day";
+    powerSub = isZh ? "● 单日转移 13.2万度尖峰电价负荷" : "● 132 MWh Shifted Out of Peak (¥1.38)";
+
+    carbonNum = "51.7";
+    carbonUnit = isZh ? "吨 CO₂e / 日" : "t CO₂e / day";
+    carbonSub = isZh ? "● 今日电力避峰与饲料节约核算减排" : "● Today's Verified Carbon Abatement";
+
+    ebitdaNum = "+¥1.79";
+    ebitdaUnit = isZh ? "M / 日" : "M / day";
+    ebitdaSub = isZh ? "● 今日第一性原理量化净利润新增" : "● Today's Real-Time EBITDA Delta";
+  } else if (activeBiTime === 'batch7') {
+    const baseWeekly = activeBiGeo === 'all' ? 12.00 : (activeBiGeo === 'nanping' ? 3.85 : (activeBiGeo === 'ganzhou' ? 2.88 : 2.45));
+    throughputNum = baseWeekly.toFixed(2);
+    throughputUnit = isZh ? "M 羽 / 7天批次" : "M Birds / 7d";
+    throughputSub = isZh ? "● 7天周度采食、增重与微气候滚动均值" : "● 7-Day Rolling Growth & Climate Mean";
+
+    powerNum = "¥284.8";
+    powerUnit = isZh ? "k / 周" : "k / wk";
+    powerSub = isZh ? "● 本周削峰填谷节电套利累计" : "● 7-Day Cumulative TOU Arbitrage Savings";
+
+    carbonNum = "362.2";
+    carbonUnit = isZh ? "吨 CO₂e / 周" : "t CO₂e / wk";
+    carbonSub = isZh ? "● 7天 ISO 14064 周度核算碳足迹" : "● 7-Day ISO 14064 Audited Carbon Footprint";
+
+    ebitdaNum = "+¥12.57";
+    ebitdaUnit = isZh ? "M / 周" : "M / wk";
+    ebitdaSub = isZh ? "● 本周 EBITDA 净利新增贡献" : "● 7-Day Recurring EBITDA Inflow";
+  } else if (activeBiTime === 'cohort42') {
+    const baseCohort = activeBiGeo === 'all' ? 72.05 : (activeBiGeo === 'nanping' ? 23.10 : (activeBiGeo === 'ganzhou' ? 17.28 : 14.65));
+    throughputNum = baseCohort.toFixed(2);
+    throughputUnit = isZh ? "M 羽 / 42天出栏周期" : "M Birds / 42d";
+    throughputSub = isZh ? "● 完整 42天出栏大批次均重 2,850g" : "● Full 42-Day Harvest Weight: 2,850g";
+
+    fcrSub = isZh ? "● 42天周期累计节粮 ¥2,496万元" : "● ¥24.96M Feed Grain Saved in Cohort";
+
+    powerNum = "¥1.71";
+    powerUnit = isZh ? "M / 周期" : "M / cohort";
+    powerSub = isZh ? "● 42天全周期变频与蓄冷节电" : "● 42-Day Dynamic Climate Power Savings";
+
+    carbonNum = "2,173";
+    carbonUnit = isZh ? "吨 CO₂e / 周期" : "t CO₂e / cohort";
+    carbonSub = isZh ? "● 42天出栏批次碳护照核算总量" : "● Full Cohort Carbon Passport Abatement";
+
+    ebitdaNum = "+¥75.43";
+    ebitdaUnit = isZh ? "M / 周期" : "M / cohort";
+    ebitdaSub = isZh ? "● 单批次出栏创造 EBITDA 增量" : "● Full 42-Day Harvest EBITDA Margin";
+  }
+
+  // Strain variations
+  if (activeBiBreed === 'sz901') {
+    fcrNum = "1.536";
+    fcrVs = isZh ? "对比标杆 1.620 (冠军品系)" : "vs 1.620 (SZ901 Champ)";
+    fcrSub = isZh ? "● 圣泽901 日均增重 +71.4g (高出行业 8.2%)" : "● SZ901 Daily Gain +71.4g (+8.2% vs Cobb)";
+    mortNum = "1.02";
+    mortSub = isZh ? "● 圣泽901 强抗应激性，死淘率仅 1.02%" : "● High Robustness, Mortality Down to 1.02%";
+  } else if (activeBiBreed === 'cobb500') {
+    fcrNum = "1.548";
+    fcrVs = isZh ? "对比标杆 1.620 (Cobb500)" : "vs 1.620 (Cobb500 Std)";
+    fcrSub = isZh ? "● Cobb500 国际标杆白羽肉鸡基因品系" : "● Cobb500 Standard Global Broiler Strain";
+    mortNum = "1.26";
+    mortSub = isZh ? "● Cobb500 闭环自愈死淘率 1.26%" : "● Closed-Loop Mortality at 1.26%";
+  }
+
+  // Geo cluster filtering tweaks
+  if (activeBiGeo === 'nanping') {
+    throughputSub = isZh ? "● 福建南平总部基地 (16大养殖基地核心区)" : "● Fujian Nanping HQ Hub (16 Complexes)";
+  } else if (activeBiGeo === 'ganzhou') {
+    throughputSub = isZh ? "● 江西赣州基地 (12大养殖基地集群)" : "● Jiangxi Ganzhou Cluster (12 Complexes)";
+  } else if (activeBiGeo === 'pingliang') {
+    throughputSub = isZh ? "● 甘肃平凉基地 (10大养殖基地北方集群)" : "● Gansu Pingliang Cluster (10 Complexes)";
+  } else if (activeBiGeo === 'zhumadian') {
+    throughputSub = isZh ? "● 河南驻马店基地 (12大养殖基地中原集群)" : "● Henan Zhumadian Cluster (12 Complexes)";
+  }
+
+  // Inject into DOM
+  const val1 = document.getElementById('bi-kpi-val-1');
+  const sub1 = document.getElementById('bi-kpi-sub-1');
+  if (val1) val1.innerHTML = `${throughputNum}<small>${throughputUnit}</small>`;
+  if (sub1) sub1.textContent = throughputSub;
+
+  const val2 = document.getElementById('bi-kpi-val-2');
+  const sub2 = document.getElementById('bi-kpi-sub-2');
+  if (val2) val2.innerHTML = `${fcrNum}<small>${fcrVs}</small>`;
+  if (sub2) sub2.textContent = fcrSub;
+
+  const val3 = document.getElementById('bi-kpi-val-3');
+  const sub3 = document.getElementById('bi-kpi-sub-3');
+  if (val3) val3.innerHTML = `${powerNum}<small>${powerUnit}</small>`;
+  if (sub3) sub3.textContent = powerSub;
+
+  const val4 = document.getElementById('bi-kpi-val-4');
+  const sub4 = document.getElementById('bi-kpi-sub-4');
+  if (val4) val4.innerHTML = `${mortNum}<small>${mortUnit}</small>`;
+  if (sub4) sub4.textContent = mortSub;
+
+  const val5 = document.getElementById('bi-kpi-val-5');
+  const sub5 = document.getElementById('bi-kpi-sub-5');
+  if (val5) val5.innerHTML = `${carbonNum}<small>${carbonUnit}</small>`;
+  if (sub5) sub5.textContent = carbonSub;
+
+  const val6 = document.getElementById('bi-kpi-val-6');
+  const sub6 = document.getElementById('bi-kpi-sub-6');
+  if (val6) val6.innerHTML = `${ebitdaNum}<small>${ebitdaUnit}</small>`;
+  if (sub6) sub6.textContent = ebitdaSub;
+}
+
 function renderExecutiveBiHub() {
+  renderBiNorthStarTiles();
   renderBiFleetTable();
   renderBiClustersList();
   renderBiGrowthSvg();
@@ -2835,45 +2978,59 @@ function renderBiFleetTable() {
       c.id.toLowerCase().includes(activeBiSearchStr.toLowerCase());
 
     const matchGeo = activeBiGeo === 'all' ||
-      (activeBiGeo === 'nanping' && c.region.includes('Fujian')) ||
-      (activeBiGeo === 'ganzhou' && c.region.includes('Jiangxi')) ||
-      (activeBiGeo === 'pingliang' && c.region.includes('Gansu')) ||
-      (activeBiGeo === 'zhumadian' && c.region.includes('Henan'));
+      (activeBiGeo === 'nanping' && (c.region.includes('南平') || c.region.includes('光泽') || c.region.includes('浦城') || c.region.includes('Fujian'))) ||
+      (activeBiGeo === 'ganzhou' && (c.region.includes('Jiangxi') || c.region.includes('赣州'))) ||
+      (activeBiGeo === 'pingliang' && (c.region.includes('Gansu') || c.region.includes('平凉'))) ||
+      (activeBiGeo === 'zhumadian' && (c.region.includes('Henan') || c.region.includes('驻马店')));
 
-    return matchSearch && matchGeo;
+    const matchBreed = activeBiBreed === 'all' || c.breed === activeBiBreed;
+
+    return matchSearch && matchGeo && matchBreed;
   });
 
-  tbody.innerHTML = filtered.map(c => `
-    <tr>
-      <td>
-        <strong>${c.name}</strong><br>
-        <small style="color: #94a3b8;">${c.id} • ${c.region}</small>
-      </td>
-      <td>${c.houses} ${isZh ? '栋舍' : 'Houses'}</td>
-      <td><strong>${(c.birds / 10000).toFixed(1)}万</strong> <small>${isZh ? '羽' : 'Birds'}</small></td>
-      <td><span class="${c.temp > 23 ? 'amber-text' : 'green-text'}">${c.temp.toFixed(1)}°C</span></td>
-      <td><span class="${c.nh3 > 13 ? 'amber-text' : 'green-text'}">${c.nh3.toFixed(1)} ppm</span></td>
-      <td>${c.silo.toFixed(1)}t ${c.silo < 15 ? '<span style="color: #f43f5e; font-weight: 800;">(PO Reordered)</span>' : ''}</td>
-      <td>
-        <span class="agent-vote-badge ${c.status === 'optimal' ? 'green' : 'amber'}">${c.mode}</span>
-      </td>
-      <td><strong class="cyan-text">${c.fcr.toFixed(3)}</strong></td>
-      <td><strong class="green-text">¥${(c.powerSaved / 1000).toFixed(1)}k</strong></td>
-      <td>
-        <button class="bi-filter-btn" onclick="inspectComplexDetails('${c.id}')" style="padding: 0.15rem 0.45rem;">
-          ${isZh ? '🔍 诊断' : '🔍 Inspect'}
-        </button>
-      </td>
-    </tr>
-  `).join('');
+  tbody.innerHTML = filtered.map(c => {
+    let powerDisplay = `¥${(c.powerSaved / 1000).toFixed(1)}k/y`;
+    if (activeBiTime === 'live24') {
+      powerDisplay = `¥${(c.powerSaved / 365 / 1000).toFixed(1)}k/d`;
+    } else if (activeBiTime === 'batch7') {
+      powerDisplay = `¥${(c.powerSaved / 52 / 1000).toFixed(1)}k/w`;
+    } else if (activeBiTime === 'cohort42') {
+      powerDisplay = `¥${(c.powerSaved / 8.7 / 1000).toFixed(1)}k/c`;
+    }
+
+    return `
+      <tr>
+        <td>
+          <strong>${c.name}</strong>
+          <span class="agent-vote-badge ${c.breed === 'sz901' ? 'purple' : 'cyan'}" style="margin-left: 0.35rem; font-size: 0.68rem; padding: 0.1rem 0.35rem;">${c.strainName}</span><br>
+          <small style="color: #94a3b8;">${c.id} • ${c.region}</small>
+        </td>
+        <td>${c.houses} ${isZh ? '栋舍' : 'Houses'}</td>
+        <td><strong>${(c.birds / 10000).toFixed(1)}万</strong> <small>${isZh ? '羽' : 'Birds'}</small></td>
+        <td><span class="${c.temp > 23 ? 'amber-text' : 'green-text'}">${c.temp.toFixed(1)}°C</span></td>
+        <td><span class="${c.nh3 > 13 ? 'amber-text' : 'green-text'}">${c.nh3.toFixed(1)} ppm</span></td>
+        <td>${c.silo.toFixed(1)}t ${c.silo < 15 ? '<span style="color: #f43f5e; font-weight: 800;">(PO Reordered)</span>' : ''}</td>
+        <td>
+          <span class="agent-vote-badge ${c.status === 'optimal' ? 'green' : 'amber'}">${c.mode}</span>
+        </td>
+        <td><strong class="cyan-text">${c.fcr.toFixed(3)}</strong></td>
+        <td><strong class="green-text">${powerDisplay}</strong></td>
+        <td>
+          <button class="bi-filter-btn" onclick="inspectComplexDetails('${c.id}')" style="padding: 0.15rem 0.45rem;">
+            ${isZh ? '🔍 诊断' : '🔍 Inspect'}
+          </button>
+        </td>
+      </tr>
+    `;
+  }).join('');
 }
 
 function inspectComplexDetails(cId) {
   const isZh = window.i18n && window.i18n.currentLang === 'zh';
   const item = enterpriseComplexesData.find(c => c.id === cId) || enterpriseComplexesData[0];
   alert(isZh
-    ? `【基地全息诊断】\n基地名称: ${item.name}\n批次存栏: ${item.birds.toLocaleString()} 羽\n当前舍温: ${item.temp}°C | 氨气: ${item.nh3} ppm\n料肉比: ${item.fcr} (优于同批次 3.8%)\n年化节电: ¥${item.powerSaved.toLocaleString()} 元\n运行状态: ${item.mode}`
-    : `[Complex Holographic Diagnostic]\nComplex: ${item.name}\nFlock Population: ${item.birds.toLocaleString()} Broilers\nTemperature: ${item.temp}°C | Ammonia: ${item.nh3} ppm\nFCR: ${item.fcr} (3.8% Ahead of Cohort)\nYTD Power Saved: ¥${item.powerSaved.toLocaleString()} CNY\nAutopilot: ${item.mode}`);
+    ? `【基地全息诊断】\n基地名称: ${item.name} (${item.strainName})\n批次存栏: ${item.birds.toLocaleString()} 羽\n当前舍温: ${item.temp}°C | 氨气: ${item.nh3} ppm\n料肉比: ${item.fcr} (优于同批次 3.8%)\n年化节电: ¥${item.powerSaved.toLocaleString()} 元\n运行状态: ${item.mode}`
+    : `[Complex Holographic Diagnostic]\nComplex: ${item.name} (${item.strainName})\nFlock Population: ${item.birds.toLocaleString()} Broilers\nTemperature: ${item.temp}°C | Ammonia: ${item.nh3} ppm\nFCR: ${item.fcr} (3.8% Ahead of Cohort)\nYTD Power Saved: ¥${item.powerSaved.toLocaleString()} CNY\nAutopilot: ${item.mode}`);
 }
 
 function renderBiClustersList() {
@@ -2906,13 +3063,47 @@ function renderBiClustersList() {
 function renderBiGrowthSvg() {
   const stage = document.getElementById('bi-svg-growth-stage');
   if (!stage) return;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  // Dynamic parameters based on active strain
+  let day26Weight = 2140;
+  let day26Delta = "+90g vs Genetic Std";
+  let finalWeight = "2,865g";
+  let fcrVal = "1.542";
+  let actualStroke = "#38bdf8";
+  let strainTitle = isZh ? "综合群体 (SZ901 + Cobb500)" : "Fleet Average (SZ901 + Cobb500)";
+  let actualPath = "M 60 268 Q 300 220, 540 96 T 860 48";
+  let fillPath = "M 60 268 Q 300 220, 540 96 T 860 48 L 860 270 L 60 270 Z";
+  let circleY = 96;
+
+  if (activeBiBreed === 'sz901') {
+    day26Weight = 2190;
+    day26Delta = "+140g (SZ901 冠标增重)";
+    finalWeight = "2,910g";
+    fcrVal = "1.536";
+    actualStroke = "#10b981";
+    strainTitle = isZh ? "圣泽901 冠军高抗品系" : "Sunner SZ901 (Champion Line)";
+    actualPath = "M 60 268 Q 300 210, 540 84 T 860 38";
+    fillPath = "M 60 268 Q 300 210, 540 84 T 860 38 L 860 270 L 60 270 Z";
+    circleY = 84;
+  } else if (activeBiBreed === 'cobb500') {
+    day26Weight = 2090;
+    day26Delta = "+40g (Cobb500 国际标杆)";
+    finalWeight = "2,820g";
+    fcrVal = "1.548";
+    actualStroke = "#38bdf8";
+    strainTitle = isZh ? "Cobb500 国际白羽品系" : "Cobb500 (White Broiler)";
+    actualPath = "M 60 268 Q 300 225, 540 108 T 860 56";
+    fillPath = "M 60 268 Q 300 225, 540 108 T 860 56 L 860 270 L 60 270 Z";
+    circleY = 108;
+  }
 
   stage.innerHTML = `
     <svg viewBox="0 0 900 320" width="100%" height="100%" style="display: block;">
       <defs>
         <linearGradient id="growthFillGrad" x1="0" y1="0" x2="0" y2="1">
-          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
-          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+          <stop offset="0%" stop-color="${actualStroke}" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="${actualStroke}" stop-opacity="0.0"/>
         </linearGradient>
         <linearGradient id="fcrGrad" x1="0" y1="0" x2="1" y2="0">
           <stop offset="0%" stop-color="#10b981"/>
@@ -2945,27 +3136,31 @@ function renderBiGrowthSvg() {
       <!-- Standard Benchmark Line (Dotted Gray) -->
       <path d="M 60 268 Q 300 230, 540 115 T 860 65" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4"/>
 
-      <!-- Actual Weight Area & Line (Cyan Blue) -->
-      <path d="M 60 268 Q 300 220, 540 96 T 860 48 L 860 270 L 60 270 Z" fill="url(#growthFillGrad)"/>
-      <path d="M 60 268 Q 300 220, 540 96 T 860 48" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
+      <!-- Actual Weight Area & Line -->
+      <path d="${fillPath}" fill="url(#growthFillGrad)"/>
+      <path d="${actualPath}" fill="none" stroke="${actualStroke}" stroke-width="3.5"/>
 
       <!-- Current Day 26 Pin -->
-      <line x1="540" y1="40" x2="540" y2="270" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 2"/>
-      <circle cx="540" cy="96" r="6" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
-      <rect x="548" y="76" width="130" height="36" rx="4" fill="rgba(2,2,45,0.95)" stroke="#38bdf8" stroke-width="1"/>
-      <text x="556" y="92" fill="#ffffff" font-size="10" font-weight="bold" font-family="sans-serif">Day 26: 2,140 g</text>
-      <text x="556" y="105" fill="#34d399" font-size="9" font-family="monospace">+90g vs Genetic Std</text>
+      <line x1="540" y1="40" x2="540" y2="270" stroke="${actualStroke}" stroke-width="1.5" stroke-dasharray="2 2"/>
+      <circle cx="540" cy="${circleY}" r="6" fill="${actualStroke}" stroke="#ffffff" stroke-width="2"/>
+      <rect x="548" y="${circleY - 20}" width="145" height="38" rx="4" fill="rgba(2,2,45,0.95)" stroke="${actualStroke}" stroke-width="1"/>
+      <text x="556" y="${circleY - 4}" fill="#ffffff" font-size="10" font-weight="bold" font-family="sans-serif">Day 26: ${day26Weight.toLocaleString()} g</text>
+      <text x="556" y="${circleY + 10}" fill="#34d399" font-size="9" font-family="monospace">${day26Delta}</text>
 
       <!-- FCR Trend Line (Green on secondary scale) -->
       <path d="M 60 140 Q 300 180, 540 210 T 860 235" fill="none" stroke="url(#fcrGrad)" stroke-width="2.5"/>
 
+      <!-- Strain & Filter Title Banner -->
+      <rect x="60" y="10" width="300" height="24" rx="4" fill="rgba(15,23,42,0.85)" stroke="rgba(255,255,255,0.1)"/>
+      <text x="70" y="26" fill="#38bdf8" font-size="10" font-weight="bold">🧬 ${strainTitle} • ${activeBiTime.toUpperCase()}</text>
+
       <!-- Legend -->
-      <rect x="680" y="12" width="12" height="12" rx="2" fill="#38bdf8"/>
-      <text x="698" y="22" fill="#e2e8f0" font-size="10">Actual Weight (g)</text>
-      <line x1="680" y1="32" x2="692" y2="32" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>
-      <text x="698" y="36" fill="#94a3b8" font-size="10">Cobb500 Benchmark</text>
-      <line x1="680" y1="46" x2="692" y2="46" stroke="#10b981" stroke-width="2.5"/>
-      <text x="698" y="50" fill="#34d399" font-size="10">FCR Curve (1.54)</text>
+      <rect x="660" y="12" width="12" height="12" rx="2" fill="${actualStroke}"/>
+      <text x="678" y="22" fill="#e2e8f0" font-size="10">${isZh ? '实测均重 (g)' : 'Actual Weight (g)'}</text>
+      <line x1="660" y1="32" x2="672" y2="32" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>
+      <text x="678" y="36" fill="#94a3b8" font-size="10">Genetic Benchmark</text>
+      <line x1="660" y1="46" x2="672" y2="46" stroke="#10b981" stroke-width="2.5"/>
+      <text x="678" y="50" fill="#34d399" font-size="10">FCR (${fcrVal})</text>
     </svg>
   `;
 }
@@ -2973,6 +3168,19 @@ function renderBiGrowthSvg() {
 function renderBiTariffSvg() {
   const stage = document.getElementById('bi-svg-tariff-stage');
   if (!stage) return;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  // Dynamic values based on time horizon
+  let savedBadge = isZh ? "▼ 削峰 -28.4%" : "▼ -28.4% Cut";
+  let savedSub = isZh ? "今日节电 ¥40,684" : "Saved ¥40.68k/d";
+
+  if (activeBiTime === 'batch7') {
+    savedSub = isZh ? "本周节电 ¥284,788" : "Saved ¥284.8k/wk";
+  } else if (activeBiTime === 'cohort42') {
+    savedSub = isZh ? "周期节电 ¥1.71M" : "Saved ¥1.71M/cycle";
+  } else if (activeBiTime === 'ytd') {
+    savedSub = isZh ? "年度累计 ¥15.77M" : "Saved ¥15.77M/yr";
+  }
 
   stage.innerHTML = `
     <svg viewBox="0 0 900 320" width="100%" height="100%" style="display: block;">
@@ -3008,9 +3216,9 @@ function renderBiTariffSvg() {
       <path d="M 60 120 Q 200 110, 326 155 T 526 215 T 626 160 T 860 180" fill="none" stroke="#10b981" stroke-width="3.5"/>
 
       <!-- Savings Callout at Peak -->
-      <rect x="530" y="110" width="92" height="42" rx="4" fill="rgba(2,2,45,0.95)" stroke="#10b981" stroke-width="1"/>
-      <text x="538" y="126" fill="#34d399" font-size="10" font-weight="bold" font-family="sans-serif">▼ -28.4% Cut</text>
-      <text x="538" y="142" fill="#ffffff" font-size="9" font-family="monospace">Saved ¥9.72/h</text>
+      <rect x="520" y="110" width="115" height="44" rx="4" fill="rgba(2,2,45,0.95)" stroke="#10b981" stroke-width="1"/>
+      <text x="528" y="126" fill="#34d399" font-size="10" font-weight="bold" font-family="sans-serif">${savedBadge}</text>
+      <text x="528" y="143" fill="#ffffff" font-size="9" font-family="monospace">${savedSub}</text>
 
       <!-- X Axis Ticks -->
       <text x="60" y="290" fill="#94a3b8" font-size="9" font-family="monospace">00:00</text>
@@ -3148,6 +3356,8 @@ function renderBiRadarSvg() {
 }
 
 function initExecutiveBiHub() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
   // Tab Switcher
   document.querySelectorAll('.bi-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
@@ -3180,7 +3390,8 @@ function initExecutiveBiHub() {
       document.querySelectorAll('#bi-geo-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeBiGeo = btn.dataset.geo || 'all';
-      renderBiFleetTable();
+      renderExecutiveBiHub();
+      addAuditLog(isZh ? `📊 商业智能大屏：地理集群切换为 [${btn.textContent.trim()}]` : `📊 BI Hub: Geographic cluster filtered to [${btn.textContent.trim()}]`, true);
     });
   });
 
@@ -3190,6 +3401,8 @@ function initExecutiveBiHub() {
       document.querySelectorAll('#bi-time-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeBiTime = btn.dataset.time || 'live24';
+      renderExecutiveBiHub();
+      addAuditLog(isZh ? `📊 商业智能大屏：时间范围切换为 [${btn.textContent.trim()}]` : `📊 BI Hub: Time horizon changed to [${btn.textContent.trim()}]`, true);
     });
   });
 
@@ -3199,12 +3412,13 @@ function initExecutiveBiHub() {
       document.querySelectorAll('#bi-breed-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
       btn.classList.add('active');
       activeBiBreed = btn.dataset.breed || 'all';
+      renderExecutiveBiHub();
+      addAuditLog(isZh ? `📊 商业智能大屏：肉鸡品系切换为 [${btn.textContent.trim()}]` : `📊 BI Hub: Genetic strain filtered to [${btn.textContent.trim()}]`, true);
     });
   });
 
   // Export board pack button
   document.getElementById('btn-bi-export-boardpack')?.addEventListener('click', () => {
-    const isZh = window.i18n && window.i18n.currentLang === 'zh';
     alert(isZh
       ? "📊 圣农集团 × GEA 董事会数字化运营决策报告 (PDF / PowerBI Dataset) 已导出并生成！"
       : "📊 Sunner × GEA Board Analytics & Decision Deck (PDF / PowerBI Dataset) generated and downloaded!");
@@ -3213,6 +3427,9 @@ function initExecutiveBiHub() {
   // Render initial BI views
   renderExecutiveBiHub();
 }
+
+window.renderExecutiveBiHub = renderExecutiveBiHub;
+window.inspectComplexDetails = inspectComplexDetails;
 
 // Initialize default slide
 renderPresentationSlide(0);
