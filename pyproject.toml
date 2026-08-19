@@ -24,4 +24,10 @@ testpaths = ["sunner-cloud-gea/tests", "sunner-edge-welotec/tests"]
 pythonpath = ["sunner-cloud-gea", "sunner-edge-welotec"]
 
 [tool.pyright]
-extraPaths = ["sunner-cloud-gea", "sunner-edge-welotec"]
+extraPaths = [
+    "sunner-cloud-gea",
+    "sunner-cloud-gea/src",
+    "sunner-cloud-gea/ai_engine",
+    "sunner-edge-welotec",
+    "sunner-edge-welotec/src"
+]

@@ -1,6 +1,9 @@
 {
   "extraPaths": [
     "sunner-cloud-gea",
-    "sunner-edge-welotec"
+    "sunner-cloud-gea/src",
+    "sunner-cloud-gea/ai_engine",
+    "sunner-edge-welotec",
+    "sunner-edge-welotec/src"
   ]
 }
