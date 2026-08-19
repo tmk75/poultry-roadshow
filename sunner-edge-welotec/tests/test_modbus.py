@@ -12,7 +12,13 @@ edge_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), ".."))
 if edge_dir not in sys.path:
     sys.path.insert(0, edge_dir)
 
-from src.modbus_driver import ModbusRegisterDecoder, WelotecModbusGateway
+try:
+    from src.modbus_driver import ModbusRegisterDecoder, WelotecModbusGateway
+except ImportError:
+    edge_src = os.path.join(edge_dir, "src")
+    if edge_src not in sys.path:
+        sys.path.insert(0, edge_src)
+    from modbus_driver import ModbusRegisterDecoder, WelotecModbusGateway
 
 
 def test_modbus_int16_decoding():
