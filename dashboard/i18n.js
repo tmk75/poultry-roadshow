@@ -1026,6 +1026,9 @@ window.i18n = {
     if (typeof renderExecutiveBiHub === 'function') {
       renderExecutiveBiHub();
     }
+    if (typeof window.applyCrisisPreset === 'function' && window.currentActiveCrisisPreset) {
+      window.applyCrisisPreset(window.currentActiveCrisisPreset);
+    }
     if (typeof renderBiTable === 'function') {
       renderBiTable(typeof activeBiComplexFilter !== 'undefined' ? activeBiComplexFilter : 'all');
     }

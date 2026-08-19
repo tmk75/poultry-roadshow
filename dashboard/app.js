@@ -2291,42 +2291,154 @@ function initFinancialWarRoom() {
     document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
   });
 
-  // Crisis Preset Triggers
-  document.getElementById('btn-preset-heatwave')?.addEventListener('click', () => {
+  // Crisis Preset Engine
+  window.currentActiveCrisisPreset = 'heatwave';
+  function applyCrisisPreset(presetKey) {
+    window.currentActiveCrisisPreset = presetKey;
     document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
-    document.getElementById('btn-preset-heatwave')?.classList.add('active');
-    if (sHeat) sHeat.value = 4.5;
-    if (sTariff) sTariff.value = 2.50;
-    warroomHeatOffset = 4.5; warroomPeakTariff = 2.50;
-    if (dHeat) dHeat.textContent = "+4.5°C (Extreme Heatwave)";
-    if (dTariff) dTariff.textContent = "¥2.50 / kWh (Grid Crisis)";
-    updateWarroomMath();
-    addAuditLog("☀️ [WAR ROOM] Loaded Extreme Summer Heatwave (41°C + ¥2.50/kWh peak tariff) scenario.", true);
-  });
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    const pbTitle = document.getElementById('playbook-title');
+    const pbSub = document.getElementById('playbook-sub');
+    const pbStep1 = document.getElementById('pb-step-1');
+    const pbStep2 = document.getElementById('pb-step-2');
+    const pbStep3 = document.getElementById('pb-step-3');
 
-  document.getElementById('btn-preset-soybean')?.addEventListener('click', () => {
-    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
-    document.getElementById('btn-preset-soybean')?.classList.add('active');
-    if (sFeed) sFeed.value = 35;
-    warroomFeedPct = 35;
-    if (dFeed) dFeed.textContent = "+35% (¥4,320/t Global Shock)";
-    updateWarroomMath();
-    addAuditLog("🌾 [WAR ROOM] Loaded Global Soybean Commodity Shock (+35% feed cost) scenario.", true);
-  });
+    if (presetKey === 'heatwave') {
+      document.getElementById('btn-preset-heatwave')?.classList.add('active');
+      warroomHeatOffset = 4.5;
+      warroomPeakTariff = 2.50;
+      warroomFeedPct = 0;
+      warroomFleetScale = 600;
 
-  document.getElementById('btn-preset-inverter')?.addEventListener('click', () => {
-    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
-    document.getElementById('btn-preset-inverter')?.classList.add('active');
-    updateWarroomMath();
-    addAuditLog("🚨 [WAR ROOM] Loaded 02:15 AM Inverter Power Outage & 0.28s Veto Bypass scenario.", true);
-  });
+      if (sHeat) sHeat.value = 4.5;
+      if (sTariff) sTariff.value = 2.50;
+      if (sFeed) sFeed.value = 0;
+      if (sFleet) sFleet.value = 600;
 
-  document.getElementById('btn-preset-cbam')?.addEventListener('click', () => {
-    document.querySelectorAll('.crisis-preset-card').forEach(c => c.classList.remove('active'));
-    document.getElementById('btn-preset-cbam')?.classList.add('active');
-    updateWarroomMath();
-    addAuditLog("🇪🇺 [WAR ROOM] Loaded EU CBAM & Export Green Specification tender simulation.", true);
-  });
+      if (dHeat) dHeat.textContent = isZh ? "+4.5°C (极端热浪 41.5°C)" : "+4.5°C (Extreme Heatwave)";
+      if (dTariff) dTariff.textContent = isZh ? "¥2.50 / kWh (电网尖峰电价)" : "¥2.50 / kWh (Grid Peak Crisis)";
+      if (dFeed) dFeed.textContent = isZh ? "0% (¥3,200/吨 基准)" : "0% (¥3,200/t Nominal)";
+      if (dFleet) dFleet.textContent = isZh ? "6亿羽肉鸡 (50大养殖基地)" : "600M Broilers (50 Complexes)";
+
+      if (pbTitle) pbTitle.textContent = isZh ? "🔥 极端高温热浪与电网尖峰防御策略" : "🔥 Summer Heatwave & Grid Crash Defense Strategy";
+      if (pbSub) pbSub.textContent = isZh ? "自动化预冷储能与微雾协同调度" : "Autonomous Pre-Cooling & Pulse Misting Defense";
+      if (pbStep1) pbStep1.innerHTML = isZh
+        ? "<strong>夜间深谷蓄冷储能:</strong> 00:00-08:00 (¥0.42/度) AI 将 50大基地预降温 1.2°C，在地坪与水线中储存冷量。"
+        : "<strong>Nighttime Pre-Cooling Buffer:</strong> Sub-cool all 50 complexes by 1.2°C during valley tariff (¥0.42/kWh) to store thermal mass.";
+      if (pbStep2) pbStep2.innerHTML = isZh
+        ? "<strong>尖峰负荷压降 -28.4%:</strong> 14:00-17:00 (¥2.50/度) 变频风机智能降速避峰，高压脉冲微雾保持体感舒适。"
+        : "<strong>Micro-Misting Dynamic Staging:</strong> Throttle VFD exhaust fans during 14:00-17:00 peak pricing while pulse-misting maintains bird comfort.";
+      if (pbStep3) pbStep3.innerHTML = isZh
+        ? "<strong>全群 0 死淘避险:</strong> 5天极热期挽救 180万羽肉鸡生命，直接规避 ¥44.50M 灾难性死亡损失。"
+        : "<strong>Zero Heat-Shock Mortality:</strong> 5-day heatwave saves 1.8M broilers, avoiding ¥44.50M in catastrophic losses.";
+
+      updateWarroomMath();
+      addAuditLog(isZh ? "☀️ [财务作战室] 已加载【夏季高温与电网尖峰预案】(41°C + ¥2.50/度分时电价)。" : "☀️ [WAR ROOM] Loaded Extreme Summer Heatwave (41°C + ¥2.50/kWh peak tariff) scenario.", true);
+    }
+    else if (presetKey === 'soybean') {
+      document.getElementById('btn-preset-soybean')?.classList.add('active');
+      warroomFeedPct = 35;
+      warroomHeatOffset = 0;
+      warroomPeakTariff = 1.38;
+      warroomFleetScale = 600;
+
+      if (sFeed) sFeed.value = 35;
+      if (sHeat) sHeat.value = 0;
+      if (sTariff) sTariff.value = 1.38;
+      if (sFleet) sFleet.value = 600;
+
+      if (dFeed) dFeed.textContent = isZh ? "+35% (¥4,320/吨 大豆粮价暴涨)" : "+35% (¥4,320/t Global Shock)";
+      if (dHeat) dHeat.textContent = isZh ? "+0.0°C (常温夏粮季)" : "+0.0°C (Normal Summer)";
+      if (dTariff) dTariff.textContent = isZh ? "¥1.38 / kWh (峰期)" : "¥1.38 / kWh (Peak)";
+      if (dFleet) dFleet.textContent = isZh ? "6亿羽肉鸡 (50大养殖基地)" : "600M Broilers (50 Complexes)";
+
+      if (pbTitle) pbTitle.textContent = isZh ? "🌾 全球大豆饲料价格暴涨对冲策略" : "🌾 Global Soybean Commodity Shock Mitigation";
+      if (pbSub) pbSub.textContent = isZh ? "微气候闭环精调压降料肉比 FCR -0.038" : "Closed-Loop Microclimate Tuning to Cut FCR by -0.038";
+      if (pbStep1) pbStep1.innerHTML = isZh
+        ? "<strong>负压均匀度精细调优:</strong> 自动锁定 -18 Pa 恒定负压，确保全舍无贼风，将饲料转化率提升至最高区间。"
+        : "<strong>Tunnel Negative Pressure Tuning:</strong> Lock -18 Pa static pressure to eliminate draft stress and maximize broiler gut nutrient uptake.";
+      if (pbStep2) pbStep2.innerHTML = isZh
+        ? "<strong>综合料肉比压降至 1.542:</strong> 相比 1.620 传统标杆节省 5,856.5吨 饲料，全集团对冲挽回 ¥149.80M 利润。"
+        : "<strong>Drop FCR to 1.542:</strong> Saves 5,856.5t grain vs 1.620 benchmark, recovering ¥149.80M margin across 600M birds.";
+      if (pbStep3) pbStep3.innerHTML = isZh
+        ? "<strong>SAP 自动化集采防断料:</strong> 智能料塔实时称重，低于 15吨 自动向中粮/益海嘉里签发批次补料 PO 单。"
+        : "<strong>Zero-Touch SAP Bulk SCM:</strong> Loadcells trigger automatic purchase orders (BAPI_PO_CREATE1) before silo drops below 15t.";
+
+      updateWarroomMath();
+      addAuditLog(isZh ? "🌾 [财务作战室] 已加载【全球大豆原料暴涨预案】(+35% 粮价冲击，AI精调料肉比对冲 ¥1.49亿)。" : "🌾 [WAR ROOM] Loaded Global Soybean Commodity Shock (+35% feed cost, recovering ¥149.80M margin).", true);
+    }
+    else if (presetKey === 'inverter') {
+      document.getElementById('btn-preset-inverter')?.classList.add('active');
+      warroomHeatOffset = 1.0;
+      warroomPeakTariff = 1.38;
+      warroomFeedPct = 0;
+      warroomFleetScale = 600;
+
+      if (sHeat) sHeat.value = 1.0;
+      if (sTariff) sTariff.value = 1.38;
+      if (sFeed) sFeed.value = 0;
+      if (sFleet) sFleet.value = 600;
+
+      if (dHeat) dHeat.textContent = isZh ? "+1.0°C (夜间微气候波动)" : "+1.0°C (Night Cold Snap)";
+      if (dTariff) dTariff.textContent = isZh ? "¥1.38 / kWh" : "¥1.38 / kWh";
+      if (dFeed) dFeed.textContent = isZh ? "0% (¥3,200/吨 基准)" : "0% (¥3,200/t Nominal)";
+      if (dFleet) dFleet.textContent = isZh ? "6亿羽肉鸡 (50大养殖基地)" : "600M Broilers (50 Complexes)";
+
+      if (pbTitle) pbTitle.textContent = isZh ? "🚨 凌晨 02:15 变频器跳闸与氨气暴涨自愈" : "🚨 02:15 AM Inverter Power Trip & Ammonia Self-Healing";
+      if (pbSub) pbSub.textContent = isZh ? "健康智能体 0.28秒 亚秒级硬超驰能耗智能体" : "0.28s Welfare Agent Hard Priority Veto Execution";
+      if (pbStep1) pbStep1.innerHTML = isZh
+        ? "<strong>02:14:32 变频器偶发跳闸:</strong> 氨气在 3分钟内自 11.4 ppm 飙升至 28.5 ppm (突破 20.0 ppm 警戒线)。"
+        : "<strong>02:14:32 Inverter Trip:</strong> Ammonia surges from 11.4 ppm to 28.5 ppm within 3 minutes (> 20.0 ppm safety threshold).";
+      if (pbStep2) pbStep2.innerHTML = isZh
+        ? "<strong>健康智能体 0.28秒 硬超驰:</strong> 强制否决能耗节电指令，备用风机全速 850 RPM 强排，30秒恢复安全浓度。"
+        : "<strong>0.28s Welfare Priority Veto:</strong> Overrides Energy Agent to spin backup emergency fans at 100% (850 RPM), clearing gas in 30s.";
+      if (pbStep3) pbStep3.innerHTML = isZh
+        ? "<strong>挽救 48万羽在栏鸡群:</strong> 避免氨气中毒引发群体呼吸道感染与死淘，挽救 ¥10.80M 直接资产。"
+        : "<strong>Preserve 480,000 Broilers:</strong> Prevents mass asphyxiation and respiratory rales, safeguarding ¥10.80M in flock assets.";
+
+      updateWarroomMath();
+      addAuditLog(isZh ? "🚨 [财务作战室] 已加载【02:15 变频器跳闸与氨气超限自愈】(0.28秒硬超驰挽救 ¥10.8M)。" : "🚨 [WAR ROOM] Loaded 02:15 AM Inverter Power Outage & 0.28s Veto Bypass (Saving ¥10.80M).", true);
+    }
+    else if (presetKey === 'cbam') {
+      document.getElementById('btn-preset-cbam')?.classList.add('active');
+      warroomFeedPct = -10;
+      warroomHeatOffset = 0;
+      warroomPeakTariff = 1.38;
+      warroomFleetScale = 600;
+
+      if (sFeed) sFeed.value = -10;
+      if (sHeat) sHeat.value = 0;
+      if (sTariff) sTariff.value = 1.38;
+      if (sFleet) sFleet.value = 600;
+
+      if (dFeed) dFeed.textContent = isZh ? "-10% (绿色认证减碳粮)" : "-10% (Green Grain Supply)";
+      if (dHeat) dHeat.textContent = isZh ? "+0.0°C (常温)" : "+0.0°C (Normal)";
+      if (dTariff) dTariff.textContent = isZh ? "¥1.38 / kWh" : "¥1.38 / kWh";
+      if (dFleet) dFleet.textContent = isZh ? "6亿羽肉鸡 (50大养殖基地)" : "600M Broilers (50 Complexes)";
+
+      if (pbTitle) pbTitle.textContent = isZh ? "🇪🇺 欧盟 CBAM 碳关税与国际出口绿溢价" : "🇪🇺 EU CBAM & Global Green Export Tender Capture";
+      if (pbSub) pbSub.textContent = isZh ? "ISO 14064-1 权威真核验 + 数字产品护照 (DPP)" : "ISO 14064-1 Verified Digital Product Passport (DPP)";
+      if (pbStep1) pbStep1.innerHTML = isZh
+        ? "<strong>权威核验 1.42 kg CO₂e/kg 碳足迹:</strong> 比行业基准 (1.98 kg) 降低 -28.3%，达到 A+ 极优评级。"
+        : "<strong>1.42 kg CO₂e/kg Verified Carbon Intensity:</strong> -28.3% lower than industry standard (1.98 kg), achieving Grade A+ certification.";
+      if (pbStep2) pbStep2.innerHTML = isZh
+        ? "<strong>SHA-256 加密数字产品护照 (DPP):</strong> 扫码即验全冷链零抗生素、动物福利黄金级认证与溯源存证。"
+        : "<strong>SHA-256 Encrypted Product Passport:</strong> Scannable QR code proving 100% antibiotic-free, 99.2% welfare, and audited provenance.";
+      if (pbStep3) pbStep3.innerHTML = isZh
+        ? "<strong>锁定 30万吨出口溢价订单:</strong> 斩获百胜/麦当劳 +¥0.40/kg 绿色溢价，直接新增 ¥120.00M 高毛利收入。"
+        : "<strong>Secure 300,000t Export Tender:</strong> Captures +¥0.40/kg green export premium from Yum!/McDonald's, adding +¥120.00M EBITDA.";
+
+      updateWarroomMath();
+      addAuditLog(isZh ? "🇪🇺 [财务作战室] 已加载【欧盟 CBAM 碳关税与绿色出口竞标】(+¥0.40/kg 绿溢价新增 ¥1.20亿)。" : "🇪🇺 [WAR ROOM] Loaded EU CBAM & Export Green Tender simulation (+¥120.00M New Revenue).", true);
+    }
+  }
+  window.applyCrisisPreset = applyCrisisPreset;
+
+  // Bind Crisis Preset Buttons
+  document.getElementById('btn-preset-heatwave')?.addEventListener('click', () => applyCrisisPreset('heatwave'));
+  document.getElementById('btn-preset-soybean')?.addEventListener('click', () => applyCrisisPreset('soybean'));
+  document.getElementById('btn-preset-inverter')?.addEventListener('click', () => applyCrisisPreset('inverter'));
+  document.getElementById('btn-preset-cbam')?.addEventListener('click', () => applyCrisisPreset('cbam'));
 
   // Playbook execution button
   document.getElementById('btn-execute-warroom-playbook')?.addEventListener('click', () => {
