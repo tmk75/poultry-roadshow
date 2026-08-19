@@ -1879,110 +1879,175 @@ body.app-layout-body {
 }
 
 .deck-stage-card {
-  background: rgba(2, 2, 40, 0.95);
-  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: radial-gradient(circle at 50% 20%, rgba(3, 3, 139, 0.4) 0%, rgba(2, 2, 40, 0.96) 80%, rgba(1, 1, 24, 0.99) 100%);
+  border: 1px solid rgba(56, 189, 248, 0.35);
   border-radius: var(--radius-xl);
-  padding: 2rem 2.25rem;
-  min-height: 440px;
-  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.5);
+  padding: 2.2rem 2.5rem;
+  min-height: clamp(480px, 60vh, 760px);
+  width: 100%;
+  flex: 1;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.6), inset 0 0 40px rgba(3, 3, 139, 0.2);
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   gap: 1.5rem;
   position: relative;
   overflow: hidden;
+}
+
+/* Ambient Cybernetic Grid & Decorative Hologram Watermark Backdrop */
+.deck-stage-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  background:
+    radial-gradient(circle at 90% 12%, rgba(56, 189, 248, 0.12) 0%, transparent 45%),
+    radial-gradient(circle at 10% 88%, rgba(16, 185, 129, 0.10) 0%, transparent 45%),
+    radial-gradient(circle at 50% 50%, rgba(129, 140, 248, 0.06) 0%, transparent 60%),
+    linear-gradient(rgba(56, 189, 248, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(56, 189, 248, 0.04) 1px, transparent 1px);
+  background-size: 100% 100%, 100% 100%, 100% 100%, 40px 40px, 40px 40px;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* Corner High-Tech Accent Highlights */
+.deck-stage-card::after {
+  content: '';
+  position: absolute;
+  top: 10px;
+  right: 14px;
+  width: 60px;
+  height: 60px;
+  border-top: 2px solid rgba(56, 189, 248, 0.6);
+  border-right: 2px solid rgba(56, 189, 248, 0.6);
+  border-top-right-radius: var(--radius-md);
+  pointer-events: none;
+  z-index: 0;
 }
 
 .slide-header-box {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
-  padding-bottom: 1rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+  padding-bottom: 1.15rem;
+  position: relative;
+  z-index: 1;
 }
 
 .slide-topic-badge {
   font-family: var(--font-mono);
-  font-size: 0.7rem;
+  font-size: 0.75rem;
   font-weight: 800;
   color: #38bdf8;
-  letter-spacing: 0.06em;
-  display: block;
-  margin-bottom: 0.3rem;
+  letter-spacing: 0.08em;
+  display: inline-block;
+  margin-bottom: 0.35rem;
+  background: rgba(56, 189, 248, 0.12);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  border: 1px solid rgba(56, 189, 248, 0.25);
 }
 
 .slide-title {
-  font-size: 1.4rem;
+  font-size: clamp(1.3rem, 1.1rem + 0.8vw, 1.85rem);
   font-weight: 800;
   color: #ffffff;
+  letter-spacing: -0.01em;
+  line-height: 1.3;
 }
 
 .slide-subtitle {
-  font-size: 0.88rem;
+  font-size: clamp(0.85rem, 0.8rem + 0.2vw, 1rem);
   color: var(--text-secondary);
-  margin-top: 0.25rem;
+  margin-top: 0.35rem;
 }
 
 .slide-badge-pill {
   font-family: var(--font-mono);
-  font-size: 0.75rem;
+  font-size: 0.78rem;
   font-weight: 800;
-  padding: 0.35rem 0.85rem;
+  padding: 0.4rem 1rem;
   border-radius: var(--radius-full);
-  background: rgba(245, 158, 11, 0.18);
+  background: rgba(245, 158, 11, 0.2);
   color: #fbbf24;
-  border: 1px solid rgba(245, 158, 11, 0.4);
-  box-shadow: 0 0 12px rgba(245, 158, 11, 0.25);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  box-shadow: 0 0 16px rgba(245, 158, 11, 0.35);
   white-space: nowrap;
 }
 
 .slide-grid-3col {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 1.25rem;
+  gap: 1.5rem;
+  flex: 1;
+  align-items: stretch;
+  position: relative;
+  z-index: 1;
+  margin: 0.5rem 0;
 }
 
 .slide-card-block {
-  background: rgba(3, 3, 139, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.15);
+  background: linear-gradient(145deg, rgba(3, 3, 139, 0.35) 0%, rgba(2, 2, 45, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.18);
   border-radius: var(--radius-lg);
-  padding: 1.25rem 1.4rem;
+  padding: 1.6rem 1.6rem;
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
-  transition: all 0.25s ease;
+  justify-content: center;
+  gap: 0.85rem;
+  min-height: 180px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
 }
 
 .slide-card-block:hover {
   border-color: #38bdf8;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(56, 189, 248, 0.2);
+  transform: translateY(-3px);
+  box-shadow: 0 12px 32px rgba(56, 189, 248, 0.25);
+  background: linear-gradient(145deg, rgba(3, 3, 139, 0.5) 0%, rgba(2, 2, 55, 0.9) 100%);
 }
 
 .slide-card-icon {
-  font-size: 1.8rem;
+  font-size: 2rem;
 }
 
 .slide-card-title {
-  font-size: 1.05rem;
+  font-size: 1.15rem;
   font-weight: 800;
   color: #ffffff;
 }
 
 .slide-card-metric {
   font-family: var(--font-mono);
-  font-size: 1.6rem;
+  font-size: clamp(1.6rem, 1.4rem + 0.6vw, 2.2rem);
   font-weight: 900;
   color: #10b981;
+  text-shadow: 0 0 16px rgba(16, 185, 129, 0.4);
 }
 
-.slide-card-metric.cyan { color: #38bdf8; }
-.slide-card-metric.gold { color: #fbbf24; }
-.slide-card-metric.purple { color: #c084fc; }
+.slide-card-metric.cyan {
+  color: #38bdf8;
+  text-shadow: 0 0 16px rgba(56, 189, 248, 0.4);
+}
+.slide-card-metric.gold {
+  color: #fbbf24;
+  text-shadow: 0 0 16px rgba(251, 191, 36, 0.4);
+}
+.slide-card-metric.purple {
+  color: #c084fc;
+  text-shadow: 0 0 16px rgba(192, 132, 252, 0.4);
+}
 
 .slide-card-text {
-  font-size: 0.82rem;
+  font-size: 0.88rem;
   color: var(--text-secondary);
-  line-height: 1.45;
+  line-height: 1.55;
 }
 
 .slide-card-text strong {
@@ -4035,6 +4100,102 @@ body.app-layout-body {
   .copilot-drawer {
     width: 100vw;
   }
+}
+
+/* ================================================================= */
+/* 6. FULLSCREEN PRESENTATION DECK HERO VIEWPORT & ZERO-VOID LAYOUT  */
+/* ================================================================= */
+#section-presentation-deck:fullscreen,
+#section-presentation-deck:-webkit-full-screen,
+#section-presentation-deck.is-fullscreen {
+  background: radial-gradient(circle at 50% 15%, #03038b 0%, #020224 45%, #010114 100%) !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  height: 100dvh !important;
+  padding: 1.5rem 2.5rem !important;
+  display: flex !important;
+  flex-direction: column !important;
+  box-sizing: border-box !important;
+  overflow-y: auto !important;
+  z-index: 999999 !important;
+}
+
+#section-presentation-deck:fullscreen .presentation-container,
+#section-presentation-deck:-webkit-full-screen .presentation-container,
+#section-presentation-deck.is-fullscreen .presentation-container {
+  flex: 1;
+  height: 100%;
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  max-width: 100%;
+  width: 100%;
+}
+
+#section-presentation-deck:fullscreen .deck-top-bar,
+#section-presentation-deck:-webkit-full-screen .deck-top-bar,
+#section-presentation-deck.is-fullscreen .deck-top-bar {
+  padding: 0.85rem 1.5rem;
+  background: linear-gradient(90deg, rgba(3, 3, 139, 0.7) 0%, rgba(2, 2, 45, 0.98) 100%);
+  border: 1px solid rgba(245, 158, 11, 0.5);
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+}
+
+#section-presentation-deck:fullscreen .deck-stage-card,
+#section-presentation-deck:-webkit-full-screen .deck-stage-card,
+#section-presentation-deck.is-fullscreen .deck-stage-card {
+  flex: 1;
+  width: 100%;
+  max-width: 100%;
+  min-height: calc(100vh - 240px);
+  min-height: calc(100dvh - 240px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 2.5rem 3rem;
+  box-shadow: 0 25px 80px rgba(0, 0, 0, 0.8), inset 0 0 50px rgba(3, 3, 139, 0.3);
+}
+
+#section-presentation-deck:fullscreen .slide-grid-3col,
+#section-presentation-deck:-webkit-full-screen .slide-grid-3col,
+#section-presentation-deck.is-fullscreen .slide-grid-3col {
+  flex: 1;
+  gap: 2rem;
+  align-items: stretch;
+  margin: 1.5rem 0;
+}
+
+#section-presentation-deck:fullscreen .slide-card-block,
+#section-presentation-deck:-webkit-full-screen .slide-card-block,
+#section-presentation-deck.is-fullscreen .slide-card-block {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 2.2rem 2.4rem;
+  gap: 1.1rem;
+  min-height: 220px;
+}
+
+#section-presentation-deck:fullscreen .slide-card-metric,
+#section-presentation-deck:-webkit-full-screen .slide-card-metric,
+#section-presentation-deck.is-fullscreen .slide-card-metric {
+  font-size: 2.4rem;
+}
+
+#section-presentation-deck:fullscreen .slide-card-title,
+#section-presentation-deck:-webkit-full-screen .slide-card-title,
+#section-presentation-deck.is-fullscreen .slide-card-title {
+  font-size: 1.35rem;
+}
+
+#section-presentation-deck:fullscreen .slide-card-text,
+#section-presentation-deck:-webkit-full-screen .slide-card-text,
+#section-presentation-deck.is-fullscreen .slide-card-text {
+  font-size: 1rem;
+  line-height: 1.65;
 }
 
 

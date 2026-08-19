@@ -2057,16 +2057,32 @@ document.getElementById('btn-slide-next')?.addEventListener('click', () => {
 });
 
 // Fullscreen Presentation Mode Toggle
-document.getElementById('btn-deck-fullscreen')?.addEventListener('click', () => {
-  const container = document.getElementById('section-presentation-deck');
+const btnDeckFs = document.getElementById('btn-deck-fullscreen');
+const deckContainer = document.getElementById('section-presentation-deck');
+
+btnDeckFs?.addEventListener('click', () => {
   if (!document.fullscreenElement) {
-    if (container && container.requestFullscreen) {
-      container.requestFullscreen();
+    if (deckContainer && deckContainer.requestFullscreen) {
+      deckContainer.requestFullscreen();
     }
   } else {
     if (document.exitFullscreen) {
       document.exitFullscreen();
     }
+  }
+});
+
+document.addEventListener('fullscreenchange', () => {
+  const isDeckFs = document.fullscreenElement === deckContainer;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  if (deckContainer) {
+    deckContainer.classList.toggle('is-fullscreen', isDeckFs);
+  }
+  if (btnDeckFs) {
+    btnDeckFs.innerHTML = isDeckFs
+      ? `<span>🗗</span> ${isZh ? '退出全屏' : 'Exit Fullscreen'}`
+      : `<span>⛶</span> ${isZh ? '全屏演讲' : 'Fullscreen'}`;
+    btnDeckFs.classList.toggle('active', isDeckFs);
   }
 });
 
