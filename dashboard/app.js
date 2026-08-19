@@ -2097,6 +2097,35 @@ document.getElementById('btn-deck-toggle-notes')?.addEventListener('click', () =
   }
 });
 
+// Close Presenter Script Drawer Button
+document.getElementById('btn-close-teleprompter')?.addEventListener('click', () => {
+  const prompter = document.getElementById('speaker-teleprompter-card');
+  const btn = document.getElementById('btn-deck-toggle-notes');
+  if (prompter) prompter.style.display = 'none';
+  if (btn) btn.classList.remove('active');
+});
+
+// Presenter Keyboard Shortcuts (ArrowRight/Space = Next, ArrowLeft = Prev, F = Fullscreen, S/N = Script)
+document.addEventListener('keydown', (e) => {
+  const presSec = document.getElementById('section-presentation-deck');
+  if (!presSec || presSec.style.display === 'none') return;
+  if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+  if (e.key === 'ArrowRight' || e.key === ' ' || e.key === 'PageDown') {
+    e.preventDefault();
+    if (activePresentationSlide < 7) renderPresentationSlide(activePresentationSlide + 1);
+  } else if (e.key === 'ArrowLeft' || e.key === 'PageUp') {
+    e.preventDefault();
+    if (activePresentationSlide > 0) renderPresentationSlide(activePresentationSlide - 1);
+  } else if (e.key.toLowerCase() === 'f' && !e.ctrlKey && !e.metaKey) {
+    e.preventDefault();
+    document.getElementById('btn-deck-fullscreen')?.click();
+  } else if ((e.key.toLowerCase() === 's' || e.key.toLowerCase() === 'n') && !e.ctrlKey && !e.metaKey) {
+    e.preventDefault();
+    document.getElementById('btn-deck-toggle-notes')?.click();
+  }
+});
+
 // Return to Keynote Deck from Live Demo Overlay Button
 document.getElementById('btn-return-to-deck')?.addEventListener('click', () => {
   const returnBtn = document.getElementById('btn-return-to-deck');

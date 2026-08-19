@@ -1258,28 +1258,32 @@
 
             <!-- Action Controls -->
             <div class="deck-actions-group">
-              <button class="deck-btn" id="btn-slide-prev">◀ Prev</button>
+              <button class="deck-btn" id="btn-slide-prev" title="Previous Slide (Arrow Left)">◀ Prev</button>
               <span class="slide-counter-badge" id="slide-counter-badge">Slide 1 / 8</span>
-              <button class="deck-btn" id="btn-slide-next">Next ▶</button>
-              <button class="deck-btn highlight" id="btn-deck-fullscreen">⛶ Fullscreen</button>
-              <button class="deck-btn notes-toggle active" id="btn-deck-toggle-notes">📝 Speaker Script</button>
+              <button class="deck-btn" id="btn-slide-next" title="Next Slide (Arrow Right / Space)">Next ▶</button>
+              <button class="deck-btn highlight" id="btn-deck-fullscreen" title="Toggle Fullscreen Keynote (F)">⛶ Fullscreen</button>
+              <button class="deck-btn notes-toggle" id="btn-deck-toggle-notes" title="Toggle Speaker Script (S / N)">📝 Speaker Script</button>
             </div>
           </div>
 
-          <!-- Main Slide Stage -->
-          <div class="deck-stage-card" id="deck-stage-card">
-            <!-- Dynamically populated slide content -->
-          </div>
+          <!-- Dual-Mode Presentation Stage Area -->
+          <div class="presentation-stage-viewport" id="presentation-stage-viewport">
+            <!-- Main Slide Stage (Pure 16:9 / 16:10 Slide Deck Canvas) -->
+            <div class="deck-stage-card" id="deck-stage-card">
+              <!-- Dynamically populated slide content -->
+            </div>
 
-          <!-- Live Speaker Teleprompter & Talking Points Panel -->
-          <div class="speaker-teleprompter-card" id="speaker-teleprompter-card">
-            <div class="teleprompter-header">
-              <div class="teleprompter-badge" id="teleprompter-badge">🎙️ EXECUTIVE SPEAKER SCRIPT & TALKING POINTS</div>
-              <div class="teleprompter-timer" id="teleprompter-timer">⏱️ Target Time: 1.5 - 2.0 mins</div>
-            </div>
-            <div class="teleprompter-body" id="teleprompter-body">
-              <!-- Dynamically populated script -->
-            </div>
+            <!-- Slide-Out Presenter Teleprompter Drawer -->
+            <aside class="speaker-teleprompter-drawer" id="speaker-teleprompter-card" style="display: none;">
+              <div class="teleprompter-header">
+                <div class="teleprompter-badge" id="teleprompter-badge">🎙️ SPEAKER SCRIPT & TALKING POINTS</div>
+                <div class="teleprompter-timer" id="teleprompter-timer">⏱️ Target Time: 1.5 - 2.0 mins</div>
+                <button class="teleprompter-close-btn" id="btn-close-teleprompter" title="Close Script Drawer">✕</button>
+              </div>
+              <div class="teleprompter-body" id="teleprompter-body">
+                <!-- Dynamically populated script -->
+              </div>
+            </aside>
           </div>
         </div>
       </section>
