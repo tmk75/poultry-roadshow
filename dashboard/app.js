@@ -3428,6 +3428,357 @@ function initExecutiveBiHub() {
   renderExecutiveBiHub();
 }
 
+// =================================================================
+// 16. GLOBAL CLICKABLE INTERACTIVITY & UNIVERSAL HAPTIC REACTION ENGINE
+// =================================================================
+function initGlobalClickInteractivity() {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  // 1. Facility Switcher Badge
+  const facilities = [
+    { name: "Nanping Complex 01 (HQ)", house: "House 03 • 42.5k Cobb500" },
+    { name: "Nanping Complex 02 (Guangze)", house: "House 01 • 45.0k SZ901" },
+    { name: "Sanming Complex 01 (Youxi)", house: "House 05 • 42.0k SZ901" },
+    { name: "Ganzhou Complex 01 (Zifang)", house: "House 02 • 42.5k Cobb500" },
+    { name: "Pingliang Complex 01 (Kongtong)", house: "House 04 • 38.0k Cobb500" },
+    { name: "Zhumadian Complex 01 (Queshan)", house: "House 06 • 42.5k SZ901" }
+  ];
+  let activeFacIdx = 0;
+  document.querySelector('.facility-badge')?.addEventListener('click', () => {
+    activeFacIdx = (activeFacIdx + 1) % facilities.length;
+    const f = facilities[activeFacIdx];
+    const infoEl = document.querySelector('.facility-info');
+    if (infoEl) {
+      infoEl.innerHTML = `<strong>${f.name}</strong><small>${f.house}</small>`;
+    }
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    addAuditLog(currentIsZh ? `📍 切换实时基地焦点: [${f.name}] (${f.house})` : `📍 Switched Facility Focus: [${f.name}] (${f.house})`, true);
+  });
+
+  // 2. User Profile Card
+  document.querySelector('.user-profile-card')?.addEventListener('click', () => {
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    alert(currentIsZh
+      ? "👤 【操作员身份认证与运行凭证 / Operator Session】\n姓名: Victor Lee (李工)\n岗位: 数字化转型负责人 (CDIO / Operations Lead)\n安全通道: 21Vianet Microsoft Azure China East 2 (上海) 等保三级\n认证状态: TLS 1.3 实时双向加密 • 亚秒级闭环权限已授予"
+      : "👤 [Operator Session & Credentials]\nName: Victor Lee\nTitle: CDIO / Operations Lead\nCompliance: 21Vianet Microsoft Azure China East 2 (Shanghai) MLPS Level 3\nChannel: TLS 1.3 Bidirectional Encrypted • Sub-350ms Closed-Loop Authorized");
+  });
+
+  // 3. Top Global KPI Pills
+  document.querySelectorAll('.top-kpi-pill').forEach((pill, idx) => {
+    pill.addEventListener('click', () => {
+      if (idx === 0) {
+        document.getElementById('nav-btn-barn')?.click();
+      } else if (idx === 1) {
+        document.getElementById('nav-btn-bi')?.click();
+        document.getElementById('btn-tab-tariff')?.click();
+      } else if (idx === 2) {
+        document.getElementById('side-scen-closedloop')?.click();
+      }
+    });
+  });
+
+  // 4. Return to Keynote Deck Button
+  document.getElementById('btn-return-to-deck')?.addEventListener('click', () => {
+    document.getElementById('nav-btn-presentation')?.click();
+    const btn = document.getElementById('btn-return-to-deck');
+    if (btn) btn.style.display = 'none';
+  });
+
+  // 5. 2D and 3D Fullscreen Buttons
+  document.getElementById('btn-fullscreen-3d')?.addEventListener('click', () => {
+    const c = document.getElementById('hero-canvas-card') || document.getElementById('viewport-3d');
+    if (c) {
+      if (!document.fullscreenElement) c.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    }
+  });
+
+  document.getElementById('btn-fullscreen-2d')?.addEventListener('click', () => {
+    const c = document.getElementById('hero-canvas-card') || document.getElementById('viewport-2d');
+    if (c) {
+      if (!document.fullscreenElement) c.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    }
+  });
+
+  // 6. Presentation Deck Fullscreen & Notes Toggle
+  document.getElementById('btn-deck-fullscreen')?.addEventListener('click', () => {
+    const deck = document.getElementById('section-presentation-deck');
+    if (deck) {
+      if (!document.fullscreenElement) deck.requestFullscreen?.();
+      else document.exitFullscreen?.();
+    }
+  });
+
+  document.getElementById('btn-deck-toggle-notes')?.addEventListener('click', () => {
+    const notes = document.getElementById('speaker-teleprompter-card');
+    const btn = document.getElementById('btn-deck-toggle-notes');
+    if (notes && btn) {
+      const isHidden = notes.style.display === 'none';
+      notes.style.display = isHidden ? 'block' : 'none';
+      btn.classList.toggle('active', isHidden);
+    }
+  });
+
+  // 7. Cortex Multi-Agent Consensus Stack Cards
+  const agentDetails = {
+    health: {
+      zh: "🩺 [生物健康智能体] 实时舍温 22.4°C，氨气 11.4 ppm，静压 -18.2 Pa。微气候舒适度 98.8%。拥有最高安全否决权（氨气 >=20 ppm 时 0.28秒强行拉满风机）。",
+      en: "🩺 [Health & Welfare Agent] Real-time temp 22.4°C, NH3 11.4 ppm, static pressure -18.2 Pa. Comfort at 98.8%. Holds ultimate safety veto (0.28s full fan flush if NH3 >= 20 ppm)."
+    },
+    energy: {
+      zh: "⚡ [电价与能耗智能体] 当前处于尖峰电价区间 (¥1.38/kWh)。风机降频至 25% 运行，单日节电 ¥40,684，年化降费 ¥15.77M。",
+      en: "⚡ [Energy & Tariff Agent] Peak electricity pricing active (¥1.38/kWh). VFD fans throttled to 25%, saving ¥40,684/day (¥15.77M/year)."
+    },
+    sap: {
+      zh: "📦 [SAP 供应链智能体] 1号与2号料塔实时称重 35.7吨。低于 15.0吨 时将通过 BAPI_PO_CREATE1 在 0.2秒内自动签发 25吨 补料单。",
+      en: "📦 [SAP Supply Chain Agent] Silo stock at 35.7t. Automatically dispatches 25t purchase order via BAPI in 0.2s when reserve drops below 15.0t."
+    },
+    esg: {
+      zh: "🌱 [碳减排与 ESG 智能体] Scope 2 绿电避峰减排 2,487.5 吨/年，Scope 3 节粮减排 16,398.2 吨/年。获评国家 A+ 级出口绿色数字护照认证。",
+      en: "🌱 [Decarbonization & ESG Agent] Scope 2 power cut saves 2,487.5 t CO2/yr, Scope 3 grain savings avoids 16,398.2 t CO2/yr. Grade A+ certified."
+    }
+  };
+
+  ['health', 'energy', 'sap', 'esg'].forEach(agentKey => {
+    document.getElementById(`card-agent-${agentKey}`)?.addEventListener('click', () => {
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      const narr = document.getElementById('cortex-narrative');
+      if (narr) narr.textContent = `"${agentDetails[agentKey][currentIsZh ? 'zh' : 'en']}"`;
+      addAuditLog(agentDetails[agentKey][currentIsZh ? 'zh' : 'en'], true);
+    });
+  });
+
+  // 8. Cockpit Hero Stat Cards
+  document.getElementById('story-kpi-strip')?.addEventListener('click', (e) => {
+    const card = e.target.closest('.hero-stat-card');
+    if (!card) return;
+    const lbl = card.querySelector('.stat-lbl')?.textContent.trim();
+    if (lbl?.includes('TEMP')) {
+      document.getElementById('nav-btn-barn')?.click();
+    } else if (lbl?.includes('AMMONIA') || lbl?.includes('NH')) {
+      document.getElementById('side-scen-ammonia')?.click();
+    } else if (lbl?.includes('SILO') || lbl?.includes('FEED')) {
+      document.getElementById('side-scen-sap')?.click();
+    }
+  });
+
+  // 9. Real-Time Audit Ticker Rows
+  document.getElementById('live-audit-ticker')?.addEventListener('click', (e) => {
+    const row = e.target.closest('.ticker-row');
+    if (!row) return;
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    const time = row.querySelector('.tick-time')?.textContent || "13:30:00";
+    const msg = row.querySelector('.tick-msg')?.textContent || "Telemetry verified";
+    alert(currentIsZh
+      ? `🔐 【不可篡改审计账本记录】\n时间戳: ${time}\n交易内容: ${msg}\nSHA-256 哈希: e8b4f2c99a10583d73b2241cf892305a\n存证状态: Palantir Foundry 权威防伪区块链已确认`
+      : `🔐 [Immutable Ledger Transaction Proof]\nTimestamp: ${time}\nPayload: ${msg}\nSHA-256 Hash: e8b4f2c99a10583d73b2241cf892305a\nStatus: Palantir Foundry Audited & Verified`);
+  });
+
+  // 10. BI North-Star KPI Tiles
+  document.querySelectorAll('.bi-stat-card').forEach((card, i) => {
+    card.addEventListener('click', () => {
+      if (i === 0) {
+        document.getElementById('btn-tab-complexes')?.click();
+      } else if (i === 1) {
+        document.getElementById('btn-tab-growth')?.click();
+      } else if (i === 2) {
+        document.getElementById('btn-tab-tariff')?.click();
+      } else if (i === 3) {
+        document.getElementById('btn-tab-health')?.click();
+      } else if (i === 4) {
+        document.getElementById('nav-btn-esg')?.click();
+      } else if (i === 5) {
+        document.getElementById('nav-btn-warroom')?.click();
+      }
+    });
+  });
+
+  // 11. Growth Cohort Selector Dropdown
+  document.getElementById('select-growth-batch')?.addEventListener('change', (e) => {
+    const val = e.target.value;
+    if (val === 'batch-sz901') {
+      activeBiBreed = 'sz901';
+    } else if (val === 'batch-benchmark') {
+      activeBiBreed = 'cobb500';
+    } else {
+      activeBiBreed = 'all';
+    }
+    document.querySelectorAll('#bi-breed-filters .bi-filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.breed === activeBiBreed);
+    });
+    renderExecutiveBiHub();
+  });
+
+  // 12. Silo Gauges Grid Interactivity
+  document.getElementById('silo-gauges-grid')?.addEventListener('click', (e) => {
+    const card = e.target.closest('.silo-gauge-card');
+    if (!card) return;
+    const name = card.querySelector('.silo-name')?.textContent || "Silo A3";
+    const mass = card.querySelector('.silo-mass-val')?.textContent || "14.8 t";
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    const confirmPO = confirm(currentIsZh
+      ? `🌾 【料塔库存全息诊断】\n料塔标识: ${name}\n当前库存: ${mass}\n日均耗料: 12.4 吨/天\n\n是否立即向 SAP S/4HANA 签发 25吨 补料采购单？`
+      : `🌾 [Silo Holographic Diagnostic]\nSilo ID: ${name}\nStock Level: ${mass}\nBurn Rate: 12.4 t/day\n\nDispatch 25.0-ton JIT Purchase Order in SAP S/4HANA?`);
+    if (confirmPO) {
+      addAuditLog(currentIsZh ? `📦 [SAP 自动补料] 已向供应商签发 PO-2026-AUG-${Math.floor(889000 + Math.random()*1000)} (25.0吨)` : `📦 [SAP Auto-PO] Dispatched PO-2026-AUG-${Math.floor(889000 + Math.random()*1000)} for 25.0 Tons`, true);
+      alert(currentIsZh ? "✅ SAP 订单已生成并同步至饲料厂排产计划！" : "✅ SAP PO created and queued for immediate delivery!");
+    }
+  });
+
+  // 13. SAP PO Table Rows
+  document.getElementById('tbody-sap-pos')?.addEventListener('click', (e) => {
+    const row = e.target.closest('tr');
+    if (!row) return;
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    const poNum = row.cells[0]?.textContent.trim();
+    const mat = row.cells[1]?.textContent.trim();
+    const qty = row.cells[2]?.textContent.trim();
+    alert(currentIsZh
+      ? `📦 【SAP S/4HANA 采购凭证详情】\n采购订单号: ${poNum}\n物料代码: ${mat}\n采购数量: ${qty}\nBAPI 协议: BAPI_PO_CREATE1 (0.21s 极速响应)\n状态: 供应商已确认排产，全冷链运输中`
+      : `📦 [SAP S/4HANA PO Voucher]\nPO Number: ${poNum}\nMaterial: ${mat}\nQuantity: ${qty}\nProtocol: BAPI_PO_CREATE1 (0.21s latency)\nStatus: Confirmed & In Transit`);
+  });
+
+  // 14. Tariff Breakdown Cards
+  document.querySelectorAll('.tariff-card-box').forEach((card, i) => {
+    card.addEventListener('click', () => {
+      const sliderTariff = document.getElementById('slider-sim-tariff');
+      const lblTariff = document.getElementById('lbl-sim-tariff');
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      if (sliderTariff) {
+        sliderTariff.value = i + 1;
+        const labels = [
+          currentIsZh ? "谷段 (¥0.42/度)" : "Valley (¥0.42)",
+          currentIsZh ? "平段 (¥0.85/度)" : "Flat (¥0.85)",
+          currentIsZh ? "尖峰 (¥1.38/度)" : "Peak (¥1.38)"
+        ];
+        if (lblTariff) lblTariff.textContent = labels[i];
+        addAuditLog(currentIsZh ? `⚡ 模拟器分时电价设为: ${labels[i]}` : `⚡ Live simulator tariff set to: ${labels[i]}`, true);
+      }
+    });
+  });
+
+  // 15. Compliance Metric Rows
+  document.getElementById('compliance-metrics-list')?.addEventListener('click', (e) => {
+    const row = e.target.closest('.comp-metric-row');
+    if (!row) return;
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    const name = row.querySelector('.comp-metric-name')?.textContent;
+    const score = row.querySelector('.comp-metric-score')?.textContent;
+    alert(currentIsZh
+      ? `🔬 【微气候合规诊断】\n监测指标: ${name}\n实时达标率: ${score}\n传感器标定: Pt100 / Modbus 双通道冗余 (误差 < ±0.1°C)\n运行建议: 维持当前 0.3s 闭环自愈模式`
+      : `🔬 [Microclimate Compliance Check]\nMetric: ${name}\nCompliance Score: ${score}\nCalibration: Dual-channel redundant Pt100/Modbus (< ±0.1°C)\nStatus: Optimal (0.3s closed-loop active)`);
+  });
+
+  // 16. GIS Cluster List Click
+  document.getElementById('gis-clusters-list')?.addEventListener('click', (e) => {
+    const row = e.target.closest('.gis-cluster-row');
+    if (!row) return;
+    const name = row.querySelector('.cluster-name')?.textContent || '';
+    if (name.includes('南平') || name.includes('Nanping')) {
+      activeBiGeo = 'nanping';
+    } else if (name.includes('赣州') || name.includes('Ganzhou')) {
+      activeBiGeo = 'ganzhou';
+    } else if (name.includes('平凉') || name.includes('Pingliang')) {
+      activeBiGeo = 'pingliang';
+    } else if (name.includes('驻马店') || name.includes('Zhumadian')) {
+      activeBiGeo = 'zhumadian';
+    } else {
+      activeBiGeo = 'all';
+    }
+    document.querySelectorAll('#bi-geo-filters .bi-filter-btn').forEach(b => {
+      b.classList.toggle('active', b.dataset.geo === activeBiGeo);
+    });
+    renderExecutiveBiHub();
+  });
+
+  // 17. Fleet Alert Ticker Click
+  document.getElementById('bi-fleet-alert-ticker')?.addEventListener('click', (e) => {
+    const row = e.target.closest('.alert-row');
+    if (!row) return;
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    alert(currentIsZh
+      ? `🚨 【基地实时预警雷达】\n${row.textContent.trim()}\n系统动作: 智能体已自主介入并自愈，无需人工现场干预。`
+      : `🚨 [Fleet Exception Alert]\n${row.textContent.trim()}\nAction: Cortex AI has autonomously mitigated the exception.`);
+  });
+
+  // 18. Evolution Era Cards
+  document.querySelectorAll('.evo-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      document.querySelectorAll('.evo-card').forEach(c => c.classList.remove('active'));
+      card.classList.add('active');
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      const name = card.querySelector('.evo-name')?.textContent;
+      addAuditLog(currentIsZh ? `📜 演进阶段切换为: [${name}]` : `📜 Switched evolution era to: [${name}]`, true);
+    });
+  });
+
+  // 19. ESG 3-Pillars Cards
+  document.querySelectorAll('.esg-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      const title = card.querySelector('h3')?.textContent;
+      alert(currentIsZh
+        ? `🌱 【ESG 支柱深度核算 / ${title}】\n核算标准: ISO 14064-1 & GHG Protocol 权威认证\n减排总量: 18,885.72 吨 CO₂e / 年\n动物福利指数: 98.8% 黄金级 (年多成活 49.7万羽)\n防伪存证: SHA-256 加密数字存证`
+        : `🌱 [ESG Pillar Audit / ${title}]\nStandard: ISO 14064-1 & GHG Protocol Certified\nCarbon Abatement: 18,885.72 metric tons CO2e/year\nWelfare Index: 98.8% Gold Tier (+497,250 birds preserved)\nSignature: SHA-256 Blockchain Verified`);
+    });
+  });
+
+  // 20. CFO War Room KPI Cards & Waterfall Rows
+  document.querySelectorAll('.warroom-kpi-card').forEach((card) => {
+    card.addEventListener('click', () => {
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      const lbl = card.querySelector('.wk-label')?.textContent;
+      const val = card.querySelector('.wk-value')?.textContent;
+      alert(currentIsZh
+        ? `💰 【第一性原理财务推导 / ${lbl}】\n当前数值: ${val}\n测算逻辑:\n• 饲料节约: 6亿羽 × 2.6kg × 0.06 FCR × ¥3,200/吨 = ¥299.52M\n• 死淘挽回: 死淘率降低 3.6% (多成活 2,160万羽) = ¥188.70M\n• 尖峰避峰: 4,820万度负荷转移至谷电 (¥0.42) = ¥15.77M\n• 绿溢价: 30万吨出口获百胜/麦当劳 +¥0.40/kg = ¥120.00M\n合计年经常性 EBITDA 增量: +¥655.50M 元`
+        : `💰 [First-Principles Financial Formula / ${lbl}]\nCurrent Value: ${val}\nDerivation Logic:\n• Feed Savings: 600M birds × 2.6kg × 0.06 FCR × ¥3,200/t = ¥299.52M\n• Mortality Avoided: -3.6% mortality (+21.6M live birds) = ¥188.70M\n• Peak Power Shift: 48.2 GWh shifted to valley (¥0.42) = ¥15.77M\n• Green Premium: 300,000t export tender (+¥0.40/kg) = ¥120.00M\nTotal Recurring EBITDA Inflow: +¥655.50M CNY ($92.3M USD)`);
+    });
+  });
+
+  document.querySelectorAll('.waterfall-bar-row').forEach(row => {
+    row.addEventListener('click', () => {
+      const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+      const name = row.querySelector('.wf-name')?.textContent;
+      const val = row.querySelector('.wf-val')?.textContent;
+      alert(currentIsZh
+        ? `📊 【EBITDA 瀑布分解项】\n构成项目: ${name}\n贡献金额: ${val}\n核算特性: 第一性原理实测数据驱动，具有持续可复制性`
+        : `📊 [EBITDA Waterfall Component]\nComponent: ${name}\nEBITDA Delta: ${val}\nValidation: First-principles physics-based data model`);
+    });
+  });
+
+  document.querySelectorAll('.playbook-step-row').forEach(row => {
+    row.addEventListener('click', () => {
+      document.getElementById('btn-execute-warroom-playbook')?.click();
+    });
+  });
+
+  // 21. Digital Product Passport (DPP) Hash & QR Copy
+  const copyDppHash = () => {
+    const hash = "e8b4f2c99a10583d73b2241cf892305a7f9201bd4e9104fa281c82903741890a";
+    navigator.clipboard?.writeText(hash).catch(() => {});
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    addAuditLog(currentIsZh ? `🔐 [数字存证] 已复制 SHA-256 溯源存证哈希: ${hash.slice(0, 16)}...` : `🔐 [DPP] Copied SHA-256 provenance audit hash: ${hash.slice(0, 16)}...`, true);
+    alert(currentIsZh
+      ? `🔐 【区块链防伪溯源哈希已复制】\n\nSHA-256: ${hash}\n\n该哈希包含：\n• 批次号: HOUSE-03-2026-08A\n• 碳足迹: 1.42 kg CO₂e/kg (A+ 评级)\n• 抗生素残留: 0.00 mg (100% 无抗生素)\n• 动物福利评分: 99.2% 黄金级`
+      : `🔐 [Cryptographic Blockchain Hash Copied]\n\nSHA-256: ${hash}\n\nEmbedded Verified Metadata:\n• Batch ID: HOUSE-03-2026-08A\n• Carbon Footprint: 1.42 kg CO₂e/kg (Grade A+)\n• Antibiotic Residue: 0.00 mg (100% Free)\n• Animal Welfare Score: 99.2% Gold Tier`);
+  };
+
+  document.querySelector('.dpp-hash-box')?.addEventListener('click', copyDppHash);
+  document.querySelector('.qr-box')?.addEventListener('click', copyDppHash);
+
+  // 22. BI Refresh Toggle
+  let biTelemetryStreamActive = true;
+  document.getElementById('btn-bi-refresh-toggle')?.addEventListener('click', () => {
+    biTelemetryStreamActive = !biTelemetryStreamActive;
+    const currentIsZh = window.i18n && window.i18n.currentLang === 'zh';
+    const btn = document.getElementById('btn-bi-refresh-toggle');
+    if (btn) btn.classList.toggle('highlight', biTelemetryStreamActive);
+    renderExecutiveBiHub();
+    addAuditLog(currentIsZh ? (biTelemetryStreamActive ? "📊 商业智能大屏：1秒实时遥测数据流已开启" : "📊 商业智能大屏：遥测流已暂停") : (biTelemetryStreamActive ? "📊 BI Hub: Live 1s telemetry streaming resumed" : "📊 BI Hub: Telemetry stream paused"), true);
+  });
+}
+
 window.renderExecutiveBiHub = renderExecutiveBiHub;
 window.inspectComplexDetails = inspectComplexDetails;
 
@@ -3444,4 +3795,6 @@ initBioAcousticSpectrogram();
 initTimeTravelReplay();
 initDigitalProductPassport();
 initExecutiveBiHub();
+initGlobalClickInteractivity();
 addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
+

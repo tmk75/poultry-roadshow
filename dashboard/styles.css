@@ -3584,4 +3584,92 @@ body.app-layout-body {
 .comp-metric-name { font-weight: 700; color: #ffffff; font-size: 0.72rem; }
 .comp-metric-score { font-family: var(--font-mono); font-weight: 800; font-size: 0.75rem; color: #34d399; }
 
+/* ================================================================= */
+/* GLOBAL CLICKABLE ITEMS TACTILE HOVER & POINTER SYSTEM             */
+/* ================================================================= */
+.facility-badge,
+.user-profile-card,
+.top-kpi-pill,
+.hero-stat-card,
+.ticker-row,
+.agent-pill-card,
+.bi-stat-card,
+.gis-cluster-row,
+.silo-gauge-card,
+.tariff-card-box,
+.comp-metric-row,
+.alert-row,
+.evo-card,
+.esg-card,
+.warroom-kpi-card,
+.waterfall-bar-row,
+.playbook-step-row,
+.qr-box,
+.dpp-hash-box,
+.barn-room {
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.facility-badge:hover,
+.user-profile-card:hover {
+  transform: translateY(-1px);
+  border-color: rgba(56, 189, 248, 0.4);
+  box-shadow: 0 4px 12px rgba(56, 189, 248, 0.15);
+}
+
+.top-kpi-pill:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.hero-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.5);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.agent-pill-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.4);
+}
+
+.bi-stat-card:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+.gis-cluster-row:hover,
+.alert-row:hover,
+.ticker-row:hover,
+.comp-metric-row:hover,
+.waterfall-bar-row:hover,
+.playbook-step-row:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.silo-gauge-card:hover,
+.tariff-card-box:hover {
+  transform: translateY(-2px);
+  border-color: rgba(56, 189, 248, 0.45);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.35);
+}
+
+.evo-card:hover,
+.esg-card:hover,
+.warroom-kpi-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+}
+
+.dpp-hash-box:hover,
+.qr-box:hover {
+  border-color: #38bdf8;
+  box-shadow: 0 0 16px rgba(56, 189, 248, 0.25);
+}
+
+
 

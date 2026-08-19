@@ -103,3 +103,51 @@ def test_heat_stress_overrides_energy(coordinator):
 
     assert decision["actuation_command"]["fan_speed_pct"] >= 85.0
     assert decision["actuation_command"]["cool_pad_state"] == "ON"
+
+
+def test_cold_stress_triggers_heating(coordinator):
+    """
+    When temperature drops below safe threshold (Target - 2.5°C), heaters are engaged and draft is limited.
+    """
+    peak_time = datetime.datetime(2026, 8, 17, 10, 0, tzinfo=datetime.timezone.utc)
+    cold_stress_metrics = {
+        "temperature_celsius": 17.5,  # Cold stress (< 21.5 - 2.5 = 19.0)
+        "relative_humidity_percent": 55.0,
+        "ammonia_nh3_ppm": 8.0,
+        "carbon_dioxide_co2_ppm": 1200.0,
+    }
+
+    decision = coordinator.process_telemetry_step(
+        zone_id="zone-front",
+        metrics=cold_stress_metrics,
+        current_time=peak_time,
+        target_temp_c=21.5,
+    )
+
+    assert decision["status"] == "HEALTH_SAFETY_OVERRIDE"
+    assert decision["overriding_rule"] == "RULE_H03_THERMAL_SAFETY"
+    assert decision["actuation_command"]["heater_state"] == "ON"
+    assert decision["actuation_command"]["fan_speed_pct"] <= 30.0
+
+
+def test_co2_hazard_boosts_ventilation(coordinator):
+    """
+    When CO2 exceeds 3000 ppm, ventilation boost is mandated.
+    """
+    peak_time = datetime.datetime(2026, 8, 17, 10, 0, tzinfo=datetime.timezone.utc)
+    co2_hazard_metrics = {
+        "temperature_celsius": 21.5,
+        "relative_humidity_percent": 60.0,
+        "ammonia_nh3_ppm": 10.0,
+        "carbon_dioxide_co2_ppm": 3200.0,  # Critical CO2 hazard (>= 3000 ppm)
+    }
+
+    decision = coordinator.process_telemetry_step(
+        zone_id="zone-mid",
+        metrics=co2_hazard_metrics,
+        current_time=peak_time,
+    )
+
+    assert decision["status"] == "HEALTH_SAFETY_OVERRIDE"
+    assert decision["overriding_rule"] == "RULE_H02_AIR_QUALITY_SAFETY"
+    assert decision["actuation_command"]["fan_speed_pct"] >= 80.0

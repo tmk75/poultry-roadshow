@@ -54,18 +54,18 @@ class HealthAgent:
 
         # 3. Thermal Comfort Bounds (Tier 2 Priority)
         temp_delta = temp - target_temp_c
-        if temp_delta > 3.0:
+        if temp_delta > 2.5:
             if alert_level == "NOMINAL":
                 alert_level = "HEAT_STRESS"
             target_pad_state = "ON"
             target_fan_pct = max(target_fan_pct, 85.0)
-            directives.append(f"RULE_H03_HEAT_STRESS: Temp is {temp:.1f}°C (> {target_temp_c + 3.0}°C). Cool pads ON.")
-        elif temp_delta < -3.0:
+            directives.append(f"RULE_H03_HEAT_STRESS: Temp is {temp:.1f}°C (> {target_temp_c + 2.5}°C). Cool pads ON.")
+        elif temp_delta < -2.5:
             if alert_level == "NOMINAL":
                 alert_level = "COLD_STRESS"
             target_heater_state = "ON"
             target_fan_pct = min(target_fan_pct, 30.0)  # Reduce cold air draft while maintaining min air
-            directives.append(f"RULE_H03_COLD_STRESS: Temp is {temp:.1f}°C (< {target_temp_c - 3.0}°C). Heaters ON.")
+            directives.append(f"RULE_H03_COLD_STRESS: Temp is {temp:.1f}°C (< {target_temp_c - 2.5}°C). Heaters ON.")
 
         return {
             "agent_id": self.agent_id,

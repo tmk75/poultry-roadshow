@@ -332,7 +332,7 @@ def main():
     print(f"  Stock: {result['tier_04_sap_erp']['sap_material_document']['current_stock_tons']} tons")
     if result['tier_04_sap_erp']['automated_purchase_order']:
         po = result['tier_04_sap_erp']['automated_purchase_order']
-        print(f"  🚨 AUTO-PO GENERATED: {po['purchase_order_number']} for {po['quantity_tons']}t ({po['status']})\n")
+        print(f"  [ALERT] AUTO-PO GENERATED: {po['purchase_order_number']} for {po['quantity_tons']}t ({po['status']})\n")
     else:
         print("  Inventory Healthy. No PO required.\n")
 
