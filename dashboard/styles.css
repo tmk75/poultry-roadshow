@@ -586,8 +586,9 @@ body.app-layout-body {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.55rem 1rem;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  padding: 0.55rem 0.85rem;
   background: rgba(2, 2, 45, 0.92);
   border-bottom: 1px solid rgba(255, 255, 255, 0.12);
   flex-shrink: 0;
@@ -604,12 +605,14 @@ body.app-layout-body {
 .filter-chip-group {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.35rem;
 }
 
 .flow-color-legend {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.65rem;
   background: rgba(3, 3, 139, 0.4);
   border: 1px solid rgba(255, 255, 255, 0.18);
@@ -625,6 +628,8 @@ body.app-layout-body {
   font-size: 0.65rem;
   font-weight: 700;
   color: #ffffff;
+  white-space: nowrap;
+  flex-shrink: 0;
 }
 
 .flow-dot {
@@ -643,6 +648,7 @@ body.app-layout-body {
   font-weight: 800;
   color: #ffffff;
   margin-right: 0.2rem;
+  white-space: nowrap;
 }
 
 .chip-btn {
@@ -655,6 +661,8 @@ body.app-layout-body {
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.15s ease;
 }
 
@@ -674,7 +682,9 @@ body.app-layout-body {
 .tool-action-group {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
   gap: 0.4rem;
+  margin-left: auto;
 }
 
 .tool-toggle-btn {
@@ -687,9 +697,11 @@ body.app-layout-body {
   padding: 0.25rem 0.65rem;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  display: flex;
+  display: inline-flex;
   align-items: center;
   gap: 0.35rem;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.15s ease;
 }
 
@@ -816,6 +828,8 @@ body.app-layout-body {
   padding: 0.25rem 0.5rem;
   border-radius: var(--radius-full);
   cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
 }
 
@@ -834,6 +848,7 @@ body.app-layout-body {
   border: 1px solid var(--border-subtle);
   border-radius: var(--radius-full);
   padding: 0.15rem;
+  flex-shrink: 0;
 }
 
 .mode-pill-btn {
@@ -846,7 +861,9 @@ body.app-layout-body {
   padding: 0.3rem 0.65rem;
   border-radius: var(--radius-full);
   cursor: pointer;
-  transition: all 0.2s ease;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.15s ease;
 }
 
 .mode-pill-btn.active {
