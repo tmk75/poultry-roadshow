@@ -30,6 +30,16 @@ def resolver():
     return NegotiationConflictResolver()
 
 
+@pytest.fixture
+def health_agent():
+    return HealthAgent()
+
+
+@pytest.fixture
+def energy_agent():
+    return EnergyAgent()
+
+
 def test_ammonia_hazard_overrules_peak_tariff(coordinator):
     """
     Core Invariant: When NH3 >= 20.0 ppm, Health Agent requires 100% ventilation.
@@ -151,3 +161,54 @@ def test_co2_hazard_boosts_ventilation(coordinator):
     assert decision["status"] == "HEALTH_SAFETY_OVERRIDE"
     assert decision["overriding_rule"] == "RULE_H02_AIR_QUALITY_SAFETY"
     assert decision["actuation_command"]["fan_speed_pct"] >= 80.0
+
+
+def test_health_agent_welfare_scoring(health_agent):
+    """
+    Validates welfare scoring calculation and critical thresholds.
+    """
+    eval_nominal = health_agent.evaluate_zone_climate(
+        zone_id="zone-mid",
+        metrics={"temperature_celsius": 21.5, "ammonia_nh3_ppm": 8.0, "carbon_dioxide_co2_ppm": 1200.0},
+        target_temp_c=21.5,
+    )
+    assert eval_nominal["alert_level"] == "NOMINAL"
+    assert eval_nominal["welfare_score"] == 100.0
+    assert eval_nominal["is_emergency"] is False
+
+
+def test_energy_agent_tariff_tiers(energy_agent):
+    """
+    Validates China TOU tariff tier classification.
+    """
+    peak = energy_agent.get_current_tariff_period(9.5)  # 09:30 -> Peak
+    valley = energy_agent.get_current_tariff_period(2.0)  # 02:00 -> Valley
+    normal = energy_agent.get_current_tariff_period(14.0)  # 14:00 -> Normal
+
+    assert peak["tier"] == "PEAK"
+    assert peak["rate_cny_per_kwh"] == 1.35
+
+    assert valley["tier"] == "VALLEY"
+    assert valley["rate_cny_per_kwh"] == 0.38
+
+    assert normal["tier"] == "NORMAL"
+    assert normal["rate_cny_per_kwh"] == 0.78
+
+
+def test_conflict_resolver_direct_resolution(resolver, health_agent, energy_agent):
+    """
+    Validates direct conflict resolution between Health and Energy proposals.
+    """
+    health_eval = health_agent.evaluate_zone_climate(
+        zone_id="zone-rear",
+        metrics={"temperature_celsius": 21.5, "ammonia_nh3_ppm": 22.0, "carbon_dioxide_co2_ppm": 1500.0},
+    )
+    energy_prop = energy_agent.propose_energy_actions(
+        zone_id="zone-rear",
+        current_time=datetime.datetime(2026, 8, 17, 10, 0, tzinfo=datetime.timezone.utc),
+    )
+
+    decision = resolver.resolve(health_eval, energy_prop)
+    assert decision["status"] == "OVERRULED_BY_HEALTH_CRITICAL"
+    assert decision["override_applied"] is True
+    assert decision["actuation_command"]["fan_speed_pct"] == 100.0
