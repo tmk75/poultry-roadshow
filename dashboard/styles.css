@@ -502,6 +502,7 @@ body.app-layout-body {
 
 .custom-range {
   -webkit-appearance: none;
+  appearance: none;
   width: 90px;
   height: 4px;
   background: rgba(255, 255, 255, 0.15);
@@ -510,6 +511,7 @@ body.app-layout-body {
 }
 .custom-range::-webkit-slider-thumb {
   -webkit-appearance: none;
+  appearance: none;
   width: 14px;
   height: 14px;
   border-radius: 50%;
