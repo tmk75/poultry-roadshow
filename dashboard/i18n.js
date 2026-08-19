@@ -31,7 +31,7 @@ const i18nDictionary = {
     keynote_warroom: "¥655M EBITDA Simulator",
     keynote_dpp: "Digital Product Passport",
     lbl_auto_pitch: "Auto-Pitch",
-    lbl_copilot_btn: "Grok Copilot",
+    lbl_copilot_btn: "Copilot",
 
     // Sidebar
     nav_sec_core: "CORE MODULES",
@@ -202,7 +202,7 @@ const i18nDictionary = {
     keynote_warroom: "¥6.55亿 财务敏感度模拟",
     keynote_dpp: "数字产品护照 (DPP)",
     lbl_auto_pitch: "全自动路演",
-    lbl_copilot_btn: "Grok 智能副驾",
+    lbl_copilot_btn: "智能副驾",
 
     // Sidebar
     nav_sec_core: "核心功能模块",

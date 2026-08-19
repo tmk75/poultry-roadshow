@@ -1557,31 +1557,31 @@ const presentationSlidesEn = [
       <p>Click <strong>'Replay 02:14:32 AM Midnight Ammonia Veto'</strong> to watch the emergency consensus vote in real-time."</p>
     `
   },
-  // Slide 4: Grok Conversational Copilot & SAP Auto-PO
+  // Slide 4: Conversational Copilot & SAP Auto-PO
   {
-    topic: "05. GROK CONVERSATIONAL COPILOT & SCM",
-    title: "Zero-Touch 0.2s SAP S/4HANA PO & Grok CoT Reasoning Dispatch",
+    topic: "05. CONVERSATIONAL COPILOT & SCM",
+    title: "Zero-Touch 0.2s SAP S/4HANA PO & CoT Reasoning Dispatch",
     subtitle: "Continuous Silo Loadcell Telemetry + Natural Language Voice Dispatch Across 50 Complexes",
     pill: "100% ZERO-TOUCH SAP",
     time: "⏱️ Target Time: 1.5 mins",
     demoAction: {
       badge: "LIVE COPILOT DEMO",
-      title: "Open the Grok-Style Conversational AI Copilot to execute Chain-of-Thought diagnostics and natural language factory dispatch.",
-      btnText: "🧠 Open Grok-Style Conversational Copilot",
+      title: "Open the Conversational AI Copilot to execute Chain-of-Thought diagnostics and natural language factory dispatch.",
+      btnText: "🧠 Open Conversational Copilot",
       action: "openCopilot"
     },
     cards: [
       { icon: "⚖️", title: "Silo Loadcells", metric: "±0.5% Accuracy", text: "Continuous weight sensors transmit live feed stock directly into the unified data stream every 100ms." },
       { icon: "📦", title: "SAP Auto-PO", metric: "0.2s Execution", text: "When silo reserves breach 15t, AI signs purchase orders via SAP BAPI (<code>BAPI_PO_CREATE1</code>) in <strong>0.2 seconds</strong>." },
-      { icon: "🤖", title: "Grok AI Copilot", metric: "Chain-of-Thought", text: "Natural language query engine explaining FCR drifts, 42°C heatwave mitigation, and ISO 14064 audit proofs." }
+      { icon: "🤖", title: "AI Copilot", metric: "Chain-of-Thought", text: "Natural language query engine explaining FCR drifts, 42°C heatwave mitigation, and ISO 14064 audit proofs." }
     ],
     script: `
-      <p><span class="script-highlight">"We have embedded Grok-style Conversational Intelligence directly into industrial manufacturing.</span></p>
+      <p><span class="script-highlight">"We have embedded Conversational Intelligence directly into industrial manufacturing.</span></p>
       <p>Using real-time silo loadcell telemetry, Cortex AI continuously forecasts feed burn rates. When silo reserves dip below the 15-ton safety threshold, the system communicates with SAP S/4HANA via BAPI and issues a 25-ton purchase order in 0.2 seconds with zero paperwork.</p>
       <div class="script-callout">
-        <strong>Executive Voice Dispatch:</strong> Executives and plant managers can open the Grok Copilot drawer, ask complex questions like 'Analyze Nanping FCR drift', and receive streaming Chain-of-Thought reasoning.
+        <strong>Executive Voice Dispatch:</strong> Executives and plant managers can open the Copilot drawer, ask complex questions like 'Analyze Nanping FCR drift', and receive streaming Chain-of-Thought reasoning.
       </div>
-      <p>Click <strong>'Open Grok-Style Conversational Copilot'</strong> to test live natural language interaction."</p>
+      <p>Click <strong>'Open Conversational Copilot'</strong> to test live natural language interaction."</p>
     `
   },
   // Slide 5: Executive BI Command Center
@@ -1782,31 +1782,31 @@ const presentationSlidesZh = [
       <p>点击<strong>“重放 02:14:32 变频器跳闸与氨气否决”</strong>可观看现场实时仲裁过程。”</p>
     `
   },
-  // 幻灯片 4: Grok 级对话智能体与 SAP 敏捷供应链
+  // 幻灯片 4: 智能副驾对话智能体与 SAP 敏捷供应链
   {
-    topic: "05. Grok 级对话智能体与 SAP 敏捷供应链",
-    title: "零触碰 0.2秒 SAP 自动采购与 Grok 级 Chain-of-Thought 逻辑推理",
+    topic: "05. 智能副驾对话智能体与 SAP 敏捷供应链",
+    title: "零触碰 0.2秒 SAP 自动采购与 Chain-of-Thought 逻辑推理",
     subtitle: "料塔高精度称重实时感知 + 自然语言语音指令即时调度全域 50大基地",
     pill: "100% 自动化零人工提单",
     time: "⏱️ 建议演讲用时: 1.5 分钟",
     demoAction: {
-      badge: "Grok 智能体互动演示",
-      title: "展开 Grok 风格的赛博对话终端，体验思维链 (Chain-of-Thought) 推理与自然语言现场调度。",
-      btnText: "🧠 打开 Grok 级智能对话终端",
+      badge: "智能副驾互动演示",
+      title: "展开赛博对话终端，体验思维链 (Chain-of-Thought) 推理与自然语言现场调度。",
+      btnText: "🧠 打开智能对话终端",
       action: "openCopilot"
     },
     cards: [
       { icon: "⚖️", title: "料塔称重感知", metric: "±0.5% 高精度", text: "高精度称重传感器每 100ms 实时采集饲料库存并预测鸡群采食消耗速率。" },
       { icon: "📦", title: "SAP 自动签单", metric: "0.2秒 自动出单", text: "余量低于 15吨 警戒线时，AI 自动调用 SAP BAPI (<code>BAPI_PO_CREATE1</code>) 完成采购闭环。" },
-      { icon: "🤖", title: "Grok 对话中枢", metric: "思维链 CoT 推理", text: "支持自然语言与语音查询料肉比异动、42°C 热浪防御策略及 ISO 碳核算证明。" }
+      { icon: "🤖", title: "Copilot 对话中枢", metric: "思维链 CoT 推理", text: "支持自然语言与语音查询料肉比异动、42°C 热浪防御策略及 ISO 碳核算证明。" }
     ],
     script: `
-      <p><span class="script-highlight">“我们还将 Grok 级别的生成式对话智能深度融入了工业决策。</span></p>
+      <p><span class="script-highlight">“我们还将生成式对话智能深度融入了工业决策。</span></p>
       <p>料塔称重探头实时监测饲料消耗。当库存跌破 15吨 警戒线，系统在 0.2秒内通过 BAPI 直接在 SAP S/4HANA 签发 25吨采购单，彻底杜绝人工提单疏漏与断料风险。”</p>
       <div class="script-callout">
-        <strong>高管语音调度中枢：</strong> 管理层可以随时打开 Grok 智能终端，以自然语言询问‘分析南平一厂料肉比异动’，AI 会展示完整的 Chain-of-Thought 思维链推理过程并直接下达优化指令。
+        <strong>高管语音调度中枢：</strong> 管理层可以随时打开智能终端，以自然语言询问‘分析南平一厂料肉比异动’，AI 会展示完整的 Chain-of-Thought 思维链推理过程并直接下达优化指令。
       </div>
-      <p>点击<strong>“打开 Grok 级智能对话终端”</strong>体验人机协同决策。”</p>
+      <p>点击<strong>“打开智能对话终端”</strong>体验人机协同决策。”</p>
     `
   },
   // 幻灯片 5: 集团商业智能大屏 (BI)
@@ -1917,7 +1917,7 @@ function executeSlideDemo(slideIndex) {
     const drawer = document.getElementById('copilot-drawer');
     if (drawer) drawer.style.display = 'flex';
     document.getElementById('copilot-input-field')?.focus();
-    addAuditLog(isZh ? `🎙️ 演讲联动演示：已拉出 Grok 风格智能对话终端` : `🎙️ Keynote Co-Pilot: Opened Grok Conversational Copilot`, true);
+    addAuditLog(isZh ? `🎙️ 演讲联动演示：已拉出智能对话终端 (Copilot)` : `🎙️ Keynote Co-Pilot: Opened Conversational Copilot`, true);
     return;
   }
 
@@ -1983,10 +1983,10 @@ function renderPresentationSlide(index = 0) {
   document.querySelectorAll('.slide-pill').forEach((pill, idx) => {
     pill.classList.toggle('active', idx === activePresentationSlide);
     if (isZh) {
-      const labelsZh = ["01. 战略愿景", "02. 13大架构", "03. 生物声学", "04. 决策否决", "05. Grok与SAP", "06. 商业大屏", "07. 财务作战室", "08. 数字护照"];
+      const labelsZh = ["01. 战略愿景", "02. 13大架构", "03. 生物声学", "04. 决策否决", "05. Copilot与SAP", "06. 商业大屏", "07. 财务作战室", "08. 数字护照"];
       pill.textContent = labelsZh[idx] || `0${idx + 1}. 幻灯片`;
     } else {
-      const labelsEn = ["01. Vision", "02. 13-Nodes", "03. Bio-Acoustics", "04. Cortex Veto", "05. Grok & SAP", "06. BI Hub", "07. CFO War Room", "08. DPP Passport"];
+      const labelsEn = ["01. Vision", "02. 13-Nodes", "03. Bio-Acoustics", "04. Cortex Veto", "05. Copilot & SAP", "06. BI Hub", "07. CFO War Room", "08. DPP Passport"];
       pill.textContent = labelsEn[idx] || `Slide 0${idx + 1}`;
     }
   });
