@@ -1025,7 +1025,7 @@ sliderTariff?.addEventListener('input', (e) => {
 const navModules = {
   'nav-btn-highway': { secId: 'section-enterprise-flow', titleEn: 'Enterprise Decision OS', titleZh: '全链路智能制造决策系统' },
   'nav-btn-warroom': { secId: 'section-financial-warroom', titleEn: 'CFO Financial War Room & Sensitivity Simulator', titleZh: '集团财务作战室 • 宏观压力测试与第一性原理敏感度模拟舱' },
-  'nav-btn-bi': { secId: 'section-enterprise-flow', titleEn: 'Executive BI & Corporate Analytics Command Center', titleZh: '集团数字化运营指挥与决策大屏', node: 'dash' },
+  'nav-btn-bi': { secId: 'section-bi-hub', titleEn: 'Executive BI Command Center', titleZh: '集团数字化运营指挥与决策大屏' },
   'nav-btn-esg': { secId: 'section-esg-evolution', titleEn: 'ESG Carbon Accounting Hub', titleZh: 'ESG 碳资产全生命周期核算中心' },
   'nav-btn-barn': { secId: 'section-spatial-gauges', titleEn: 'Physical Barn Digital Twin', titleZh: '鸡舍三维空间物理数字孪生' },
   'nav-btn-roi': { secId: 'section-comparison', titleEn: 'Autopilot vs Legacy ROI Matrix', titleZh: 'AI 闭环自愈与传统模式经济效益对比' },
@@ -1052,9 +1052,7 @@ Object.keys(navModules).forEach(navId => {
         if (window.topologyCanvas) window.topologyCanvas.resize();
       } else if (navId === 'nav-btn-bi') {
         pauseTour();
-        selectNode('dash');
-        if (window.highway3D) window.highway3D.onResize();
-        if (window.topologyCanvas) window.topologyCanvas.resize();
+        if (typeof renderExecutiveBiHub === 'function') renderExecutiveBiHub();
         addAuditLog(isZh ? "📊 集团商业智能大屏已从导航栏开启" : "📊 Executive BI Command Center opened from sidebar navigation", true);
       } else if (navId === 'nav-btn-presentation') {
         pauseTour();
@@ -2685,6 +2683,429 @@ function startAutonomousPitch() {
 
 document.getElementById('btn-auto-pitch')?.addEventListener('click', startAutonomousPitch);
 
+// =================================================================
+// 15. DEDICATED EXECUTIVE BI COMMAND CENTER ENGINE
+// =================================================================
+const enterpriseComplexesData = [
+  { id: "NP-01", name: "Nanping Complex 01 (HQ)", region: "Fujian (南平)", houses: 16, birds: 680000, temp: 22.4, nh3: 11.4, silo: 35.7, mode: "0.3s Closed-Loop", fcr: 1.542, powerSaved: 485200, status: "optimal" },
+  { id: "NP-02", name: "Nanping Complex 02 (Guangze)", region: "Fujian (光泽)", houses: 14, birds: 595000, temp: 22.1, nh3: 10.8, silo: 28.4, mode: "0.3s Closed-Loop", fcr: 1.539, powerSaved: 421000, status: "optimal" },
+  { id: "NP-03", name: "Nanping Complex 03 (Pucheng)", region: "Fujian (浦城)", houses: 12, birds: 510000, temp: 22.8, nh3: 12.1, silo: 18.2, mode: "Eco-Throttled", fcr: 1.545, powerSaved: 389000, status: "optimal" },
+  { id: "SM-01", name: "Sanming Complex 01 (Youxi)", region: "Fujian (尤溪)", houses: 12, birds: 510000, temp: 22.3, nh3: 11.9, silo: 24.5, mode: "0.3s Closed-Loop", fcr: 1.541, powerSaved: 362000, status: "optimal" },
+  { id: "SM-02", name: "Sanming Complex 02 (Shaxian)", region: "Fujian (沙县)", houses: 10, birds: 425000, temp: 23.0, nh3: 13.2, silo: 14.8, mode: "Auto SAP Reordered", fcr: 1.548, powerSaved: 310000, status: "warning" },
+  { id: "GZ-01", name: "Ganzhou Complex 01 (Zifang)", region: "Jiangxi (赣州)", houses: 16, birds: 680000, temp: 22.6, nh3: 12.5, silo: 42.0, mode: "0.3s Closed-Loop", fcr: 1.546, powerSaved: 478000, status: "optimal" },
+  { id: "GZ-02", name: "Ganzhou Complex 02 (Ningdu)", region: "Jiangxi (宁都)", houses: 14, birds: 595000, temp: 22.9, nh3: 11.7, silo: 31.2, mode: "0.3s Closed-Loop", fcr: 1.544, powerSaved: 415000, status: "optimal" },
+  { id: "PL-01", name: "Pingliang Complex 01 (Kongtong)", region: "Gansu (平凉)", houses: 14, birds: 595000, temp: 21.8, nh3: 10.2, silo: 38.5, mode: "0.3s Closed-Loop", fcr: 1.551, powerSaved: 395000, status: "optimal" },
+  { id: "PL-02", name: "Pingliang Complex 02 (Jingchuan)", region: "Gansu (泾川)", houses: 12, birds: 510000, temp: 23.4, nh3: 14.1, silo: 21.0, mode: "Pulse-Misting Armed", fcr: 1.553, powerSaved: 360000, status: "warning" },
+  { id: "ZM-01", name: "Zhumadian Complex 01 (Queshan)", region: "Henan (驻马店)", houses: 16, birds: 680000, temp: 22.5, nh3: 11.6, silo: 39.8, mode: "0.3s Closed-Loop", fcr: 1.543, powerSaved: 482000, status: "optimal" },
+  { id: "ZM-02", name: "Zhumadian Complex 02 (Xiping)", region: "Henan (西平)", houses: 12, birds: 510000, temp: 22.7, nh3: 12.0, silo: 26.5, mode: "0.3s Closed-Loop", fcr: 1.545, powerSaved: 375000, status: "optimal" }
+];
+
+let activeBiTab = 'tab-bi-complexes';
+let activeBiGeo = 'all';
+let activeBiTime = 'live24';
+let activeBiBreed = 'all';
+let activeBiSearchStr = '';
+
+function renderExecutiveBiHub() {
+  renderBiFleetTable();
+  renderBiClustersList();
+  renderBiGrowthSvg();
+  renderBiTariffSvg();
+  renderBiSilosGrid();
+  renderBiRadarSvg();
+}
+
+function renderBiFleetTable() {
+  const tbody = document.getElementById('tbody-enterprise-complexes');
+  if (!tbody) return;
+
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  let filtered = enterpriseComplexesData.filter(c => {
+    const matchSearch = activeBiSearchStr === '' ||
+      c.name.toLowerCase().includes(activeBiSearchStr.toLowerCase()) ||
+      c.region.toLowerCase().includes(activeBiSearchStr.toLowerCase()) ||
+      c.id.toLowerCase().includes(activeBiSearchStr.toLowerCase());
+
+    const matchGeo = activeBiGeo === 'all' ||
+      (activeBiGeo === 'nanping' && c.region.includes('Fujian')) ||
+      (activeBiGeo === 'ganzhou' && c.region.includes('Jiangxi')) ||
+      (activeBiGeo === 'pingliang' && c.region.includes('Gansu')) ||
+      (activeBiGeo === 'zhumadian' && c.region.includes('Henan'));
+
+    return matchSearch && matchGeo;
+  });
+
+  tbody.innerHTML = filtered.map(c => `
+    <tr>
+      <td>
+        <strong>${c.name}</strong><br>
+        <small style="color: #94a3b8;">${c.id} • ${c.region}</small>
+      </td>
+      <td>${c.houses} ${isZh ? '栋舍' : 'Houses'}</td>
+      <td><strong>${(c.birds / 10000).toFixed(1)}万</strong> <small>${isZh ? '羽' : 'Birds'}</small></td>
+      <td><span class="${c.temp > 23 ? 'amber-text' : 'green-text'}">${c.temp.toFixed(1)}°C</span></td>
+      <td><span class="${c.nh3 > 13 ? 'amber-text' : 'green-text'}">${c.nh3.toFixed(1)} ppm</span></td>
+      <td>${c.silo.toFixed(1)}t ${c.silo < 15 ? '<span style="color: #f43f5e; font-weight: 800;">(PO Reordered)</span>' : ''}</td>
+      <td>
+        <span class="agent-vote-badge ${c.status === 'optimal' ? 'green' : 'amber'}">${c.mode}</span>
+      </td>
+      <td><strong class="cyan-text">${c.fcr.toFixed(3)}</strong></td>
+      <td><strong class="green-text">¥${(c.powerSaved / 1000).toFixed(1)}k</strong></td>
+      <td>
+        <button class="bi-filter-btn" onclick="inspectComplexDetails('${c.id}')" style="padding: 0.15rem 0.45rem;">
+          ${isZh ? '🔍 诊断' : '🔍 Inspect'}
+        </button>
+      </td>
+    </tr>
+  `).join('');
+}
+
+function inspectComplexDetails(cId) {
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+  const item = enterpriseComplexesData.find(c => c.id === cId) || enterpriseComplexesData[0];
+  alert(isZh
+    ? `【基地全息诊断】\n基地名称: ${item.name}\n批次存栏: ${item.birds.toLocaleString()} 羽\n当前舍温: ${item.temp}°C | 氨气: ${item.nh3} ppm\n料肉比: ${item.fcr} (优于同批次 3.8%)\n年化节电: ¥${item.powerSaved.toLocaleString()} 元\n运行状态: ${item.mode}`
+    : `[Complex Holographic Diagnostic]\nComplex: ${item.name}\nFlock Population: ${item.birds.toLocaleString()} Broilers\nTemperature: ${item.temp}°C | Ammonia: ${item.nh3} ppm\nFCR: ${item.fcr} (3.8% Ahead of Cohort)\nYTD Power Saved: ¥${item.powerSaved.toLocaleString()} CNY\nAutopilot: ${item.mode}`);
+}
+
+function renderBiClustersList() {
+  const container = document.getElementById('gis-clusters-list');
+  if (!container) return;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  const clusters = [
+    { name: isZh ? "福建南平总部集群 (16大基地)" : "Fujian Nanping HQ Cluster (16 Complexes)", birds: "960万羽", fcr: "1.541", savings: "¥7.82M", status: "100% Closed Loop", color: "green" },
+    { name: isZh ? "江西赣州核心集群 (12大基地)" : "Jiangxi Ganzhou Cluster (12 Complexes)", birds: "720万羽", fcr: "1.544", savings: "¥4.95M", status: "Optimal", color: "green" },
+    { name: isZh ? "甘肃平凉北方集群 (10大基地)" : "Gansu Pingliang North Cluster (10 Complexes)", birds: "600万羽", fcr: "1.552", savings: "¥3.85M", status: "Heatwave Defense", color: "cyan" },
+    { name: isZh ? "河南驻马店中原集群 (12大基地)" : "Henan Zhumadian Cluster (12 Complexes)", birds: "720万羽", fcr: "1.543", savings: "¥4.82M", status: "Closed Loop", color: "purple" }
+  ];
+
+  container.innerHTML = clusters.map(c => `
+    <div class="gis-cluster-row">
+      <div class="cluster-row-top">
+        <span class="cluster-name">${c.name}</span>
+        <span class="agent-vote-badge ${c.color}">${c.status}</span>
+      </div>
+      <div class="cluster-kpis">
+        <span>${isZh ? '存栏规模' : 'Flock'}: <strong>${c.birds}</strong></span>
+        <span>FCR: <strong class="cyan-text">${c.fcr}</strong></span>
+        <span>${isZh ? '累计节电' : 'Saved'}: <strong class="green-text">${c.savings}</strong></span>
+      </div>
+    </div>
+  `).join('');
+}
+
+function renderBiGrowthSvg() {
+  const stage = document.getElementById('bi-svg-growth-stage');
+  if (!stage) return;
+
+  stage.innerHTML = `
+    <svg viewBox="0 0 900 320" width="100%" height="100%" style="display: block;">
+      <defs>
+        <linearGradient id="growthFillGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.35"/>
+          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.0"/>
+        </linearGradient>
+        <linearGradient id="fcrGrad" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0%" stop-color="#10b981"/>
+          <stop offset="100%" stop-color="#34d399"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Grid lines -->
+      <line x1="60" y1="40" x2="860" y2="40" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="60" y1="100" x2="860" y2="100" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="60" y1="160" x2="860" y2="160" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="60" y1="220" x2="860" y2="220" stroke="rgba(255,255,255,0.06)" stroke-width="1"/>
+      <line x1="60" y1="270" x2="860" y2="270" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+
+      <!-- Y Axis Labels Left (Body Weight) -->
+      <text x="50" y="45" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="end">2800g</text>
+      <text x="50" y="105" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="end">2100g</text>
+      <text x="50" y="165" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="end">1400g</text>
+      <text x="50" y="225" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="end">700g</text>
+      <text x="50" y="275" fill="#94a3b8" font-size="10" font-family="monospace" text-anchor="end">0g</text>
+
+      <!-- X Axis Labels (Days) -->
+      <text x="60" y="295" fill="#94a3b8" font-size="10" font-family="monospace">Day 1</text>
+      <text x="220" y="295" fill="#94a3b8" font-size="10" font-family="monospace">Day 10</text>
+      <text x="380" y="295" fill="#94a3b8" font-size="10" font-family="monospace">Day 20</text>
+      <text x="540" y="295" fill="#38bdf8" font-size="11" font-weight="bold" font-family="monospace">Day 26 (Now)</text>
+      <text x="700" y="295" fill="#94a3b8" font-size="10" font-family="monospace">Day 35</text>
+      <text x="840" y="295" fill="#94a3b8" font-size="10" font-family="monospace">Day 42</text>
+
+      <!-- Standard Benchmark Line (Dotted Gray) -->
+      <path d="M 60 268 Q 300 230, 540 115 T 860 65" fill="none" stroke="#64748b" stroke-width="2" stroke-dasharray="4 4"/>
+
+      <!-- Actual Weight Area & Line (Cyan Blue) -->
+      <path d="M 60 268 Q 300 220, 540 96 T 860 48 L 860 270 L 60 270 Z" fill="url(#growthFillGrad)"/>
+      <path d="M 60 268 Q 300 220, 540 96 T 860 48" fill="none" stroke="#38bdf8" stroke-width="3.5"/>
+
+      <!-- Current Day 26 Pin -->
+      <line x1="540" y1="40" x2="540" y2="270" stroke="#38bdf8" stroke-width="1.5" stroke-dasharray="2 2"/>
+      <circle cx="540" cy="96" r="6" fill="#38bdf8" stroke="#ffffff" stroke-width="2"/>
+      <rect x="548" y="76" width="130" height="36" rx="4" fill="rgba(2,2,45,0.95)" stroke="#38bdf8" stroke-width="1"/>
+      <text x="556" y="92" fill="#ffffff" font-size="10" font-weight="bold" font-family="sans-serif">Day 26: 2,140 g</text>
+      <text x="556" y="105" fill="#34d399" font-size="9" font-family="monospace">+90g vs Genetic Std</text>
+
+      <!-- FCR Trend Line (Green on secondary scale) -->
+      <path d="M 60 140 Q 300 180, 540 210 T 860 235" fill="none" stroke="url(#fcrGrad)" stroke-width="2.5"/>
+
+      <!-- Legend -->
+      <rect x="680" y="12" width="12" height="12" rx="2" fill="#38bdf8"/>
+      <text x="698" y="22" fill="#e2e8f0" font-size="10">Actual Weight (g)</text>
+      <line x1="680" y1="32" x2="692" y2="32" stroke="#64748b" stroke-width="2" stroke-dasharray="3 3"/>
+      <text x="698" y="36" fill="#94a3b8" font-size="10">Cobb500 Benchmark</text>
+      <line x1="680" y1="46" x2="692" y2="46" stroke="#10b981" stroke-width="2.5"/>
+      <text x="698" y="50" fill="#34d399" font-size="10">FCR Curve (1.54)</text>
+    </svg>
+  `;
+}
+
+function renderBiTariffSvg() {
+  const stage = document.getElementById('bi-svg-tariff-stage');
+  if (!stage) return;
+
+  stage.innerHTML = `
+    <svg viewBox="0 0 900 320" width="100%" height="100%" style="display: block;">
+      <defs>
+        <linearGradient id="valleyFill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#10b981" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#10b981" stop-opacity="0.05"/>
+        </linearGradient>
+      </defs>
+
+      <!-- Background Tariff Bands -->
+      <!-- Valley: 00:00 - 08:00 (width ~ 300px) -->
+      <rect x="60" y="30" width="266" height="240" fill="rgba(16,185,129,0.06)"/>
+      <text x="140" y="50" fill="#34d399" font-size="10" font-weight="bold" font-family="monospace">VALLEY (¥0.42/kWh)</text>
+
+      <!-- Flat 1: 08:00 - 14:00 (width ~ 200px) -->
+      <rect x="326" y="30" width="200" height="240" fill="rgba(59,130,246,0.04)"/>
+      <text x="380" y="50" fill="#60a5fa" font-size="10" font-weight="bold" font-family="monospace">FLAT (¥0.85)</text>
+
+      <!-- Peak: 14:00 - 17:00 (width ~ 100px) -->
+      <rect x="526" y="30" width="100" height="240" fill="rgba(244,63,94,0.12)"/>
+      <text x="535" y="50" fill="#fda4af" font-size="10" font-weight="bold" font-family="monospace">PEAK (¥1.38)</text>
+
+      <!-- Flat 2: 17:00 - 24:00 (width ~ 234px) -->
+      <rect x="626" y="30" width="234" height="240" fill="rgba(59,130,246,0.04)"/>
+      <text x="690" y="50" fill="#60a5fa" font-size="10" font-weight="bold" font-family="monospace">FLAT (¥0.85)</text>
+
+      <!-- Base Unoptimized Grid Load Curve (Red Line) -->
+      <path d="M 60 210 Q 200 200, 326 140 T 526 70 T 626 120 T 860 190" fill="none" stroke="#f43f5e" stroke-width="2.5" stroke-dasharray="4 3"/>
+
+      <!-- AI Optimized Shifted Load (Green Area & Line) -->
+      <path d="M 60 120 Q 200 110, 326 155 T 526 215 T 626 160 T 860 180 L 860 270 L 60 270 Z" fill="url(#valleyFill)"/>
+      <path d="M 60 120 Q 200 110, 326 155 T 526 215 T 626 160 T 860 180" fill="none" stroke="#10b981" stroke-width="3.5"/>
+
+      <!-- Savings Callout at Peak -->
+      <rect x="530" y="110" width="92" height="42" rx="4" fill="rgba(2,2,45,0.95)" stroke="#10b981" stroke-width="1"/>
+      <text x="538" y="126" fill="#34d399" font-size="10" font-weight="bold" font-family="sans-serif">▼ -28.4% Cut</text>
+      <text x="538" y="142" fill="#ffffff" font-size="9" font-family="monospace">Saved ¥9.72/h</text>
+
+      <!-- X Axis Ticks -->
+      <text x="60" y="290" fill="#94a3b8" font-size="9" font-family="monospace">00:00</text>
+      <text x="190" y="290" fill="#94a3b8" font-size="9" font-family="monospace">04:00</text>
+      <text x="326" y="290" fill="#94a3b8" font-size="9" font-family="monospace">08:00</text>
+      <text x="460" y="290" fill="#94a3b8" font-size="9" font-family="monospace">12:00</text>
+      <text x="526" y="290" fill="#fda4af" font-size="9" font-weight="bold" font-family="monospace">14:00 (Peak)</text>
+      <text x="626" y="290" fill="#94a3b8" font-size="9" font-family="monospace">17:00</text>
+      <text x="750" y="290" fill="#94a3b8" font-size="9" font-family="monospace">20:00</text>
+      <text x="850" y="290" fill="#94a3b8" font-size="9" font-family="monospace">24:00</text>
+    </svg>
+  `;
+}
+
+function renderBiSilosGrid() {
+  const container = document.getElementById('silo-gauges-grid');
+  if (!container) return;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  const silos = [
+    { name: "Silo A1 (House 01)", mass: 38.5, max: 45, burn: "12.2 t/d", status: isZh ? "充足" : "Optimal", tag: "ok" },
+    { name: "Silo A2 (House 02)", mass: 35.7, max: 45, burn: "12.4 t/d", status: isZh ? "充足" : "Optimal", tag: "ok" },
+    { name: "Silo A3 (House 03)", mass: 14.8, max: 45, burn: "12.5 t/d", status: isZh ? "已触警戒 • 自动补料" : "Auto-PO Triggered", tag: "critical" },
+    { name: "Silo A4 (House 04)", mass: 28.2, max: 45, burn: "11.8 t/d", status: isZh ? "充足" : "Optimal", tag: "ok" },
+    { name: "Silo B1 (House 05)", mass: 41.0, max: 45, burn: "12.1 t/d", status: isZh ? "充足" : "Optimal", tag: "ok" },
+    { name: "Silo B2 (House 06)", mass: 22.4, max: 45, burn: "12.0 t/d", status: isZh ? "正常" : "Normal", tag: "ok" },
+    { name: "Silo B3 (House 07)", mass: 18.5, max: 45, burn: "11.9 t/d", status: isZh ? "注意余量" : "Monitor", tag: "low" },
+    { name: "Silo B4 (House 08)", mass: 36.8, max: 45, burn: "12.3 t/d", status: isZh ? "充足" : "Optimal", tag: "ok" }
+  ];
+
+  container.innerHTML = silos.map(s => {
+    const pct = Math.round((s.mass / s.max) * 100);
+    return `
+      <div class="silo-gauge-card">
+        <span class="silo-name">${s.name}</span>
+        <div class="silo-graphic-bar">
+          <div class="silo-fill-level" style="height: ${pct}%; background: ${s.tag === 'critical' ? '#f43f5e' : (s.tag === 'low' ? '#f59e0b' : 'linear-gradient(180deg, #38bdf8, #0284c7)')};"></div>
+        </div>
+        <span class="silo-mass-val">${s.mass.toFixed(1)} <small>t</small></span>
+        <span class="silo-status-tag ${s.tag}">${s.status}</span>
+      </div>
+    `;
+  }).join('');
+
+  // Render SAP PO Table
+  const poTbody = document.getElementById('tbody-sap-pos');
+  if (!poTbody) return;
+
+  const pos = [
+    { po: "PO-2026-AUG-889104", mat: "MAT-FEED-SOYA-500", qty: "25.0 Tons", time: "13:14:02", lag: "0.21s", supp: "VEND-FUJIAN-01", status: isZh ? "已确认排产" : "Confirmed in SAP" },
+    { po: "PO-2026-AUG-889098", mat: "MAT-FEED-SOYA-500", qty: "25.0 Tons", time: "10:45:18", lag: "0.19s", supp: "VEND-FUJIAN-01", status: isZh ? "运输在途中" : "In Transit (ETA 2h)" },
+    { po: "PO-2026-AUG-889075", mat: "MAT-FEED-PREMIX-02", qty: "10.0 Tons", time: "08:20:00", lag: "0.24s", supp: "VEND-JIANGXI-03", status: isZh ? "已入库核销" : "Delivered & Verified" }
+  ];
+
+  poTbody.innerHTML = pos.map(p => `
+    <tr>
+      <td><strong>${p.po}</strong></td>
+      <td><code>${p.mat}</code></td>
+      <td><strong class="cyan-text">${p.qty}</strong></td>
+      <td>${p.time}</td>
+      <td><span class="green-text">${p.lag}</span></td>
+      <td>${p.supp}</td>
+      <td><span class="agent-vote-badge green">${p.status}</span></td>
+    </tr>
+  `).join('');
+}
+
+function renderBiRadarSvg() {
+  const stage = document.getElementById('bi-svg-radar-stage');
+  if (!stage) return;
+  const isZh = window.i18n && window.i18n.currentLang === 'zh';
+
+  stage.innerHTML = `
+    <svg viewBox="0 0 450 320" width="100%" height="100%" style="display: block;">
+      <defs>
+        <radialGradient id="radarGrad" cx="50%" cy="50%" r="50%">
+          <stop offset="0%" stop-color="#38bdf8" stop-opacity="0.4"/>
+          <stop offset="100%" stop-color="#0284c7" stop-opacity="0.1"/>
+        </radialGradient>
+      </defs>
+
+      <!-- Center circles -->
+      <circle cx="225" cy="160" r="100" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <circle cx="225" cy="160" r="75" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <circle cx="225" cy="160" r="50" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+      <circle cx="225" cy="160" r="25" fill="none" stroke="rgba(255,255,255,0.08)" stroke-width="1"/>
+
+      <!-- 6 Axis spokes -->
+      <line x1="225" y1="160" x2="225" y2="60" stroke="rgba(255,255,255,0.15)"/>
+      <line x1="225" y1="160" x2="311" y2="110" stroke="rgba(255,255,255,0.15)"/>
+      <line x1="225" y1="160" x2="311" y2="210" stroke="rgba(255,255,255,0.15)"/>
+      <line x1="225" y1="160" x2="225" y2="260" stroke="rgba(255,255,255,0.15)"/>
+      <line x1="225" y1="160" x2="139" y2="210" stroke="rgba(255,255,255,0.15)"/>
+      <line x1="225" y1="160" x2="139" y2="110" stroke="rgba(255,255,255,0.15)"/>
+
+      <!-- Radar Polygon (98.8%, 99.4%, 97.6%, 100%, 99.2%, 98.1%) -->
+      <polygon points="225,62 309,112 308,208 225,260 141,208 141,113" fill="url(#radarGrad)" stroke="#38bdf8" stroke-width="2.5"/>
+
+      <!-- Radar Points -->
+      <circle cx="225" cy="62" r="4" fill="#38bdf8"/>
+      <circle cx="309" cy="112" r="4" fill="#38bdf8"/>
+      <circle cx="308" cy="208" r="4" fill="#38bdf8"/>
+      <circle cx="225" cy="260" r="4" fill="#38bdf8"/>
+      <circle cx="141" cy="208" r="4" fill="#38bdf8"/>
+      <circle cx="141" cy="113" r="4" fill="#38bdf8"/>
+
+      <!-- Labels -->
+      <text x="225" y="48" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">${isZh ? '体感温度舒适 (98.8%)' : 'Thermal Comfort (98.8%)'}</text>
+      <text x="325" y="110" fill="#ffffff" font-size="10" font-weight="bold">${isZh ? '氨气安全 (99.4%)' : 'NH3 Safety (99.4%)'}</text>
+      <text x="325" y="215" fill="#ffffff" font-size="10" font-weight="bold">${isZh ? '负压静压 (97.6%)' : 'Static Pressure (97.6%)'}</text>
+      <text x="225" y="280" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="middle">${isZh ? '碳核减排 (100%)' : 'Carbon Abatement (100%)'}</text>
+      <text x="125" y="215" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="end">${isZh ? '声学生物健康 (99.2%)' : 'Bio-Acoustics (99.2%)'}</text>
+      <text x="125" y="110" fill="#ffffff" font-size="10" font-weight="bold" text-anchor="end">${isZh ? '采食饮水均衡 (98.1%)' : 'Feed/Water Intake (98.1%)'}</text>
+    </svg>
+  `;
+
+  // Render compliance breakdown metrics
+  const list = document.getElementById('compliance-metrics-list');
+  if (!list) return;
+
+  const metrics = [
+    { name: isZh ? "舍内全域均温波动度 (±0.3°C 目标)" : "Barn Thermal Gradient Uniformity (±0.3°C Target)", val: "99.2%", status: "Optimal" },
+    { name: isZh ? "氨气浓度安全达标率 (< 15.0 ppm 红线)" : "Ammonia Concentration Safety Compliance (< 15.0 ppm)", val: "99.8%", status: "Optimal" },
+    { name: isZh ? "负压静压稳定性 (-15 Pa 至 -22 Pa 目标)" : "Tunnel Static Pressure Stability (-15 to -22 Pa Target)", val: "98.5%", status: "Optimal" },
+    { name: isZh ? "生物声学未发病杂音指数 (异常度 < 0.10)" : "Bio-Acoustic Pre-Symptomatic Rales Anomaly Index (< 0.10)", val: "99.4%", status: "Optimal" },
+    { name: isZh ? "料塔防断料 JIT 自动化达成率 (100% 免断料)" : "Silo Zero-Runout JIT Procurement Success Rate", val: "100.0%", status: "Optimal" }
+  ];
+
+  list.innerHTML = metrics.map(m => `
+    <div class="comp-metric-row">
+      <span class="comp-metric-name">${m.name}</span>
+      <span class="comp-metric-score">${m.val}</span>
+    </div>
+  `).join('');
+}
+
+function initExecutiveBiHub() {
+  // Tab Switcher
+  document.querySelectorAll('.bi-tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.bi-tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.bi-tab-pane').forEach(p => p.style.display = 'none');
+
+      btn.classList.add('active');
+      const targetId = btn.dataset.tab;
+      const targetPane = document.getElementById(targetId);
+      if (targetPane) {
+        targetPane.style.display = 'block';
+        if (targetId === 'tab-bi-growth') renderBiGrowthSvg();
+        if (targetId === 'tab-bi-tariff') renderBiTariffSvg();
+        if (targetId === 'tab-bi-sap') renderBiSilosGrid();
+        if (targetId === 'tab-bi-health') renderBiRadarSvg();
+      }
+    });
+  });
+
+  // Search input filter
+  const searchInput = document.getElementById('input-search-complex');
+  searchInput?.addEventListener('input', (e) => {
+    activeBiSearchStr = e.target.value;
+    renderBiFleetTable();
+  });
+
+  // Geo cluster filters
+  document.querySelectorAll('#bi-geo-filters .bi-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#bi-geo-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeBiGeo = btn.dataset.geo || 'all';
+      renderBiFleetTable();
+    });
+  });
+
+  // Time horizon filters
+  document.querySelectorAll('#bi-time-filters .bi-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#bi-time-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeBiTime = btn.dataset.time || 'live24';
+    });
+  });
+
+  // Breed filters
+  document.querySelectorAll('#bi-breed-filters .bi-filter-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('#bi-breed-filters .bi-filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      activeBiBreed = btn.dataset.breed || 'all';
+    });
+  });
+
+  // Export board pack button
+  document.getElementById('btn-bi-export-boardpack')?.addEventListener('click', () => {
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    alert(isZh
+      ? "📊 圣农集团 × GEA 董事会数字化运营决策报告 (PDF / PowerBI Dataset) 已导出并生成！"
+      : "📊 Sunner × GEA Board Analytics & Decision Deck (PDF / PowerBI Dataset) generated and downloaded!");
+  });
+
+  // Render initial BI views
+  renderExecutiveBiHub();
+}
+
 // Initialize default slide
 renderPresentationSlide(0);
 
@@ -2697,4 +3118,5 @@ initGrokCopilot();
 initBioAcousticSpectrogram();
 initTimeTravelReplay();
 initDigitalProductPassport();
+initExecutiveBiHub();
 addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);

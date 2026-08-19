@@ -90,7 +90,19 @@ const i18nDictionary = {
     agent_esg_title: "ESG Decarbonization Agent",
     audit_title: "IMMUTABLE AUDIT LEDGER (PALANTIR FOUNDRY)",
 
-    // Executive BI Command Center (Node 13)
+    // Executive BI Command Center (Dedicated View & Node 13)
+    bi_hub_super_title: "LEVEL 6 PRESENTATION LAYER • ENTERPRISE ANALYTICS & FACTORY DECISION FABRIC",
+    bi_hub_main_title: "Executive BI Command Center • 50 Industrial Complexes (600M Broilers/Year)",
+    lbl_bi_export: "Export Board Pack (PowerBI / PDF)",
+    lbl_bi_stream: "Live 1s Telemetry",
+    lbl_filter_time: "TIME HORIZON:",
+    lbl_filter_geo: "GEOGRAPHIC CLUSTER:",
+    lbl_filter_breed: "GENETIC STRAIN:",
+    tab_title_1: "50-Complex Production Matrix & GIS Map",
+    tab_title_2: "Cohort Growth, Weight & FCR Benchmark",
+    tab_title_3: "24h Peak vs Valley Power Load Shifting",
+    tab_title_4: "SAP S/4HANA JIT Silo & Feed Logistics",
+    tab_title_5: "Flock Microclimate & Bio-Acoustic Health",
     bi_super_tag: "LEVEL 6 • PRESENTATION LAYER",
     bi_main_title: "📊 13. Sunner × GEA Corporate BI & Analytics Command Center",
     bi_export_btn: "📥 Export PowerBI Dataset",
@@ -249,7 +261,19 @@ const i18nDictionary = {
     agent_esg_title: "ESG 低碳合规智能体 (碳足迹)",
     audit_title: "Palantir Foundry 不可篡改审计日志",
 
-    // Executive BI Command Center (Node 13)
+    // Executive BI Command Center (Dedicated View & Node 13)
+    bi_hub_super_title: "第6层 商业智能与呈现层 • 全集团数字化运营指挥与制造决策中枢",
+    bi_hub_main_title: "集团商业智能决策大屏 • 50大养殖基地 (年出栏6亿羽肉鸡)",
+    lbl_bi_export: "导出董事会决策报告 (PowerBI / PDF)",
+    lbl_bi_stream: "秒级实时流式遥测",
+    lbl_filter_time: "时间跨度:",
+    lbl_filter_geo: "地理集群:",
+    lbl_filter_breed: "品种品系:",
+    tab_title_1: "50大养殖基地全景运营矩阵与 GIS 地图",
+    tab_title_2: "白羽肉鸡生长曲线、日增重与料肉比标杆",
+    tab_title_3: "24小时削峰填谷与电价套利动态曲线",
+    tab_title_4: "SAP S/4HANA 智能料塔与 JIT 敏捷供应链",
+    tab_title_5: "鸡群舍内微气候与生物声学健康雷达",
     bi_super_tag: "第6层 • 应用与商业智能层",
     bi_main_title: "📊 13. 圣农集团 × GEA 数字化运营指挥与决策大屏",
     bi_export_btn: "📥 导出 PowerBI 数据集",
@@ -747,7 +771,33 @@ window.i18n = {
     const auditHead = document.querySelector('.cockpit-ledger-card .cockpit-title h3');
     if (auditHead) auditHead.textContent = dict.audit_title;
 
-    // 14. Executive BI Dashboard Card (Node 13)
+    // 14. Executive BI Command Center (Dedicated View & Node 13)
+    const biHubSuper = document.getElementById('bi-hub-super-title');
+    const biHubMain = document.getElementById('bi-hub-main-title');
+    const lblBiExport = document.getElementById('lbl-bi-export');
+    const lblBiStream = document.getElementById('lbl-bi-stream');
+    const lblFilterTime = document.getElementById('lbl-filter-time');
+    const lblFilterGeo = document.getElementById('lbl-filter-geo');
+    const lblFilterBreed = document.getElementById('lbl-filter-breed');
+    const tabT1 = document.getElementById('tab-title-1');
+    const tabT2 = document.getElementById('tab-title-2');
+    const tabT3 = document.getElementById('tab-title-3');
+    const tabT4 = document.getElementById('tab-title-4');
+    const tabT5 = document.getElementById('tab-title-5');
+
+    if (biHubSuper) biHubSuper.textContent = dict.bi_hub_super_title;
+    if (biHubMain) biHubMain.textContent = dict.bi_hub_main_title;
+    if (lblBiExport) lblBiExport.textContent = dict.lbl_bi_export;
+    if (lblBiStream) lblBiStream.textContent = dict.lbl_bi_stream;
+    if (lblFilterTime) lblFilterTime.textContent = dict.lbl_filter_time;
+    if (lblFilterGeo) lblFilterGeo.textContent = dict.lbl_filter_geo;
+    if (lblFilterBreed) lblFilterBreed.textContent = dict.lbl_filter_breed;
+    if (tabT1) tabT1.textContent = dict.tab_title_1;
+    if (tabT2) tabT2.textContent = dict.tab_title_2;
+    if (tabT3) tabT3.textContent = dict.tab_title_3;
+    if (tabT4) tabT4.textContent = dict.tab_title_4;
+    if (tabT5) tabT5.textContent = dict.tab_title_5;
+
     const biTag = document.querySelector('.bi-super-tag');
     const biTitle = document.querySelector('.bi-main-title');
     const biExpBtn = document.getElementById('btn-bi-export-pbi');
@@ -972,6 +1022,9 @@ window.i18n = {
     // 18. Re-render active node, BI dashboard, charts & presentation slide
     if (typeof window.renderCurrentNode === 'function') {
       window.renderCurrentNode();
+    }
+    if (typeof renderExecutiveBiHub === 'function') {
+      renderExecutiveBiHub();
     }
     if (typeof renderBiTable === 'function') {
       renderBiTable(typeof activeBiComplexFilter !== 'undefined' ? activeBiComplexFilter : 'all');

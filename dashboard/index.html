@@ -58,7 +58,7 @@
       <button class="sidebar-nav-item" id="nav-btn-bi">
         <span class="nav-icon">📊</span>
         <span class="nav-label">Executive BI Hub</span>
-        <span class="nav-chip purple">BI</span>
+        <span class="nav-chip purple" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4);">LIVE BI</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-esg">
@@ -598,7 +598,365 @@
       </section>
 
       <!-- ============================================================= -->
-      <!-- VIEW 2: ESG & 4-STAGE EVOLUTION MATRIX                        -->
+      <!-- VIEW 2: DEDICATED FULL-PAGE EXECUTIVE BI COMMAND CENTER       -->
+      <!-- ============================================================= -->
+      <section class="main-module-view" id="section-bi-hub" style="display: none;">
+        <div class="bi-hub-full-container">
+          <!-- Top Executive Title & Global Filter Bar -->
+          <div class="section-hero-card bi-hero-header">
+            <div class="section-header-row">
+              <div>
+                <span class="section-super-title" id="bi-hub-super-title">LEVEL 6 PRESENTATION LAYER • ENTERPRISE ANALYTICS & FACTORY DECISION FABRIC</span>
+                <h2 class="section-main-title" id="bi-hub-main-title">Executive BI Command Center • 50 Industrial Complexes (600M Broilers/Year)</h2>
+              </div>
+              <div class="bi-top-actions">
+                <button class="bi-action-pill-btn" id="btn-bi-export-boardpack">
+                  <span>📥</span> <span id="lbl-bi-export">Export Board Pack (PowerBI / PDF)</span>
+                </button>
+                <button class="bi-action-pill-btn highlight" id="btn-bi-refresh-toggle">
+                  <span class="bi-pulse-dot"></span> <span id="lbl-bi-stream">Live 1s Telemetry</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Global Multidimensional Filter Strip -->
+            <div class="bi-global-filter-bar">
+              <div class="filter-group">
+                <span class="filter-group-label" id="lbl-filter-time">TIME HORIZON:</span>
+                <div class="filter-pill-buttons" id="bi-time-filters">
+                  <button class="bi-filter-btn active" data-time="live24">Live 24h Telemetry</button>
+                  <button class="bi-filter-btn" data-time="batch7">7-Day Batch Cycle</button>
+                  <button class="bi-filter-btn" data-time="cohort42">42-Day Cohort</button>
+                  <button class="bi-filter-btn" data-time="ytd">YTD FY2026</button>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-group-label" id="lbl-filter-geo">GEOGRAPHIC CLUSTER:</span>
+                <div class="filter-pill-buttons" id="bi-geo-filters">
+                  <button class="bi-filter-btn active" data-geo="all">All 50 Complexes</button>
+                  <button class="bi-filter-btn" data-geo="nanping">📍 Nanping HQ (16)</button>
+                  <button class="bi-filter-btn" data-geo="ganzhou">📍 Ganzhou (12)</button>
+                  <button class="bi-filter-btn" data-geo="pingliang">📍 Pingliang (10)</button>
+                  <button class="bi-filter-btn" data-geo="zhumadian">📍 Zhumadian (12)</button>
+                </div>
+              </div>
+
+              <div class="filter-group">
+                <span class="filter-group-label" id="lbl-filter-breed">GENETIC STRAIN:</span>
+                <div class="filter-pill-buttons" id="bi-breed-filters">
+                  <button class="bi-filter-btn active" data-breed="all">All Strains</button>
+                  <button class="bi-filter-btn" data-breed="cobb500">Cobb500 (White Broiler)</button>
+                  <button class="bi-filter-btn" data-breed="sz901">Sunner SZ901 (Champion)</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- 6 Big Executive North-Star KPI Tiles -->
+            <div class="bi-northstar-grid">
+              <div class="bi-stat-card glow-blue">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-1">ANNUAL BROILER THROUGHPUT</span>
+                  <span class="bi-trend-pill positive">▲ +4.2% YoY</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-1">624.50<small>M Birds / yr</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-1">● 1.62M Metric Tons • 100% Pedigree</div>
+              </div>
+
+              <div class="bi-stat-card glow-green">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-2">FLEET FEED CONVERSION (FCR)</span>
+                  <span class="bi-trend-pill positive">▼ -0.078 FCR</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-2">1.542<small>vs 1.620</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-2">● ¥299.52M Annual Feed Grain Saved</div>
+              </div>
+
+              <div class="bi-stat-card glow-cyan">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-3">ENERGY & TOU TARIFF SAVINGS</span>
+                  <span class="bi-trend-pill positive">▼ -28.4% Peak kWh</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-3">¥15.77<small>M / yr</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-3">● 48.2 GWh Shifted to Valley (¥0.42)</div>
+              </div>
+
+              <div class="bi-stat-card glow-purple">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-4">CUMULATIVE FLOCK MORTALITY</span>
+                  <span class="bi-trend-pill positive">▼ -3.32% Loss</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-4">1.18<small>%</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-4">● +497,250 Birds Preserved / Complex</div>
+              </div>
+
+              <div class="bi-stat-card glow-emerald">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-5">VERIFIED CARBON ABATEMENT</span>
+                  <span class="bi-trend-pill positive">● ISO 14064-1</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-5">18,886<small>t CO₂e</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-5">● A+ Green Export Passport Certified</div>
+              </div>
+
+              <div class="bi-stat-card glow-amber">
+                <div class="bi-stat-top">
+                  <span class="bi-kpi-lbl" id="bi-kpi-lbl-6">NET RECURRING EBITDA VALUE</span>
+                  <span class="bi-trend-pill positive">&lt; 2.5mo Payback</span>
+                </div>
+                <div class="bi-kpi-num" id="bi-kpi-val-6">+¥655.5<small>M / yr</small></div>
+                <div class="bi-kpi-sub" id="bi-kpi-sub-6">● $92.3M USD Bottom-Line Delta</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Multi-Tab Interactive Workbench Navigation Bar -->
+          <div class="bi-tab-navigation-bar">
+            <button class="bi-tab-btn active" data-tab="tab-bi-complexes" id="btn-tab-complexes">
+              <span class="tab-icon">🏭</span>
+              <span class="tab-title" id="tab-title-1">50-Complex Production Matrix & GIS Map</span>
+            </button>
+            <button class="bi-tab-btn" data-tab="tab-bi-growth" id="btn-tab-growth">
+              <span class="tab-icon">📈</span>
+              <span class="tab-title" id="tab-title-2">Cohort Growth, Weight & FCR Benchmark</span>
+            </button>
+            <button class="bi-tab-btn" data-tab="tab-bi-tariff" id="btn-tab-tariff">
+              <span class="tab-icon">⚡</span>
+              <span class="tab-title" id="tab-title-3">24h Peak vs Valley Power Load Shifting</span>
+            </button>
+            <button class="bi-tab-btn" data-tab="tab-bi-sap" id="btn-tab-sap">
+              <span class="tab-icon">📦</span>
+              <span class="tab-title" id="tab-title-4">SAP S/4HANA JIT Silo & Feed Logistics</span>
+            </button>
+            <button class="bi-tab-btn" data-tab="tab-bi-health" id="btn-tab-health">
+              <span class="tab-icon">🔬</span>
+              <span class="tab-title" id="tab-title-5">Flock Microclimate & Bio-Acoustic Health</span>
+            </button>
+          </div>
+
+          <!-- TAB CONTENT CONTAINERS -->
+
+          <!-- TAB 1: 50-Complex Production Matrix & GIS Map -->
+          <div class="bi-tab-pane active" id="tab-bi-complexes">
+            <div class="bi-complexes-workbench-grid">
+              <!-- Left: Searchable, Sortable Enterprise Fleet Table -->
+              <div class="bi-pane-card bi-table-pane">
+                <div class="pane-header-row">
+                  <div class="pane-title-group">
+                    <h3 id="table-pane-title">🏭 Enterprise Fleet Real-Time Operations Matrix (50 Complexes)</h3>
+                    <span class="pane-sub-badge" id="table-pane-badge">Showing 50 Complexes • 2,125,000 Live Broilers Sample</span>
+                  </div>
+                  <div class="table-search-box">
+                    <span>🔍</span>
+                    <input type="text" id="input-search-complex" placeholder="Filter by complex name, region, or status..." autocomplete="off">
+                  </div>
+                </div>
+
+                <div class="bi-table-scroll-container">
+                  <table class="bi-enterprise-table" id="table-enterprise-complexes">
+                    <thead>
+                      <tr>
+                        <th>Complex & Cluster</th>
+                        <th>Active Houses</th>
+                        <th>Live Birds</th>
+                        <th>Avg Temp (°C)</th>
+                        <th>Avg NH₃ (ppm)</th>
+                        <th>Silo Stock</th>
+                        <th>Autopilot Mode</th>
+                        <th>FCR Status</th>
+                        <th>YTD Energy Saved</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-enterprise-complexes">
+                      <!-- Dynamically rendered via JS -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+
+              <!-- Right: Regional League Table & Heatwave Threat Matrix -->
+              <div class="bi-pane-card bi-gis-pane">
+                <div class="pane-header-row">
+                  <h3 id="gis-pane-title">🗺️ Regional Cluster Performance & Risk Index</h3>
+                  <span class="live-math-badge">Live Multi-Region</span>
+                </div>
+
+                <div class="gis-clusters-list" id="gis-clusters-list">
+                  <!-- Dynamically rendered cluster cards -->
+                </div>
+
+                <!-- Live Fleet Alert Stream -->
+                <div class="bi-cluster-alert-box">
+                  <div class="alert-box-head">
+                    <span>🚨 REAL-TIME FLEET EXCEPTION RADAR:</span>
+                  </div>
+                  <div class="alert-box-body" id="bi-fleet-alert-ticker">
+                    <div class="alert-row">
+                      <span class="alert-dot green"></span>
+                      <span>Nanping HQ (16 Complexes): 100% Closed-Loop Autonomous. FCR 1.54 Ahead of target.</span>
+                    </div>
+                    <div class="alert-row">
+                      <span class="alert-dot amber"></span>
+                      <span>Pingliang Complex 04: Ambient temp 36.2°C. Pre-cooling pulse misting armed.</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 2: Cohort Growth, Weight & FCR Benchmark -->
+          <div class="bi-tab-pane" id="tab-bi-growth" style="display: none;">
+            <div class="bi-pane-card">
+              <div class="pane-header-row">
+                <div>
+                  <h3 id="growth-pane-title">📈 42-Day Broiler Genetic Growth Curve vs Global Cobb500 / SZ901 Standards</h3>
+                  <span class="pane-sub-badge">High-Precision Daily Mass Gain (ADG) & Cumulative FCR Trajectory</span>
+                </div>
+                <div class="growth-cohort-selectors">
+                  <select id="select-growth-batch" class="custom-select">
+                    <option value="batch-current">Nanping House 03 • Batch #2026-08A (Day 26 Cobb500)</option>
+                    <option value="batch-sz901">Sanming Complex 02 • Batch #2026-07C (Day 35 SZ901)</option>
+                    <option value="batch-benchmark">Global Aviagen / Cobb Genetic Standard Benchmark</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="bi-growth-chart-stage" id="bi-svg-growth-stage">
+                <!-- Dynamically rendered SVG Dual-Axis Chart -->
+              </div>
+
+              <div class="growth-summary-pills-row">
+                <div class="growth-pill">
+                  <span>Current Age:</span> <strong>Day 26 (Grower Phase)</strong>
+                </div>
+                <div class="growth-pill">
+                  <span>Average Daily Gain (ADG):</span> <strong class="green-text">+68.5 g/day (+7.2% vs Std)</strong>
+                </div>
+                <div class="growth-pill">
+                  <span>Current Live Weight:</span> <strong>2,140 g (Target: 2,050 g)</strong>
+                </div>
+                <div class="growth-pill">
+                  <span>Dynamic FCR:</span> <strong class="cyan-text">1.542 (Benchmark: 1.620)</strong>
+                </div>
+                <div class="growth-pill">
+                  <span>European Production Index (EPEF):</span> <strong class="purple-text">438 (World Class &gt; 400)</strong>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 3: 24h Peak vs Valley Power Load Shifting -->
+          <div class="bi-tab-pane" id="tab-bi-tariff" style="display: none;">
+            <div class="bi-pane-card">
+              <div class="pane-header-row">
+                <div>
+                  <h3 id="tariff-pane-title">⚡ 24-Hour Electricity TOU Tariff Arbitrage & Thermal Mass Pre-Cooling</h3>
+                  <span class="pane-sub-badge">Provincial Power Grid Load Shifting: Peak (¥1.38/kWh) vs Valley (¥0.42/kWh)</span>
+                </div>
+                <div class="tariff-live-badge">
+                  <span>Total Daily Fleet Power Saving:</span> <strong class="green-text">¥40,684 / day</strong>
+                </div>
+              </div>
+
+              <div class="bi-tariff-chart-stage" id="bi-svg-tariff-stage">
+                <!-- Dynamically rendered SVG Tariff Shifting Chart -->
+              </div>
+
+              <div class="tariff-breakdown-grid">
+                <div class="tariff-card-box">
+                  <span class="t-badge valley">VALLEY TARIFF (00:00 - 08:00)</span>
+                  <div class="t-price">¥0.42 <small>/ kWh</small></div>
+                  <p>AI pre-cools 50 complexes by -1.2°C to store thermal inertia into concrete floors and water lines.</p>
+                </div>
+                <div class="tariff-card-box">
+                  <span class="t-badge flat">FLAT TARIFF (08:00 - 14:00, 17:00 - 22:00)</span>
+                  <div class="t-price">¥0.85 <small>/ kWh</small></div>
+                  <p>Nominal steady ventilation maintaining 22.2°C uniform target microclimate and air velocity 2.2 m/s.</p>
+                </div>
+                <div class="tariff-card-box">
+                  <span class="t-badge peak">PEAK TARIFF (14:00 - 17:00)</span>
+                  <div class="t-price">¥1.38 <small>/ kWh</small></div>
+                  <p>VFD fans throttled by -28.4% while pulse-misting maintains zero heat-stress, avoiding ¥15.77M/yr penalty.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 4: SAP S/4HANA JIT Silo & Feed Logistics -->
+          <div class="bi-tab-pane" id="tab-bi-sap" style="display: none;">
+            <div class="bi-sap-workbench-grid">
+              <!-- Silo Inventory Gauges -->
+              <div class="bi-pane-card">
+                <div class="pane-header-row">
+                  <h3 id="silo-pane-title">🌾 Live Silo Weight Sensors & Automated Reorder Runout Radar</h3>
+                  <span class="live-math-badge">Loadcells ±0.5% Accuracy</span>
+                </div>
+                <div class="silo-gauges-grid" id="silo-gauges-grid">
+                  <!-- Dynamically rendered Silo cards -->
+                </div>
+              </div>
+
+              <!-- SAP PO Audit Stream -->
+              <div class="bi-pane-card">
+                <div class="pane-header-row">
+                  <h3 id="sap-po-pane-title">📦 Zero-Touch SAP S/4HANA Purchase Order Audit Trail</h3>
+                  <span class="pane-sub-badge">BAPI_PO_CREATE1 Invocations</span>
+                </div>
+                <div class="sap-po-table-container">
+                  <table class="bi-enterprise-table" id="table-sap-pos">
+                    <thead>
+                      <tr>
+                        <th>SAP PO Number</th>
+                        <th>Material</th>
+                        <th>Quantity</th>
+                        <th>Triggered At</th>
+                        <th>Execution Lag</th>
+                        <th>Supplier</th>
+                        <th>Status</th>
+                      </tr>
+                    </thead>
+                    <tbody id="tbody-sap-pos">
+                      <!-- Dynamic SAP PO rows -->
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- TAB 5: Flock Microclimate & Bio-Acoustic Health -->
+          <div class="bi-tab-pane" id="tab-bi-health" style="display: none;">
+            <div class="bi-health-workbench-grid">
+              <!-- Radar Chart Card -->
+              <div class="bi-pane-card">
+                <div class="pane-header-row">
+                  <h3 id="health-radar-title">🕸️ 6-Dimensional Animal Welfare & Environmental Compliance Radar</h3>
+                  <span class="live-math-badge green">Score: 99.2% Gold Tier</span>
+                </div>
+                <div class="bi-radar-chart-stage" id="bi-svg-radar-stage">
+                  <!-- Dynamically rendered SVG Radar -->
+                </div>
+              </div>
+
+              <!-- Environmental Compliance Breakdown -->
+              <div class="bi-pane-card">
+                <div class="pane-header-row">
+                  <h3 id="health-breakdown-title">📊 50-Complex Environmental Health Deviation Breakdown</h3>
+                  <span class="pane-sub-badge">Real-Time Sensor Compliance Range</span>
+                </div>
+                <div class="compliance-metrics-list" id="compliance-metrics-list">
+                  <!-- Dynamic metric rows -->
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ============================================================= -->
+      <!-- VIEW 3: ESG & 4-STAGE EVOLUTION MATRIX                        -->
       <!-- ============================================================= -->
       <section class="main-module-view" id="section-esg-evolution" style="display: none;">
         <div class="section-hero-card">
