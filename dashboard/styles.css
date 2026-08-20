@@ -4508,3 +4508,863 @@ body.density-presenter .hero-canvas-card:hover .floating-zoom-controls { opacity
   box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
   border-color: rgba(255, 255, 255, 0.28);
 }
+
+/* ================================================================= */
+/* 21. FULLSCREEN BI COMMAND CENTER (#section-bi-hub)                  */
+/* ----------------------------------------------------------------- */
+/* In fullscreen the section becomes the top-level element, so it has */
+/* to supply its own background, padding and scrolling - it normally  */
+/* inherits those from .app-workspace-scroll.                        */
+/* ================================================================= */
+#section-bi-hub:fullscreen,
+#section-bi-hub:-webkit-full-screen,
+#section-bi-hub.is-fullscreen {
+  display: block !important;
+  width: 100vw !important;
+  height: 100vh !important;
+  max-height: 100vh !important;
+  overflow-y: auto !important;
+  overflow-x: hidden !important;
+  padding: 1.5rem 2rem !important;
+  background: radial-gradient(circle at 50% 15%, #03038b 0%, #020224 45%, #010114 100%) !important;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Let the content breathe on a projector: wider gutters, larger numbers. */
+#section-bi-hub:fullscreen .bi-hub-full-container,
+#section-bi-hub:-webkit-full-screen .bi-hub-full-container,
+#section-bi-hub.is-fullscreen .bi-hub-full-container {
+  gap: 1.5rem;
+  max-width: 2200px;
+  margin: 0 auto;
+}
+
+#section-bi-hub:fullscreen .bi-kpi-num,
+#section-bi-hub:-webkit-full-screen .bi-kpi-num,
+#section-bi-hub.is-fullscreen .bi-kpi-num {
+  font-size: clamp(1.6rem, 1.2rem + 1vw, 2.4rem);
+}
+
+#section-bi-hub:fullscreen .section-main-title,
+#section-bi-hub:-webkit-full-screen .section-main-title,
+#section-bi-hub.is-fullscreen .section-main-title {
+  font-size: clamp(1.25rem, 1rem + 0.7vw, 1.9rem);
+}
+
+/* The active toggle reads as pressed while projecting. */
+#section-bi-hub:fullscreen #btn-bi-hub-fullscreen,
+#section-bi-hub:-webkit-full-screen #btn-bi-hub-fullscreen,
+#section-bi-hub.is-fullscreen #btn-bi-hub-fullscreen {
+  background: rgba(3, 3, 139, 0.6);
+  border-color: rgba(255, 255, 255, 0.35);
+  color: var(--text-primary);
+}
+
+/* ================================================================= */
+/* 22. KEYNOTE DECK - LAYOUT VARIANTS                                 */
+/* ----------------------------------------------------------------- */
+/* The deck previously rendered one template for all eight slides.    */
+/* Slides now declare a layout and each renders differently. Shared    */
+/* header rules stay above; these are the per-layout bodies.          */
+/* ================================================================= */
+
+.slide-heading-group { min-width: 0; }
+
+.slide-body {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* .deck-stage-card::before paints a decorative overlay at z-index 0, so every
+     content layer must be lifted above it - the same reason .slide-header-box
+     sets these. Without them the whole slide renders veiled. */
+  position: relative;
+  z-index: 1;
+  /* .deck-stage-card is overflow:hidden at a fixed height, so anything taller
+     than the stage is clipped with no way to reach it. Scrolling is the safety
+     valve; the content itself is sized to fit without needing it. */
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-width: thin;
+}
+
+.slide-body::-webkit-scrollbar { width: 6px; }
+.slide-body::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-full);
+}
+
+/* Stage entry animation, restarted on each slide change. */
+.deck-stage-card.is-entering .slide-body,
+.deck-stage-card.is-entering .slide-header-box {
+  animation: slideBodyIn 0.42s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+.deck-stage-card.is-entering .slide-body { animation-delay: 0.06s; }
+
+@keyframes slideBodyIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: none; }
+}
+
+/* --- layout: statement -------------------------------------------- */
+.slide-statement {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+  text-align: center;
+}
+
+.statement-equation {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.5rem 1.1rem;
+}
+
+.eq-term {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  padding: 0.9rem 1.4rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(3, 3, 139, 0.3);
+  max-width: 17rem;
+}
+
+.eq-term.accent {
+  border-color: rgba(56, 189, 248, 0.5);
+  background: rgba(3, 3, 139, 0.5);
+}
+
+.eq-term-main {
+  font-size: clamp(1.6rem, 1.2rem + 1.4vw, 2.9rem);
+  font-weight: 800;
+  letter-spacing: -0.03em;
+  line-height: 1;
+  color: #ffffff;
+}
+
+.eq-term-sub {
+  font-size: 0.72rem;
+  font-weight: 400;
+  color: var(--text-muted);
+  line-height: 1.45;
+}
+
+.eq-operator {
+  align-self: center;
+  font-size: clamp(1.2rem, 1rem + 0.8vw, 2rem);
+  font-weight: 300;
+  color: var(--accent-cyan);
+}
+
+.statement-lead {
+  font-size: clamp(0.9rem, 0.85rem + 0.25vw, 1.1rem);
+  line-height: 1.65;
+  color: var(--text-secondary);
+  max-width: 60rem;
+}
+.statement-lead strong { color: #ffffff; font-weight: 600; }
+
+.statement-points {
+  list-style: none;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5rem 2rem;
+  max-width: 68rem;
+}
+.statement-points li {
+  position: relative;
+  padding-left: 0.9rem;
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  text-align: left;
+}
+.statement-points li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.5em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--accent-cyan);
+}
+
+/* --- layout: contrast --------------------------------------------- */
+.slide-contrast {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  gap: 1.25rem;
+  align-items: stretch;
+}
+
+.contrast-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  padding: 1.1rem 1.25rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(2, 2, 45, 0.55);
+  min-width: 0;
+}
+
+.contrast-col.is-after {
+  border-color: rgba(56, 189, 248, 0.4);
+  background: rgba(3, 3, 139, 0.38);
+}
+
+.contrast-tag {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.contrast-col.is-after .contrast-tag { color: var(--accent-cyan); }
+
+.contrast-heading {
+  font-size: clamp(0.95rem, 0.9rem + 0.2vw, 1.15rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.contrast-list { list-style: none; display: flex; flex-direction: column; gap: 0.45rem; }
+.contrast-list li {
+  display: flex;
+  gap: 0.6rem;
+  align-items: flex-start;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+
+.contrast-mark {
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  margin-top: 0.45em;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+.contrast-col.is-after .contrast-mark { background: var(--accent-cyan); }
+
+.contrast-foot {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--text-muted);
+}
+
+.contrast-divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 0.25rem;
+}
+.contrast-divider span {
+  font-size: 0.66rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  white-space: nowrap;
+  writing-mode: vertical-rl;
+}
+
+/* --- layout: flow ------------------------------------------------- */
+.slide-flow {
+  display: flex;
+  align-items: stretch;
+  gap: 0.35rem;
+}
+
+.flow-step {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(3, 3, 139, 0.26);
+}
+
+.flow-step-index {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--accent-cyan);
+}
+
+.flow-step-title {
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.2rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.flow-step-text {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+.flow-step-text strong { color: #ffffff; font-weight: 600; }
+
+.flow-step-meta {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+  border-top: 1px solid var(--border-subtle);
+}
+
+.flow-connector {
+  align-self: center;
+  flex-shrink: 0;
+  width: 14px;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.25);
+  position: relative;
+}
+.flow-connector::after {
+  content: '';
+  position: absolute;
+  right: 0;
+  top: -2px;
+  border-left: 5px solid rgba(255, 255, 255, 0.35);
+  border-top: 2.5px solid transparent;
+  border-bottom: 2.5px solid transparent;
+}
+
+/* --- layout: stages ----------------------------------------------- */
+.slide-stages {
+  position: relative;
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: 1fr;
+  gap: 1rem;
+  padding-top: 1.5rem;
+}
+
+.stages-track {
+  position: absolute;
+  top: 1.85rem;
+  left: 6%;
+  right: 6%;
+  height: 1px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.1), rgba(56, 189, 248, 0.55));
+}
+
+.stage-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0 0.35rem;
+}
+
+.stage-node {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  background: var(--bg-app);
+  margin-bottom: 0.55rem;
+}
+.stage-item.is-done .stage-node { border-color: var(--accent-cyan); background: var(--accent-cyan); }
+.stage-item.is-current .stage-node {
+  border-color: var(--accent-green);
+  background: var(--accent-green);
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.22);
+}
+
+.stage-era {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+
+.stage-title {
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.2rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.stage-text { font-size: 0.77rem; line-height: 1.5; color: var(--text-secondary); }
+
+.stage-status {
+  margin-top: auto;
+  padding-top: 0.5rem;
+  font-size: 0.68rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+.stage-item.is-current .stage-status { color: var(--accent-green); }
+
+/* --- layout: metrics ---------------------------------------------- */
+.slide-metrics {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(11rem, 1fr));
+  gap: 1rem;
+}
+
+.metric-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 2px solid var(--accent-cyan);
+  border-radius: var(--radius-md);
+  background: rgba(3, 3, 139, 0.26);
+  min-width: 0;
+}
+
+.metric-value {
+  font-family: var(--font-mono);
+  font-size: clamp(1.5rem, 1.2rem + 1vw, 2.4rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.03em;
+  color: #ffffff;
+}
+.metric-value small {
+  font-size: 0.42em;
+  font-weight: 500;
+  color: var(--text-muted);
+  margin-left: 0.3rem;
+  letter-spacing: 0;
+}
+
+.metric-label { font-size: 0.76rem; font-weight: 600; color: var(--text-secondary); }
+
+.metric-source {
+  margin-top: auto;
+  padding-top: 0.45rem;
+  border-top: 1px solid var(--border-subtle);
+  font-size: 0.68rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+.metric-source strong { color: var(--accent-cyan); font-weight: 600; }
+
+.metrics-caveat {
+  margin-top: 0.9rem;
+  padding: 0.6rem 0.85rem;
+  border-left: 2px solid rgba(245, 158, 11, 0.5);
+  background: rgba(245, 158, 11, 0.07);
+  border-radius: var(--radius-sm);
+  font-size: 0.73rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* --- layout: roadmap ---------------------------------------------- */
+.slide-roadmap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1rem;
+}
+
+.horizon-col {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 1rem 1.1rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(2, 2, 45, 0.5);
+  min-width: 0;
+}
+.horizon-col:first-child { border-color: rgba(16, 185, 129, 0.35); }
+.horizon-col:last-child { background: rgba(3, 3, 139, 0.4); }
+
+.horizon-when {
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.horizon-title {
+  font-size: clamp(0.95rem, 0.9rem + 0.25vw, 1.2rem);
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.horizon-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+.horizon-list li {
+  position: relative;
+  padding-left: 0.85rem;
+  font-size: 0.77rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.horizon-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.roadmap-closing {
+  margin-top: 0.9rem;
+  text-align: center;
+  font-size: clamp(0.85rem, 0.8rem + 0.25vw, 1.05rem);
+  color: var(--text-secondary);
+}
+.roadmap-closing strong { color: #ffffff; font-weight: 700; }
+
+/* --- narrower screens --------------------------------------------- */
+@media (max-width: 1280px) {
+  .slide-flow { flex-wrap: wrap; }
+  .flow-step { flex-basis: calc(50% - 0.5rem); }
+  .flow-connector { display: none; }
+  .slide-stages { grid-auto-flow: row; grid-template-columns: repeat(2, 1fr); }
+  .stages-track { display: none; }
+  .slide-roadmap { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 900px) {
+  .slide-contrast { grid-template-columns: 1fr; }
+  .contrast-divider span { writing-mode: horizontal-tb; }
+  .flow-step { flex-basis: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deck-stage-card.is-entering .slide-body,
+  .deck-stage-card.is-entering .slide-header-box { animation: none; }
+}
+
+/* ================================================================= */
+/* 23. KEYNOTE DECK - FULLSCREEN SIZING FOR THE NEW LAYOUTS            */
+/* ----------------------------------------------------------------- */
+/* Section 6's fullscreen rules only target the old DOM shape         */
+/* (.slide-grid-3col / .slide-card-*). The layout bodies need their    */
+/* own fullscreen sizing, otherwise they keep desk-sized type on a     */
+/* projector and leave the stage half empty.                          */
+/* ================================================================= */
+#section-presentation-deck:fullscreen .slide-body,
+#section-presentation-deck:-webkit-full-screen .slide-body,
+#section-presentation-deck.is-fullscreen .slide-body {
+  flex: 1;
+  min-height: 0;
+  justify-content: center;
+}
+
+#section-presentation-deck:fullscreen .slide-statement,
+#section-presentation-deck:-webkit-full-screen .slide-statement,
+#section-presentation-deck.is-fullscreen .slide-statement { gap: 2.5rem; }
+
+#section-presentation-deck:fullscreen .eq-term-main,
+#section-presentation-deck:-webkit-full-screen .eq-term-main,
+#section-presentation-deck.is-fullscreen .eq-term-main {
+  font-size: clamp(2.4rem, 1.8rem + 2vw, 4.2rem);
+}
+
+#section-presentation-deck:fullscreen .eq-term-sub,
+#section-presentation-deck:-webkit-full-screen .eq-term-sub,
+#section-presentation-deck.is-fullscreen .eq-term-sub { font-size: 0.92rem; }
+
+#section-presentation-deck:fullscreen .eq-term,
+#section-presentation-deck:-webkit-full-screen .eq-term,
+#section-presentation-deck.is-fullscreen .eq-term {
+  padding: 1.4rem 2rem;
+  max-width: 22rem;
+}
+
+#section-presentation-deck:fullscreen .statement-lead,
+#section-presentation-deck:-webkit-full-screen .statement-lead,
+#section-presentation-deck.is-fullscreen .statement-lead {
+  font-size: clamp(1.05rem, 0.9rem + 0.5vw, 1.45rem);
+}
+
+#section-presentation-deck:fullscreen .statement-points li,
+#section-presentation-deck:-webkit-full-screen .statement-points li,
+#section-presentation-deck.is-fullscreen .statement-points li { font-size: 0.95rem; }
+
+/* Contrast, flow, stages, metrics and roadmap all scale their body text. */
+#section-presentation-deck:fullscreen .contrast-list li,
+#section-presentation-deck:fullscreen .flow-step-text,
+#section-presentation-deck:fullscreen .stage-text,
+#section-presentation-deck:fullscreen .horizon-list li,
+#section-presentation-deck:-webkit-full-screen .contrast-list li,
+#section-presentation-deck:-webkit-full-screen .flow-step-text,
+#section-presentation-deck:-webkit-full-screen .stage-text,
+#section-presentation-deck:-webkit-full-screen .horizon-list li,
+#section-presentation-deck.is-fullscreen .contrast-list li,
+#section-presentation-deck.is-fullscreen .flow-step-text,
+#section-presentation-deck.is-fullscreen .stage-text,
+#section-presentation-deck.is-fullscreen .horizon-list li {
+  font-size: clamp(0.9rem, 0.82rem + 0.22vw, 1.08rem);
+  line-height: 1.6;
+}
+
+#section-presentation-deck:fullscreen .contrast-heading,
+#section-presentation-deck:fullscreen .flow-step-title,
+#section-presentation-deck:fullscreen .stage-title,
+#section-presentation-deck:fullscreen .horizon-title,
+#section-presentation-deck:-webkit-full-screen .contrast-heading,
+#section-presentation-deck:-webkit-full-screen .flow-step-title,
+#section-presentation-deck:-webkit-full-screen .stage-title,
+#section-presentation-deck:-webkit-full-screen .horizon-title,
+#section-presentation-deck.is-fullscreen .contrast-heading,
+#section-presentation-deck.is-fullscreen .flow-step-title,
+#section-presentation-deck.is-fullscreen .stage-title,
+#section-presentation-deck.is-fullscreen .horizon-title {
+  font-size: clamp(1.15rem, 1rem + 0.45vw, 1.5rem);
+}
+
+#section-presentation-deck:fullscreen .metric-value,
+#section-presentation-deck:-webkit-full-screen .metric-value,
+#section-presentation-deck.is-fullscreen .metric-value {
+  font-size: clamp(2.2rem, 1.6rem + 1.6vw, 3.4rem);
+}
+
+#section-presentation-deck:fullscreen .metric-source,
+#section-presentation-deck:fullscreen .contrast-foot,
+#section-presentation-deck:fullscreen .flow-step-meta,
+#section-presentation-deck:-webkit-full-screen .metric-source,
+#section-presentation-deck:-webkit-full-screen .contrast-foot,
+#section-presentation-deck:-webkit-full-screen .flow-step-meta,
+#section-presentation-deck.is-fullscreen .metric-source,
+#section-presentation-deck.is-fullscreen .contrast-foot,
+#section-presentation-deck.is-fullscreen .flow-step-meta { font-size: 0.82rem; }
+
+#section-presentation-deck:fullscreen .contrast-col,
+#section-presentation-deck:fullscreen .flow-step,
+#section-presentation-deck:fullscreen .metric-block,
+#section-presentation-deck:fullscreen .horizon-col,
+#section-presentation-deck:-webkit-full-screen .contrast-col,
+#section-presentation-deck:-webkit-full-screen .flow-step,
+#section-presentation-deck:-webkit-full-screen .metric-block,
+#section-presentation-deck:-webkit-full-screen .horizon-col,
+#section-presentation-deck.is-fullscreen .contrast-col,
+#section-presentation-deck.is-fullscreen .flow-step,
+#section-presentation-deck.is-fullscreen .metric-block,
+#section-presentation-deck.is-fullscreen .horizon-col {
+  padding: 1.5rem 1.65rem;
+  gap: 0.75rem;
+}
+
+/* ================================================================= */
+/* 24. KEYNOTE DECK - INLINE SVG GRAPHICS                              */
+/* ----------------------------------------------------------------- */
+/* All deck graphics are inline SVG with a viewBox, so they scale with */
+/* their container and need no image assets. Every layer here sits     */
+/* above .deck-stage-card::before, which paints at z-index 0.          */
+/* ================================================================= */
+
+.deck-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+  position: relative;
+  z-index: 1;
+  overflow: visible;
+}
+
+.deck-svg text { font-family: var(--font-main); }
+
+.deck-svg-legend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 1.1rem;
+  margin-top: 0.5rem;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+.deck-svg-legend span { display: inline-flex; align-items: center; gap: 0.35rem; }
+.deck-svg-legend i {
+  width: 10px;
+  height: 3px;
+  border-radius: 2px;
+  flex-shrink: 0;
+}
+
+/* --- layout: chart (graphic carries the argument) ------------------ */
+.slide-chart {
+  display: grid;
+  grid-template-columns: minmax(0, 1.35fr) minmax(0, 1fr);
+  gap: 1.35rem 1.75rem;
+  align-items: start;
+}
+
+.chart-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  min-width: 0;
+  padding: 0.9rem 1rem 0.75rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(2, 2, 45, 0.5);
+}
+
+.chart-caption {
+  font-size: 0.7rem;
+  line-height: 1.5;
+  color: var(--text-muted);
+}
+
+.chart-notes {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.6rem;
+  min-width: 0;
+}
+
+.chart-notes li {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 0.7rem;
+  border-left: 2px solid rgba(56, 189, 248, 0.45);
+}
+
+.chart-note-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.chart-note-text {
+  font-size: 0.75rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.chart-note-text strong { color: #ffffff; font-weight: 600; }
+
+/* --- flow with a loop diagram above the steps --------------------- */
+.slide-flow-figure {
+  position: relative;
+  z-index: 1;
+  max-width: 22rem;
+  margin: 0 auto 0.85rem;
+}
+
+/* --- stages: rising capability curve behind the track ------------- */
+.stages-curve {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0.35rem;
+  height: 3.2rem;
+  opacity: 0.75;
+  pointer-events: none;
+  z-index: 0;
+}
+.stage-item { position: relative; z-index: 1; }
+
+/* --- cards with a side figure ------------------------------------- */
+.slide-cards-with-figure {
+  display: grid;
+  grid-template-columns: 9.5rem minmax(0, 1fr);
+  gap: 1.35rem;
+  align-items: start;
+}
+
+.cards-figure {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+  align-items: center;
+  position: relative;
+  z-index: 1;
+}
+.cards-figure .deck-svg { max-width: 9rem; }
+
+.cards-figure-caption {
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+/* The 3-col grid becomes a stack when it shares space with the figure. */
+.slide-cards-with-figure .slide-grid-3col {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin: 0;
+}
+
+/* --- metrics: before/after bars ----------------------------------- */
+.metric-bars {
+  position: relative;
+  z-index: 1;
+  height: 14px;
+}
+.deck-svg-bars { height: 14px; }
+
+/* --- roadmap: expanding scope rings ------------------------------- */
+.horizon-rings {
+  width: 3.4rem;
+  margin-bottom: 0.15rem;
+  position: relative;
+  z-index: 1;
+}
+.deck-svg-rings { width: 100%; }
+
+/* --- fullscreen sizing for graphics ------------------------------- */
+#section-presentation-deck:fullscreen .slide-flow-figure,
+#section-presentation-deck:-webkit-full-screen .slide-flow-figure,
+#section-presentation-deck.is-fullscreen .slide-flow-figure {
+  max-width: 30rem;
+  margin-bottom: 1.3rem;
+}
+
+#section-presentation-deck:fullscreen .chart-caption,
+#section-presentation-deck:-webkit-full-screen .chart-caption,
+#section-presentation-deck.is-fullscreen .chart-caption { font-size: 0.88rem; }
+
+#section-presentation-deck:fullscreen .chart-note-title,
+#section-presentation-deck:-webkit-full-screen .chart-note-title,
+#section-presentation-deck.is-fullscreen .chart-note-title { font-size: 1rem; }
+
+#section-presentation-deck:fullscreen .chart-note-text,
+#section-presentation-deck:-webkit-full-screen .chart-note-text,
+#section-presentation-deck.is-fullscreen .chart-note-text {
+  font-size: clamp(0.9rem, 0.82rem + 0.22vw, 1.05rem);
+}
+
+#section-presentation-deck:fullscreen .deck-svg-legend,
+#section-presentation-deck:-webkit-full-screen .deck-svg-legend,
+#section-presentation-deck.is-fullscreen .deck-svg-legend { font-size: 0.85rem; }
+
+#section-presentation-deck:fullscreen .cards-figure .deck-svg,
+#section-presentation-deck:-webkit-full-screen .cards-figure .deck-svg,
+#section-presentation-deck.is-fullscreen .cards-figure .deck-svg { max-width: 12rem; }
+
+#section-presentation-deck:fullscreen .slide-cards-with-figure,
+#section-presentation-deck:-webkit-full-screen .slide-cards-with-figure,
+#section-presentation-deck.is-fullscreen .slide-cards-with-figure {
+  grid-template-columns: 13rem minmax(0, 1fr);
+}
+
+/* --- narrower screens --------------------------------------------- */
+@media (max-width: 1280px) {
+  .slide-chart { grid-template-columns: 1fr; gap: 0.9rem; }
+  .chart-notes { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0.6rem 1.1rem; }
+  .slide-cards-with-figure { grid-template-columns: 1fr; }
+  .cards-figure { flex-direction: row; align-items: center; gap: 0.9rem; }
+  .cards-figure .deck-svg { max-width: 7rem; }
+}
+
+@media (max-width: 900px) {
+  .chart-notes { grid-template-columns: 1fr; }
+}

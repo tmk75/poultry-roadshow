@@ -121,8 +121,8 @@ const i18nDictionary = {
     tab_title_5: "Flock Microclimate & Bio-Acoustic Health",
     bi_super_tag: "LEVEL 6 • PRESENTATION LAYER",
     bi_main_title: "📊 13. Sunner × GEA Corporate BI & Analytics Command Center",
-    bi_export_btn: "📥 Export PowerBI Dataset",
-    bi_fullscreen_btn: "⛶ Fullscreen Analytics",
+    bi_export_btn: "Export PowerBI Dataset",
+    bi_fullscreen_btn: "Fullscreen Analytics",
     bi_kpi_throughput: "ANNUAL FLOCK THROUGHPUT",
     bi_kpi_throughput_sub: "● 100% Traceability (Cobb500/SZ901)",
     bi_kpi_fcr: "FLEET FEED CONVERSION (FCR)",
@@ -308,8 +308,8 @@ const i18nDictionary = {
     tab_title_5: "鸡群舍内微气候与生物声学健康雷达",
     bi_super_tag: "第6层 • 应用与商业智能层",
     bi_main_title: "📊 13. 圣农集团 × GEA 数字化运营指挥与决策大屏",
-    bi_export_btn: "📥 导出 PowerBI 数据集",
-    bi_fullscreen_btn: "⛶ 全屏汇报模式",
+    bi_export_btn: "导出 PowerBI 数据集",
+    bi_fullscreen_btn: "全屏汇报模式",
     bi_kpi_throughput: "集团年出栏肉鸡总量",
     bi_kpi_throughput_sub: "● 100% 全程真溯源 (白羽肉鸡 Cobb500/SZ901)",
     bi_kpi_fcr: "全群综合料肉比 (FCR)",
@@ -873,6 +873,13 @@ window.i18n = {
     if (biTitle) biTitle.textContent = dict.bi_main_title;
     if (biExpBtn) biExpBtn.textContent = dict.bi_export_btn;
     if (biFullBtn) biFullBtn.textContent = dict.bi_fullscreen_btn;
+
+    // BI Hub fullscreen toggle: label tracks the current fullscreen state.
+    const biHubFsLbl = document.getElementById('lbl-bi-hub-fullscreen');
+    if (biHubFsLbl) {
+      const hubFs = document.fullscreenElement === document.getElementById('section-bi-hub');
+      biHubFsLbl.textContent = hubFs ? dict.btn_exit_fullscreen : dict.btn_fullscreen_2d;
+    }
 
     const biKpis = document.querySelectorAll('.bi-kpi-tile');
     if (biKpis.length >= 4) {

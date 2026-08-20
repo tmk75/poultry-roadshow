@@ -214,8 +214,8 @@
     <!-- RETIRED SCENARIO PROXY BAR — DO NOT DELETE                        -->
     <!-- The sidebar "ROADSHOW SHOWCASES" list is now the single visible    -->
     <!-- entry point for scenarios. This bar stays in the DOM because the   -->
-    <!-- sidebar handlers (app.js:1070-1087), the War Room jump            -->
-    <!-- (app.js:2782) and the Auto-Pitch sequencer (app.js:2827) all       -->
+    <!-- sidebar scenario handlers, the War Room jump and the Auto-Pitch    -->
+    <!-- sequencer in app.js (search: side-scen- / btn-keynote-) all        -->
     <!-- dispatch .click() against these exact IDs. HTMLElement.click()     -->
     <!-- still fires on a hidden element, so behaviour is unchanged.        -->
     <!-- ================================================================= -->
@@ -642,6 +642,11 @@
               <div class="bi-top-actions">
                 <button class="bi-action-pill-btn" id="btn-bi-export-boardpack">
                   <span id="lbl-bi-export">Export Board Pack (PowerBI / PDF)</span>
+                </button>
+                <!-- Fullscreen the whole BI Hub for board-room projection (press F) -->
+                <button class="bi-action-pill-btn" id="btn-bi-hub-fullscreen"
+                        title="Toggle fullscreen BI Command Center (press F)">
+                  <span id="lbl-bi-hub-fullscreen">Fullscreen</span>
                 </button>
                 <button class="bi-action-pill-btn highlight" id="btn-bi-refresh-toggle">
                   <span class="bi-pulse-dot"></span> <span id="lbl-bi-stream">Live 1s Telemetry</span>
@@ -1274,17 +1279,9 @@
               <h2 class="deck-main-title" id="deck-main-title">Sunner × GEA • Enterprise Manufacturing Decision OS</h2>
             </div>
 
-            <!-- Slide Pills (8 Master Slides) -->
-            <div class="slide-pill-nav" id="slide-pill-nav">
-              <button class="slide-pill active" data-slide="0">01. Vision</button>
-              <button class="slide-pill" data-slide="1">02. 13-Nodes</button>
-              <button class="slide-pill" data-slide="2">03. 48h Buffer</button>
-              <button class="slide-pill" data-slide="3">04. Cortex AI</button>
-              <button class="slide-pill" data-slide="4">05. Auto-PO</button>
-              <button class="slide-pill" data-slide="5">06. Barn Twin</button>
-              <button class="slide-pill" data-slide="6">07. ROI BI</button>
-              <button class="slide-pill" data-slide="7">08. ISO ESG</button>
-            </div>
+            <!-- Slide pills are rendered from the deck data by
+                 renderPresentationSlide(), so the count is never hardcoded. -->
+            <div class="slide-pill-nav" id="slide-pill-nav" role="tablist" aria-label="Keynote slides"></div>
 
             <!-- Action Controls -->
             <div class="deck-actions-group">
@@ -1746,6 +1743,8 @@
   </div>
 
   <script src="i18n.js"></script>
+  <!-- Keynote deck content + per-layout renderer. Must load before app.js. -->
+  <script src="presentation_deck.js"></script>
   <script src="three_stream.js"></script>
   <script src="data_flow_engine.js"></script>
   <script src="app.js"></script>
