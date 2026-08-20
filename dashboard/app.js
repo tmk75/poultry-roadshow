@@ -1085,6 +1085,14 @@ document.getElementById('side-scen-esgcert')?.addEventListener('click', () => {
   document.getElementById('btn-keynote-esg')?.click();
 });
 
+// The keynote action bar is retired from the UI, so the sidebar is now the only
+// way a presenter can reach the Digital Product Passport modal by hand.
+document.getElementById('side-scen-dpp')?.addEventListener('click', () => {
+  resetScenarioButtons();
+  document.getElementById('side-scen-dpp')?.classList.add('active-scen');
+  document.getElementById('btn-keynote-dpp')?.click();
+});
+
 document.getElementById('side-scen-ammonia')?.addEventListener('click', () => {
   resetScenarioButtons();
   document.getElementById('side-scen-ammonia')?.classList.add('active-scen');
@@ -1941,7 +1949,7 @@ function executeSlideDemo(slideIndex) {
     document.getElementById('btn-view-2d')?.click();
     if (act.nodeId) selectNode(act.nodeId);
     if (act.action === 'toggleOffline') {
-      const offBtn = document.getElementById('btn-toggle-offline');
+      const offBtn = document.getElementById('btn-toggle-edge-offline');
       if (offBtn && !offBtn.classList.contains('active')) offBtn.click();
     }
   }
@@ -3857,3 +3865,100 @@ initGlobalClickInteractivity();
 addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
 
 
+
+// =================================================================
+// 17. CONTROL DRAWER & PRESENTER / EXPLORER DENSITY MODES
+// -----------------------------------------------------------------
+// The speed selector, live simulator and time-travel replay controls used to
+// occupy three permanently visible bands above the canvas. They now live in a
+// single collapsed drawer, and Presenter mode strips the remaining secondary
+// chrome down to canvas + narrative + KPIs for stage use.
+// Every original element ID was preserved during the move, so the existing
+// handlers and the Auto-Pitch sequencer are untouched.
+// =================================================================
+function initDensityAndControlDrawer() {
+  const drawer = document.getElementById('control-drawer');
+  const drawerBtn = document.getElementById('btn-toggle-control-drawer');
+  const densityBtn = document.getElementById('btn-toggle-density');
+  const densityLbl = document.getElementById('lbl-density-mode');
+
+  const dict = () => (window.i18n && window.i18n.dictionary[window.i18n.currentLang]) || {};
+  const isZh = () => !!(window.i18n && window.i18n.currentLang === 'zh');
+
+  // --- Consolidated control drawer ---
+  function setDrawer(open) {
+    if (!drawer || !drawerBtn) return;
+    drawer.hidden = !open;
+    drawerBtn.classList.toggle('active', open);
+    drawerBtn.setAttribute('aria-expanded', String(open));
+  }
+
+  drawerBtn?.addEventListener('click', () => setDrawer(drawer?.hidden === true));
+
+  // --- Presenter / Explorer density modes ---
+  const DENSITY_KEY = 'sunner.densityMode';
+
+  function applyDensity(mode, announce) {
+    const presenter = mode === 'presenter';
+    document.body.classList.toggle('density-presenter', presenter);
+    document.body.classList.toggle('density-explorer', !presenter);
+
+    if (densityBtn) densityBtn.setAttribute('aria-pressed', String(presenter));
+    if (densityLbl) {
+      const d = dict();
+      densityLbl.textContent = presenter
+        ? (d.density_presenter || 'Presenter')
+        : (d.density_explorer || 'Explorer');
+    }
+
+    // Presenter mode is for the stage: nothing secondary should be left open.
+    if (presenter) setDrawer(false);
+
+    try { localStorage.setItem(DENSITY_KEY, mode); } catch (_) { /* private mode */ }
+
+    if (announce && typeof addAuditLog === 'function') {
+      if (presenter) {
+        addAuditLog(isZh()
+          ? '演讲模式已启用：已隐藏次级控件，仅保留画布、结论与核心指标'
+          : 'Presenter mode on: secondary chrome hidden, canvas + narrative + KPIs only', true);
+      } else {
+        addAuditLog(isZh()
+          ? '完整模式已恢复：全部工程控件重新可见'
+          : 'Explorer mode restored: full instrument panel visible', true);
+      }
+    }
+  }
+
+  densityBtn?.addEventListener('click', () => {
+    applyDensity(document.body.classList.contains('density-presenter') ? 'explorer' : 'presenter', true);
+  });
+
+  // --- Keyboard shortcuts (C = controls, P = presenter) ---
+  document.addEventListener('keydown', (e) => {
+    if (e.ctrlKey || e.metaKey || e.altKey) return;
+
+    const tag = e.target && e.target.tagName;
+    if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || e.target?.isContentEditable) return;
+
+    // The keynote deck owns the keyboard while it is on screen.
+    const presSec = document.getElementById('section-presentation-deck');
+    if (presSec && presSec.style.display !== 'none') return;
+
+    const key = e.key.toLowerCase();
+    if (key === 'c') {
+      e.preventDefault();
+      setDrawer(drawer?.hidden === true);
+    } else if (key === 'p') {
+      e.preventDefault();
+      densityBtn?.click();
+    }
+  });
+
+  // Restore the presenter's last choice; default to Explorer.
+  let saved = 'explorer';
+  try { saved = localStorage.getItem(DENSITY_KEY) || 'explorer'; } catch (_) { /* private mode */ }
+  applyDensity(saved === 'presenter' ? 'presenter' : 'explorer', false);
+  setDrawer(false);
+}
+
+initDensityAndControlDrawer();

@@ -15,13 +15,28 @@ const i18nDictionary = {
     app_title_esg: "ESG Carbon Accounting Hub",
     app_title_barn: "Physical Barn Digital Twin",
     app_title_roi: "Autopilot vs Legacy ROI Matrix",
-    view_3d: "🚀 3D Highway",
-    view_2d: "🌐 2D Pipeline",
-    speed_lbl: "Speed:",
+    view_3d: "3D Highway",
+    view_2d: "2D Pipeline",
+    speed_lbl: "Speed",
     welfare_kpi: "Welfare",
     power_kpi: "Power",
     closedloop_kpi: "Closed-Loop",
-    lang_btn: "🌐 EN / 中文",
+    lang_btn: "EN / 中文",
+
+    // Consolidated Control Drawer & Density Modes
+    ctrl_drawer: "Controls",
+    density_explorer: "Explorer",
+    density_presenter: "Presenter",
+    sim_label: "Live simulator",
+    sim_nh3: "Ammonia (NH₃)",
+    sim_tariff: "Electricity",
+    time_badge: "Time travel",
+    time_rewind: "−30s",
+    time_replay: "▶ Replay",
+    time_pause: "❚❚ Pause",
+    time_forward: "+30s",
+    time_live: "Live Now",
+    time_bookmark: "Bookmark: 02:14:32 Inverter Failure (0.28s Veto)",
 
     // Keynotes
     roadshow_tag: "ROADSHOW SHOWCASES:",
@@ -45,11 +60,12 @@ const i18nDictionary = {
     app_title_presentation: "Executive Keynote Presentation & Speech Deck",
     app_title_warroom: "CFO Financial War Room • Macro Stress-Testing & Sensitivity Simulator",
     nav_sec_showcases: "ROADSHOW SHOWCASES",
-    scen_closedloop: "⚡ 0.3s Closed-Loop",
-    scen_sap: "📦 Zero-Touch SAP PO",
-    scen_esg: "🌱 ISO Carbon Audit",
-    scen_ammonia: "🚨 Ammonia Crisis Flush",
-    scen_legacy: "❌ Disconnected Silos",
+    scen_closedloop: "0.3s Closed-Loop",
+    scen_sap: "Zero-Touch SAP PO",
+    scen_esg: "ISO Carbon Audit",
+    scen_dpp: "Digital Product Passport",
+    scen_ammonia: "Ammonia Crisis Flush",
+    scen_legacy: "Disconnected Silos",
     user_name: "Victor Lee",
     user_role: "CDIO / Operations Lead",
     health_status: "Online • Sub-350ms Closed Loop",
@@ -58,25 +74,25 @@ const i18nDictionary = {
     band_02: "LEVEL 0-2: SHOPFLOOR OT & EDGE",
     band_34: "LEVEL 3-4: PLANT CONTROL & MOM",
     band_56: "LEVEL 5-6: DECISION OS & BI",
-    filter_all: "All Systems",
-    filter_ot: "OT Shopfloor",
+    filter_all: "All 13 Systems",
+    filter_ot: "OT & Edge",
     filter_ops: "Ops & ERP",
-    filter_cloud: "Cloud Lakehouse",
+    filter_cloud: "Lakehouse",
     filter_ai: "AI Autopilot",
-    btn_xray: "🔍 Protocol X-Ray",
-    btn_lineage: "✨ Lineage Tracer",
-    btn_offline: "⚡ Offline Buffer Sim",
-    btn_fullscreen_3d: "⛶ Fullscreen",
-    btn_fullscreen_2d: "⛶ Fullscreen",
-    btn_exit_fullscreen: "🗗 Exit Fullscreen",
+    btn_xray: "Protocol X-Ray",
+    btn_lineage: "Lineage Tracer",
+    btn_offline: "Offline Buffer Sim",
+    btn_fullscreen_3d: "Fullscreen",
+    btn_fullscreen_2d: "Fullscreen",
+    btn_exit_fullscreen: "Exit Fullscreen",
     legend_telemetry: "Telemetry",
     legend_erp: "ERP / Silos",
     legend_lakehouse: "Lakehouse",
     legend_ai: "AI Closed-Loop",
 
     // Dock & Inspector
-    mode_executive: "👔 Executive Story",
-    mode_technical: "💻 System Schema",
+    mode_executive: "Executive Story",
+    mode_technical: "System Schema",
     incoming_header: "📥 INCOMING DATA PATHWAYS:",
     outgoing_header: "📤 OUTGOING MULTI-WAY STREAMS:",
     schema_hint: "Live System Schema Payload",
@@ -171,8 +187,8 @@ const i18nDictionary = {
     deck_main_title: "Sunner × GEA • Enterprise Manufacturing Decision OS",
     deck_prev_btn: "◀ Prev",
     deck_next_btn: "Next ▶",
-    deck_full_btn: "⛶ Fullscreen",
-    deck_notes_btn: "📝 Speaker Script",
+    deck_full_btn: "Fullscreen",
+    deck_notes_btn: "Speaker Script",
     teleprompter_badge: "🎙️ EXECUTIVE SPEAKER SCRIPT & TALKING POINTS"
   },
   zh: {
@@ -186,13 +202,28 @@ const i18nDictionary = {
     app_title_esg: "ESG 碳资产全生命周期核算中心",
     app_title_barn: "鸡舍三维空间物理数字孪生",
     app_title_roi: "AI 闭环自愈与传统模式经济效益对比",
-    view_3d: "🚀 3D 数据管道",
-    view_2d: "🌐 2D 拓扑架构",
-    speed_lbl: "运行速度:",
+    view_3d: "3D 数据管道",
+    view_2d: "2D 拓扑架构",
+    speed_lbl: "运行速度",
     welfare_kpi: "福利评分",
     power_kpi: "避峰节电",
     closedloop_kpi: "闭环自愈",
-    lang_btn: "🌐 中文 / EN",
+    lang_btn: "中文 / EN",
+
+    // Consolidated Control Drawer & Density Modes
+    ctrl_drawer: "控制面板",
+    density_explorer: "完整模式",
+    density_presenter: "演讲模式",
+    sim_label: "实时模拟器",
+    sim_nh3: "氨气 (NH₃)",
+    sim_tariff: "电价时段",
+    time_badge: "时空回溯",
+    time_rewind: "−30秒",
+    time_replay: "▶ 回放",
+    time_pause: "❚❚ 暂停",
+    time_forward: "+30秒",
+    time_live: "回到实时",
+    time_bookmark: "书签：02:14:32 变频器故障 (0.28秒否决)",
 
     // Keynotes
     roadshow_tag: "重点演示场景:",
@@ -216,11 +247,12 @@ const i18nDictionary = {
     app_title_presentation: "圣农 × GEA 智能制造操作系统高管汇报演讲台",
     app_title_warroom: "集团财务作战室 • 宏观压力测试与第一性原理敏感度模拟舱",
     nav_sec_showcases: "重点演示场景",
-    scen_closedloop: "⚡ 0.3秒闭环自愈",
-    scen_sap: "📦 零触控 SAP 采购单",
-    scen_esg: "🌱 ISO 碳认证审计",
-    scen_ammonia: "🚨 氨气危机应急排风",
-    scen_legacy: "❌ 传统信息孤岛",
+    scen_closedloop: "0.3秒闭环自愈",
+    scen_sap: "零触控 SAP 采购单",
+    scen_esg: "ISO 碳认证审计",
+    scen_dpp: "数字产品护照 (DPP)",
+    scen_ammonia: "氨气危机应急排风",
+    scen_legacy: "传统信息孤岛",
     user_name: "李伟",
     user_role: "数字化转型首席技术官 / 运营负责人",
     health_status: "系统在线 • <350ms 闭环实时自愈",
@@ -229,25 +261,25 @@ const i18nDictionary = {
     band_02: "第0-2层: 现场物理感知与工业边缘",
     band_34: "第3-4层: 车间控制与跨场运营",
     band_56: "第5-6层: 数据湖仓与AI决策大屏",
-    filter_all: "全部系统",
+    filter_all: "全部 13 个系统",
     filter_ot: "OT 现场控制",
     filter_ops: "运营与 ERP",
     filter_cloud: "云端湖仓",
     filter_ai: "AI 闭环中枢",
-    btn_xray: "🔍 协议全息透视",
-    btn_lineage: "✨ 聚焦数据血缘",
-    btn_offline: "⚡ 断网缓存模拟",
-    btn_fullscreen_3d: "⛶ 全屏",
-    btn_fullscreen_2d: "⛶ 全屏",
-    btn_exit_fullscreen: "🗗 退出全屏",
+    btn_xray: "协议全息透视",
+    btn_lineage: "聚焦数据血缘",
+    btn_offline: "断网缓存模拟",
+    btn_fullscreen_3d: "全屏",
+    btn_fullscreen_2d: "全屏",
+    btn_exit_fullscreen: "退出全屏",
     legend_telemetry: "传感器遥测",
     legend_erp: "ERP与料塔",
     legend_lakehouse: "湖仓与本体",
     legend_ai: "AI闭环回路",
 
     // Dock & Inspector
-    mode_executive: "👔 业务管理视角",
-    mode_technical: "💻 技术数据架构",
+    mode_executive: "业务管理视角",
+    mode_technical: "技术数据架构",
     incoming_header: "📥 输入数据链路:",
     outgoing_header: "📤 输出分流与下发链路:",
     schema_hint: "实时工业数据报文载荷",
@@ -342,8 +374,8 @@ const i18nDictionary = {
     deck_main_title: "圣农 × GEA • 智能制造与工业互联网闭环决策操作系统",
     deck_prev_btn: "◀ 上一页",
     deck_next_btn: "下一页 ▶",
-    deck_full_btn: "⛶ 全屏放映",
-    deck_notes_btn: "📝 演讲文稿与提词",
+    deck_full_btn: "全屏放映",
+    deck_notes_btn: "演讲文稿与提词",
     teleprompter_badge: "🎙️ 集团高管汇报逐字演讲文稿与核心要点"
   }
 };
@@ -644,11 +676,13 @@ window.i18n = {
     const sCl = document.querySelector('#side-scen-closedloop span:last-child');
     const sSap = document.querySelector('#side-scen-sap span:last-child');
     const sEsg = document.querySelector('#side-scen-esgcert span:last-child');
+    const sDpp = document.querySelector('#side-scen-dpp span:last-child');
     const sAmm = document.querySelector('#side-scen-ammonia span:last-child');
     const sLeg = document.querySelector('#side-scen-legacy span:last-child');
     if (sCl) sCl.textContent = dict.scen_closedloop;
     if (sSap) sSap.textContent = dict.scen_sap;
     if (sEsg) sEsg.textContent = dict.scen_esg;
+    if (sDpp) sDpp.textContent = dict.scen_dpp;
     if (sAmm) sAmm.textContent = dict.scen_ammonia;
     if (sLeg) sLeg.textContent = dict.scen_legacy;
 
@@ -709,11 +743,14 @@ window.i18n = {
     if (b34) b34.textContent = dict.band_34;
     if (b56) b56.textContent = dict.band_56;
 
-    const fAll = document.querySelector('.filter-chip[data-subsystem="all"]');
-    const fOt = document.querySelector('.filter-chip[data-subsystem="ot"]');
-    const fOps = document.querySelector('.filter-chip[data-subsystem="ops"]');
-    const fCloud = document.querySelector('.filter-chip[data-subsystem="cloud"]');
-    const fAi = document.querySelector('.filter-chip[data-subsystem="ai"]');
+    // These previously targeted '.filter-chip[data-subsystem]', which has never
+    // existed in the markup - the chips are '.chip-btn[data-filter]', so the 2D
+    // filter row silently stayed English in ZH. Selectors corrected below.
+    const fAll = document.getElementById('chip-filter-all');
+    const fOt = document.getElementById('chip-filter-ot');
+    const fOps = document.getElementById('chip-filter-ops');
+    const fCloud = document.getElementById('chip-filter-cloud');
+    const fAi = document.getElementById('chip-filter-ai');
     if (fAll) fAll.textContent = dict.filter_all;
     if (fOt) fOt.textContent = dict.filter_ot;
     if (fOps) fOps.textContent = dict.filter_ops;
@@ -722,7 +759,7 @@ window.i18n = {
 
     const bXray = document.getElementById('btn-toggle-xray');
     const bLin = document.getElementById('btn-toggle-lineage');
-    const bOff = document.getElementById('btn-toggle-offline');
+    const bOff = document.getElementById('btn-toggle-edge-offline');
     const bFs3d = document.getElementById('btn-fullscreen-3d');
     const bFs2d = document.getElementById('btn-fullscreen-2d');
     const isFs = !!document.fullscreenElement;
@@ -735,10 +772,40 @@ window.i18n = {
       bFs3d.textContent = isFs ? dict.btn_exit_fullscreen : dict.btn_fullscreen_3d;
     }
     if (bFs2d) {
-      bFs2d.innerHTML = isFs
-        ? `<span>🗗</span> ${dict.btn_exit_fullscreen.replace('🗗 ', '')}`
-        : `<span>⛶</span> ${dict.btn_fullscreen_2d.replace('⛶ ', '')}`;
+      bFs2d.textContent = isFs ? dict.btn_exit_fullscreen : dict.btn_fullscreen_2d;
     }
+
+    // 11b. Consolidated Control Drawer: trigger, density mode, simulator, time travel
+    const drawerLbl = document.getElementById('lbl-control-drawer');
+    if (drawerLbl) drawerLbl.textContent = dict.ctrl_drawer;
+
+    const densityLbl = document.getElementById('lbl-density-mode');
+    if (densityLbl) {
+      densityLbl.textContent = document.body.classList.contains('density-presenter')
+        ? dict.density_presenter
+        : dict.density_explorer;
+    }
+
+    const simLbl = document.querySelector('.control-drawer .sim-label');
+    if (simLbl) simLbl.textContent = dict.sim_label;
+
+    const nh3Label = document.querySelector('label[for="slider-sim-nh3"]');
+    const tariffLabel = document.querySelector('label[for="slider-sim-tariff"]');
+    // Rebuild label text while keeping the live <strong> value node intact.
+    if (nh3Label && nh3Label.firstChild) nh3Label.firstChild.textContent = `${dict.sim_nh3} `;
+    if (tariffLabel && tariffLabel.firstChild) tariffLabel.firstChild.textContent = `${dict.sim_tariff} `;
+
+    const timeBadge = document.querySelector('.control-drawer .time-badge');
+    if (timeBadge) timeBadge.textContent = dict.time_badge;
+
+    const tRew = document.getElementById('btn-time-rewind');
+    const tFwd = document.getElementById('btn-time-forward');
+    const tLive = document.getElementById('btn-time-live');
+    const tBook = document.getElementById('btn-replay-incident-0214');
+    if (tRew) tRew.textContent = dict.time_rewind;
+    if (tFwd) tFwd.textContent = dict.time_forward;
+    if (tLive) tLive.textContent = dict.time_live;
+    if (tBook) tBook.textContent = dict.time_bookmark;
 
     // 12. Dock Mode Buttons & Schema Hint
     const btnExec = document.getElementById('btn-mode-executive');

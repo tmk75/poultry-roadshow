@@ -52,25 +52,21 @@
       <button class="sidebar-nav-item" id="nav-btn-warroom">
         <span class="nav-icon">💰</span>
         <span class="nav-label">CFO Financial War Room</span>
-        <span class="nav-chip green" style="background: rgba(16, 185, 129, 0.2); color: #34d399; border-color: rgba(16, 185, 129, 0.4);">¥655M</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-bi">
         <span class="nav-icon">📊</span>
         <span class="nav-label">Executive BI Hub</span>
-        <span class="nav-chip purple" style="background: rgba(168, 85, 247, 0.2); color: #c084fc; border-color: rgba(168, 85, 247, 0.4);">LIVE BI</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-esg">
         <span class="nav-icon">🌱</span>
         <span class="nav-label">ESG & Carbon Hub</span>
-        <span class="nav-chip">ISO 14064</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-barn">
         <span class="nav-icon">🐔</span>
         <span class="nav-label">Barn Spatial Twin</span>
-        <span class="nav-chip">3D CFD</span>
       </button>
 
       <button class="sidebar-nav-item" id="nav-btn-roi">
@@ -81,34 +77,39 @@
       <button class="sidebar-nav-item" id="nav-btn-presentation">
         <span class="nav-icon">🎙️</span>
         <span class="nav-label">Keynote Presentation</span>
-        <span class="nav-chip" style="background: rgba(245, 158, 11, 0.2); color: #fbbf24; border-color: rgba(245, 158, 11, 0.35);">SLIDES</span>
       </button>
 
       <div class="nav-section-title">ROADSHOW SHOWCASES</div>
 
       <button class="scenario-nav-btn active-scen" id="side-scen-closedloop">
-        <span class="scen-dot green"></span>
-        <span>⚡ 0.3s Closed-Loop</span>
+        <span class="scen-dot neutral"></span>
+        <span>0.3s Closed-Loop</span>
       </button>
 
       <button class="scenario-nav-btn" id="side-scen-sap">
-        <span class="scen-dot blue"></span>
-        <span>📦 Zero-Touch SAP PO</span>
+        <span class="scen-dot neutral"></span>
+        <span>Zero-Touch SAP PO</span>
       </button>
 
       <button class="scenario-nav-btn" id="side-scen-esgcert">
-        <span class="scen-dot purple"></span>
-        <span>🌱 ISO Carbon Audit</span>
+        <span class="scen-dot neutral"></span>
+        <span>ISO Carbon Audit</span>
+      </button>
+
+      <!-- Sole remaining entry point for the DPP modal now that the keynote bar is retired -->
+      <button class="scenario-nav-btn" id="side-scen-dpp">
+        <span class="scen-dot neutral"></span>
+        <span>Digital Product Passport</span>
       </button>
 
       <button class="scenario-nav-btn danger-scen" id="side-scen-ammonia">
         <span class="scen-dot amber"></span>
-        <span>🚨 Ammonia Crisis Flush</span>
+        <span>Ammonia Crisis Flush</span>
       </button>
 
       <button class="scenario-nav-btn" id="side-scen-legacy">
         <span class="scen-dot red"></span>
-        <span>❌ Disconnected Silos</span>
+        <span>Disconnected Silos</span>
       </button>
     </nav>
 
@@ -149,21 +150,21 @@
         <strong class="crumb-active" id="top-view-title">Enterprise Decision OS</strong>
       </div>
 
-      <!-- Center Roadshow Story Pills & Speed Controls -->
+      <!-- Center: Primary View Switch + On-Demand Control Drawer Trigger -->
       <div class="top-controls-group">
-        <!-- View Toggle -->
+        <!-- View Toggle (the only always-visible canvas control) -->
         <div class="view-segmented-pill">
-          <button class="seg-btn active" id="btn-view-3d">🚀 3D Highway</button>
-          <button class="seg-btn" id="btn-view-2d">🌐 2D Pipeline</button>
+          <button class="seg-btn active" id="btn-view-3d">3D Highway</button>
+          <button class="seg-btn" id="btn-view-2d">2D Pipeline</button>
         </div>
 
-        <!-- Animation Speed Selector -->
-        <div class="speed-control-group">
-          <span class="speed-lbl">Speed:</span>
-          <button class="speed-btn active" id="btn-speed-05" data-speed="0.5">0.5x</button>
-          <button class="speed-btn" id="btn-speed-10" data-speed="1.0">1.0x</button>
-          <button class="speed-btn" id="btn-speed-20" data-speed="2.0">2.0x</button>
-        </div>
+        <!-- Opens the consolidated drawer holding speed, simulator & time-travel -->
+        <button class="drawer-trigger-btn" id="btn-toggle-control-drawer"
+                aria-expanded="false" aria-controls="control-drawer"
+                title="Show simulator, speed and time-travel controls (press C)">
+          <span class="drawer-caret" aria-hidden="true">▾</span>
+          <span id="lbl-control-drawer">Controls</span>
+        </button>
       </div>
 
       <!-- Right Quick Metrics & Actions -->
@@ -181,15 +182,23 @@
           <span>Closed-Loop <strong>0.3s</strong></span>
         </div>
 
+        <span class="top-bar-divider" aria-hidden="true"></span>
+
+        <!-- Presenter / Explorer Density Mode Switch -->
+        <button class="density-toggle-btn" id="btn-toggle-density" aria-pressed="false"
+                title="Presenter mode hides secondary chrome for stage use (press P)">
+          <span class="density-icon" aria-hidden="true">◱</span>
+          <span id="lbl-density-mode">Explorer</span>
+        </button>
+
         <!-- 1-Click Autonomous 3-Min Executive Pitch -->
         <button class="auto-pitch-btn" id="btn-auto-pitch" title="Launch Autonomous 3-Minute Executive Pitch">
-          <span>🚀</span>
           <span id="lbl-auto-pitch">Auto-Pitch</span>
         </button>
 
         <!-- Conversational AI Copilot Button -->
         <button class="copilot-toggle-btn" id="btn-toggle-copilot" title="Open Sunner Cortex AI Copilot (Natural Language & Reasoning)">
-          <span class="copilot-glow-icon">🧠</span>
+          <span class="copilot-glow-icon" aria-hidden="true">✦</span>
           <span id="lbl-copilot-btn">Copilot</span>
         </button>
 
@@ -201,8 +210,16 @@
       </div>
     </header>
 
-    <!-- Top Roadshow Keynote Action Bar -->
-    <div class="keynote-action-bar">
+    <!-- ================================================================= -->
+    <!-- RETIRED SCENARIO PROXY BAR — DO NOT DELETE                        -->
+    <!-- The sidebar "ROADSHOW SHOWCASES" list is now the single visible    -->
+    <!-- entry point for scenarios. This bar stays in the DOM because the   -->
+    <!-- sidebar handlers (app.js:1070-1087), the War Room jump            -->
+    <!-- (app.js:2782) and the Auto-Pitch sequencer (app.js:2827) all       -->
+    <!-- dispatch .click() against these exact IDs. HTMLElement.click()     -->
+    <!-- still fires on a hidden element, so behaviour is unchanged.        -->
+    <!-- ================================================================= -->
+    <div class="keynote-action-bar is-retired" id="keynote-action-bar" hidden aria-hidden="true">
       <div class="keynote-stories-box">
         <span class="keynote-tag">ROADSHOW SHOWCASES:</span>
         <button class="keynote-btn active" id="btn-keynote-closedloop">
@@ -221,17 +238,52 @@
           <span>🏷️</span> Digital Product Passport
         </button>
       </div>
+    </div>
+
+    <!-- ================================================================= -->
+    <!-- CONSOLIDATED ON-DEMAND CONTROL DRAWER                             -->
+    <!-- Collapsed by default. Replaces three permanently-visible bands:   -->
+    <!-- the header speed group, the live simulator bar and the            -->
+    <!-- time-travel replay bar. Every original element ID is preserved.   -->
+    <!-- ================================================================= -->
+    <div class="control-drawer" id="control-drawer" hidden>
+      <!-- Animation Speed -->
+      <div class="drawer-group">
+        <span class="drawer-group-lbl speed-lbl">Speed:</span>
+        <div class="drawer-inline-row">
+          <button class="speed-btn active" id="btn-speed-05" data-speed="0.5">0.5x</button>
+          <button class="speed-btn" id="btn-speed-10" data-speed="1.0">1.0x</button>
+          <button class="speed-btn" id="btn-speed-20" data-speed="2.0">2.0x</button>
+        </div>
+      </div>
 
       <!-- Live Interactive Simulator Controls -->
-      <div class="live-simulator-bar">
-        <span class="sim-label">🎮 LIVE SIMULATOR:</span>
-        <div class="sim-slider-box">
-          <label>Ammonia (NH₃): <strong id="lbl-sim-nh3">11.4 ppm</strong></label>
-          <input type="range" id="slider-sim-nh3" min="5" max="35" step="0.5" value="11.4" class="custom-range">
+      <div class="drawer-group">
+        <span class="drawer-group-lbl sim-label">Live simulator</span>
+        <div class="drawer-inline-row">
+          <div class="sim-slider-box">
+            <label for="slider-sim-nh3">Ammonia (NH₃) <strong id="lbl-sim-nh3">11.4 ppm</strong></label>
+            <input type="range" id="slider-sim-nh3" min="5" max="35" step="0.5" value="11.4" class="custom-range">
+          </div>
+          <div class="sim-slider-box">
+            <label for="slider-sim-tariff">Electricity <strong id="lbl-sim-tariff">Peak (¥1.35)</strong></label>
+            <input type="range" id="slider-sim-tariff" min="1" max="3" step="1" value="3" class="custom-range">
+          </div>
         </div>
-        <div class="sim-slider-box">
-          <label>Electricity: <strong id="lbl-sim-tariff">Peak (¥1.35)</strong></label>
-          <input type="range" id="slider-sim-tariff" min="1" max="3" step="1" value="3" class="custom-range">
+      </div>
+
+      <!-- Time-Travel & Black-Box Incident Replay -->
+      <div class="drawer-group drawer-group-grow">
+        <span class="drawer-group-lbl time-badge">Time travel</span>
+        <div class="drawer-inline-row">
+          <span class="time-current-display" id="time-travel-timestamp">LIVE (Now: 13:30:00)</span>
+          <button class="time-btn" id="btn-time-rewind" title="Rewind 30 Seconds">−30s</button>
+          <button class="time-btn primary" id="btn-time-toggle-play" title="Play or Pause Replay">▶ Replay</button>
+          <button class="time-btn" id="btn-time-forward" title="Fast Forward 30 Seconds">+30s</button>
+          <button class="time-btn" id="btn-time-live" title="Return to Real-Time Live Stream">Live Now</button>
+          <button class="time-bookmark-btn" id="btn-replay-incident-0214" title="Replay 02:14:32 AM Inverter Trip &amp; Ammonia Crisis">
+            Bookmark: 02:14:32 Inverter Failure (0.28s Veto)
+          </button>
         </div>
       </div>
     </div>
@@ -242,22 +294,7 @@
       <!-- VIEW 1: DATA HIGHWAY & EXECUTIVE COCKPIT (SPLIT VIEW)         -->
       <!-- ============================================================= -->
       <section class="main-module-view" id="section-enterprise-flow">
-        <!-- Time-Travel & Black-Box Incident Replay Bar -->
-        <div class="time-travel-replay-bar" id="time-travel-bar">
-          <div class="time-travel-left">
-            <span class="time-badge">⏳ TIME TRAVEL REPLAY:</span>
-            <span class="time-current-display" id="time-travel-timestamp">LIVE (Now: 13:30:00)</span>
-            <button class="time-bookmark-btn" id="btn-replay-incident-0214" title="Replay 02:14:32 AM Inverter Trip & Ammonia Crisis">
-              <span>🚨</span> Bookmark: 02:14:32 AM Inverter Failure (0.28s Veto)
-            </button>
-          </div>
-          <div class="time-travel-controls">
-            <button class="time-btn" id="btn-time-rewind" title="Rewind 30 Seconds">⏪ -30s</button>
-            <button class="time-btn primary" id="btn-time-toggle-play" title="Play or Pause Replay">▶ Replay</button>
-            <button class="time-btn" id="btn-time-forward" title="Fast Forward 30 Seconds">⏩ +30s</button>
-            <button class="time-btn" id="btn-time-live" title="Return to Real-Time Live Stream">🔴 Live Now</button>
-          </div>
-        </div>
+        <!-- Time-travel replay controls now live in the Controls drawer (top bar). -->
 
         <div class="cockpit-split-grid">
           <!-- LEFT / CENTER: HERO CANVAS & INSPECTOR (68%) -->
@@ -270,10 +307,10 @@
 
                 <!-- Floating 3D Zoom Controls -->
                 <div class="floating-zoom-controls">
-                  <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (or Mouse Wheel)">🔍+</button>
-                  <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (or Mouse Wheel)">🔍−</button>
-                  <button class="zoom-btn" id="btn-zoom-reset" title="Reset 3D Camera">🎯 Reset</button>
-                  <button class="zoom-btn fullscreen-btn" id="btn-fullscreen-3d" title="Toggle Fullscreen 3D Cyber-Highway (⛶)">⛶ Fullscreen</button>
+                  <button class="zoom-btn" id="btn-zoom-in" title="Zoom In (or Mouse Wheel)" aria-label="Zoom in">+</button>
+                  <button class="zoom-btn" id="btn-zoom-out" title="Zoom Out (or Mouse Wheel)" aria-label="Zoom out">−</button>
+                  <button class="zoom-btn" id="btn-zoom-reset" title="Reset 3D Camera">Reset</button>
+                  <button class="zoom-btn fullscreen-btn" id="btn-fullscreen-3d" title="Toggle Fullscreen 3D Cyber-Highway">Fullscreen</button>
                 </div>
               </div>
 
@@ -282,36 +319,29 @@
                 <!-- Dedicated 2D Header Toolbar (Cleanly Above Canvas) -->
                 <div class="canvas-2d-toolbar-header">
                   <div class="filter-chip-group">
-                    <span class="tool-tag">FILTER:</span>
+                    <span class="tool-tag">Filter</span>
                     <button class="chip-btn active" id="chip-filter-all" data-filter="all">All 13 Systems</button>
-                    <button class="chip-btn" id="chip-filter-ot" data-filter="ot">⚡ OT & Edge</button>
-                    <button class="chip-btn" id="chip-filter-ops" data-filter="ops">🏢 Ops & ERP</button>
-                    <button class="chip-btn" id="chip-filter-cloud" data-filter="cloud">❄️ Lakehouse</button>
-                    <button class="chip-btn" id="chip-filter-ai" data-filter="ai">🧠 AI Autopilot</button>
-                  </div>
-
-                  <!-- Functional Flow Color Legend -->
-                  <div class="flow-color-legend">
-                    <span class="flow-legend-pill"><span class="flow-dot cyan"></span> Telemetry</span>
-                    <span class="flow-legend-pill"><span class="flow-dot amber"></span> ERP & Orders</span>
-                    <span class="flow-legend-pill"><span class="flow-dot indigo"></span> Lakehouse</span>
-                    <span class="flow-legend-pill"><span class="flow-dot green"></span> AI Autopilot</span>
+                    <button class="chip-btn" id="chip-filter-ot" data-filter="ot">OT &amp; Edge</button>
+                    <button class="chip-btn" id="chip-filter-ops" data-filter="ops">Ops &amp; ERP</button>
+                    <button class="chip-btn" id="chip-filter-cloud" data-filter="cloud">Lakehouse</button>
+                    <button class="chip-btn" id="chip-filter-ai" data-filter="ai">AI Autopilot</button>
                   </div>
 
                   <div class="tool-action-group">
-                    <button class="tool-toggle-btn" id="btn-toggle-xray" title="Show Live Protocol Badges & Latencies">
-                      <span>🩻</span> X-Ray Protocols
-                    </button>
-                    <button class="tool-toggle-btn active" id="btn-toggle-lineage" title="Illuminate End-to-End Connected Pathways">
-                      <span>🔍</span> Lineage Tracer
-                    </button>
-                    <button class="tool-toggle-btn danger" id="btn-toggle-edge-offline" title="Simulate Internet Disconnect & 48h NVRAM Buffer">
-                      <span>⚡</span> Offline Buffer Sim
-                    </button>
-                    <button class="tool-toggle-btn highlight" id="btn-fullscreen-2d" title="Toggle Fullscreen 2D Architecture Pipeline (⛶)">
-                      <span>⛶</span> Fullscreen
-                    </button>
+                    <button class="tool-toggle-btn" id="btn-toggle-xray" title="Show Live Protocol Badges &amp; Latencies">Protocol X-Ray</button>
+                    <button class="tool-toggle-btn active" id="btn-toggle-lineage" title="Illuminate End-to-End Connected Pathways">Lineage Tracer</button>
+                    <button class="tool-toggle-btn danger" id="btn-toggle-edge-offline" title="Simulate Internet Disconnect &amp; 48h NVRAM Buffer">Offline Buffer Sim</button>
+                    <button class="tool-toggle-btn" id="btn-fullscreen-2d" title="Toggle Fullscreen 2D Architecture Pipeline">Fullscreen</button>
                   </div>
+                </div>
+
+                <!-- Flow colour legend: reference material, so it sits below the -->
+                <!-- controls as quiet muted text rather than competing pill chrome. -->
+                <div class="flow-color-legend">
+                  <span class="flow-legend-pill"><span class="flow-dot cyan"></span> Telemetry</span>
+                  <span class="flow-legend-pill"><span class="flow-dot amber"></span> ERP &amp; Orders</span>
+                  <span class="flow-legend-pill"><span class="flow-dot indigo"></span> Lakehouse</span>
+                  <span class="flow-legend-pill"><span class="flow-dot green"></span> AI Autopilot</span>
                 </div>
 
                 <!-- 2D Canvas Stage -->
@@ -335,8 +365,8 @@
                 </div>
 
                 <div class="dock-controls-right">
-                  <button class="mode-pill-btn active" id="btn-mode-executive">👔 Executive Story</button>
-                  <button class="mode-pill-btn" id="btn-mode-technical">💻 System Schema</button>
+                  <button class="mode-pill-btn active" id="btn-mode-executive">Executive Story</button>
+                  <button class="mode-pill-btn" id="btn-mode-technical">System Schema</button>
                 </div>
               </div>
             </div>
@@ -377,8 +407,8 @@
                   <h2 class="bi-main-title">📊 13. Sunner × GEA Corporate BI & Analytics Command Center</h2>
                 </div>
                 <div class="bi-actions-group">
-                  <button class="bi-action-btn" id="btn-bi-export-pbi">📥 Export PowerBI Dataset</button>
-                  <button class="bi-action-btn primary" id="btn-bi-open-fullscreen">⛶ Fullscreen Analytics</button>
+                  <button class="bi-action-btn" id="btn-bi-export-pbi">Export PowerBI Dataset</button>
+                  <button class="bi-action-btn primary" id="btn-bi-open-fullscreen">Fullscreen Analytics</button>
                 </div>
               </div>
 
@@ -412,10 +442,10 @@
                   <span class="bi-sec-title">ENTERPRISE COMPLEX FLEET PERFORMANCE MATRIX</span>
                   <div class="bi-filter-chips">
                     <button class="bi-chip active" data-complex="all">All 50 Complexes</button>
-                    <button class="bi-chip" data-complex="nanping">📍 Nanping (HQ)</button>
-                    <button class="bi-chip" data-complex="sanming">📍 Sanming</button>
-                    <button class="bi-chip" data-complex="ganzhou">📍 Ganzhou</button>
-                    <button class="bi-chip" data-complex="pingliang">📍 Pingliang</button>
+                    <button class="bi-chip" data-complex="nanping">Nanping (HQ)</button>
+                    <button class="bi-chip" data-complex="sanming">Sanming</button>
+                    <button class="bi-chip" data-complex="ganzhou">Ganzhou</button>
+                    <button class="bi-chip" data-complex="pingliang">Pingliang</button>
                   </div>
                 </div>
 
@@ -611,7 +641,7 @@
               </div>
               <div class="bi-top-actions">
                 <button class="bi-action-pill-btn" id="btn-bi-export-boardpack">
-                  <span>📥</span> <span id="lbl-bi-export">Export Board Pack (PowerBI / PDF)</span>
+                  <span id="lbl-bi-export">Export Board Pack (PowerBI / PDF)</span>
                 </button>
                 <button class="bi-action-pill-btn highlight" id="btn-bi-refresh-toggle">
                   <span class="bi-pulse-dot"></span> <span id="lbl-bi-stream">Live 1s Telemetry</span>
@@ -635,10 +665,10 @@
                 <span class="filter-group-label" id="lbl-filter-geo">GEOGRAPHIC CLUSTER:</span>
                 <div class="filter-pill-buttons" id="bi-geo-filters">
                   <button class="bi-filter-btn active" data-geo="all">All 50 Complexes</button>
-                  <button class="bi-filter-btn" data-geo="nanping">📍 Nanping HQ (16)</button>
-                  <button class="bi-filter-btn" data-geo="ganzhou">📍 Ganzhou (12)</button>
-                  <button class="bi-filter-btn" data-geo="pingliang">📍 Pingliang (10)</button>
-                  <button class="bi-filter-btn" data-geo="zhumadian">📍 Zhumadian (12)</button>
+                  <button class="bi-filter-btn" data-geo="nanping">Nanping HQ (16)</button>
+                  <button class="bi-filter-btn" data-geo="ganzhou">Ganzhou (12)</button>
+                  <button class="bi-filter-btn" data-geo="pingliang">Pingliang (10)</button>
+                  <button class="bi-filter-btn" data-geo="zhumadian">Zhumadian (12)</button>
                 </div>
               </div>
 
@@ -966,8 +996,8 @@
               <h2 class="section-main-title">From Manual Timers to Autonomous Closed-Loop AI</h2>
             </div>
             <div class="scope-switch-group">
-              <button class="scope-pill-btn active" id="btn-scope-enterprise">🏢 Whole Company (50 Barns • 2.12M Birds)</button>
-              <button class="scope-pill-btn" id="btn-scope-single">🐔 Single Barn (House 03 • 42,500 Birds)</button>
+              <button class="scope-pill-btn active" id="btn-scope-enterprise">Whole Company (50 Barns • 2.12M Birds)</button>
+              <button class="scope-pill-btn" id="btn-scope-single">Single Barn (House 03 • 42,500 Birds)</button>
             </div>
           </div>
 
@@ -1261,8 +1291,8 @@
               <button class="deck-btn" id="btn-slide-prev" title="Previous Slide (Arrow Left)">◀ Prev</button>
               <span class="slide-counter-badge" id="slide-counter-badge">Slide 1 / 8</span>
               <button class="deck-btn" id="btn-slide-next" title="Next Slide (Arrow Right / Space)">Next ▶</button>
-              <button class="deck-btn highlight" id="btn-deck-fullscreen" title="Toggle Fullscreen Keynote (F)">⛶ Fullscreen</button>
-              <button class="deck-btn notes-toggle" id="btn-deck-toggle-notes" title="Toggle Speaker Script (S / N)">📝 Speaker Script</button>
+              <button class="deck-btn highlight" id="btn-deck-fullscreen" title="Toggle Fullscreen Keynote (F)">Fullscreen</button>
+              <button class="deck-btn notes-toggle" id="btn-deck-toggle-notes" title="Toggle Speaker Script (S / N)">Speaker Script</button>
             </div>
           </div>
 
@@ -1559,12 +1589,12 @@
 
     <!-- Preset Prompt Pills -->
     <div class="copilot-prompts-bar">
-      <span class="cp-tag">PROMPT PRESETS:</span>
-      <button class="cp-pill" data-prompt="Analyze Nanping Complex FCR Drift">📊 Analyze FCR Drift</button>
-      <button class="cp-pill" data-prompt="Simulate 42°C Summer Heatwave Defense">🔥 42°C Heatwave Defense</button>
-      <button class="cp-pill" data-prompt="Explain 0.28s Ammonia Veto Decision Logic">🚨 Explain Ammonia Veto</button>
-      <button class="cp-pill" data-prompt="Trigger 25t JIT Feed Order in SAP">📦 Execute SAP 25t PO</button>
-      <button class="cp-pill" data-prompt="Generate Cryptographic ISO 14064 Certificate">🌱 ISO 14064 Audit Proof</button>
+      <span class="cp-tag">Prompt presets</span>
+      <button class="cp-pill" data-prompt="Analyze Nanping Complex FCR Drift">Analyze FCR Drift</button>
+      <button class="cp-pill" data-prompt="Simulate 42°C Summer Heatwave Defense">42°C Heatwave Defense</button>
+      <button class="cp-pill" data-prompt="Explain 0.28s Ammonia Veto Decision Logic">Explain Ammonia Veto</button>
+      <button class="cp-pill" data-prompt="Trigger 25t JIT Feed Order in SAP">Execute SAP 25t PO</button>
+      <button class="cp-pill" data-prompt="Generate Cryptographic ISO 14064 Certificate">ISO 14064 Audit Proof</button>
     </div>
 
     <!-- Chat Message Stream -->

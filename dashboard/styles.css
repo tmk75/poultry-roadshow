@@ -199,10 +199,14 @@ body.app-layout-body {
   font-size: 0.74rem;
   padding: 0.45rem 0.6rem;
 }
+/* Scenario dots now carry meaning rather than variety: neutral for the standard
+   showcases, amber for the crisis drill, red for the legacy failure story. */
 .scen-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
-.scen-dot.green { background: var(--accent-green); }
+.scen-dot.neutral { background: rgba(255, 255, 255, 0.35); }
 .scen-dot.red { background: var(--accent-danger); }
 .scen-dot.amber { background: var(--accent-amber); }
+/* Retained for any markup still using the older colour names. */
+.scen-dot.green { background: var(--accent-green); }
 .scen-dot.purple { background: var(--accent-purple); }
 .scen-dot.blue { background: var(--accent-blue); }
 
@@ -332,15 +336,8 @@ body.app-layout-body {
   box-shadow: 0 0 12px rgba(3, 3, 139, 0.6);
 }
 
-.speed-control-group {
-  display: flex;
-  align-items: center;
-  gap: 0.25rem;
-  background: rgba(3, 3, 139, 0.25);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-full);
-  padding: 0.18rem 0.45rem;
-}
+/* .speed-control-group was removed with the header speed band; the speed buttons
+   themselves moved into the Controls drawer and keep their original IDs. */
 .speed-lbl { font-size: 0.65rem; color: var(--text-muted); font-weight: 600; }
 .speed-btn {
   background: transparent;
@@ -470,22 +467,8 @@ body.app-layout-body {
   box-shadow: 0 0 16px rgba(255, 255, 255, 0.4);
 }
 
-.live-simulator-bar {
-  display: flex;
-  align-items: center;
-  gap: 0.9rem;
-  background: rgba(1, 1, 35, 0.65);
-  border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: var(--radius-lg);
-  padding: 0.3rem 0.8rem;
-}
-
-.sim-label {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #ffffff;
-}
+/* .live-simulator-bar was retired: the sliders moved into the Controls drawer.
+   .sim-label survives as a drawer group label (see .drawer-group-lbl). */
 
 .sim-slider-box {
   display: flex;
@@ -609,25 +592,23 @@ body.app-layout-body {
   gap: 0.35rem;
 }
 
+/* Reference legend, not a control: reads as quiet caption text under the
+   toolbar instead of competing pill chrome. */
 .flow-color-legend {
   display: flex;
   align-items: center;
   flex-wrap: wrap;
-  gap: 0.65rem;
-  background: rgba(3, 3, 139, 0.4);
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  border-radius: var(--radius-full);
-  padding: 0.2rem 0.75rem;
+  gap: 1rem;
+  padding: 0.1rem 0.15rem 0.5rem;
 }
 
 .flow-legend-pill {
   display: flex;
   align-items: center;
-  gap: 0.3rem;
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 700;
-  color: #ffffff;
+  gap: 0.35rem;
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--text-muted);
   white-space: nowrap;
   flex-shrink: 0;
 }
@@ -637,16 +618,15 @@ body.app-layout-body {
   height: 6px;
   border-radius: 50%;
 }
-.flow-dot.cyan { background: #00f2fe; box-shadow: 0 0 6px #00f2fe; }
-.flow-dot.amber { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
-.flow-dot.indigo { background: #818cf8; box-shadow: 0 0 6px #818cf8; }
-.flow-dot.green { background: #10b981; box-shadow: 0 0 6px #10b981; }
+.flow-dot.cyan { background: #00f2fe; }
+.flow-dot.amber { background: #f59e0b; }
+.flow-dot.indigo { background: #818cf8; }
+.flow-dot.green { background: #10b981; }
 
 .tool-tag {
-  font-family: var(--font-mono);
-  font-size: 0.65rem;
-  font-weight: 800;
-  color: #ffffff;
+  font-size: 0.66rem;
+  font-weight: 400;
+  color: var(--text-muted);
   margin-right: 0.2rem;
   white-space: nowrap;
 }
@@ -2427,34 +2407,8 @@ body.app-layout-body {
 /* ================================================================= */
 /* 11. TIME-TRAVEL & BLACK-BOX INCIDENT REPLAY BAR                   */
 /* ================================================================= */
-.time-travel-replay-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.75rem;
-  padding: 0.5rem 1rem;
-  background: linear-gradient(90deg, rgba(3, 3, 139, 0.45) 0%, rgba(2, 2, 45, 0.95) 100%);
-  border: 1px solid rgba(56, 189, 248, 0.3);
-  border-radius: var(--radius-lg);
-  margin-bottom: 0.85rem;
-  backdrop-filter: blur(12px);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
-}
-
-.time-travel-left {
-  display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  flex-wrap: wrap;
-}
-
-.time-badge {
-  font-family: var(--font-mono);
-  font-size: 0.68rem;
-  font-weight: 800;
-  color: #38bdf8;
-  letter-spacing: 0.05em;
-}
+/* The standalone time-travel band above the canvas is gone; these controls are
+   now a group inside the Controls drawer. .time-badge survives as its label. */
 
 .time-current-display {
   font-family: var(--font-mono);
@@ -2487,12 +2441,6 @@ body.app-layout-body {
   background: #f43f5e;
   color: #ffffff;
   box-shadow: 0 0 12px rgba(244, 63, 94, 0.6);
-}
-
-.time-travel-controls {
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
 }
 
 .time-btn {
@@ -4295,3 +4243,268 @@ body.app-layout-body {
 
 
 
+
+/* ================================================================= */
+/* 17. CONSOLIDATED CONTROL DRAWER, DENSITY MODES & QUIET LAYER       */
+/* ----------------------------------------------------------------- */
+/* Replaces three permanently visible control bands (header speed     */
+/* group, live simulator bar, time-travel replay bar) with one        */
+/* on-demand drawer, and adds a Presenter density mode that strips     */
+/* secondary chrome for stage use.                                    */
+/* ================================================================= */
+
+/* --- Top bar: separator, drawer trigger, density toggle --- */
+.top-bar-divider {
+  width: 1px;
+  height: 18px;
+  background: var(--border-subtle);
+  margin: 0 0.2rem;
+  flex-shrink: 0;
+}
+
+.drawer-trigger-btn,
+.density-toggle-btn {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  background: transparent;
+  border: 1px solid var(--border-subtle);
+  color: var(--text-secondary);
+  font-family: var(--font-main);
+  font-size: 0.72rem;
+  font-weight: 500;
+  padding: 0.26rem 0.7rem;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: color 0.15s ease, border-color 0.15s ease, background 0.15s ease;
+}
+
+.drawer-trigger-btn:hover,
+.density-toggle-btn:hover {
+  color: var(--text-primary);
+  border-color: rgba(255, 255, 255, 0.32);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.drawer-trigger-btn.active,
+.density-toggle-btn[aria-pressed="true"] {
+  color: var(--text-primary);
+  background: rgba(3, 3, 139, 0.55);
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.drawer-caret {
+  font-size: 0.6rem;
+  line-height: 1;
+  transition: transform 0.2s ease;
+}
+.drawer-trigger-btn.active .drawer-caret { transform: rotate(180deg); }
+
+.density-icon { font-size: 0.7rem; line-height: 1; }
+
+/* --- The drawer itself --- */
+.control-drawer {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  padding: 0.85rem 1.25rem;
+  background: rgba(2, 2, 45, 0.92);
+  border-bottom: 1px solid var(--border-subtle);
+  backdrop-filter: blur(16px);
+  flex-shrink: 0;
+}
+
+/* Higher specificity than the display:flex above, so [hidden] wins. */
+.control-drawer[hidden] { display: none; }
+
+/* On short or narrow viewports the groups wrap; keep the drawer from eating the
+   canvas by capping its height and letting it scroll internally instead. */
+@media (max-height: 780px), (max-width: 1100px) {
+  .control-drawer {
+    max-height: 40vh;
+    overflow-y: auto;
+    gap: 1rem 1.5rem;
+  }
+}
+
+.drawer-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  min-width: 0;
+}
+
+.drawer-group-grow { flex: 1 1 22rem; }
+
+/* One label treatment for every drawer group, replacing three different
+   uppercase mono badges in three different accent colours. */
+.control-drawer .drawer-group-lbl,
+.control-drawer .speed-lbl,
+.control-drawer .sim-label,
+.control-drawer .time-badge {
+  font-family: var(--font-main);
+  font-size: 0.64rem;
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.drawer-inline-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.4rem 0.9rem;
+}
+
+.control-drawer .sim-slider-box { gap: 0.55rem; }
+.control-drawer .sim-slider-box label {
+  display: flex;
+  align-items: baseline;
+  gap: 0.35rem;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  font-weight: 400;
+}
+.control-drawer .sim-slider-box label strong {
+  font-family: var(--font-mono);
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.control-drawer .time-bookmark-btn { font-weight: 500; }
+
+/* --- Retired scenario proxy bar ------------------------------------ */
+/* Kept in the DOM so sidebar handlers and the Auto-Pitch sequencer can
+   still dispatch .click() against its buttons. Never shown. */
+.keynote-action-bar.is-retired { display: none !important; }
+
+/* ================================================================= */
+/* 18. TYPE & SPACING RETUNE                                          */
+/* Labels recede, values carry the emphasis.                          */
+/* ================================================================= */
+.nav-section-title {
+  font-family: var(--font-main);
+  font-weight: 500;
+  color: var(--text-muted);
+  letter-spacing: 0.1em;
+}
+
+.sidebar-nav-item, .scenario-nav-btn { font-weight: 500; }
+.sidebar-nav-item.active { font-weight: 600; }
+
+.stat-lbl {
+  font-family: var(--font-main);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.stat-big { font-size: 1.6rem; letter-spacing: -0.03em; }
+.stat-sub { font-weight: 400; }
+
+.kpi-cockpit-grid { gap: 0.85rem; }
+.cockpit-right-column > * + * { margin-top: 1.15rem; }
+
+.chip-btn, .tool-toggle-btn { font-weight: 500; }
+.chip-btn.active, .tool-toggle-btn.active { font-weight: 600; }
+
+/* One elevation level: drop the competing coloured glows. */
+.seg-btn.active,
+.speed-btn.active,
+.chip-btn.active,
+.scenario-nav-btn.active-scen { box-shadow: none; }
+
+.auto-pitch-btn:hover { transform: none; box-shadow: 0 0 10px rgba(245, 158, 11, 0.35); }
+.copilot-toggle-btn { font-weight: 600; }
+
+/* Canvas controls stay available but stop shouting until approached. */
+.floating-zoom-controls { opacity: 0.55; transition: opacity 0.2s ease; }
+.hero-canvas-card:hover .floating-zoom-controls,
+.floating-zoom-controls:focus-within { opacity: 1; }
+
+/* ================================================================= */
+/* 19. PRESENTER DENSITY MODE                                         */
+/* Canvas, narrative and KPIs only. Navigation stays intact.          */
+/* ================================================================= */
+body.density-presenter .sidebar-footer,
+body.density-presenter .crumb-dim,
+body.density-presenter .crumb-sep,
+body.density-presenter .live-event-ticker-card,
+body.density-presenter .data-path-inspect-box,
+body.density-presenter .flow-color-legend,
+body.density-presenter .tool-action-group {
+  display: none;
+}
+
+body.density-presenter .app-workspace-scroll { padding: 1.35rem 1.6rem; }
+body.density-presenter .cockpit-right-column > * + * { margin-top: 1.4rem; }
+body.density-presenter .stage-headline { font-size: var(--font-fluid-h1); }
+body.density-presenter .floating-zoom-controls { opacity: 0; }
+body.density-presenter .hero-canvas-card:hover .floating-zoom-controls { opacity: 1; }
+
+/* Reduced-motion users get the quiet layer without the transitions. */
+@media (prefers-reduced-motion: reduce) {
+  .drawer-caret,
+  .drawer-trigger-btn,
+  .density-toggle-btn,
+  .floating-zoom-controls { transition: none; }
+}
+
+/* ================================================================= */
+/* 20. QUIET LAYER: BI HUB & CFO WAR ROOM                             */
+/* ----------------------------------------------------------------- */
+/* Brings the two executive views onto the same footing as the Data   */
+/* Highway view. Ten per-card accent variants (six glow-*, four       */
+/* highlight-*) collapse into one neutral card, so emphasis comes     */
+/* from the numbers rather than from ten competing tints.             */
+/* These classes stay in the markup and are only assigned statically, */
+/* so neutralising them here is safe and trivially reversible.        */
+/* ================================================================= */
+.bi-stat-card.glow-blue,
+.bi-stat-card.glow-green,
+.bi-stat-card.glow-cyan,
+.bi-stat-card.glow-purple,
+.bi-stat-card.glow-emerald,
+.bi-stat-card.glow-amber,
+.warroom-kpi-card.highlight-green,
+.warroom-kpi-card.highlight-cyan,
+.warroom-kpi-card.highlight-purple,
+.warroom-kpi-card.highlight-amber {
+  border-color: var(--border-subtle);
+  background: var(--bg-card);
+}
+
+/* Labels recede, values lead - same treatment as the cockpit KPIs. */
+.bi-kpi-lbl,
+.bi-tile-lbl,
+.filter-group-label,
+.wk-label,
+.bi-sec-title,
+.bi-super-tag,
+.section-super-title {
+  font-family: var(--font-main);
+  font-weight: 500;
+  letter-spacing: 0.09em;
+  color: var(--text-muted);
+}
+
+.bi-filter-btn, .bi-chip, .bi-action-btn, .bi-action-pill-btn { font-weight: 500; }
+.bi-filter-btn.active, .bi-chip.active { font-weight: 600; }
+
+/* One badge treatment instead of per-instance pill colours. */
+.bi-trend-pill {
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-secondary);
+}
+.bi-trend-pill.positive { background: rgba(16, 185, 129, 0.16); color: #34d399; }
+
+/* Single elevation level across the executive cards. */
+.bi-stat-card:hover,
+.warroom-kpi-card:hover {
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.28);
+}
