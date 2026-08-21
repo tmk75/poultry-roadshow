@@ -1,5 +1,5 @@
 /* ================================================================= */
-/* SUNNER × GEA • ROADSHOW KEYNOTE & DECISION OS CSS STYLES          */
+/* GEA DIGIT(AI) • ROADSHOW KEYNOTE & DECISION OS CSS STYLES          */
 /* GEA Brand Theme: Deep Royal Blue (#03038b) & Crisp Pure White     */
 /* ================================================================= */
 
@@ -1900,7 +1900,11 @@ body.app-layout-body {
   gap: 0.85rem;
   position: relative;
   overflow: hidden !important;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* Scoped from `all` to the two properties that actually change. `transition:
+     all` forces the compositor to watch every property, which is a needless
+     per-frame cost on a fullscreen-sized element. */
+  transition: border-color 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Ambient Cybernetic Grid & Decorative Hologram Watermark Backdrop */

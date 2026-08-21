@@ -1,5 +1,5 @@
 /**
- * Sunner Intelligence • Precision-Aligned 2D Industrial Graph & Decision Canvas
+ * GEA Digit(AI) • Precision-Aligned 2D Industrial Graph & Decision Canvas
  * Features:
  * - Perfectly aligned 4-level architectural grid with clean vertical columns
  * - Dedicated toolbar header with zero overlap over canvas stage
@@ -709,6 +709,14 @@ class IndustrialTopologyCanvas {
   }
 
   animate() {
+    // Schedule first so the loop keeps ticking and resumes when shown again.
+    requestAnimationFrame(this.animate);
+
+    // Skip the 2D draw while the Data Highway view is hidden (e.g. while
+    // presenting) or the tab is backgrounded. offsetWidth/Height are 0 when an
+    // ancestor is display:none.
+    if ((this.canvas.offsetWidth === 0 && this.canvas.offsetHeight === 0) || document.hidden) return;
+
     const time = performance.now() * 0.001;
     this.ctx.clearRect(0, 0, this.width, this.height);
 
@@ -719,8 +727,6 @@ class IndustrialTopologyCanvas {
     this.drawPackets(connectedSet);
     this.drawNodes(time, connectedSet);
     this.drawPacketInspector();
-
-    requestAnimationFrame(this.animate);
   }
 }
 

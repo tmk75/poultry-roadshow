@@ -1,14 +1,14 @@
 /**
- * Sunner × GEA • Enterprise Decision OS Complete Internationalization Engine (i18n)
+ * GEA Digit(AI) • Enterprise Decision OS Complete Internationalization Engine (i18n)
  * Provides 100% pure English (EN) and 100% pure Simplified Chinese (中文 ZH) across every single view, component, chart, and node.
  */
 
 const i18nDictionary = {
   en: {
     // Facility & Header
-    facility_name: "Sunner Nanping Plant 01",
+    facility_name: "Nanping Plant 01",
     facility_sub: "House 03 • 42.5k Cobb500",
-    crumb_plant: "Sunner Nanping Plant 01",
+    crumb_plant: "Nanping Plant 01",
     crumb_house: "House 03",
     app_title_highway: "Enterprise Decision OS",
     app_title_bi: "Executive BI & Corporate Analytics Command Center",
@@ -120,7 +120,7 @@ const i18nDictionary = {
     tab_title_4: "SAP S/4HANA JIT Silo & Feed Logistics",
     tab_title_5: "Flock Microclimate & Bio-Acoustic Health",
     bi_super_tag: "LEVEL 6 • PRESENTATION LAYER",
-    bi_main_title: "📊 13. Sunner × GEA Corporate BI & Analytics Command Center",
+    bi_main_title: "📊 13. GEA Digit(AI) Corporate BI & Analytics Command Center",
     bi_export_btn: "Export PowerBI Dataset",
     bi_fullscreen_btn: "Fullscreen Analytics",
     bi_kpi_throughput: "ANNUAL FLOCK THROUGHPUT",
@@ -175,7 +175,7 @@ const i18nDictionary = {
     roi_legacy_p2: "<strong>High Power Bills:</strong> Fans run at 100% even during peak electricity tariffs.",
     roi_legacy_p3: "<strong>Slow Safety Reaction:</strong> Takes 45 minutes for a human to notice toxic ammonia spikes.",
     roi_legacy_p4: "<strong>Estimated Carbon:</strong> Carbon emissions guessed on Excel spreadsheets.",
-    roi_modern_badge: "✅ THE SUNNER AI TWIN",
+    roi_modern_badge: "✅ THE AI DIGITAL TWIN",
     roi_modern_title: "Autonomous Closed-Loop Fabric",
     roi_modern_p1: "<strong>Zero-Touch Purchasing:</strong> AI automatically orders 25t of feed in SAP when silos drop below 15t.",
     roi_modern_p2: "<strong>-28.4% Power Cut:</strong> AI throttles ventilation during peak pricing while keeping air 100% safe.",
@@ -184,7 +184,7 @@ const i18nDictionary = {
 
     // Presentation Deck UI Strings
     deck_super_tag: "EXECUTIVE ROADSHOW & KEYNOTE DECK",
-    deck_main_title: "Sunner × GEA • Enterprise Manufacturing Decision OS",
+    deck_main_title: "GEA Digit(AI) • Enterprise Manufacturing Decision OS",
     deck_prev_btn: "◀ Prev",
     deck_next_btn: "Next ▶",
     deck_full_btn: "Fullscreen",
@@ -193,9 +193,9 @@ const i18nDictionary = {
   },
   zh: {
     // Facility & Header
-    facility_name: "圣农集团南平第一核心养殖基地",
+    facility_name: "南平第一核心养殖基地",
     facility_sub: "03号标准栋舍 • 42,500羽 白羽肉鸡",
-    crumb_plant: "圣农集团南平基地",
+    crumb_plant: "南平基地",
     crumb_house: "03号栋舍",
     app_title_highway: "全链路智能制造决策系统",
     app_title_bi: "集团数字化运营指挥与决策大屏",
@@ -244,7 +244,7 @@ const i18nDictionary = {
     nav_barn: "鸡舍三维空间数字孪生",
     nav_roi: "AI 闭环与传统模式 ROI",
     nav_presentation: "集团高管汇报演讲台",
-    app_title_presentation: "圣农 × GEA 智能制造操作系统高管汇报演讲台",
+    app_title_presentation: "GEA Digit(AI) 智能制造操作系统高管汇报演讲台",
     app_title_warroom: "集团财务作战室 • 宏观压力测试与第一性原理敏感度模拟舱",
     nav_sec_showcases: "重点演示场景",
     scen_closedloop: "0.3秒闭环自愈",
@@ -307,7 +307,7 @@ const i18nDictionary = {
     tab_title_4: "SAP S/4HANA 智能料塔与 JIT 敏捷供应链",
     tab_title_5: "鸡群舍内微气候与生物声学健康雷达",
     bi_super_tag: "第6层 • 应用与商业智能层",
-    bi_main_title: "📊 13. 圣农集团 × GEA 数字化运营指挥与决策大屏",
+    bi_main_title: "📊 13. GEA Digit(AI) 数字化运营指挥与决策大屏",
     bi_export_btn: "导出 PowerBI 数据集",
     bi_fullscreen_btn: "全屏汇报模式",
     bi_kpi_throughput: "集团年出栏肉鸡总量",
@@ -362,7 +362,7 @@ const i18nDictionary = {
     roi_legacy_p2: "<strong>高额电费支出:</strong> 在高电价尖峰期，传统风机依旧 100% 全速运转，浪费严重。",
     roi_legacy_p3: "<strong>异常响应迟缓:</strong> 氨气超标平均需 45分钟人工巡检才能发现，极易引发呼吸道死淘。",
     roi_legacy_p4: "<strong>碳排粗略估算:</strong> 碳排放数据全凭 Excel 手工估算，无法满足国际商超出口核验。",
-    roi_modern_badge: "✅ 圣农 AI 闭环自愈中枢",
+    roi_modern_badge: "✅ AI 闭环自愈中枢",
     roi_modern_title: "全域智能自主决策闭环",
     roi_modern_p1: "<strong>零触控自动订料:</strong> 料塔余量低于 15吨时，AI 0.2秒自动在 SAP 签发 25吨采购单。",
     roi_modern_p2: "<strong>避峰节电 -28.4%:</strong> 在尖峰电价期自动智能降频，确保空气安全的同时大幅压缩电费。",
@@ -371,7 +371,7 @@ const i18nDictionary = {
 
     // Presentation Deck UI Strings
     deck_super_tag: "集团高管汇报演讲台 • 决策操作系统",
-    deck_main_title: "圣农 × GEA • 智能制造与工业互联网闭环决策操作系统",
+    deck_main_title: "GEA Digit(AI) • 智能制造与工业互联网闭环决策操作系统",
     deck_prev_btn: "◀ 上一页",
     deck_next_btn: "下一页 ▶",
     deck_full_btn: "全屏放映",

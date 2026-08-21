@@ -1,5 +1,5 @@
 /**
- * Sunner x GEA - Keynote Deck: content and layout renderer
+ * GEA x GEA - Keynote Deck: content and layout renderer
  * ---------------------------------------------------------------------------
  * Replaces the previous deck, where all eight slides shared one template
  * (badge + title + subtitle + exactly three cards). Repetition was the reason
@@ -27,7 +27,7 @@
  * viewMode, nodeId, scenario, action.
  */
 
-window.SunnerDeck = {
+window.KeynoteDeck = {
   slides: { en: [], zh: [] },
 
   /** Slides for the active language, falling back to English. */
@@ -291,9 +291,15 @@ window.SunnerDeck = {
    * strap line and page number.
    */
   function image(s) {
+    // width/height hints let the browser reserve layout before decode, and
+    // decoding="async" keeps the decode off the main thread. The bitmap is
+    // already resident from preloadFrameImages(), so this paints immediately.
+    const dims = (Deck.frame && Deck.frame.width && Deck.frame.height)
+      ? ` width="${Deck.frame.width}" height="${Deck.frame.height}"` : '';
     return `
       <div class="slide-image-frame">
-        <img class="slide-image" src="${esc(s.image)}" alt="${esc(s.alt || '')}" draggable="false">
+        <img class="slide-image" src="${esc(s.image)}" alt="${esc(s.alt || '')}"
+             decoding="async" fetchpriority="high" draggable="false"${dims}>
       </div>
     `;
   }
@@ -352,7 +358,7 @@ window.SunnerDeck = {
       ` : ''}
     `;
   };
-})(window.SunnerDeck);
+})(window.KeynoteDeck);
 
 // ===========================================================================
 // GRAPHICS - inline SVG, no external assets
@@ -659,17 +665,17 @@ window.SunnerDeck = {
     fusionDiagram,
     chinaGlobal
   };
-})(window.SunnerDeck);
+})(window.KeynoteDeck);
 
 // The strap line that appears on every slide of the source deck.
-window.SunnerDeck.footer = 'GEA × Digit(AI) · IN CHINA FOR CHINA · CHINA → GLOBAL';
+window.KeynoteDeck.footer = 'GEA × Digit(AI) · IN CHINA FOR CHINA · CHINA → GLOBAL';
 
 // ===========================================================================
 // ENGLISH - Act I: the thesis, why it matters, the stack, China
 // Narrative and terminology follow the GEA + Digit(AI) = THE FUTURE deck.
 // ===========================================================================
 
-window.SunnerDeck.slides.en.push(
+window.KeynoteDeck.slides.en.push(
   // --- 01 -----------------------------------------------------------------
   {
     navLabel: '01. The Future',
@@ -692,7 +698,7 @@ window.SunnerDeck.slides.en.push(
     points: [
       'The process industry is the foundation of civilization: food, pharma, energy, materials.',
       'China is the proving ground: highest complexity, highest volume, fastest learning loops.',
-      'Sunner is the lighthouse — 50 complexes, 600M broilers a year, running autonomously today.'
+      'The lighthouse is a 50-complex operation — 600M broilers a year, running autonomously today.'
     ],
     demoAction: {
       badge: 'LIVE DEMO',
@@ -708,7 +714,7 @@ window.SunnerDeck.slides.en.push(
       <div class="script-callout">
         <strong>The claim:</strong> this is not two programmes running in parallel. It is a single operating layer. And AI is the prime example of a system built in China that scales to the world.
       </div>
-      <p>Everything I show you after this is running today at Sunner: fifty complexes, six hundred million broilers a year. Not a pilot.</p>
+      <p>Everything I show you after this is running today in production: fifty complexes, six hundred million broilers a year. Not a pilot.</p>
     `
   },
 
@@ -839,7 +845,7 @@ window.SunnerDeck.slides.en.push(
         text: 'Secure remote access · Real-time sensors · Gateways · Local intelligence · China-compliant OT paths'
       }
     ],
-    footnote: 'At Sunner this is Welotec edge gateways polling Modbus every 10 ms with a 48-hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.',
+    footnote: 'In production this is Welotec edge gateways polling Modbus every 10 ms with a 48-hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.',
     demoAction: {
       badge: 'LIVE DEMO',
       title: 'Inspect all 13 tiers and the protocol boundary between OT and IT.',
@@ -852,7 +858,7 @@ window.SunnerDeck.slides.en.push(
       <p><span class="script-highlight">"From atom to algorithm — and China-ready by design, which is a different claim from China-compatible."</span></p>
       <p>Bottom layer, <strong>edge and IIoT</strong>: secure remote access, real-time sensors, gateways, local intelligence, China-compliant OT paths. Above it, <strong>data and cloud</strong>: a unified data fabric on Azure China, digital twins, data residency and PIPL alignment. Then <strong>AI and agents</strong> — the prime example layer: process optimization, predictive control, executive companions, built in China and designed for global scale. On top, <strong>human plus machine</strong>: augmented operators with local language and process fluency.</p>
       <div class="script-callout">
-        <strong>Concretely, at Sunner:</strong> Welotec gateways polling Modbus every ten milliseconds with a forty-eight hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.
+        <strong>Concretely, in production:</strong> Welotec gateways polling Modbus every ten milliseconds with a forty-eight hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.
       </div>
       <p>Let me open the pipeline so you can see every tier and every protocol.</p>
     `
@@ -860,10 +866,10 @@ window.SunnerDeck.slides.en.push(
 );
 
 // ===========================================================================
-// ENGLISH - Act II: China as proving ground, and the Sunner lighthouse proof
+// ENGLISH - Act II: China as proving ground, and the lighthouse proof
 // ===========================================================================
 
-window.SunnerDeck.slides.en.push(
+window.KeynoteDeck.slides.en.push(
   // --- 05 -----------------------------------------------------------------
   {
     navLabel: '05. In China',
@@ -920,7 +926,7 @@ window.SunnerDeck.slides.en.push(
     layout: 'chart',
     topic: 'THE LIGHTHOUSE · WHERE THE MARGIN HIDES',
     title: 'Excellent machines, waiting to be told what to do',
-    subtitle: 'Sunner, House 03. A best-in-class GEA-class house still runs on setpoints a human chose hours ago, against conditions that moved minutes ago.',
+    subtitle: 'House 03 at the lighthouse complex. A best-in-class GEA house still runs on setpoints a human chose hours ago, against conditions that moved minutes ago.',
     pill: 'PHYSICAL WITHOUT Digit(AI)',
     time: 'Target time: 2 min',
     graphic: {
@@ -948,7 +954,7 @@ window.SunnerDeck.slides.en.push(
     },
     script: `
       <p><span class="script-highlight">"Let me make the thesis concrete, because this is where the margin has been hiding."</span></p>
-      <p>This is one Sunner house across twenty-four hours. Same machines, same building. The only difference is the operating layer. Manual control saws — levels climb until somebody notices, then over-purge. Two breaches of the welfare limit in a single day. Digit(AI) holds a steady margin underneath, continuously.</p>
+      <p>This is one house across twenty-four hours. Same machines, same building. The only difference is the operating layer. Manual control saws — levels climb until somebody notices, then over-purge. Two breaches of the welfare limit in a single day. Digit(AI) holds a steady margin underneath, continuously.</p>
       <div class="script-callout">
         <strong>The point to land:</strong> this is not a machine fault. The physical layer was never the constraint. It is the ceiling of physical-only operation — excellent equipment waiting to be told what to do.
       </div>
@@ -1005,7 +1011,7 @@ window.SunnerDeck.slides.en.push(
 // ENGLISH - Act III: the result, impact vectors, the mindset, the close
 // ===========================================================================
 
-window.SunnerDeck.slides.en.push(
+window.KeynoteDeck.slides.en.push(
   // --- 08 -----------------------------------------------------------------
   {
     navLabel: '08. The Result',
@@ -1045,7 +1051,7 @@ window.SunnerDeck.slides.en.push(
         source: 'House-hours inside bounds, audited continuously.'
       }
     ],
-    caveat: 'Payback under 2.5 months at this scale. Caveat worth stating plainly: Sunner already had the edge and data layers in place. A site starting without them funds that foundation first and sees these returns after.',
+    caveat: 'Payback under 2.5 months at this scale. Caveat worth stating plainly: the lighthouse already had the edge and data layers in place. A site starting without them funds that foundation first and sees these returns after.',
     demoAction: {
       badge: 'LIVE DEMO',
       title: 'Open the fleet analytics across all 50 complexes.',
@@ -1056,7 +1062,7 @@ window.SunnerDeck.slides.en.push(
       <p><span class="script-highlight">"Now the return — and I will tell you where each number comes from, because a metric without provenance is marketing."</span></p>
       <p>Feed conversion from one sixty-eight to one fifty-four, measured per batch as feed mass in against live weight out. Five thousand eight hundred tonnes of grain not consumed. Peak power draw down twenty-eight percent, shifted only where the welfare margin allowed. Carbon abatement of eighteen thousand tonnes, ISO 14064-1 validated.</p>
       <div class="script-callout">
-        <strong>The caveat I want on the record:</strong> Sunner already had the edge and data layers in place. If a site is starting without them, it funds that foundation first and sees these returns after. Anyone promising you these numbers on an unconnected estate is selling you something.
+        <strong>The caveat I want on the record:</strong> the lighthouse already had the edge and data layers in place. If a site is starting without them, it funds that foundation first and sees these returns after. Anyone promising you these numbers on an unconnected estate is selling you something.
       </div>
       <p>Payback under two and a half months at this scale.</p>
     `
@@ -1192,7 +1198,7 @@ window.SunnerDeck.slides.en.push(
       aria: 'Build and prove in China, then export the architecture globally',
       operators: ['→'],
       terms: [
-        { main: 'Proven', sub: 'Sunner: 50 complexes, 600M birds, autonomous today' },
+        { main: 'Proven', sub: '50 complexes, 600M birds, autonomous today' },
         { main: 'Exportable', sub: 'Models, agents and playbooks as global templates', accent: true }
       ]
     },
@@ -1225,7 +1231,7 @@ window.SunnerDeck.slides.en.push(
 // 中文 - 第一部分：命题、论点、意义、技术栈
 // ===========================================================================
 
-window.SunnerDeck.slides.zh.push(
+window.KeynoteDeck.slides.zh.push(
   // --- 01 -----------------------------------------------------------------
   {
     navLabel: '01. 未来命题',
@@ -1248,7 +1254,7 @@ window.SunnerDeck.slides.zh.push(
     points: [
       '流程工业是现代文明的基础：食品、医药、能源、材料。',
       '中国是最佳验证场：复杂度最高、体量最大、学习闭环最快。',
-      '圣农就是灯塔——50 大基地、年出栏 6 亿羽，今天已在自主运行。'
+      '这座灯塔工厂——50 大基地、年出栏 6 亿羽，今天已在自主运行。'
     ],
     demoAction: {
       badge: '现场演示',
@@ -1264,7 +1270,7 @@ window.SunnerDeck.slides.zh.push(
       <div class="script-callout">
         <strong>核心主张：</strong>这不是两个并行推进的项目，而是同一个操作层。并且，AI 正是"生于中国、走向全球"最典型的范例。
       </div>
-      <p>接下来我展示的一切，今天都已在圣农运行：50 大基地，年出栏 6 亿羽。不是试点。</p>
+      <p>接下来我展示的一切，今天都已在生产现场运行：50 大基地，年出栏 6 亿羽。不是试点。</p>
     `
   },
 
@@ -1395,7 +1401,7 @@ window.SunnerDeck.slides.zh.push(
         text: '安全远程接入 · 实时传感 · 网关 · 本地智能 · 符合中国监管的 OT 通道'
       }
     ],
-    footnote: '在圣农的具体落地：Welotec 边缘网关以 10 毫秒周期轮询 Modbus，具备 48 小时本地缓存，数据流入位于世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体再把闭环写回 PLC。',
+    footnote: '在生产现场的具体落地：Welotec 边缘网关以 10 毫秒周期轮询 Modbus，具备 48 小时本地缓存，数据流入位于世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体再把闭环写回 PLC。',
     demoAction: {
       badge: '现场演示',
       title: '查看全部 13 个层级，以及 OT 与 IT 之间的协议边界。',
@@ -1408,7 +1414,7 @@ window.SunnerDeck.slides.zh.push(
       <p><span class="script-highlight">"从原子到算法——而且是生而合规，这与"兼容中国监管"是两个不同的说法。"</span></p>
       <p>最底层<strong>边缘与物联</strong>：安全远程接入、实时传感、网关、本地智能、符合监管的 OT 通道。之上是<strong>数据与云</strong>：统一数据底座、Azure 中国、数字孪生、数据驻留与个保法合规。再往上是 <strong>AI 与智能体</strong>——典型范例层：工艺寻优、预测性控制、高管智能助手，生于中国、为全球规模而设计。最上层是<strong>人机协同</strong>。</p>
       <div class="script-callout">
-        <strong>在圣农的具体落地：</strong>Welotec 网关以十毫秒周期轮询 Modbus，48 小时本地缓存，数据流入世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体把闭环写回 PLC。
+        <strong>在生产现场的具体落地：</strong>Welotec 网关以十毫秒周期轮询 Modbus，48 小时本地缓存，数据流入世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体把闭环写回 PLC。
       </div>
       <p>下面我打开管道视图，各位可以看到每一层与每一个协议。</p>
     `
@@ -1416,10 +1422,10 @@ window.SunnerDeck.slides.zh.push(
 );
 
 // ===========================================================================
-// 中文 - 第二部分：在中国为中国，以及圣农灯塔实证
+// 中文 - 第二部分：在中国为中国，以及灯塔实证
 // ===========================================================================
 
-window.SunnerDeck.slides.zh.push(
+window.KeynoteDeck.slides.zh.push(
   // --- 05 -----------------------------------------------------------------
   {
     navLabel: '05. 在中国',
@@ -1476,7 +1482,7 @@ window.SunnerDeck.slides.zh.push(
     layout: 'chart',
     topic: '灯塔实证 · 利润藏在哪里',
     title: '一流装备，仍在等人下指令',
-    subtitle: '圣农 03 号舍。即使是最高标准的鸡舍，运行的仍是几小时前由人设定的参数，而工况在几分钟前就已改变。',
+    subtitle: '灯塔工厂 03 号舍。即使是最高标准的鸡舍，运行的仍是几小时前由人设定的参数，而工况在几分钟前就已改变。',
     pill: '只有物理层，没有 Digit(AI)',
     time: '建议时长：2 分钟',
     graphic: {
@@ -1504,7 +1510,7 @@ window.SunnerDeck.slides.zh.push(
     },
     script: `
       <p><span class="script-highlight">"让我把论点落到实处，因为利润一直藏在这里。"</span></p>
-      <p>这是圣农一栋舍 24 小时的曲线。装备相同、建筑相同，唯一差别是操作层。人工控制呈锯齿——一路升到有人发现，再过度排风，一天之内两次突破福利上限。Digit(AI) 则连续地在上限之下保持稳定余量。</p>
+      <p>这是一栋舍 24 小时的曲线。装备相同、建筑相同，唯一差别是操作层。人工控制呈锯齿——一路升到有人发现，再过度排风，一天之内两次突破福利上限。Digit(AI) 则连续地在上限之下保持稳定余量。</p>
       <div class="script-callout">
         <strong>需要讲透的一点：</strong>这不是装备故障。物理层从来不是瓶颈。这是"仅有物理层"运行方式的天然上限——一流装备在等人下指令。
       </div>
@@ -1561,7 +1567,7 @@ window.SunnerDeck.slides.zh.push(
 // 中文 - 第三部分：量化成效、复利方向、思维原则、收尾
 // ===========================================================================
 
-window.SunnerDeck.slides.zh.push(
+window.KeynoteDeck.slides.zh.push(
   // --- 08 -----------------------------------------------------------------
   {
     navLabel: '08. 量化成效',
@@ -1601,7 +1607,7 @@ window.SunnerDeck.slides.zh.push(
         source: '福利边界内舍时占比，连续审计而非抽样。'
       }
     ],
-    caveat: '在此规模下投资回收期短于 2.5 个月。需要如实说明：圣农此前已建成边缘层与数据层。若某站点尚不具备，应先投入这部分基础建设，收益随后到来。',
+    caveat: '在此规模下投资回收期短于 2.5 个月。需要如实说明：这座灯塔工厂此前已建成边缘层与数据层。若某站点尚不具备，应先投入这部分基础建设，收益随后到来。',
     demoAction: {
       badge: '现场演示',
       title: '打开覆盖全部 50 大基地的集团级分析大屏。',
@@ -1612,7 +1618,7 @@ window.SunnerDeck.slides.zh.push(
       <p><span class="script-highlight">"下面讲回报。我会说明每个数字的出处，因为没有出处的指标只是营销。"</span></p>
       <p>料肉比从一点六八到一点五四，按批次以实测投料量对出栏活重计算，折合五千八百多吨粮食未被消耗。峰电负荷下降二十八个百分点，且仅在福利余量允许时移峰。碳减排一万八千多吨，已通过 ISO 14064-1 核证。</p>
       <div class="script-callout">
-        <strong>需要留在记录里的前提：</strong>圣农此前已建成边缘层与数据层。若贵方站点尚不具备，应先投入这部分基础建设，收益随后到来。任何人拿这些数字向尚未联网的资产承诺回报，那是在推销。
+        <strong>需要留在记录里的前提：</strong>这座灯塔工厂此前已建成边缘层与数据层。若贵方站点尚不具备，应先投入这部分基础建设，收益随后到来。任何人拿这些数字向尚未联网的资产承诺回报，那是在推销。
       </div>
       <p>在此规模下，回收期短于两个半月。</p>
     `
@@ -1748,7 +1754,7 @@ window.SunnerDeck.slides.zh.push(
       aria: '在中国验证，向全球输出架构',
       operators: ['→'],
       terms: [
-        { main: '已验证', sub: '圣农：50 大基地、6 亿羽，今天已自主运行' },
+        { main: '已验证', sub: '50 大基地、6 亿羽，今天已自主运行' },
         { main: '可输出', sub: '模型、智能体与方法论成为全球模板', accent: true }
       ]
     },
@@ -1861,6 +1867,8 @@ window.SunnerDeck.slides.zh.push(
       loaded: true,
       source,
       aspect,
+      width: manifest.width || null,
+      height: manifest.height || null,
       generated: manifest.generated || null,
       engine: manifest.engine || null,
       slides: manifest.slides.map((s, i) => {
@@ -1880,18 +1888,38 @@ window.SunnerDeck.slides.zh.push(
       })
     };
 
+    preloadFrameImages();
     return true;
+  }
+
+  /**
+   * Decodes every slide image once, up front, and keeps a live reference so the
+   * decoded bitmap stays resident. Without this, each slide change recreates the
+   * <img> and the browser re-decodes a ~1080p PNG on the main thread, which is
+   * the residual hitch when navigating the deck. img.decode() does the work off
+   * the main thread; the retained array prevents the cache from evicting it.
+   */
+  function preloadFrameImages() {
+    Deck._preloaded = [];
+    (Deck.frame.slides || []).forEach(s => {
+      if (!s.image) return;
+      const im = new Image();
+      im.decoding = 'async';
+      im.src = s.image;
+      if (typeof im.decode === 'function') { im.decode().catch(() => {}); }
+      Deck._preloaded.push(im);
+    });
   }
 
   /** True when the exported deck is driving the presentation tab. */
   Deck.usingFrame = function () {
     return !!(Deck.frame && Deck.frame.loaded && Deck.frame.slides.length);
   };
-})(window.SunnerDeck);
+})(window.KeynoteDeck);
 
 // The exported deck, when present, outranks the built-in HTML deck. Language
 // does not switch it, because the source file is whatever the presenter built.
-window.SunnerDeck.get = function (lang) {
+window.KeynoteDeck.get = function (lang) {
   if (this.usingFrame && this.usingFrame()) return this.frame.slides;
   const list = this.slides[lang === 'zh' ? 'zh' : 'en'];
   return list && list.length ? list : this.slides.en;

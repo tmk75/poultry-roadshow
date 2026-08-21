@@ -1,5 +1,5 @@
 /**
- * Sunner Intelligence • AAA-Grade 3D Cyber-Physical Roadshow Universe
+ * GEA Digit(AI) • AAA-Grade 3D Cyber-Physical Roadshow Universe
  * Three.js WebGL Engine:
  * - Ultra-high-fidelity 13 procedural 3D models with active micro-animations
  * - High-definition floating 3D canvas labels with glowing glass capsules
@@ -691,8 +691,21 @@ class Highway3DEngine {
     this.renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
   }
 
+  // True when the 3D container is not in the render tree, i.e. its view is
+  // display:none (offsetWidth/Height collapse to 0). Stays correct in
+  // fullscreen, where the element is large and visible.
+  isHidden() {
+    return this.container.offsetWidth === 0 && this.container.offsetHeight === 0;
+  }
+
   animate() {
+    // Keep the loop scheduled so it resumes automatically when the view returns.
     requestAnimationFrame(this.animate);
+
+    // Skip all animation and the WebGL draw while the Data Highway view is not
+    // visible (e.g. while presenting). This is the main cause of fullscreen
+    // sluggishness: the GPU was rendering ~60fps of frames nobody could see.
+    if (this.isHidden() || document.hidden) return;
 
     const time = performance.now() * 0.001;
 

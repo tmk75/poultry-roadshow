@@ -1,7 +1,7 @@
 <#
 .SYNOPSIS
   Exports a PowerPoint deck to per-slide images plus a manifest, for display
-  inside the Sunner dashboard's Presentation tab.
+  inside the dashboard's Presentation tab.
 
 .DESCRIPTION
   The dashboard frames the real deck rather than re-implementing it in HTML, so

@@ -1,5 +1,5 @@
 /**
- * Sunner Intelligence • Enterprise Manufacturing Decision OS
+ * GEA Digit(AI) • Enterprise Manufacturing Decision OS
  * Roadshow Keynote & Autonomous Auto-Tour Controller:
  * - Global Autonomous Auto-Tour Engine (Cycles 01-13 in both 3D & 2D with live synced narratives)
  * - 2D Subsystem Filter Chips (All, OT, Ops, Cloud, AI)
@@ -289,7 +289,7 @@ const technicalSchemas = {
     payload: {
       gateway_id: "gw-welotec-np01-b03",
       firmware: "egOS-v3.4.2-hardened",
-      security: { tls: "TLS_AES_256_GCM_SHA384", cert: "CN=sunner-edge-03.fujian.internal" },
+      security: { tls: "TLS_AES_256_GCM_SHA384", cert: "CN=edge-03.fujian.internal" },
       buffer_status: { local_nvram_hours: 48, buffered_events: 0 },
       sparkplug_payload: {
         timestamp: Date.now(),
@@ -306,11 +306,11 @@ const technicalSchemas = {
     title: "Step 03: Ignition SCADA / HMI Server",
     proto: "OPC UA / Port 4840",
     payload: {
-      server_node: "opc.tcp://scada-nanping.sunner:4840",
+      server_node: "opc.tcp://scada-nanping.local:4840",
       monitored_tags: {
-        "[Sunner_OT]/Barn_03/Zone_Rear/NH3_PV": { value: 11.4, quality: "GOOD_192", timestamp: new Date().toISOString() },
-        "[Sunner_OT]/Barn_03/Ventilation/Fan_Master_RPM": { value: 850.0, target: 850.0, mode: "AI_MODULATED" },
-        "[Sunner_OT]/Barn_03/Alarms/Ammonia_Hazard": { state: "CLEAR", threshold: 20.0 }
+        "[Plant_OT]/Barn_03/Zone_Rear/NH3_PV": { value: 11.4, quality: "GOOD_192", timestamp: new Date().toISOString() },
+        "[Plant_OT]/Barn_03/Ventilation/Fan_Master_RPM": { value: 850.0, target: 850.0, mode: "AI_MODULATED" },
+        "[Plant_OT]/Barn_03/Alarms/Ammonia_Hazard": { state: "CLEAR", threshold: 20.0 }
       }
     }
   },
@@ -364,7 +364,7 @@ const technicalSchemas = {
     payload: {
       system: "SAP S/4HANA Cloud 2026",
       material_master: "MAT-FEED-SOYA-500",
-      company_code: "1000 (Fujian Sunner Development Co.)",
+      company_code: "1000 (Fujian Poultry Development Co.)",
       silo_threshold_tons: 15.0,
       current_inventory_tons: 35.7,
       autonomous_po_rule: {
@@ -380,7 +380,7 @@ const technicalSchemas = {
     title: "Step 08: Snowflake Data Cloud Lakehouse",
     proto: "Snowpipe Streaming / SQL Medallion",
     payload: {
-      database: "SUNNER_ENTERPRISE_LAKE",
+      database: "ENTERPRISE_LAKE",
       medallion_layers: {
         bronze: "BRONZE.RAW_MQTT_TELEMETRY (Direct Snowpipe Ingestion, <100ms)",
         silver: "SILVER.CLEAN_CLIMATE_HOURLY (Deduplicated, Schema-Enforced)",
@@ -421,7 +421,7 @@ const technicalSchemas = {
     title: "Step 11: Neo4j 3D Spatial Digital Twin",
     proto: "Bolt Protocol (Port 7687) / CFD Mesh",
     payload: {
-      graph_database: "neo4j://sunner-spatial-twin:7687",
+      graph_database: "neo4j://spatial-twin:7687",
       barn_dimensions_m: { length: 120, width: 16, height: 4.2 },
       spatial_zones: [
         { zone: "front", target_temp_c: 21.8, actual_temp_c: 21.8, velocity_ms: 1.8 },
@@ -1029,7 +1029,7 @@ const navModules = {
   'nav-btn-esg': { secId: 'section-esg-evolution', titleEn: 'ESG Carbon Accounting Hub', titleZh: 'ESG 碳资产全生命周期核算中心' },
   'nav-btn-barn': { secId: 'section-spatial-gauges', titleEn: 'Physical Barn Digital Twin', titleZh: '鸡舍三维空间物理数字孪生' },
   'nav-btn-roi': { secId: 'section-comparison', titleEn: 'Autopilot vs Legacy ROI Matrix', titleZh: 'AI 闭环自愈与传统模式经济效益对比' },
-  'nav-btn-presentation': { secId: 'section-presentation-deck', titleEn: 'Executive Keynote Presentation & Speech Deck', titleZh: '圣农 × GEA 智能制造操作系统高管汇报演讲台' }
+  'nav-btn-presentation': { secId: 'section-presentation-deck', titleEn: 'Executive Keynote Presentation & Speech Deck', titleZh: 'GEA Digit(AI) 智能制造操作系统高管汇报演讲台' }
 };
 
 Object.keys(navModules).forEach(navId => {
@@ -1282,7 +1282,7 @@ document.getElementById('btn-gen-esg-report')?.addEventListener('click', () => {
   if (certEl) {
     if (isZh) {
       certEl.innerHTML = `
-        认证报告编号: ESG-AUDIT-SUNNER-${Date.now()}<br>
+        认证报告编号: ESG-AUDIT-${Date.now()}<br>
         核算认证标准: ISO 14064-1 国际温室气体核查标准与 GHG Protocol 官方认证<br>
         集团年核证减排量: 18,885.72 吨二氧化碳当量 (CO₂e)<br>
         全群死淘率优化: 1.2% (每年多成活 497,250羽 健康优质肉鸡)<br>
@@ -1290,7 +1290,7 @@ document.getElementById('btn-gen-esg-report')?.addEventListener('click', () => {
       `;
     } else {
       certEl.innerHTML = `
-        Document ID: ESG-AUDIT-SUNNER-${Date.now()}<br>
+        Document ID: ESG-AUDIT-${Date.now()}<br>
         Standard: ISO 14064-1 & GHG Protocol Certified<br>
         Annual Avoided Carbon: 18,885.72 metric tons CO₂e<br>
         Bird Mortality: 1.2% (Preserving 497,250 birds/yr)<br>
@@ -1456,7 +1456,7 @@ selectBarnZone('zone-front');
 // unchanged, while the slide count is no longer hardcoded to 8.
 function deckSlides() {
   const lang = (window.i18n && window.i18n.currentLang) || 'en';
-  return (window.SunnerDeck && window.SunnerDeck.get(lang)) || [];
+  return (window.KeynoteDeck && window.KeynoteDeck.get(lang)) || [];
 }
 
 function deckCount() {
@@ -1465,7 +1465,7 @@ function deckCount() {
 
 function deckNavLabels() {
   const lang = (window.i18n && window.i18n.currentLang) || 'en';
-  return (window.SunnerDeck && window.SunnerDeck.navLabels(lang)) || [];
+  return (window.KeynoteDeck && window.KeynoteDeck.navLabels(lang)) || [];
 }
 
 let activePresentationSlide = 0;
@@ -1556,28 +1556,45 @@ function renderPresentationSlide(index = 0) {
     counterEl.textContent = isZh ? `第 ${n} 页 / 共 ${total} 页` : `Slide ${n} / ${total}`;
   }
 
-  // 2. Rebuild the pill navigation from the deck itself, so adding or removing
-  //    a slide needs no changes here or in the markup.
+  // 2. Pill navigation. Build the buttons once, then on later renders only move
+  //    the active state - rebuilding innerHTML every navigation was needless
+  //    DOM churn. Rebuild only when the label set actually changes (e.g. a
+  //    language switch or swapping decks).
   const pillNav = document.getElementById('slide-pill-nav');
   if (pillNav) {
     const labels = deckNavLabels();
-    pillNav.innerHTML = labels.map((label, idx) => `
-      <button class="slide-pill ${idx === activePresentationSlide ? 'active' : ''}"
-              data-slide="${idx}"${idx === activePresentationSlide ? ' aria-current="true"' : ''}>${label}</button>
-    `).join('');
+    const existing = pillNav.children;
+    const needsRebuild = existing.length !== labels.length ||
+      Array.prototype.some.call(existing, (el, i) => el.textContent !== labels[i]);
+
+    if (needsRebuild) {
+      pillNav.innerHTML = labels.map((label, idx) =>
+        `<button class="slide-pill" data-slide="${idx}">${label}</button>`).join('');
+    }
+    Array.prototype.forEach.call(pillNav.children, (el, idx) => {
+      const on = idx === activePresentationSlide;
+      el.classList.toggle('active', on);
+      if (on) el.setAttribute('aria-current', 'true'); else el.removeAttribute('aria-current');
+    });
   }
 
   // 3. Render Main Slide Stage Content & Interactive Demo Action Banner
   const stageEl = document.getElementById('deck-stage-card');
-  if (stageEl && window.SunnerDeck) {
+  if (stageEl && window.KeynoteDeck) {
     // Exported .pptx slides fill the stage edge to edge, so the card drops its
     // padding and decorative overlay for them.
-    stageEl.classList.toggle('is-image-mode', slide.layout === 'image');
-    stageEl.innerHTML = window.SunnerDeck.renderStage(slide, activePresentationSlide);
-    // Restart the stage entry animation on every slide change.
+    const isImage = slide.layout === 'image';
+    stageEl.classList.toggle('is-image-mode', isImage);
+    stageEl.innerHTML = window.KeynoteDeck.renderStage(slide, activePresentationSlide);
+
+    // The entrance animation applies to the HTML deck's .slide-body only, and it
+    // costs a forced synchronous reflow. Image slides have no .slide-body, so
+    // skip the reflow entirely and keep their navigation instant.
     stageEl.classList.remove('is-entering');
-    void stageEl.offsetWidth;
-    stageEl.classList.add('is-entering');
+    if (!isImage) {
+      void stageEl.offsetWidth;
+      stageEl.classList.add('is-entering');
+    }
   }
 
   // 4. Render Live Speaker Script Teleprompter
@@ -2152,8 +2169,8 @@ function initGrokCopilot() {
           ? `[CoT 推理链路] 1. 解析自然语言指令 ➔ 2. 全网扫描 13大节点数字血缘 ➔ 3. 验证设备与算法闭环自愈响应 ➔ 4. 生成第一性原理决策建议。`
           : `[Chain of Thought] 1. Parsed natural language intent -> 2. Scanned 13-node industrial graph -> 3. Validated autonomous closed-loop state -> 4. Formulated first-principles recommendation.`;
         answerHtml = isZh
-          ? `<p><strong>圣农决策中枢实时响应：</strong></p><p>当前全域 50大基地（600M羽白羽肉鸡）系统运行健康度 <strong>99.8%</strong>，闭环响应延迟 &lt;350ms。各项微气候探头与 SAP 自动流转均处于第一性原理最优帕累托前沿。</p>`
-          : `<p><strong>Sunner Cortex Decision Hub Response:</strong></p><p>All 50 complexes (600M broilers) are operating at <strong>99.8%</strong> system health with &lt;350ms closed-loop latency. Telemetry, energy arbitrage, and SAP procurement are running on the Pareto frontier.</p>`;
+          ? `<p><strong>决策中枢实时响应：</strong></p><p>当前全域 50大基地（600M羽白羽肉鸡）系统运行健康度 <strong>99.8%</strong>，闭环响应延迟 &lt;350ms。各项微气候探头与 SAP 自动流转均处于第一性原理最优帕累托前沿。</p>`
+          : `<p><strong>Cortex Decision Hub Response:</strong></p><p>All 50 complexes (600M broilers) are operating at <strong>99.8%</strong> system health with &lt;350ms closed-loop latency. Telemetry, energy arbitrage, and SAP procurement are running on the Pareto frontier.</p>`;
       }
 
       const bodyEl = aMsg.querySelector('.msg-body');
@@ -2187,6 +2204,14 @@ function initBioAcousticSpectrogram() {
   let phase = 0;
 
   function renderSpectrogram() {
+    // Skip drawing while the Barn view is hidden or the tab is backgrounded;
+    // keep the loop scheduled so it resumes on return. Same rationale as the
+    // 3D and 2D engines: no point animating a canvas nobody can see.
+    if ((canvas.offsetWidth === 0 && canvas.offsetHeight === 0) || document.hidden) {
+      spectrogramAnimationId = requestAnimationFrame(renderSpectrogram);
+      return;
+    }
+
     ctx.fillStyle = '#010118';
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
@@ -2394,16 +2419,16 @@ document.getElementById('btn-auto-pitch')?.addEventListener('click', startAutono
 // 15. DEDICATED EXECUTIVE BI COMMAND CENTER ENGINE
 // =================================================================
 const enterpriseComplexesData = [
-  { id: "NP-01", name: "Nanping Complex 01 (HQ)", region: "Fujian (南平)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.4, nh3: 11.4, silo: 35.7, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 485200, status: "optimal" },
-  { id: "NP-02", name: "Nanping Complex 02 (Guangze)", region: "Fujian (光泽)", breed: "sz901", strainName: "Sunner SZ901", houses: 14, birds: 595000, temp: 22.1, nh3: 10.8, silo: 28.4, mode: "0.3s Closed-Loop", fcr: 1.534, powerSaved: 421000, status: "optimal" },
+  { id: "NP-01", name: "Nanping Complex 01 (HQ)", region: "Fujian (南平)", breed: "sz901", strainName: "SZ901", houses: 16, birds: 680000, temp: 22.4, nh3: 11.4, silo: 35.7, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 485200, status: "optimal" },
+  { id: "NP-02", name: "Nanping Complex 02 (Guangze)", region: "Fujian (光泽)", breed: "sz901", strainName: "SZ901", houses: 14, birds: 595000, temp: 22.1, nh3: 10.8, silo: 28.4, mode: "0.3s Closed-Loop", fcr: 1.534, powerSaved: 421000, status: "optimal" },
   { id: "NP-03", name: "Nanping Complex 03 (Pucheng)", region: "Fujian (浦城)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 22.8, nh3: 12.1, silo: 18.2, mode: "Eco-Throttled", fcr: 1.548, powerSaved: 389000, status: "optimal" },
-  { id: "SM-01", name: "Sanming Complex 01 (Youxi)", region: "Fujian (尤溪)", breed: "sz901", strainName: "Sunner SZ901", houses: 12, birds: 510000, temp: 22.3, nh3: 11.9, silo: 24.5, mode: "0.3s Closed-Loop", fcr: 1.538, powerSaved: 362000, status: "optimal" },
+  { id: "SM-01", name: "Sanming Complex 01 (Youxi)", region: "Fujian (尤溪)", breed: "sz901", strainName: "SZ901", houses: 12, birds: 510000, temp: 22.3, nh3: 11.9, silo: 24.5, mode: "0.3s Closed-Loop", fcr: 1.538, powerSaved: 362000, status: "optimal" },
   { id: "SM-02", name: "Sanming Complex 02 (Shaxian)", region: "Fujian (沙县)", breed: "cobb500", strainName: "Cobb500", houses: 10, birds: 425000, temp: 23.0, nh3: 13.2, silo: 14.8, mode: "Auto SAP Reordered", fcr: 1.550, powerSaved: 310000, status: "warning" },
-  { id: "GZ-01", name: "Ganzhou Complex 01 (Zifang)", region: "Jiangxi (赣州)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.6, nh3: 12.5, silo: 42.0, mode: "0.3s Closed-Loop", fcr: 1.537, powerSaved: 478000, status: "optimal" },
+  { id: "GZ-01", name: "Ganzhou Complex 01 (Zifang)", region: "Jiangxi (赣州)", breed: "sz901", strainName: "SZ901", houses: 16, birds: 680000, temp: 22.6, nh3: 12.5, silo: 42.0, mode: "0.3s Closed-Loop", fcr: 1.537, powerSaved: 478000, status: "optimal" },
   { id: "GZ-02", name: "Ganzhou Complex 02 (Ningdu)", region: "Jiangxi (宁都)", breed: "cobb500", strainName: "Cobb500", houses: 14, birds: 595000, temp: 22.9, nh3: 11.7, silo: 31.2, mode: "0.3s Closed-Loop", fcr: 1.546, powerSaved: 415000, status: "optimal" },
   { id: "PL-01", name: "Pingliang Complex 01 (Kongtong)", region: "Gansu (平凉)", breed: "cobb500", strainName: "Cobb500", houses: 14, birds: 595000, temp: 21.8, nh3: 10.2, silo: 38.5, mode: "0.3s Closed-Loop", fcr: 1.551, powerSaved: 395000, status: "optimal" },
   { id: "PL-02", name: "Pingliang Complex 02 (Jingchuan)", region: "Gansu (泾川)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 23.4, nh3: 14.1, silo: 21.0, mode: "Pulse-Misting Armed", fcr: 1.553, powerSaved: 360000, status: "warning" },
-  { id: "ZM-01", name: "Zhumadian Complex 01 (Queshan)", region: "Henan (驻马店)", breed: "sz901", strainName: "Sunner SZ901", houses: 16, birds: 680000, temp: 22.5, nh3: 11.6, silo: 39.8, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 482000, status: "optimal" },
+  { id: "ZM-01", name: "Zhumadian Complex 01 (Queshan)", region: "Henan (驻马店)", breed: "sz901", strainName: "SZ901", houses: 16, birds: 680000, temp: 22.5, nh3: 11.6, silo: 39.8, mode: "0.3s Closed-Loop", fcr: 1.536, powerSaved: 482000, status: "optimal" },
   { id: "ZM-02", name: "Zhumadian Complex 02 (Xiping)", region: "Henan (西平)", breed: "cobb500", strainName: "Cobb500", houses: 12, birds: 510000, temp: 22.7, nh3: 12.0, silo: 26.5, mode: "0.3s Closed-Loop", fcr: 1.547, powerSaved: 375000, status: "optimal" }
 ];
 
@@ -2501,9 +2526,9 @@ function renderBiNorthStarTiles() {
   if (activeBiBreed === 'sz901') {
     fcrNum = "1.536";
     fcrVs = isZh ? "对比标杆 1.620 (冠军品系)" : "vs 1.620 (SZ901 Champ)";
-    fcrSub = isZh ? "● 圣泽901 日均增重 +71.4g (高出行业 8.2%)" : "● SZ901 Daily Gain +71.4g (+8.2% vs Cobb)";
+    fcrSub = isZh ? "● SZ901 日均增重 +71.4g (高出行业 8.2%)" : "● SZ901 Daily Gain +71.4g (+8.2% vs Cobb)";
     mortNum = "1.02";
-    mortSub = isZh ? "● 圣泽901 强抗应激性，死淘率仅 1.02%" : "● High Robustness, Mortality Down to 1.02%";
+    mortSub = isZh ? "● SZ901 强抗应激性，死淘率仅 1.02%" : "● High Robustness, Mortality Down to 1.02%";
   } else if (activeBiBreed === 'cobb500') {
     fcrNum = "1.548";
     fcrVs = isZh ? "对比标杆 1.620 (Cobb500)" : "vs 1.620 (Cobb500 Std)";
@@ -2681,7 +2706,7 @@ function renderBiGrowthSvg() {
     finalWeight = "2,910g";
     fcrVal = "1.536";
     actualStroke = "#10b981";
-    strainTitle = isZh ? "圣泽901 冠军高抗品系" : "Sunner SZ901 (Champion Line)";
+    strainTitle = isZh ? "SZ901 冠军高抗品系" : "SZ901 (Champion Line)";
     actualPath = "M 60 268 Q 300 210, 540 84 T 860 38";
     fillPath = "M 60 268 Q 300 210, 540 84 T 860 38 L 860 270 L 60 270 Z";
     circleY = 84;
@@ -3019,8 +3044,8 @@ function initExecutiveBiHub() {
   // Export board pack button
   document.getElementById('btn-bi-export-boardpack')?.addEventListener('click', () => {
     alert(isZh
-      ? "📊 圣农集团 × GEA 董事会数字化运营决策报告 (PDF / PowerBI Dataset) 已导出并生成！"
-      : "📊 Sunner × GEA Board Analytics & Decision Deck (PDF / PowerBI Dataset) generated and downloaded!");
+      ? "📊 GEA Digit(AI) 董事会数字化运营决策报告 (PDF / PowerBI Dataset) 已导出并生成！"
+      : "📊 GEA Digit(AI) Board Analytics & Decision Deck (PDF / PowerBI Dataset) generated and downloaded!");
   });
 
   // Render initial BI views
@@ -3388,10 +3413,10 @@ renderPresentationSlide(0);
 // HTML deck and the tab re-renders; if not, the HTML deck simply stays.
 // Served over http:// this works; under file:// the fetch is blocked and the
 // built-in deck remains, which is the intended fallback rather than an error.
-if (window.SunnerDeck && typeof window.SunnerDeck.loadFrame === 'function') {
-  window.SunnerDeck.loadFrame().then((installed) => {
+if (window.KeynoteDeck && typeof window.KeynoteDeck.loadFrame === 'function') {
+  window.KeynoteDeck.loadFrame().then((installed) => {
     if (!installed) return;
-    const frame = window.SunnerDeck.frame;
+    const frame = window.KeynoteDeck.frame;
     activePresentationSlide = 0;
     renderPresentationSlide(0);
 
@@ -3426,7 +3451,7 @@ initTimeTravelReplay();
 initDigitalProductPassport();
 initExecutiveBiHub();
 initGlobalClickInteractivity();
-addAuditLog("Sunner Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
+addAuditLog("Decision OS online. Autonomous auto-cruise active across all 13 nodes.", true);
 
 
 
@@ -3460,7 +3485,7 @@ function initDensityAndControlDrawer() {
   drawerBtn?.addEventListener('click', () => setDrawer(drawer?.hidden === true));
 
   // --- Presenter / Explorer density modes ---
-  const DENSITY_KEY = 'sunner.densityMode';
+  const DENSITY_KEY = 'dashboard.densityMode';
 
   function applyDensity(mode, announce) {
     const presenter = mode === 'presenter';
