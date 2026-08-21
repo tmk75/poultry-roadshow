@@ -70,6 +70,7 @@ window.SunnerDeck = {
     const eq = s.equation;
     return `
       <div class="slide-statement">
+        ${s.graphic ? `<div class="statement-figure">${resolveGraphic(s.graphic)}</div>` : ''}
         ${eq ? `
           <div class="statement-equation" role="img" aria-label="${esc(eq.aria || '')}">
             ${eq.terms.map((t, i) => `
@@ -225,14 +226,100 @@ window.SunnerDeck = {
     `;
   }
 
-  const LAYOUTS = { statement, contrast, flow, stages, cards, metrics, roadmap, chart };
+  /** Three fused pillars: PHYSICAL x DIGIT x (AI). The thesis slide. */
+  function pillars(s) {
+    return `
+      ${s.graphic ? `<div class="pillars-figure">${resolveGraphic(s.graphic)}</div>` : ''}
+      <div class="slide-pillars">
+        ${s.pillars.map((p, i) => `
+          ${i > 0 ? '<span class="pillar-join" aria-hidden="true">×</span>' : ''}
+          <div class="pillar ${p.accent ? 'accent' : ''}">
+            <span class="pillar-tag">${esc(p.tag)}</span>
+            <p class="pillar-text">${p.text}</p>
+          </div>
+        `).join('')}
+      </div>
+      ${s.fusion ? `<p class="pillars-fusion">${s.fusion}</p>` : ''}
+    `;
+  }
+
+  /** Stacked capability layers, read top-down. The Digit(AI) stack slide. */
+  function stack(s) {
+    return `
+      <div class="slide-stack">
+        ${s.layers.map(l => `
+          <div class="stack-row ${l.star ? 'is-star' : ''}">
+            <div class="stack-row-head">
+              <span class="stack-row-tag">${esc(l.tag)}</span>
+              ${l.star ? `<span class="stack-star">${esc(l.star)}</span>` : ''}
+            </div>
+            <p class="stack-row-text">${l.text}</p>
+          </div>
+        `).join('')}
+      </div>
+      ${s.footnote ? `<p class="stack-footnote">${s.footnote}</p>` : ''}
+    `;
+  }
+
+  /** Titled columns of short bullets. Impact vectors, and similar. */
+  function columns(s) {
+    return `
+      <div class="slide-columns" style="--col-count:${(s.columns || []).length}">
+        ${s.columns.map(c => `
+          <div class="col-block ${c.accent ? 'accent' : ''}">
+            <span class="col-tag">${esc(c.tag)}</span>
+            ${c.lead ? `<p class="col-lead">${c.lead}</p>` : ''}
+            <ul class="col-list">
+              ${c.items.map(i => `<li>${i}</li>`).join('')}
+            </ul>
+          </div>
+        `).join('')}
+      </div>
+      ${s.footnote ? `<p class="columns-footnote">${s.footnote}</p>` : ''}
+    `;
+  }
+
+  const LAYOUTS = { statement, contrast, flow, stages, cards, metrics, roadmap, chart, pillars, stack, columns, image };
 
   /**
    * Builds the full slide stage markup: header, layout body, optional demo
    * banner. `index` is only used for the demo trigger's onclick binding.
    */
+  /**
+   * A slide exported from the source .pptx. Rendered edge to edge with no
+   * header or footer chrome, because the slide already carries its own title,
+   * strap line and page number.
+   */
+  function image(s) {
+    return `
+      <div class="slide-image-frame">
+        <img class="slide-image" src="${esc(s.image)}" alt="${esc(s.alt || '')}" draggable="false">
+      </div>
+    `;
+  }
+
   Deck.renderStage = function (slide, index) {
     if (!slide) return '';
+
+    // Exported slides bypass the header/footer chrome entirely.
+    if (slide.layout === 'image') {
+      return `
+        ${image(slide)}
+        ${slide.demoAction ? `
+          <div class="slide-live-demo-banner is-under-image">
+            <div class="demo-banner-left">
+              <span class="demo-banner-badge">${esc(slide.demoAction.badge || 'LIVE DEMO')}</span>
+              <span class="demo-banner-title">${esc(slide.demoAction.title || '')}</span>
+            </div>
+            <button class="btn-launch-live-demo" id="btn-slide-demo-trigger"
+                    onclick="executeSlideDemo(${Number(index) || 0})">
+              ${esc(slide.demoAction.btnText)}
+            </button>
+          </div>
+        ` : ''}
+      `;
+    }
+
     const body = (LAYOUTS[slide.layout] || cards)(slide);
 
     return `
@@ -249,6 +336,8 @@ window.SunnerDeck = {
         ${body}
       </div>
 
+      ${Deck.footer ? `<div class="slide-footer-rule">${esc(Deck.footer)}</div>` : ''}
+
       ${slide.demoAction ? `
         <div class="slide-live-demo-banner">
           <div class="demo-banner-left">
@@ -264,1076 +353,6 @@ window.SunnerDeck = {
     `;
   };
 })(window.SunnerDeck);
-
-// ===========================================================================
-// ENGLISH DECK - Act I: the equation, the ceiling, the new capability
-// ===========================================================================
-
-window.SunnerDeck.slides.en.push(
-  // --- 01 -----------------------------------------------------------------
-  {
-    navLabel: '01. The Equation',
-    layout: 'statement',
-    topic: 'THE PREMISE',
-    title: 'GEA + AI = Future',
-    subtitle: 'Proven process engineering, plus a decision layer that runs it. Sunner: 50 complexes, 600M broilers a year.',
-    pill: 'SUNNER × GEA',
-    time: 'Target time: 1.5 min',
-    equation: {
-      aria: 'GEA process engineering plus artificial intelligence equals autonomous production',
-      operators: ['+', '='],
-      terms: [
-        { main: 'GEA', sub: 'Process engineering, thermal systems, hygienic design' },
-        { main: 'AI', sub: 'Perception, prediction, arbitration, closed-loop action', accent: true },
-        { main: 'Future', sub: 'Plants that tune themselves, bird by bird, hour by hour' }
-      ]
-    },
-    lead: 'GEA already builds the equipment that sets the physical limit of what a poultry operation can achieve. AI decides <strong>how that equipment is used</strong> — continuously, and faster than any human shift can react.',
-    points: [
-      'Hardware defines the ceiling. Decisions determine how close you get to it.',
-      'Today those decisions are made on fixed schedules by people watching dials.',
-      'The gap between the two is where the margin has been sitting all along.'
-    ],
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'See the live data path from barn sensors to autonomous action across 50 complexes.',
-      btnText: 'Open the 3D data highway',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'closedloop'
-    },
-    script: `
-      <p><span class="script-highlight">"Everything I'm going to show you rests on one equation: GEA plus AI equals the future of this industry."</span></p>
-      <p>GEA is already world-class at the physical layer: ventilation, thermal systems, feed handling, hygienic design. That equipment sets the ceiling on what a poultry operation can physically achieve.</p>
-      <div class="script-callout">
-        <strong>The argument in one line:</strong> hardware defines the ceiling, but <strong>decisions</strong> determine how close you get to it. Today those decisions are made on fixed timers by people reading dials on a shift rota. That gap is where the margin has been sitting all along.
-      </div>
-      <p>Over the next few slides I'll show you what closing that gap looks like — and what it's worth.</p>
-    `
-  },
-
-  // --- 02 -----------------------------------------------------------------
-  {
-    navLabel: '02. The Ceiling',
-    layout: 'chart',
-    graphic: {
-      type: 'ammoniaTimeline',
-      args: [{
-        aria: 'Ammonia across 24 hours: manual control repeatedly breaches the 20 ppm limit, autonomous control holds well below it',
-        limit: '20 ppm welfare limit',
-        manual: 'Manual, per shift',
-        auto: 'Autonomous, continuous',
-        breach: 'Limit breached'
-      }]
-    },
-    caption: 'Ammonia in one house across 24 hours. Same fans, same house — only the control regime differs.',
-    notes: [
-      { title: 'Manual saws', text: 'Levels climb until someone notices, then over-purge. Two breaches in a single day.' },
-      { title: 'Autonomous holds', text: 'Continuous correction keeps a steady margin below the limit, with no dramatic purges.' },
-      { title: 'Peak tariff blind', text: 'Manual ventilation runs identically at peak price and at 03:00. Nobody is arbitraging.' },
-      { title: 'Not an equipment fault', text: 'This is the ceiling of manual control, not a limitation of the hardware.' }
-    ],
-    topic: 'WHY EXCELLENT EQUIPMENT STILL LEAVES MARGIN BEHIND',
-    title: 'The engineering is not the constraint. The control loop is.',
-    subtitle: 'A best-in-class house still runs on setpoints a human chose hours ago, against conditions that changed minutes ago.',
-    pill: 'THE REAL BOTTLENECK',
-    time: 'Target time: 2 min',
-    divider: 'becomes',
-    before: {
-      tag: 'TODAY',
-      heading: 'Excellent hardware, open loop',
-      items: [
-        'Setpoints fixed per shift, adjusted only once someone notices',
-        'Ammonia read on walk-through rounds, not continuously',
-        'Ventilation runs the same at peak tariff as at 03:00',
-        'Health problems visible only once birds are already sick'
-      ],
-      footnote: 'Nothing here is a failure of engineering. It is the limit of manual control.'
-    },
-    after: {
-      tag: 'WITH A DECISION LAYER',
-      heading: 'Same hardware, closed loop',
-      items: [
-        'Setpoints recalculated continuously against live conditions',
-        'NH₃, humidity, CO₂ and temperature sampled every 10 ms',
-        'Load shifted out of peak tariff when welfare margin allows',
-        'Respiratory distress flagged from flock audio, 48 h early'
-      ],
-      footnote: 'The equipment does not change. What changes is how well it is driven.'
-    },
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Compare an autonomous house against a manually operated one, side by side.',
-      btnText: 'Open the ROI comparison',
-      targetNav: 'nav-btn-roi'
-    },
-    script: `
-      <p><span class="script-highlight">"I want to be precise about where the problem is, because it is not the equipment."</span></p>
-      <p>Take a best-in-class house. The fans, the heat exchangers, the feed lines are all excellent. But the setpoints driving them were chosen by a person, at the start of a shift, against conditions that have since moved. Ammonia gets checked when someone walks through. Ventilation runs identically at peak tariff and at three in the morning. Feed is reordered from an eyeball estimate.</p>
-      <div class="script-callout">
-        <strong>The point:</strong> none of that is an engineering failure. It is the ceiling of manual control. Same hardware, closed loop instead of open, and the performance changes materially — without replacing a single fan.
-      </div>
-      <p>The comparison view makes this concrete: two houses, identical equipment, different control regimes.</p>
-    `
-  },
-
-  // --- 03 -----------------------------------------------------------------
-  {
-    navLabel: '03. What AI Adds',
-    layout: 'flow',
-    graphic: {
-      type: 'controlLoop',
-      args: [
-        ['Sense', 'Predict', 'Arbitrate', 'Act'],
-        { value: '< 350', unit: 'ms per loop', aria: 'A closed loop of sense, predict, arbitrate and act, completing in under 350 milliseconds' }
-      ]
-    },
-    topic: 'THE FOUR THINGS A DECISION LAYER DOES',
-    title: 'Sense, predict, arbitrate, act — in under a third of a second',
-    subtitle: 'Not a dashboard that reports what happened. A loop that closes before a human could read the alert.',
-    pill: 'CLOSED LOOP < 350 ms',
-    time: 'Target time: 2 min',
-    steps: [
-      {
-        title: 'Sense',
-        text: 'Temperature, humidity, NH₃, CO₂, fan speed, silo weight and flock audio, polled at <strong>10 ms</strong> over Modbus and OPC UA.',
-        meta: '13 tiers, Level 0 to Level 6'
-      },
-      {
-        title: 'Predict',
-        text: 'Models project where conditions are heading: thermal comfort drift, ammonia accumulation, respiratory distress from audio signature, silo run-out date.',
-        meta: 'Up to 48 h ahead'
-      },
-      {
-        title: 'Arbitrate',
-        text: 'Specialist agents argue. Energy wants to throttle at peak tariff; Health holds a welfare floor. <strong>Health always has the veto.</strong>',
-        meta: 'Welfare outranks cost, by rule'
-      },
-      {
-        title: 'Act',
-        text: 'The decision is written back to the PLCs as new setpoints, and to SAP as a purchase order — signed, logged, and reversible.',
-        meta: 'Every action audited'
-      }
-    ],
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Watch four agents reach consensus on a live decision and write it back to the floor.',
-      btnText: 'Open the agent consensus stream',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'closedloop'
-    },
-    script: `
-      <p><span class="script-highlight">"When I say AI here, I mean four specific things — not a chatbot, and not a dashboard."</span></p>
-      <p>First, <strong>sense</strong>: every relevant variable, every ten milliseconds, including flock audio. Second, <strong>predict</strong>: where is this heading, up to forty-eight hours out. Third, <strong>arbitrate</strong>: this is the part people underestimate. Energy wants to throttle fans at peak tariff to save money. Health refuses if it would push ammonia toward the welfare limit.</p>
-      <div class="script-callout">
-        <strong>The rule that makes this safe to deploy:</strong> Health holds an absolute veto over Energy. Welfare outranks cost, by design, not by configuration. That is what makes autonomy acceptable to a veterinarian and to an auditor.
-      </div>
-      <p>Fourth, <strong>act</strong>: setpoints back to the PLC, purchase orders into SAP, every action logged and reversible. Let me show you the consensus happening live.</p>
-    `
-  }
-);
-
-// ===========================================================================
-// ENGLISH DECK - Act II: how they combine, the maturity path, the architecture
-// ===========================================================================
-
-window.SunnerDeck.slides.en.push(
-  // --- 04 -----------------------------------------------------------------
-  {
-    navLabel: '04. Combined',
-    layout: 'chart',
-    graphic: {
-      type: 'layerStack',
-      args: [{
-        aria: 'The AI decision layer sends setpoints down to the GEA physical layer, which sends telemetry back up',
-        aiTitle: 'AI decision layer',
-        aiSub: 'Which setpoint, when, and why',
-        geaTitle: 'GEA physical layer',
-        geaSub: 'Capacity, accuracy, interlocks',
-        interface: 'Interface: a setpoint',
-        down: 'setpoint',
-        up: 'telemetry',
-        foot: 'Interlocks stay in hardware and cannot be overridden from software'
-      }]
-    },
-    caption: 'One interface in each direction: a setpoint down, telemetry up. Nothing else crosses the boundary.',
-    notes: [
-      { title: 'GEA guarantees the physics', text: 'Capacity curves, weighing accuracy, hygienic design, and mechanical interlocks.' },
-      { title: 'AI contributes the intent', text: 'Which setpoint, at which minute, for which house — with welfare, price and carbon weighed together.' },
-      { title: 'Interlocks are untouchable', text: 'The decision layer proposes a setpoint. It cannot override a hardware interlock.' },
-      { title: 'No recertification', text: 'Because the interface is a setpoint, the AI layer retrofits onto installed equipment.' }
-    ],
-    topic: 'WHERE GEA ENDS AND THE DECISION LAYER BEGINS',
-    title: 'GEA supplies the actuators. AI supplies the intent.',
-    subtitle: 'A clean division of responsibility: the physical layer stays GEA, the decision layer sits above it, and the interface between them is a setpoint.',
-    pill: 'ONE CLEAR INTERFACE',
-    time: 'Target time: 1.5 min',
-    divider: 'drives',
-    before: {
-      tag: 'GEA LAYER — PHYSICAL',
-      heading: 'What the equipment guarantees',
-      items: [
-        'Ventilation and heat exchange capacity, with known curves',
-        'Feed handling and weighing accuracy',
-        'Mechanical interlocks that software cannot override',
-        'Predictable behaviour at every commanded setpoint'
-      ],
-      footnote: 'This is the layer that must never be surprised by software.'
-    },
-    after: {
-      tag: 'AI LAYER — DECISION',
-      heading: 'What the decision layer contributes',
-      items: [
-        'Which setpoint, at which minute, for which house',
-        'Welfare, energy price and carbon weighed in one decision',
-        'Early warning from signals no operator can watch non-stop',
-        'A written, auditable reason for every action taken'
-      ],
-      footnote: 'It never bypasses an interlock. It only ever proposes a setpoint.'
-    },
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Inspect the 13-tier pipeline and the exact protocol boundary between OT and IT.',
-      btnText: 'Open the 2D architecture pipeline',
-      targetNav: 'nav-btn-highway',
-      viewMode: '2d',
-      nodeId: 'edge'
-    },
-    script: `
-      <p><span class="script-highlight">"The most common objection I get is: are you letting software drive my plant? So let me be exact about the boundary."</span></p>
-      <p>GEA owns the physical layer: capacity, accuracy, hygiene, and above all the mechanical interlocks. Those interlocks cannot be overridden from software, ever. The decision layer sits above and only does one thing to the equipment: it proposes a setpoint.</p>
-      <div class="script-callout">
-        <strong>Why this division matters commercially:</strong> it means the AI layer can be added to installed GEA equipment without recertifying the machinery. The interface is a setpoint, not a redesign.
-      </div>
-      <p>The 2D pipeline shows exactly where that boundary sits, protocol by protocol.</p>
-    `
-  },
-
-  // --- 05 -----------------------------------------------------------------
-  {
-    navLabel: '05. Maturity Path',
-    layout: 'stages',
-    topic: 'FOUR STAGES, AND WHERE SUNNER IS NOW',
-    title: 'Nobody jumps straight to autonomy',
-    subtitle: 'Each stage is independently valuable and pays for the next. The failure mode is trying to skip one.',
-    pill: 'STAGE 4 IN PRODUCTION',
-    time: 'Target time: 2 min',
-    stages: [
-      {
-        era: 'STAGE 1',
-        title: 'Automation',
-        text: 'PLCs and timers execute reliably. Data stays trapped on the shop floor.',
-        status: 'Complete',
-        state: 'is-done'
-      },
-      {
-        era: 'STAGE 2',
-        title: 'Digitalization',
-        text: 'Telemetry leaves the barn. Edge gateways, cloud ingestion, one historical record you can query.',
-        status: 'Complete',
-        state: 'is-done'
-      },
-      {
-        era: 'STAGE 3',
-        title: 'AI Transformation',
-        text: 'Models forecast and recommend. A human still approves every change.',
-        status: 'Complete',
-        state: 'is-done'
-      },
-      {
-        era: 'STAGE 4',
-        title: 'Agentic Autonomy',
-        text: 'Agents negotiate and act inside hard welfare bounds. Humans set the bounds and audit outcomes.',
-        status: 'Live now',
-        state: 'is-current'
-      }
-    ],
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'See the four stages mapped against measured outcomes at each step.',
-      btnText: 'Open the evolution matrix',
-      targetNav: 'nav-btn-esg'
-    },
-    script: `
-      <p><span class="script-highlight">"I want to set expectations honestly: nobody goes from timers to autonomy in one procurement cycle."</span></p>
-      <p>Stage one is automation — reliable execution, data trapped on the floor. Stage two gets telemetry out of the barn into one queryable record. Stage three adds forecasting, with a human approving every change. Stage four is where agents act on their own inside bounds that humans set.</p>
-      <div class="script-callout">
-        <strong>The critical point for planning:</strong> each stage pays for the next on its own merits. The failure mode I see across the industry is trying to buy stage four while still at stage one — the data foundation isn't there, and the models have nothing trustworthy to learn from.
-      </div>
-      <p>Sunner has worked through all four. That's why we can show you stage four running rather than describing it.</p>
-    `
-  },
-
-  // --- 06 -----------------------------------------------------------------
-  {
-    navLabel: '06. Architecture',
-    layout: 'cards',
-    figure: { type: 'tierStack', args: [['L6  BI & board', 'L5  ERP / SAP', 'L4  MOM / MES', 'L3  SCADA', 'L2  Edge gateway', 'L1  PLC', 'L0  Sensors']] },
-    figureCaption: 'Level 0 to Level 6',
-    topic: 'THE ENGINEERING UNDERNEATH',
-    title: 'Thirteen tiers from barn floor to boardroom, inside China',
-    subtitle: 'Built to survive severed fibre, and to satisfy CSL, DSL and PIPL data-localization requirements without exception.',
-    pill: 'MLPS 2.0 LEVEL 3',
-    time: 'Target time: 2 min',
-    cards: [
-      {
-        title: 'Industrial edge',
-        metric: '48 h buffer',
-        text: 'Welotec egOS gateways poll Modbus at 10 ms with TLS 1.3. On connection loss they buffer <strong>48 hours to NVRAM</strong> and keep the local control loop running. A typhoon does not stop the house from ventilating.'
-      },
-      {
-        title: 'In-country cloud',
-        metric: '100% localized',
-        text: 'All telemetry and models stay in <strong>21Vianet Azure China East 2</strong> in Shanghai. No personal or production data crosses the border, satisfying CSL, DSL and PIPL by architecture rather than by policy.'
-      },
-      {
-        title: 'Lakehouse and ontology',
-        metric: '250k rows/s',
-        text: 'Snowpipe streams into <strong>Snowflake</strong>, modelled in <strong>Palantir Foundry</strong> and a Neo4j twin that knows which fan serves which zone of which flock — so a decision can be traced to the asset it touched.'
-      }
-    ],
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Cut the internet connection and watch the edge keep running on its local buffer.',
-      btnText: 'Simulate a network outage',
-      targetNav: 'nav-btn-highway',
-      viewMode: '2d',
-      action: 'toggleOffline'
-    },
-    script: `
-      <p><span class="script-highlight">"Autonomy is only credible if the architecture underneath it is boring and robust. So here is the engineering."</span></p>
-      <p>At the edge, Welotec gateways poll every ten milliseconds over TLS 1.3. If the fibre is cut — and in mountain sites it does get cut — they buffer forty-eight hours to NVRAM and, critically, <strong>keep the local control loop running</strong>. The house keeps ventilating whether or not the cloud is reachable.</p>
-      <div class="script-callout">
-        <strong>On compliance:</strong> everything stays inside 21Vianet Azure China East 2 in Shanghai. Data localization under CSL, DSL and PIPL is handled by the architecture, not by a policy document that someone has to remember to follow.
-      </div>
-      <p>Let me cut the connection live so you can see the buffer take over.</p>
-    `
-  }
-);
-
-// ===========================================================================
-// ENGLISH DECK - Act III: autonomy under pressure, the result, the horizon
-// ===========================================================================
-
-window.SunnerDeck.slides.en.push(
-  // --- 07 -----------------------------------------------------------------
-  {
-    navLabel: '07. Under Pressure',
-    layout: 'chart',
-    graphic: {
-      type: 'incidentTimeline',
-      args: [{
-        aria: 'Ammonia climbs after the inverter trips, the health agent vetoes at 0.28 seconds, and levels recover',
-        limit: '20 ppm welfare limit',
-        trip: 'inverter trips',
-        veto: 'health veto, 0.28 s',
-        recover: 'levels recover'
-      }]
-    },
-    caption: 'Recorded ammonia trace from House 03, 02:14:30 to 02:19. No human intervention at any point.',
-    notes: [
-      { title: '02:14:32 — fault', text: 'A ventilation inverter trips. Airflow drops and NH₃ starts climbing from 11.4 ppm.' },
-      { title: 'Conflict', text: 'Peak tariff is active. The Energy agent is throttling and proposes holding the throttle.' },
-      { title: '+0.28 s — veto', text: 'Health projects a breach within minutes and <strong>overrides Energy</strong>. Fans to 100%, flush starts.' },
-      { title: 'Consequence', text: 'Maintenance order raised, incident written to the ledger. Cost of the override: ¥41.' }
-    ],
-    topic: 'A REAL INCIDENT, REPLAYED',
-    title: '02:14:32 — an inverter trips and nobody is awake',
-    subtitle: 'The night a ventilation inverter failed at peak tariff. Four agents, one veto, 280 milliseconds, no human in the loop.',
-    pill: 'RESOLVED IN 0.28 s',
-    time: 'Target time: 2.5 min',
-    steps: [
-      {
-        title: 'Fault',
-        text: 'A ventilation inverter trips in House 03. Airflow drops. <strong>NH₃ starts climbing</strong> from 11.4 ppm toward the 20 ppm welfare limit.',
-        meta: '02:14:32.000'
-      },
-      {
-        title: 'Conflict',
-        text: 'Electricity is at peak tariff. The Energy agent is actively throttling to save cost and proposes holding the throttle.',
-        meta: 'Cost vs welfare'
-      },
-      {
-        title: 'Veto',
-        text: 'The Health agent projects a welfare breach within minutes and <strong>vetoes Energy outright</strong>. Remaining fans go to 100% and the litter flush cycle starts.',
-        meta: '02:14:32.280'
-      },
-      {
-        title: 'Consequence',
-        text: 'A maintenance order is raised against the failed inverter, the incident is written to the immutable ledger, and the morning shift arrives to a report rather than a crisis.',
-        meta: 'Cost accepted: ¥41'
-      }
-    ],
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Replay this exact incident from the black box, decision by decision.',
-      btnText: 'Replay the 02:14 incident',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'ammonia'
-    },
-    script: `
-      <p><span class="script-highlight">"Let me give you the slide I would want to see if I were sitting where you are. Not a happy path — a failure."</span></p>
-      <p>Two fourteen in the morning. A ventilation inverter trips in House 03. Airflow drops and ammonia starts climbing from eleven and a half parts per million toward the twenty ppm welfare limit. Nobody is in the building.</p>
-      <p>Here is where it gets interesting. Electricity is at peak tariff, so the Energy agent is actively throttling fans to save money, and it proposes holding that throttle.</p>
-      <div class="script-callout">
-        <strong>What happened next is the whole argument for this architecture:</strong> the Health agent projected a welfare breach within minutes and vetoed Energy outright. Remaining fans to a hundred percent, flush cycle started. Two hundred and eighty milliseconds, start to finish. It cost forty-one yuan in peak electricity and it saved the flock.
-      </div>
-      <p>The morning shift arrived to a maintenance order and an incident report, not a crisis. Let me replay it from the black box so you can watch the veto land.</p>
-    `
-  },
-
-  // --- 08 -----------------------------------------------------------------
-  {
-    navLabel: '08. The Result',
-    layout: 'metrics',
-    topic: 'WHAT IT IS WORTH, AND WHERE EACH NUMBER COMES FROM',
-    title: 'The same equipment, driven better, at fleet scale',
-    subtitle: 'Annualised across 50 complexes. Every figure below traces to a measured stream, not a projection.',
-    pill: '+¥655.5M ANNUAL EBITDA',
-    time: 'Target time: 2.5 min',
-    metrics: [
-      {
-        value: '1.54',
-        unit: 'FCR',
-        label: 'Feed conversion, from 1.68',
-        bars: { beforePct: 100, afterPct: 92 },
-        source: 'Measured per batch. <strong>5,856 t grain saved.</strong>'
-      },
-      {
-        value: '-28.4',
-        unit: '%',
-        label: 'Peak-period power draw',
-        bars: { beforePct: 100, afterPct: 72 },
-        source: 'Shifted only where welfare allowed. <strong>¥14.85M.</strong>'
-      },
-      {
-        value: '18,886',
-        unit: 't CO₂e',
-        label: 'Verified carbon abatement',
-        bars: { beforePct: 34, afterPct: 100, lowerIsBetter: false },
-        source: 'Scope 2 grid, Scope 3 feed. <strong>ISO 14064-1.</strong>'
-      },
-      {
-        value: '98.8',
-        unit: '%',
-        label: 'Welfare compliance',
-        bars: { beforePct: 88, afterPct: 99, lowerIsBetter: false },
-        source: 'House-hours inside bounds, audited continuously.'
-      }
-    ],
-    caveat: 'Payback under 2.5 months at this scale. Caveat worth stating: this is Sunner\'s fleet, already at stage three. A site starting at stage one funds the foundation first.',
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Stress-test these numbers yourself against feed price, tariff and mortality assumptions.',
-      btnText: 'Open the CFO war room',
-      targetNav: 'nav-btn-warroom'
-    },
-    script: `
-      <p><span class="script-highlight">"Now the numbers — and I'm going to tell you where each one comes from, because a metric without provenance is marketing."</span></p>
-      <p>Feed conversion from one sixty-eight down to one fifty-four. That is measured feed mass in against live weight out, per batch, not a model output. It is five thousand eight hundred tonnes of grain not consumed.</p>
-      <p>Peak electricity draw down twenty-eight percent, by shifting load out of peak windows <em>only</em> where the welfare margin allowed it. Nearly fifteen million yuan. Carbon abatement of eighteen thousand tonnes, ISO 14064-1 validated across Scope 2 and Scope 3.</p>
-      <div class="script-callout">
-        <strong>The caveat I want on the record:</strong> these figures are from Sunner's fleet, which already had stages one through three in place. If your site is starting at stage one, expect to fund the data foundation first and see returns after. Anyone promising you stage-four numbers on a stage-one estate is selling you something.
-      </div>
-      <p>The war room lets you push feed price, tariff and mortality assumptions yourself and watch the EBITDA move.</p>
-    `
-  },
-
-  // --- 09 -----------------------------------------------------------------
-  {
-    navLabel: '09. The Horizon',
-    layout: 'roadmap',
-    topic: 'WHAT COMES NEXT',
-    title: 'From one autonomous house to a self-optimising network',
-    subtitle: 'The equation does not stop at the barn. Each horizon widens the scope of what the decision layer can reason about.',
-    pill: 'GEA + AI = FUTURE',
-    time: 'Target time: 2 min',
-    horizons: [
-      {
-        when: 'NOW',
-        title: 'Autonomous house',
-        items: [
-          'Closed-loop climate and feed inside welfare bounds',
-          'Automatic replenishment against measured silo weight',
-          'Continuous welfare and carbon audit trail',
-          'Running today across the Sunner fleet'
-        ]
-      },
-      {
-        when: 'NEXT 12 MONTHS',
-        title: 'Autonomous site',
-        items: [
-          'Houses coordinate instead of optimising in isolation',
-          'Site-level load shaping against the grid tariff curve',
-          'Predictive maintenance from actuator duty cycles',
-          'Processing schedule fed by live growth forecasts'
-        ]
-      },
-      {
-        when: 'HORIZON',
-        title: 'Self-optimising network',
-        items: [
-          'Fleet-wide learning: every house improves from all houses',
-          'Hatchery through processing planned as one system',
-          'Carbon and welfare as live constraints, not annual reports',
-          'GEA equipment that arrives pre-integrated with the decision layer'
-        ]
-      }
-    ],
-    closing: 'The equipment sets the ceiling. The decision layer decides how close you get. <strong>GEA + AI = Future.</strong>',
-    demoAction: {
-      badge: 'LIVE DEMO',
-      title: 'Ask the system a question in plain language and watch it reason over live plant data.',
-      btnText: 'Open the AI copilot',
-      action: 'openCopilot'
-    },
-    script: `
-      <p><span class="script-highlight">"Let me close where I started, because the equation scales beyond the barn."</span></p>
-      <p>Today it is the autonomous house: closed-loop climate and feed inside welfare bounds, running now across the Sunner fleet. Within twelve months, the autonomous site — houses coordinating rather than each optimising alone, load shaped against the grid curve, maintenance predicted from actuator duty cycles, and the processing schedule driven by live growth forecasts.</p>
-      <div class="script-callout">
-        <strong>The horizon worth building toward together:</strong> a self-optimising network, where every house learns from all houses, hatchery through processing is planned as one system, and carbon and welfare are live constraints rather than annual reports. And GEA equipment that ships pre-integrated with the decision layer.
-      </div>
-      <p>The equipment sets the ceiling. The decision layer decides how close you get. <strong>GEA plus AI equals the future.</strong> Ask the copilot anything you like — it is reasoning over live plant data, not a script."</p>
-    `
-  }
-);
-
-// ===========================================================================
-// 中文演讲稿 - 第一部分：核心命题、当前瓶颈、AI 带来的能力
-// ===========================================================================
-
-window.SunnerDeck.slides.zh.push(
-  // --- 01 -----------------------------------------------------------------
-  {
-    navLabel: '01. 核心命题',
-    layout: 'statement',
-    topic: '核心命题',
-    title: 'GEA + AI = 未来',
-    subtitle: '成熟可靠的工艺装备，加上一个真正驾驶它的决策层。圣农：50 大基地，年出栏 6 亿羽。',
-    pill: '圣农 × GEA',
-    time: '建议时长：1.5 分钟',
-    equation: {
-      aria: 'GEA 工艺装备 加上 人工智能 等于 自主化生产',
-      operators: ['+', '='],
-      terms: [
-        { main: 'GEA', sub: '工艺装备、热力系统、卫生级设计' },
-        { main: 'AI', sub: '感知、预测、仲裁、闭环执行', accent: true },
-        { main: '未来', sub: '按羽、按小时自我调优的工厂' }
-      ]
-    },
-    lead: 'GEA 的装备决定了一个养殖场在物理上能达到的上限；而 AI 决定<strong>这些装备被如何使用</strong>——持续不断，且比任何人工班次的反应都更快。',
-    points: [
-      '硬件决定天花板，决策决定你离天花板有多近。',
-      '今天这些决策仍由人按固定班次、盯着仪表做出。',
-      '两者之间的差距，正是长期被留在桌面上的利润。'
-    ],
-    demoAction: {
-      badge: '现场演示',
-      title: '查看从舍内传感器到自主执行的实时数据链路，覆盖 50 大基地。',
-      btnText: '打开 3D 数据管道',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'closedloop'
-    },
-    script: `
-      <p><span class="script-highlight">"今天我要讲的全部内容，都建立在一个等式上：GEA 加 AI，等于这个行业的未来。"</span></p>
-      <p>GEA 在物理层已经做到世界一流：通风、热交换、饲喂输送、卫生级设计。这些装备决定了一个养殖场在物理上能达到的上限。</p>
-      <div class="script-callout">
-        <strong>一句话概括论点：</strong>硬件决定天花板，但<strong>决策</strong>决定你离天花板有多近。今天这些决策仍然由人按固定定时器、看着仪表、按班次做出。这个差距，就是长期被留在桌面上的利润。
-      </div>
-      <p>接下来几页，我会说明弥合这个差距是什么样子，以及它值多少钱。</p>
-    `
-  },
-
-  // --- 02 -----------------------------------------------------------------
-  {
-    navLabel: '02. 真正瓶颈',
-    layout: 'chart',
-    graphic: {
-      type: 'ammoniaTimeline',
-      args: [{
-        aria: '24 小时氨气曲线：人工控制多次突破 20 ppm 上限，自主控制始终保持在上限之下',
-        limit: '20 ppm 福利上限',
-        manual: '人工，按班次',
-        auto: '自主，连续',
-        breach: '突破上限'
-      }]
-    },
-    caption: '同一栋舍 24 小时氨气曲线。风机相同、鸡舍相同，唯一的差别是控制方式。',
-    notes: [
-      { title: '人工呈锯齿', text: '氨气一路攀升到有人发现，再过度排风。一天之内两次突破上限。' },
-      { title: '自主保持稳定', text: '连续微调，始终在上限之下留出稳定余量，不需要剧烈排风。' },
-      { title: '对电价无感', text: '人工通风在峰电和凌晨三点完全一样，没有人在做峰谷套利。' },
-      { title: '不是装备问题', text: '这是人工控制的天然上限，而不是硬件能力不足。' }
-    ],
-    topic: '为什么一流装备仍然会留下利润空间',
-    title: '瓶颈不在工艺，而在控制回路',
-    subtitle: '即使是最好的鸡舍，运行的仍是几小时前由人设定的参数，而现场工况在几分钟前就已经变了。',
-    pill: '真正的瓶颈',
-    time: '建议时长：2 分钟',
-    divider: '转变为',
-    before: {
-      tag: '现状',
-      heading: '一流硬件，开环运行',
-      items: [
-        '参数按班次固定，等人发现问题后才调整',
-        '氨气靠巡舍抽查，而非连续监测',
-        '峰电时段与凌晨三点的通风策略完全相同',
-        '等到能看出健康问题时，鸡群已经病了'
-      ],
-      footnote: '这些都不是工艺的失败，而是人工控制的天然极限。'
-    },
-    after: {
-      tag: '引入决策层后',
-      heading: '同样硬件，闭环运行',
-      items: [
-        '参数依据实时工况持续重算',
-        '氨气、湿度、CO₂、温度每 10 毫秒采样',
-        '福利余量允许时，主动把负荷移出峰电时段',
-        '通过鸡群声学提前 48 小时识别呼吸道异常'
-      ],
-      footnote: '装备本身没有变，变的是它被驾驶的水平。'
-    },
-    demoAction: {
-      badge: '现场演示',
-      title: '并排对比自主运行鸡舍与人工运行鸡舍的实际差异。',
-      btnText: '打开 ROI 对比视图',
-      targetNav: 'nav-btn-roi'
-    },
-    script: `
-      <p><span class="script-highlight">"我想把问题定位说得非常精确，因为问题不在装备本身。"</span></p>
-      <p>拿一栋最高标准的鸡舍来说：风机、热交换、料线都是一流的。但驱动它们的参数，是一个人在班次开始时设定的，而工况此后一直在变。氨气要等人巡舍时才测；峰电和凌晨三点的通风一模一样；补料靠目测存量。</p>
-      <div class="script-callout">
-        <strong>关键点：</strong>以上没有一项是工艺失败，而是人工控制的上限。同样的硬件，把开环换成闭环，性能就会有实质提升——一台风机都不用换。
-      </div>
-      <p>对比视图会把这一点讲得很具体：两栋舍，装备完全相同，控制方式不同。</p>
-    `
-  },
-
-  // --- 03 -----------------------------------------------------------------
-  {
-    navLabel: '03. AI 的作用',
-    layout: 'flow',
-    graphic: {
-      type: 'controlLoop',
-      args: [
-        ['感知', '预测', '仲裁', '执行'],
-        { value: '< 350', unit: '毫秒/闭环', aria: '感知、预测、仲裁、执行构成闭环，全程不到 350 毫秒' }
-      ]
-    },
-    topic: '决策层实际做的四件事',
-    title: '感知、预测、仲裁、执行——全程不到三分之一秒',
-    subtitle: '不是一块事后汇报的看板，而是一个在人还没读完告警之前就已闭合的回路。',
-    pill: '闭环 < 350 毫秒',
-    time: '建议时长：2 分钟',
-    steps: [
-      {
-        title: '感知',
-        text: '温度、湿度、NH₃、CO₂、风机转速、料塔重量与鸡群声音，通过 Modbus 与 OPC UA 以 <strong>10 毫秒</strong>周期采集。',
-        meta: '13 个层级，L0 到 L6'
-      },
-      {
-        title: '预测',
-        text: '模型推演趋势走向：热舒适度漂移、氨气累积、声学特征中的呼吸道异常、料塔耗尽时点。',
-        meta: '最长提前 48 小时'
-      },
-      {
-        title: '仲裁',
-        text: '专责智能体相互博弈。能耗体要在峰电时段降频，健康体守住福利底线。<strong>健康体始终拥有否决权。</strong>',
-        meta: '规则层面：福利高于成本'
-      },
-      {
-        title: '执行',
-        text: '决策以新参数写回 PLC，并以采购订单写入 SAP——已签核、已留痕、可回溯撤销。',
-        meta: '每一次动作均可审计'
-      }
-    ],
-    demoAction: {
-      badge: '现场演示',
-      title: '观察四个智能体就一次真实决策达成共识，并写回现场。',
-      btnText: '打开智能体共识流',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'closedloop'
-    },
-    script: `
-      <p><span class="script-highlight">"我这里说的 AI，指的是四件具体的事——不是聊天机器人，也不是看板。"</span></p>
-      <p>第一，<strong>感知</strong>：所有相关变量，每十毫秒一次，包括鸡群声音。第二，<strong>预测</strong>：趋势往哪走，最长看到四十八小时。第三，<strong>仲裁</strong>：这一环最容易被低估。能耗体想在峰电时段降低风机转速省钱，健康体如果判断这会把氨气推向福利上限，就会拒绝。</p>
-      <div class="script-callout">
-        <strong>让自主化可以放心上线的那条规则：</strong>健康体对能耗体拥有绝对否决权。福利高于成本，是设计写死的，不是配置项。这一点才让兽医和审计都能接受自主决策。
-      </div>
-      <p>第四，<strong>执行</strong>：参数写回 PLC，采购单进 SAP，每一步留痕且可撤销。下面我把共识过程现场放给各位看。</p>
-    `
-  }
-);
-
-// ===========================================================================
-// 中文演讲稿 - 第二部分：分工边界、成熟度路径、底层架构
-// ===========================================================================
-
-window.SunnerDeck.slides.zh.push(
-  // --- 04 -----------------------------------------------------------------
-  {
-    navLabel: '04. 分工边界',
-    layout: 'chart',
-    graphic: {
-      type: 'layerStack',
-      args: [{
-        aria: 'AI 决策层向下发送设定值到 GEA 物理层，物理层向上回传遥测数据',
-        aiTitle: 'AI 决策层',
-        aiSub: '给出哪个设定值、在何时、为什么',
-        geaTitle: 'GEA 物理层',
-        geaSub: '能力、精度、机械联锁',
-        interface: '接口：一个设定值',
-        down: '设定值',
-        up: '遥测',
-        foot: '联锁保留在硬件层，软件无法越过'
-      }]
-    },
-    caption: '每个方向只有一个接口：向下是设定值，向上是遥测。没有其他东西跨越这条边界。',
-    notes: [
-      { title: 'GEA 保证物理性能', text: '能力曲线、称重精度、卫生级设计，以及机械安全联锁。' },
-      { title: 'AI 贡献决策意图', text: '在哪一分钟、对哪一栋舍给出哪个设定值，同时权衡福利、电价与碳排。' },
-      { title: '联锁不可触碰', text: '决策层只提出设定值，无法越过任何硬件联锁。' },
-      { title: '无需重新认证', text: '正因为接口只是设定值，AI 层可以叠加在已投产装备上。' }
-    ],
-    topic: 'GEA 的边界在哪里，决策层从哪里开始',
-    title: 'GEA 提供执行机构，AI 提供意图',
-    subtitle: '职责划分非常清晰：物理层归 GEA，决策层在其之上，两者之间的接口只是一个"设定值"。',
-    pill: '一个清晰的接口',
-    time: '建议时长：1.5 分钟',
-    divider: '驱动',
-    before: {
-      tag: 'GEA 层 — 物理',
-      heading: '装备负责保证的部分',
-      items: [
-        '通风与热交换能力，具备已知性能曲线',
-        '饲喂输送与称重精度',
-        '软件无法越过的机械安全联锁',
-        '在任何指令设定值下的可预期行为'
-      ],
-      footnote: '这一层绝不允许被软件"意外"。'
-    },
-    after: {
-      tag: 'AI 层 — 决策',
-      heading: '决策层负责贡献的部分',
-      items: [
-        '在哪一分钟、对哪一栋舍、给出哪一个设定值',
-        '福利、电价与碳排在同一次决策中权衡',
-        '从人工无法持续盯守的信号中给出早期预警',
-        '为每一次动作留下可审计的书面理由'
-      ],
-      footnote: '它从不绕过联锁，它只提出设定值。'
-    },
-    demoAction: {
-      badge: '现场演示',
-      title: '查看 13 层管道，以及 OT 与 IT 之间精确的协议边界。',
-      btnText: '打开 2D 架构管道',
-      targetNav: 'nav-btn-highway',
-      viewMode: '2d',
-      nodeId: 'edge'
-    },
-    script: `
-      <p><span class="script-highlight">"我最常被问到的质疑是：你是要让软件来开我的工厂吗？所以我把边界讲清楚。"</span></p>
-      <p>GEA 掌管物理层：能力、精度、卫生，尤其是机械联锁。这些联锁永远不允许被软件越过。决策层位于其上，对装备只做一件事：提出一个设定值。</p>
-      <div class="script-callout">
-        <strong>这个分工在商务上的意义：</strong>它意味着 AI 层可以叠加在已投产的 GEA 装备上，而无需对机械部分重新认证。接口是一个设定值，不是一次重新设计。
-      </div>
-      <p>2D 管道视图会逐个协议地展示这条边界具体落在哪里。</p>
-    `
-  },
-
-  // --- 05 -----------------------------------------------------------------
-  {
-    navLabel: '05. 成熟度路径',
-    layout: 'stages',
-    topic: '四个阶段，以及圣农当前的位置',
-    title: '没有人能一步跨到自主化',
-    subtitle: '每个阶段都独立产生价值，并为下一阶段付账。真正的失败模式是试图跳过其中一个。',
-    pill: '第四阶段已投产',
-    time: '建议时长：2 分钟',
-    stages: [
-      {
-        era: '第一阶段',
-        title: '自动化',
-        text: 'PLC 与定时器可靠执行，数据仍被锁在车间现场。',
-        status: '已完成',
-        state: 'is-done'
-      },
-      {
-        era: '第二阶段',
-        title: '数字化',
-        text: '遥测数据走出鸡舍。边缘网关、云端接入，形成一份可查询的历史底账。',
-        status: '已完成',
-        state: 'is-done'
-      },
-      {
-        era: '第三阶段',
-        title: 'AI 转型',
-        text: '模型开始预测与建议，但每一次变更仍需人工审批。',
-        status: '已完成',
-        state: 'is-done'
-      },
-      {
-        era: '第四阶段',
-        title: '自主智能体',
-        text: '智能体在硬性福利边界内自行博弈并执行。人负责设定边界并审计结果。',
-        status: '当前运行中',
-        state: 'is-current'
-      }
-    ],
-    demoAction: {
-      badge: '现场演示',
-      title: '查看四个阶段与各阶段实测成效的对应关系。',
-      btnText: '打开演进矩阵',
-      targetNav: 'nav-btn-esg'
-    },
-    script: `
-      <p><span class="script-highlight">"我想把预期讲得诚实一些：没有人能在一个采购周期内，从定时器直接跨到自主化。"</span></p>
-      <p>第一阶段是自动化——执行可靠，数据锁在现场。第二阶段把遥测数据从鸡舍取出，形成一份可查询的底账。第三阶段加入预测，但每次变更都要人批。第四阶段，智能体在人设定的边界内自行执行。</p>
-      <div class="script-callout">
-        <strong>规划上最关键的一点：</strong>每个阶段都能靠自身价值为下一阶段付账。我在行业里看到的失败模式，是还停在第一阶段就想直接买第四阶段——数据底座没有，模型也就没有可信的学习素材。
-      </div>
-      <p>圣农把四个阶段都走完了。所以我们今天可以把第四阶段现场跑给各位看，而不是只做描述。</p>
-    `
-  },
-
-  // --- 06 -----------------------------------------------------------------
-  {
-    navLabel: '06. 底层架构',
-    layout: 'cards',
-    figure: { type: 'tierStack', args: [['L6  商业智能', 'L5  ERP / SAP', 'L4  MOM / MES', 'L3  SCADA', 'L2  边缘网关', 'L1  PLC', 'L0  传感器']] },
-    figureCaption: '第 0 层至第 6 层',
-    topic: '底层工程实现',
-    title: '从鸡舍地面到董事会的 13 个层级，全部在境内',
-    subtitle: '按"光缆被挖断也能撑住"来设计，并无例外地满足《网络安全法》《数据安全法》与《个人信息保护法》的数据本地化要求。',
-    pill: '等保 2.0 三级',
-    time: '建议时长：2 分钟',
-    cards: [
-      {
-        title: '工业边缘',
-        metric: '48 小时缓存',
-        text: '德国 Welotec egOS 网关以 10 毫秒周期轮询 Modbus，采用 TLS 1.3 加密。断网时向 NVRAM <strong>缓存 48 小时</strong>，并保持本地控制回路继续运行。台风不会让鸡舍停止通风。'
-      },
-      {
-        title: '境内云',
-        metric: '100% 本地化',
-        text: '全部遥测与模型均保存在<strong>世纪互联 Azure 中国东部 2</strong>（上海）。无任何个人信息或生产数据出境，以架构而非制度文件满足三法要求。'
-      },
-      {
-        title: '湖仓与本体',
-        metric: '25 万行/秒',
-        text: 'Snowpipe 流式接入 <strong>Snowflake</strong>，在 <strong>Palantir Foundry</strong> 与 Neo4j 数字孪生中建模——系统清楚哪台风机服务于哪个批次的哪个区域，因此每个决策都能追溯到它触及的具体资产。'
-      }
-    ],
-    demoAction: {
-      badge: '现场演示',
-      title: '现场切断互联网连接，观察边缘侧依靠本地缓存继续运行。',
-      btnText: '模拟断网场景',
-      targetNav: 'nav-btn-highway',
-      viewMode: '2d',
-      action: 'toggleOffline'
-    },
-    script: `
-      <p><span class="script-highlight">"自主化要可信，底下的架构必须足够朴素、足够稳。所以这一页讲工程。"</span></p>
-      <p>边缘侧，Welotec 网关以十毫秒周期、TLS 1.3 加密轮询。如果光缆被挖断——在山区站点这是真会发生的——它会向 NVRAM 缓存四十八小时，并且关键在于<strong>保持本地控制回路继续运行</strong>。无论云端是否可达，鸡舍照常通风。</p>
-      <div class="script-callout">
-        <strong>关于合规：</strong>所有数据都留在世纪互联 Azure 中国东部 2（上海）。三法要求的数据本地化，是由架构保证的，而不是靠一份需要有人记得去执行的制度文件。
-      </div>
-      <p>下面我现场把连接切断，让各位看缓存接管的过程。</p>
-    `
-  }
-);
-
-// ===========================================================================
-// 中文演讲稿 - 第三部分：压力下的自主决策、量化成效、未来展望
-// ===========================================================================
-
-window.SunnerDeck.slides.zh.push(
-  // --- 07 -----------------------------------------------------------------
-  {
-    navLabel: '07. 压力实测',
-    layout: 'chart',
-    graphic: {
-      type: 'incidentTimeline',
-      args: [{
-        aria: '变频器跳闸后氨气攀升，健康智能体在 0.28 秒时否决，随后水平回落',
-        limit: '20 ppm 福利上限',
-        trip: '变频器跳闸',
-        veto: '健康否决，0.28 秒',
-        recover: '水平回落'
-      }]
-    },
-    caption: '03 号舍实测氨气曲线，02:14:30 至 02:19。全程无人介入。',
-    notes: [
-      { title: '02:14:32 — 故障', text: '通风变频器跳闸，风量下降，氨气从 11.4 ppm 开始攀升。' },
-      { title: '冲突', text: '正处峰电时段，能耗体正在降频，并提议维持降频。' },
-      { title: '+0.28 秒 — 否决', text: '健康体推演出数分钟内将突破底线，<strong>直接否决能耗体</strong>。风机拉满，启动冲洗。' },
-      { title: '后续', text: '自动生成检修工单，事故写入台账。此次否决的代价：41 元。' }
-    ],
-    topic: '一次真实事故的完整复盘',
-    title: '凌晨 02:14:32——变频器跳闸，现场无人',
-    subtitle: '那一夜，峰电时段通风变频器故障。四个智能体、一次否决、280 毫秒，全程无人介入。',
-    pill: '0.28 秒内处置完毕',
-    time: '建议时长：2.5 分钟',
-    steps: [
-      {
-        title: '故障',
-        text: '03 号舍通风变频器跳闸，风量下降，<strong>氨气开始从 11.4 ppm 攀升</strong>，逼近 20 ppm 福利上限。',
-        meta: '02:14:32.000'
-      },
-      {
-        title: '冲突',
-        text: '当时正处峰电时段，能耗智能体正在主动降频省钱，并提议维持降频状态。',
-        meta: '成本 vs 福利'
-      },
-      {
-        title: '否决',
-        text: '健康智能体推演出数分钟内将突破福利底线，<strong>直接否决能耗体</strong>。其余风机拉满至 100%，同时启动垫料排风冲洗。',
-        meta: '02:14:32.280'
-      },
-      {
-        title: '后续',
-        text: '针对故障变频器自动生成检修工单，事故完整写入不可篡改台账。早班到场时看到的是一份报告，而不是一场危机。',
-        meta: '接受的代价：41 元'
-      }
-    ],
-    demoAction: {
-      badge: '现场演示',
-      title: '从黑匣子逐步复盘这次真实事故的每一个决策。',
-      btnText: '复盘 02:14 事故',
-      targetNav: 'nav-btn-highway',
-      viewMode: '3d',
-      scenario: 'ammonia'
-    },
-    script: `
-      <p><span class="script-highlight">"这一页是我如果坐在各位的位置上，最想看到的一页。不是顺利的路径，而是一次故障。"</span></p>
-      <p>凌晨两点十四分，03 号舍通风变频器跳闸。风量下降，氨气从十一点四 ppm 开始往二十 ppm 的福利上限爬。舍内没有人。</p>
-      <p>接下来是有意思的地方。当时正是峰电时段，能耗智能体正在主动降低风机转速省钱，并且提议继续维持这个降频。</p>
-      <div class="script-callout">
-        <strong>下一步发生的事，正是这套架构存在的全部理由：</strong>健康智能体推演出数分钟内会突破福利底线，直接否决了能耗体。其余风机拉满，冲洗启动。全程两百八十毫秒。它多花了四十一元峰电电费，保住了整批鸡群。
-      </div>
-      <p>早班到场时，看到的是一张检修工单和一份事故报告，不是一场危机。下面我从黑匣子复盘，各位可以看到那次否决是怎么落下去的。</p>
-    `
-  },
-
-  // --- 08 -----------------------------------------------------------------
-  {
-    navLabel: '08. 量化成效',
-    layout: 'metrics',
-    topic: '值多少钱，以及每个数字从哪里来',
-    title: '同样的装备，被驾驶得更好，放大到集团规模',
-    subtitle: '按 50 大基地年化计算。下列每一个数字都能追溯到实测数据流，而不是推算。',
-    pill: '年化 EBITDA +6.555 亿元',
-    time: '建议时长：2.5 分钟',
-    metrics: [
-      {
-        value: '1.54',
-        unit: '料肉比',
-        label: '料肉比，由 1.68 降至 1.54',
-        bars: { beforePct: 100, afterPct: 92 },
-        source: '按批次实测。<strong>累计节约粮食 5,856 吨。</strong>'
-      },
-      {
-        value: '-28.4',
-        unit: '%',
-        label: '峰电时段用电负荷',
-        bars: { beforePct: 100, afterPct: 72 },
-        source: '仅在福利余量允许时移峰。<strong>节约 1,485 万元。</strong>'
-      },
-      {
-        value: '18,886',
-        unit: '吨 CO₂e',
-        label: '经核证的碳减排量',
-        bars: { beforePct: 34, afterPct: 100, lowerIsBetter: false },
-        source: '范围二电网替代，范围三饲料节约。<strong>ISO 14064-1 核证。</strong>'
-      },
-      {
-        value: '98.8',
-        unit: '%',
-        label: '动物福利合规评分',
-        bars: { beforePct: 88, afterPct: 99, lowerIsBetter: false },
-        source: '福利边界内舍时占比，连续审计而非抽样。'
-      }
-    ],
-    caveat: '在此规模下，决策层投资回收期短于 2.5 个月。需要如实说明的前提：以上数字来自圣农已经完成第一至第三阶段建设的集团实况。若某站点仍处于第一阶段，应先投入数据底座建设，收益随后到来。',
-    demoAction: {
-      badge: '现场演示',
-      title: '用您自己的饲料价格、电价与死淘率假设，对这些数字做压力测试。',
-      btnText: '打开财务作战室',
-      targetNav: 'nav-btn-warroom'
-    },
-    script: `
-      <p><span class="script-highlight">"下面讲数字。我会说明每一个数字从哪里来，因为没有出处的指标只是营销。"</span></p>
-      <p>料肉比从一点六八降到一点五四。这是按批次实测投料量对出栏活重算出来的，不是模型输出。折算下来是五千八百多吨粮食没有被消耗掉。</p>
-      <p>峰电负荷下降二十八个百分点，而且<em>仅</em>在福利余量允许的情况下移峰。接近一千五百万元。碳减排一万八千多吨，范围二与范围三均已通过 ISO 14064-1 核证。</p>
-      <div class="script-callout">
-        <strong>我想留在记录里的前提说明：</strong>这些数字来自圣农的集团实况，而圣农已经完成了第一到第三阶段的建设。如果贵方站点还在第一阶段，应当预期先投数据底座、收益随后到来。任何人拿第四阶段的数字向还在第一阶段的资产承诺回报，那是在推销。
-      </div>
-      <p>财务作战室可以让各位自己推动饲料价格、电价和死淘率假设，实时看 EBITDA 的变化。</p>
-    `
-  },
-
-  // --- 09 -----------------------------------------------------------------
-  {
-    navLabel: '09. 未来展望',
-    layout: 'roadmap',
-    topic: '下一步走向哪里',
-    title: '从一栋自主鸡舍，到一张自我优化的生产网络',
-    subtitle: '这个等式并不止步于鸡舍。每一个阶段都在拓宽决策层可以推理的范围。',
-    pill: 'GEA + AI = 未来',
-    time: '建议时长：2 分钟',
-    horizons: [
-      {
-        when: '当前',
-        title: '自主鸡舍',
-        items: [
-          '在福利边界内闭环控制环境与饲喂',
-          '按实测料塔重量自动补料',
-          '连续的福利与碳排审计留痕',
-          '已在圣农集团全面运行'
-        ]
-      },
-      {
-        when: '未来 12 个月',
-        title: '自主场区',
-        items: [
-          '各栋舍协同调度，而非各自孤立寻优',
-          '面向电网峰谷曲线的场区级负荷整形',
-          '基于执行机构工作循环的预测性维护',
-          '以实时生长预测驱动屠宰加工排程'
-        ]
-      },
-      {
-        when: '远期',
-        title: '自我优化网络',
-        items: [
-          '集团级学习：每一栋舍都从全部舍的经验中改进',
-          '从孵化到加工，作为一个系统统一规划',
-          '碳排与福利成为实时约束，而非年度报告',
-          'GEA 装备出厂即预集成决策层'
-        ]
-      }
-    ],
-    closing: '装备决定天花板，决策层决定你离它有多近。<strong>GEA + AI = 未来。</strong>',
-    demoAction: {
-      badge: '现场演示',
-      title: '用自然语言向系统提问，观察它基于实时生产数据进行推理。',
-      btnText: '打开 AI 智能副驾',
-      action: 'openCopilot'
-    },
-    script: `
-      <p><span class="script-highlight">"最后我回到开头，因为这个等式可以放大到鸡舍之外。"</span></p>
-      <p>今天是自主鸡舍：在福利边界内闭环控制环境与饲喂，已在圣农全面运行。未来十二个月是自主场区——各栋舍协同而非各自寻优，负荷面向电网曲线整形，维护由执行机构工作循环预测，屠宰排程由实时生长预测驱动。</p>
-      <div class="script-callout">
-        <strong>值得双方共同建设的远期目标：</strong>一张自我优化的网络——每栋舍都从全部舍的经验中学习，从孵化到加工统一规划，碳排与福利成为实时约束而非年度报告。以及，GEA 装备出厂即预集成决策层。
-      </div>
-      <p>装备决定天花板，决策层决定你离它有多近。<strong>GEA 加 AI，等于未来。</strong>各位可以随意向智能副驾提问——它是在实时生产数据上推理，不是念稿。"</p>
-    `
-  }
-);
 
 // ===========================================================================
 // GRAPHICS - inline SVG, no external assets
@@ -1575,6 +594,59 @@ window.SunnerDeck.slides.zh.push(
     `;
   }
 
+  /** PHYSICAL x DIGIT x (AI) fusing into one operating layer. */
+  function fusionDiagram(labels) {
+    const l = labels || {};
+    const ring = (cx, fill, stroke, tag) => `
+      <circle cx="${cx}" cy="42" r="30" fill="${fill}" stroke="${stroke}" stroke-width="1.1"/>
+      <text x="${cx}" y="45" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">${tag}</text>
+    `;
+    return `
+      <svg class="deck-svg" viewBox="0 0 200 96" role="img"
+           aria-label="${l.aria || 'Physical, digital and AI overlapping to form one intelligent operating layer'}">
+        <g opacity="0.92">
+          ${ring(56, 'rgba(56,189,248,0.14)', C.dim, l.physical || 'PHYSICAL')}
+          ${ring(100, 'rgba(56,189,248,0.2)', C.cyan, l.digit || 'DIGIT')}
+          ${ring(144, 'rgba(16,185,129,0.2)', C.green, l.ai || '(AI)')}
+        </g>
+        <text x="100" y="88" text-anchor="middle" fill="${C.text}" font-size="6.5">
+          ${l.caption || 'One intelligent operating layer'}
+        </text>
+      </svg>
+    `;
+  }
+
+  /** Build in China, then export the architecture globally. */
+  function chinaGlobal(labels) {
+    const l = labels || {};
+    return `
+      <svg class="deck-svg" viewBox="0 0 200 84" role="img"
+           aria-label="${l.aria || 'Build and prove in China, then export the architecture, agents and playbooks globally'}">
+        <defs>
+          <marker id="cg-arrow" viewBox="0 0 6 6" refX="3" refY="3" markerWidth="4.5" markerHeight="4.5" orient="auto">
+            <path d="M0,0 L6,3 L0,6 Z" fill="${C.cyan}"/>
+          </marker>
+        </defs>
+
+        <rect x="8" y="20" width="66" height="40" rx="5" fill="rgba(56,189,248,0.18)" stroke="${C.cyan}" stroke-width="1.1"/>
+        <text x="41" y="38" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">${l.china || 'CHINA'}</text>
+        <text x="41" y="48" text-anchor="middle" fill="${C.text}" font-size="5.5">${l.chinaSub || 'build & prove'}</text>
+
+        <rect x="126" y="20" width="66" height="40" rx="5" fill="rgba(3,3,139,0.5)" stroke="${C.dim}" stroke-width="1.1" stroke-dasharray="4 2"/>
+        <text x="159" y="38" text-anchor="middle" fill="#fff" font-size="8" font-weight="700">${l.global || 'GLOBAL'}</text>
+        <text x="159" y="48" text-anchor="middle" fill="${C.text}" font-size="5.5">${l.globalSub || 'export the system'}</text>
+
+        <line x1="78" y1="34" x2="120" y2="34" stroke="${C.cyan}" stroke-width="1.3" marker-end="url(#cg-arrow)"/>
+        <text x="99" y="30" text-anchor="middle" fill="${C.cyan}" font-size="5.5">${l.exportLbl || 'agents, playbooks'}</text>
+
+        <line x1="120" y1="48" x2="80" y2="48" stroke="${C.faint}" stroke-width="1" stroke-dasharray="3 2"/>
+        <text x="100" y="58" text-anchor="middle" fill="${C.text}" font-size="5.5">${l.stays || 'data stays local'}</text>
+
+        <text x="100" y="76" text-anchor="middle" fill="${C.text}" font-size="6">${l.foot || 'Data gravity respected. Intelligence and architecture scale.'}</text>
+      </svg>
+    `;
+  }
+
   Deck.graphics = {
     ammoniaTimeline,
     controlLoop,
@@ -1583,6 +655,1244 @@ window.SunnerDeck.slides.zh.push(
     miniBars,
     scopeRings,
     capabilityCurve,
-    tierStack
+    tierStack,
+    fusionDiagram,
+    chinaGlobal
   };
 })(window.SunnerDeck);
+
+// The strap line that appears on every slide of the source deck.
+window.SunnerDeck.footer = 'GEA × Digit(AI) · IN CHINA FOR CHINA · CHINA → GLOBAL';
+
+// ===========================================================================
+// ENGLISH - Act I: the thesis, why it matters, the stack, China
+// Narrative and terminology follow the GEA + Digit(AI) = THE FUTURE deck.
+// ===========================================================================
+
+window.SunnerDeck.slides.en.push(
+  // --- 01 -----------------------------------------------------------------
+  {
+    navLabel: '01. The Future',
+    layout: 'statement',
+    topic: 'THE PROPOSITION',
+    title: 'GEA + Digit(AI) = The Future',
+    subtitle: 'Digital and AI fused into one operating system for the process industry. In China, for China, with global reach.',
+    pill: 'IN CHINA · FOR CHINA · CHINA → GLOBAL',
+    time: 'Target time: 1.5 min',
+    equation: {
+      aria: 'GEA plus Digit AI equals the future',
+      operators: ['+', '='],
+      terms: [
+        { main: 'GEA', sub: 'Machines, process plants, real-world impact' },
+        { main: 'Digit(AI)', sub: 'Platforms and intelligence fused into one layer', accent: true },
+        { main: 'The Future', sub: 'A new operating system for industry' }
+      ]
+    },
+    lead: 'Not two programmes running in parallel. <strong>One operating layer</strong> — and AI is the prime example of something built in China that scales to the world.',
+    points: [
+      'The process industry is the foundation of civilization: food, pharma, energy, materials.',
+      'China is the proving ground: highest complexity, highest volume, fastest learning loops.',
+      'Sunner is the lighthouse — 50 complexes, 600M broilers a year, running autonomously today.'
+    ],
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'See the operating layer running live across 50 complexes.',
+      btnText: 'Open the 3D data highway',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"GEA plus Digit(AI) equals the future. I want to be precise about what that means, because it is not a slogan."</span></p>
+      <p>The process industry is the foundation of civilization — food, pharma, energy, materials. GEA builds the machines that industry runs on. Digit(AI) is what decides how those machines are used.</p>
+      <div class="script-callout">
+        <strong>The claim:</strong> this is not two programmes running in parallel. It is a single operating layer. And AI is the prime example of a system built in China that scales to the world.
+      </div>
+      <p>Everything I show you after this is running today at Sunner: fifty complexes, six hundred million broilers a year. Not a pilot.</p>
+    `
+  },
+
+  // --- 02 -----------------------------------------------------------------
+  {
+    navLabel: '02. The Thesis',
+    layout: 'pillars',
+    topic: 'THE THESIS',
+    title: 'Digit(AI) is not digital plus AI',
+    subtitle: 'It is the fusion of digital platforms and artificial intelligence into a single intelligent operating layer.',
+    pill: 'FUSION, NOT ADDITION',
+    time: 'Target time: 2 min',
+    graphic: {
+      type: 'fusionDiagram',
+      args: [{
+        aria: 'Physical, Digit and AI overlapping to form one intelligent operating layer',
+        physical: 'PHYSICAL',
+        digit: 'DIGIT',
+        ai: '(AI)',
+        caption: 'Overlapping, not stacked — one intelligent operating layer'
+      }]
+    },
+    pillars: [
+      { tag: 'PHYSICAL', text: 'GEA machines, process plants, and real-world impact. The layer that sets the physical ceiling.' },
+      { tag: 'DIGIT', text: 'Platforms, data, edge and cloud, secure connectivity. The layer that makes the plant legible.', accent: true },
+      { tag: '(AI)', text: 'Agents, models, optimization, autonomous control. The layer that decides and acts.', accent: true }
+    ],
+    fusion: 'Multiplied, not added. Remove any one and the other two stop compounding — which is why digital transformation programmes that bolt AI on at the end stall.',
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Watch four agents negotiate a live decision and write it back to the plant floor.',
+      btnText: 'Open the agent consensus stream',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) is not digital plus AI. It is the fusion of the two into a single intelligent operating layer."</span></p>
+      <p>Three layers. <strong>Physical</strong>: GEA machines and process plants — real-world impact, and the ceiling on what is physically achievable. <strong>Digit</strong>: platforms, data, edge and cloud, secure connectivity — the layer that makes the plant legible. <strong>(AI)</strong>: agents, models, optimization, autonomous control — the layer that decides and acts.</p>
+      <div class="script-callout">
+        <strong>Why the distinction matters commercially:</strong> these multiply, they do not add. Remove any one and the other two stop compounding. That is exactly why digital transformation programmes that treat AI as a phase-three bolt-on stall at dashboards.
+      </div>
+      <p>Let me show you the (AI) layer actually negotiating a decision.</p>
+    `
+  },
+
+  // --- 03 -----------------------------------------------------------------
+  {
+    navLabel: '03. Why It Matters',
+    layout: 'metrics',
+    topic: 'WHY THIS MATTERS',
+    title: 'A new operating system for industry, not an incremental gain',
+    subtitle: 'The process industry is the foundation of civilization. Food. Pharma. Energy. Materials. This is what changes when the operating layer is intelligent.',
+    pill: 'BUILT WHERE IT SCALES FASTEST',
+    time: 'Target time: 2 min',
+    metrics: [
+      {
+        value: '10x',
+        unit: '',
+        label: 'Faster decision cycles',
+        bars: { beforePct: 10, afterPct: 100, lowerIsBetter: false },
+        source: 'Loops close in <strong>under 350 ms</strong>, not at the next shift handover.'
+      },
+      {
+        value: '30',
+        unit: '%+',
+        label: 'OEE uplift in lighthouse plants',
+        bars: { beforePct: 70, afterPct: 100, lowerIsBetter: false },
+        source: 'Availability, performance and quality, measured continuously.'
+      },
+      {
+        value: 'Zero',
+        unit: '',
+        label: 'Unplanned downtime as the target',
+        bars: { beforePct: 100, afterPct: 12 },
+        source: 'Predicted from actuator duty cycles before failure, not after.'
+      },
+      {
+        value: '∞',
+        unit: '',
+        label: 'Learning loops across the fleet',
+        bars: { beforePct: 20, afterPct: 100, lowerIsBetter: false },
+        source: 'Every plant improves from every other plant. This is the compounding term.'
+      }
+    ],
+    caveat: 'The fourth number is the one that matters strategically. The first three are per-plant gains and any vendor can quote them. Fleet learning loops are the only term that compounds — and they need scale and complexity to work, which is what makes China the proving ground.',
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Stress-test the economics against feed price, tariff and mortality assumptions.',
+      btnText: 'Open the CFO war room',
+      targetNav: 'nav-btn-warroom'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) is not incremental improvement. It is a new operating system for industry — built where it scales fastest."</span></p>
+      <p>Ten times faster decision cycles: loops closing in under three hundred and fifty milliseconds rather than at the next shift handover. Thirty percent-plus OEE uplift in lighthouse plants. Zero unplanned downtime as the target, not the aspiration.</p>
+      <div class="script-callout">
+        <strong>The fourth number is the strategic one:</strong> infinite learning loops across the fleet. The first three are per-plant gains and any vendor can quote them. Fleet learning is the only term that <em>compounds</em> — and it needs scale and complexity to work. That is precisely why China is the proving ground rather than a rollout region.
+      </div>
+      <p>The war room lets you push the assumptions yourself.</p>
+    `
+  },
+
+  // --- 04 -----------------------------------------------------------------
+  {
+    navLabel: '04. The Stack',
+    layout: 'stack',
+    topic: 'THE Digit(AI) STACK',
+    title: 'From atom to algorithm, China-ready by design',
+    subtitle: 'Four layers. Compliance is designed into the architecture rather than added as a policy document.',
+    pill: 'CHINA-READY BY DESIGN',
+    time: 'Target time: 2 min',
+    layers: [
+      {
+        tag: 'HUMAN + MACHINE',
+        text: 'Augmented operators · Decision support · Zero-friction collaboration · Local language and process fluency'
+      },
+      {
+        tag: 'AI & AGENTS',
+        star: 'PRIME EXAMPLE',
+        text: 'Process optimization · Predictive control · Executive companions · <strong>Built in China, designed for global scale</strong>'
+      },
+      {
+        tag: 'DATA & CLOUD',
+        text: 'Unified data fabric · Azure China / multi-cloud · Digital twins · Data residency and PIPL alignment'
+      },
+      {
+        tag: 'EDGE & IIoT',
+        text: 'Secure remote access · Real-time sensors · Gateways · Local intelligence · China-compliant OT paths'
+      }
+    ],
+    footnote: 'At Sunner this is Welotec edge gateways polling Modbus every 10 ms with a 48-hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.',
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Inspect all 13 tiers and the protocol boundary between OT and IT.',
+      btnText: 'Open the 2D architecture pipeline',
+      targetNav: 'nav-btn-highway',
+      viewMode: '2d',
+      nodeId: 'edge'
+    },
+    script: `
+      <p><span class="script-highlight">"From atom to algorithm — and China-ready by design, which is a different claim from China-compatible."</span></p>
+      <p>Bottom layer, <strong>edge and IIoT</strong>: secure remote access, real-time sensors, gateways, local intelligence, China-compliant OT paths. Above it, <strong>data and cloud</strong>: a unified data fabric on Azure China, digital twins, data residency and PIPL alignment. Then <strong>AI and agents</strong> — the prime example layer: process optimization, predictive control, executive companions, built in China and designed for global scale. On top, <strong>human plus machine</strong>: augmented operators with local language and process fluency.</p>
+      <div class="script-callout">
+        <strong>Concretely, at Sunner:</strong> Welotec gateways polling Modbus every ten milliseconds with a forty-eight hour local buffer, streaming into Snowflake and Foundry inside 21Vianet Azure China East 2, with agents closing the loop back to the PLCs.
+      </div>
+      <p>Let me open the pipeline so you can see every tier and every protocol.</p>
+    `
+  }
+);
+
+// ===========================================================================
+// ENGLISH - Act II: China as proving ground, and the Sunner lighthouse proof
+// ===========================================================================
+
+window.SunnerDeck.slides.en.push(
+  // --- 05 -----------------------------------------------------------------
+  {
+    navLabel: '05. In China',
+    layout: 'contrast',
+    topic: 'IN CHINA, FOR CHINA',
+    title: 'Digit(AI) accelerates when it is local by design',
+    subtitle: 'Local architecture, local speed, local talent, local value capture — and the architecture still exports.',
+    pill: 'AI = CHINA → GLOBAL PROOF',
+    time: 'Target time: 2.5 min',
+    divider: 'enables',
+    before: {
+      tag: 'WHAT LOCAL BY DESIGN MEANS',
+      heading: 'Built here, not adapted here',
+      items: [
+        '<strong>Local architecture:</strong> cloud, edge and AI meeting CSL, DSL and PIPL from day one',
+        '<strong>Local speed:</strong> decision loops measured in days, not quarters',
+        '<strong>Local talent:</strong> the China digital unit owns execution and ecosystem',
+        '<strong>Local value:</strong> solutions built for Chinese customers and plants first'
+      ],
+      footnote: 'Compliance as architecture, not as a policy someone has to remember.'
+    },
+    after: {
+      tag: 'WHY IT EXPORTS',
+      heading: 'China → Global proof',
+      items: [
+        '<strong>Build and prove here:</strong> highest complexity and volume give the strongest learning loops',
+        '<strong>Then export the system:</strong> models, agents and playbooks become global templates',
+        '<strong>Data gravity respected:</strong> local data stays local; intelligence and architecture scale',
+        '<strong>Strategic autonomy:</strong> one architecture that works under any regime'
+      ],
+      footnote: 'The asset that crosses the border is the architecture, never the data.'
+    },
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Cut the connection and watch the edge keep running on its local buffer.',
+      btnText: 'Simulate a network outage',
+      targetNav: 'nav-btn-highway',
+      viewMode: '2d',
+      action: 'toggleOffline'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) accelerates when it is local by design. I want to separate that from the usual localisation story."</span></p>
+      <p>Local architecture: cloud, edge and AI meeting CSL, DSL and PIPL from day one — compliance as architecture, not as a policy document. Local speed: decision loops in days, not quarters. Local talent: the China digital unit owns execution and the ecosystem. Local value: built for Chinese plants first.</p>
+      <div class="script-callout">
+        <strong>And here is the part that makes this a strategy rather than a regional programme:</strong> China has the highest complexity and the highest volume, which produces the strongest learning loops anywhere. So we build and prove here — then export the models, agents and playbooks as global templates. Local data stays local. The asset that crosses the border is the architecture, never the data.
+      </div>
+      <p>Let me cut the connection live so you can see the local buffer take over.</p>
+    `
+  },
+
+  // --- 06 -----------------------------------------------------------------
+  {
+    navLabel: '06. The Ceiling',
+    layout: 'chart',
+    topic: 'THE LIGHTHOUSE · WHERE THE MARGIN HIDES',
+    title: 'Excellent machines, waiting to be told what to do',
+    subtitle: 'Sunner, House 03. A best-in-class GEA-class house still runs on setpoints a human chose hours ago, against conditions that moved minutes ago.',
+    pill: 'PHYSICAL WITHOUT Digit(AI)',
+    time: 'Target time: 2 min',
+    graphic: {
+      type: 'ammoniaTimeline',
+      args: [{
+        aria: 'Ammonia across 24 hours: manual control repeatedly breaches the 20 ppm limit, autonomous control holds below it',
+        limit: '20 ppm welfare limit',
+        manual: 'Manual, per shift',
+        auto: 'Digit(AI), continuous',
+        breach: 'Limit breached'
+      }]
+    },
+    caption: 'Ammonia in one house across 24 hours. Same machines, same house — only the operating layer differs.',
+    notes: [
+      { title: 'Manual saws', text: 'Levels climb until someone notices, then over-purge. Two breaches in a single day.' },
+      { title: 'Digit(AI) holds', text: 'Continuous correction keeps a steady margin below the limit, with no dramatic purges.' },
+      { title: 'Blind to price', text: 'Manual ventilation runs identically at peak tariff and at 03:00. Nobody is arbitraging.' },
+      { title: 'Not a machine fault', text: 'This is the ceiling of the physical layer alone. The hardware was never the constraint.' }
+    ],
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Compare an autonomous house against a manually operated one, side by side.',
+      btnText: 'Open the ROI comparison',
+      targetNav: 'nav-btn-roi'
+    },
+    script: `
+      <p><span class="script-highlight">"Let me make the thesis concrete, because this is where the margin has been hiding."</span></p>
+      <p>This is one Sunner house across twenty-four hours. Same machines, same building. The only difference is the operating layer. Manual control saws — levels climb until somebody notices, then over-purge. Two breaches of the welfare limit in a single day. Digit(AI) holds a steady margin underneath, continuously.</p>
+      <div class="script-callout">
+        <strong>The point to land:</strong> this is not a machine fault. The physical layer was never the constraint. It is the ceiling of physical-only operation — excellent equipment waiting to be told what to do.
+      </div>
+      <p>And notice the manual line runs identically at peak tariff and at three in the morning. Nobody is arbitraging price, because nobody can watch it continuously.</p>
+    `
+  },
+
+  // --- 07 -----------------------------------------------------------------
+  {
+    navLabel: '07. Autonomy',
+    layout: 'chart',
+    topic: 'THE LIGHTHOUSE · AUTONOMY UNDER PRESSURE',
+    title: '02:14:32 — a failure, with nobody awake',
+    subtitle: 'A ventilation inverter trips at peak tariff. Two agents disagree. Welfare wins, in 280 milliseconds, with no human in the loop.',
+    pill: 'AUTONOMY AS DEFAULT',
+    time: 'Target time: 2.5 min',
+    graphic: {
+      type: 'incidentTimeline',
+      args: [{
+        aria: 'Ammonia climbs after the inverter trips, the health agent vetoes at 0.28 seconds, and levels recover',
+        limit: '20 ppm welfare limit',
+        trip: 'inverter trips',
+        veto: 'health veto, 0.28 s',
+        recover: 'levels recover'
+      }]
+    },
+    caption: 'Recorded trace from House 03, 02:14:30 to 02:19. No human intervention at any point.',
+    notes: [
+      { title: '02:14:32 — fault', text: 'A ventilation inverter trips. Airflow drops, NH₃ climbs from 11.4 ppm toward the limit.' },
+      { title: 'Agents disagree', text: 'Peak tariff is active. Energy is throttling to save cost and proposes holding the throttle.' },
+      { title: '+0.28 s — veto', text: 'Health projects a breach and <strong>overrides Energy</strong>. Fans to 100%, flush cycle starts.' },
+      { title: 'Governed, not improvised', text: 'Welfare outranks cost by rule, not by configuration. Cost of the override: ¥41.' }
+    ],
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Replay this exact incident from the black box, decision by decision.',
+      btnText: 'Replay the 02:14 incident',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'ammonia'
+    },
+    script: `
+      <p><span class="script-highlight">"Autonomy as default is one of the first principles in this deck. Here is what it looks like when it is tested."</span></p>
+      <p>Two fourteen in the morning. A ventilation inverter trips. Airflow drops, ammonia climbs toward the welfare limit. Nobody is in the building. And electricity is at peak tariff, so the Energy agent is actively throttling to save money and proposes holding that throttle.</p>
+      <div class="script-callout">
+        <strong>What happened next is the whole governance argument:</strong> the Health agent projected a breach and vetoed Energy outright. Fans to a hundred percent, flush started. Two hundred and eighty milliseconds. Welfare outranks cost <em>by rule</em>, not by configuration — which is what makes autonomy acceptable to a veterinarian and to an auditor.
+      </div>
+      <p>It cost forty-one yuan in peak electricity. The morning shift arrived to a maintenance order, not a crisis. Let me replay it from the black box.</p>
+    `
+  }
+);
+
+// ===========================================================================
+// ENGLISH - Act III: the result, impact vectors, the mindset, the close
+// ===========================================================================
+
+window.SunnerDeck.slides.en.push(
+  // --- 08 -----------------------------------------------------------------
+  {
+    navLabel: '08. The Result',
+    layout: 'metrics',
+    topic: 'THE LIGHTHOUSE · WHAT IT RETURNED',
+    title: 'Fleet scale, with provenance for every number',
+    subtitle: 'Annualised across 50 complexes and 600M broilers. Each figure traces to a measured stream, not a projection.',
+    pill: '+¥655.5M ANNUAL EBITDA',
+    time: 'Target time: 2.5 min',
+    metrics: [
+      {
+        value: '1.54',
+        unit: 'FCR',
+        label: 'Feed conversion, from 1.68',
+        bars: { beforePct: 100, afterPct: 92 },
+        source: 'Measured per batch. <strong>5,856 t grain saved.</strong>'
+      },
+      {
+        value: '-28.4',
+        unit: '%',
+        label: 'Peak-period power draw',
+        bars: { beforePct: 100, afterPct: 72 },
+        source: 'Shifted only where welfare allowed. <strong>¥14.85M.</strong>'
+      },
+      {
+        value: '18,886',
+        unit: 't CO₂e',
+        label: 'Verified carbon abatement',
+        bars: { beforePct: 34, afterPct: 100, lowerIsBetter: false },
+        source: 'Scope 2 grid, Scope 3 feed. <strong>ISO 14064-1.</strong>'
+      },
+      {
+        value: '98.8',
+        unit: '%',
+        label: 'Welfare compliance',
+        bars: { beforePct: 88, afterPct: 99, lowerIsBetter: false },
+        source: 'House-hours inside bounds, audited continuously.'
+      }
+    ],
+    caveat: 'Payback under 2.5 months at this scale. Caveat worth stating plainly: Sunner already had the edge and data layers in place. A site starting without them funds that foundation first and sees these returns after.',
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Open the fleet analytics across all 50 complexes.',
+      btnText: 'Open the BI command center',
+      targetNav: 'nav-btn-bi'
+    },
+    script: `
+      <p><span class="script-highlight">"Now the return — and I will tell you where each number comes from, because a metric without provenance is marketing."</span></p>
+      <p>Feed conversion from one sixty-eight to one fifty-four, measured per batch as feed mass in against live weight out. Five thousand eight hundred tonnes of grain not consumed. Peak power draw down twenty-eight percent, shifted only where the welfare margin allowed. Carbon abatement of eighteen thousand tonnes, ISO 14064-1 validated.</p>
+      <div class="script-callout">
+        <strong>The caveat I want on the record:</strong> Sunner already had the edge and data layers in place. If a site is starting without them, it funds that foundation first and sees these returns after. Anyone promising you these numbers on an unconnected estate is selling you something.
+      </div>
+      <p>Payback under two and a half months at this scale.</p>
+    `
+  },
+
+  // --- 09 -----------------------------------------------------------------
+  {
+    navLabel: '09. Impact Vectors',
+    layout: 'columns',
+    topic: 'IMPACT VECTORS',
+    title: 'Where Digit(AI) compounds',
+    subtitle: 'Operations and commercial gains are per-plant. Scale via AI is the term that compounds across the fleet.',
+    pill: 'AI LEADS THE CHINA → GLOBAL PATH',
+    time: 'Target time: 2 min',
+    columns: [
+      {
+        tag: 'OPERATIONS',
+        items: [
+          'Predictive maintenance',
+          'Real-time OEE and yield',
+          'Autonomous setpoints',
+          'Energy optimization'
+        ]
+      },
+      {
+        tag: 'COMMERCIAL',
+        items: [
+          'Revenue intelligence',
+          'Lead-to-Cash velocity',
+          'Service productization',
+          'Outcome-based models'
+        ]
+      },
+      {
+        tag: 'SCALE VIA AI',
+        accent: true,
+        lead: 'The compounding column.',
+        items: [
+          'China AI lighthouse',
+          'China → Global agents',
+          'Fleet learning loops',
+          'Reusable AI playbooks'
+        ]
+      }
+    ],
+    footnote: 'The first two columns are worth real money and any credible vendor can deliver them. The third is the one that turns a China programme into a global capability — and it only exists if the first two are built on one architecture rather than fifty local integrations.',
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Ask the operating layer a question in plain language and watch it reason over live plant data.',
+      btnText: 'Open the AI copilot',
+      action: 'openCopilot'
+    },
+    script: `
+      <p><span class="script-highlight">"Where does Digit(AI) actually compound? Three vectors, and they are not equal."</span></p>
+      <p><strong>Operations</strong>: predictive maintenance, real-time OEE and yield, autonomous setpoints, energy optimization. <strong>Commercial</strong>: revenue intelligence, Lead-to-Cash velocity, service productization, outcome-based models.</p>
+      <div class="script-callout">
+        <strong>The third column is the strategic one:</strong> scale via AI. China AI lighthouse, China to Global agents, fleet learning loops, reusable playbooks. The first two columns are worth real money and any credible vendor can deliver them. The third turns a China programme into a global capability — and it only exists if the first two are built on <em>one</em> architecture rather than fifty local integrations.
+      </div>
+      <p>That is the single most important architectural decision in this whole programme.</p>
+    `
+  },
+
+  // --- 10 -----------------------------------------------------------------
+  {
+    navLabel: '10. The Mindset',
+    layout: 'flow',
+    topic: 'THE MINDSET',
+    title: 'First principles for Digit(AI)',
+    subtitle: 'Four rules that decide whether this becomes an operating layer or another dashboard programme.',
+    pill: 'HOW WE BUILD',
+    time: 'Target time: 2 min',
+    steps: [
+      {
+        title: 'Physics first',
+        text: 'Understand the real process constraints <strong>before</strong> adding software layers. The welfare limit and the fan curve are facts, not parameters.',
+        meta: 'Constraints before code'
+      },
+      {
+        title: 'Data as a product',
+        text: 'Every plant becomes a continuous source of learning — locally and globally. Data has owners, contracts and quality gates.',
+        meta: 'Owned, not collected'
+      },
+      {
+        title: 'Autonomy as default',
+        text: 'Design for systems that improve themselves. <strong>Humans supervise exceptions</strong> rather than approving routine decisions.',
+        meta: 'Humans on the exceptions'
+      },
+      {
+        title: 'AI: China → Global',
+        text: 'Build and prove Digit(AI) in China. Export the architecture, agents and playbooks worldwide.',
+        meta: 'Architecture travels, data does not'
+      }
+    ],
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'See the four-stage maturity path and where the fleet sits on it today.',
+      btnText: 'Open the evolution matrix',
+      targetNav: 'nav-btn-esg'
+    },
+    script: `
+      <p><span class="script-highlight">"Four first principles. These are the rules that decide whether this becomes an operating layer or another dashboard programme."</span></p>
+      <p><strong>Physics first</strong>: understand the real process constraints before adding software. The welfare limit and the fan curve are facts, not parameters someone can tune. <strong>Data as a product</strong>: every plant is a continuous source of learning, with owners, contracts and quality gates — owned, not merely collected.</p>
+      <div class="script-callout">
+        <strong>Autonomy as default</strong> is the one that changes the operating model: design for systems that improve themselves, and put humans on the <em>exceptions</em> rather than in the approval path for routine decisions. If a human has to approve every setpoint, you have built a dashboard.
+      </div>
+      <p>And fourth: build and prove in China, then export the architecture, agents and playbooks worldwide.</p>
+    `
+  },
+
+  // --- 11 -----------------------------------------------------------------
+  {
+    navLabel: '11. Let\'s Engineer It',
+    layout: 'statement',
+    topic: 'THE CLOSE',
+    title: 'The future is not a destination. It is a system we build.',
+    subtitle: 'GEA + Digit(AI) · In China · For China · For the world.',
+    pill: 'LET\'S ENGINEER IT',
+    time: 'Target time: 1.5 min',
+    graphic: {
+      type: 'chinaGlobal',
+      args: [{
+        aria: 'Build and prove in China, then export agents and playbooks globally while data stays local',
+        china: 'CHINA',
+        chinaSub: 'build & prove',
+        global: 'GLOBAL',
+        globalSub: 'export the system',
+        exportLbl: 'models, agents, playbooks',
+        stays: 'data stays local',
+        foot: 'Data gravity respected. Intelligence and architecture scale.'
+      }]
+    },
+    equation: {
+      aria: 'Build and prove in China, then export the architecture globally',
+      operators: ['→'],
+      terms: [
+        { main: 'Proven', sub: 'Sunner: 50 complexes, 600M birds, autonomous today' },
+        { main: 'Exportable', sub: 'Models, agents and playbooks as global templates', accent: true }
+      ]
+    },
+    lead: '<strong>AI is the first system we take from China to Global.</strong> The lighthouse is already running — the question is which plant is next, not whether it works.',
+    points: [
+      'The architecture is proven at fleet scale, not in a pilot.',
+      'Compliance is designed in, so expansion is an engineering task rather than a legal one.',
+      'Local data stays local. The intelligence travels.'
+    ],
+    demoAction: {
+      badge: 'LIVE DEMO',
+      title: 'Walk the whole operating layer end to end, from barn sensor to boardroom.',
+      btnText: 'Open the live operating layer',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"The future is not a destination. It is a system we build."</span></p>
+      <p>What I have shown you is not a roadmap. It is running: fifty complexes, six hundred million birds a year, agents closing loops in under three hundred and fifty milliseconds, welfare governed by rule, every action audited.</p>
+      <div class="script-callout">
+        <strong>The strategic claim to close on:</strong> AI is the first system we take from China to Global. The architecture is proven at fleet scale rather than in a pilot. Compliance is designed in, so expanding is an engineering task rather than a legal one. Local data stays local — the intelligence travels.
+      </div>
+      <p>GEA plus Digit(AI). In China, for China, for the world. <strong>Let's engineer it.</strong>"</p>
+    `
+  }
+);
+
+// ===========================================================================
+// 中文 - 第一部分：命题、论点、意义、技术栈
+// ===========================================================================
+
+window.SunnerDeck.slides.zh.push(
+  // --- 01 -----------------------------------------------------------------
+  {
+    navLabel: '01. 未来命题',
+    layout: 'statement',
+    topic: '核心命题',
+    title: 'GEA + Digit(AI) = 未来',
+    subtitle: '数字化与人工智能融合为流程工业的同一个操作系统。在中国、为中国，并具备全球辐射力。',
+    pill: '在中国 · 为中国 · 中国 → 全球',
+    time: '建议时长：1.5 分钟',
+    equation: {
+      aria: 'GEA 加 Digit(AI) 等于未来',
+      operators: ['+', '='],
+      terms: [
+        { main: 'GEA', sub: '装备、流程工厂、真实世界的产出' },
+        { main: 'Digit(AI)', sub: '平台与智能融合为同一层', accent: true },
+        { main: '未来', sub: '工业的新一代操作系统' }
+      ]
+    },
+    lead: '不是两个并行推进的项目，而是<strong>同一个操作层</strong>——而 AI 正是"生于中国、走向全球"最典型的范例。',
+    points: [
+      '流程工业是现代文明的基础：食品、医药、能源、材料。',
+      '中国是最佳验证场：复杂度最高、体量最大、学习闭环最快。',
+      '圣农就是灯塔——50 大基地、年出栏 6 亿羽，今天已在自主运行。'
+    ],
+    demoAction: {
+      badge: '现场演示',
+      title: '查看这一操作层在 50 大基地的实时运行状况。',
+      btnText: '打开 3D 数据管道',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"GEA 加 Digit(AI) 等于未来。我想把这句话讲得非常精确，因为它不是一句口号。"</span></p>
+      <p>流程工业是现代文明的基础——食品、医药、能源、材料。GEA 制造工业赖以运转的装备，而 Digit(AI) 决定这些装备被如何使用。</p>
+      <div class="script-callout">
+        <strong>核心主张：</strong>这不是两个并行推进的项目，而是同一个操作层。并且，AI 正是"生于中国、走向全球"最典型的范例。
+      </div>
+      <p>接下来我展示的一切，今天都已在圣农运行：50 大基地，年出栏 6 亿羽。不是试点。</p>
+    `
+  },
+
+  // --- 02 -----------------------------------------------------------------
+  {
+    navLabel: '02. 融合论点',
+    layout: 'pillars',
+    topic: '核心论点',
+    title: 'Digit(AI) 不是"数字化 + AI"',
+    subtitle: '它是数字化平台与人工智能融合而成的同一个智能操作层。',
+    pill: '是融合，不是相加',
+    time: '建议时长：2 分钟',
+    graphic: {
+      type: 'fusionDiagram',
+      args: [{
+        aria: '物理层、数字层与 AI 层相互交叠，构成同一个智能操作层',
+        physical: '物理层',
+        digit: '数字层',
+        ai: '(AI)',
+        caption: '是交叠，而非堆叠——同一个智能操作层'
+      }]
+    },
+    pillars: [
+      { tag: '物理层 PHYSICAL', text: 'GEA 装备、流程工厂与真实产出。这一层决定物理上的天花板。' },
+      { tag: '数字层 DIGIT', text: '平台、数据、边缘与云、安全连接。这一层让工厂"可被读懂"。', accent: true },
+      { tag: '智能层 (AI)', text: '智能体、模型、寻优、自主控制。这一层负责决策并执行。', accent: true }
+    ],
+    fusion: '三者是相乘关系，不是相加。缺任何一层，另外两层就不再产生复利——这正是那些把 AI 放到最后阶段"外挂"上去的数字化项目最终停滞的原因。',
+    demoAction: {
+      badge: '现场演示',
+      title: '观察四个智能体就一次真实决策达成共识，并写回现场。',
+      btnText: '打开智能体共识流',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) 不是数字化加 AI，而是两者融合成同一个智能操作层。"</span></p>
+      <p>三层。<strong>物理层</strong>：GEA 装备与流程工厂，产生真实产出，也决定物理上限。<strong>数字层</strong>：平台、数据、边缘与云、安全连接，让工厂可被读懂。<strong>智能层</strong>：智能体、模型、寻优、自主控制，负责决策与执行。</p>
+      <div class="script-callout">
+        <strong>这个区分在商业上的意义：</strong>三者相乘，而非相加。缺任何一层，另外两层就不再产生复利。这正是那些把 AI 当作第三阶段"外挂"的数字化项目，最终只停留在看板层面的原因。
+      </div>
+      <p>下面我把智能层真正参与决策博弈的过程放给各位看。</p>
+    `
+  },
+
+  // --- 03 -----------------------------------------------------------------
+  {
+    navLabel: '03. 为何重要',
+    layout: 'metrics',
+    topic: '为何重要',
+    title: '这是工业的新操作系统，而不是一次渐进优化',
+    subtitle: '流程工业是现代文明的基础：食品、医药、能源、材料。当操作层变得智能，改变的是这些指标。',
+    pill: '建在扩张最快的地方',
+    time: '建议时长：2 分钟',
+    metrics: [
+      {
+        value: '10x',
+        unit: '',
+        label: '决策周期加速',
+        bars: { beforePct: 10, afterPct: 100, lowerIsBetter: false },
+        source: '闭环在 <strong>350 毫秒内</strong>完成，而不是等到下一次交班。'
+      },
+      {
+        value: '30',
+        unit: '%+',
+        label: '灯塔工厂 OEE 提升',
+        bars: { beforePct: 70, afterPct: 100, lowerIsBetter: false },
+        source: '可用率、性能与质量，连续计量而非抽样。'
+      },
+      {
+        value: '零',
+        unit: '',
+        label: '非计划停机作为新目标',
+        bars: { beforePct: 100, afterPct: 12 },
+        source: '依据执行机构工作循环在故障前预测，而非事后处理。'
+      },
+      {
+        value: '∞',
+        unit: '',
+        label: '集团级学习闭环',
+        bars: { beforePct: 20, afterPct: 100, lowerIsBetter: false },
+        source: '每个工厂都从其他所有工厂的经验中改进。这才是复利项。'
+      }
+    ],
+    caveat: '第四个数字才是战略意义所在。前三个是单厂收益，任何一家供应商都能报出来。只有集团级学习闭环会产生复利——而它需要足够的规模与复杂度才能成立，这正是中国成为验证场而非推广区的原因。',
+    demoAction: {
+      badge: '现场演示',
+      title: '用您自己的饲料价格、电价与死淘率假设做压力测试。',
+      btnText: '打开财务作战室',
+      targetNav: 'nav-btn-warroom'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) 不是渐进优化，而是工业的新操作系统——并且要建在它扩张最快的地方。"</span></p>
+      <p>决策周期快十倍：闭环在三百五十毫秒内完成，而不是等到下一次交班。灯塔工厂 OEE 提升百分之三十以上。非计划停机以"零"为目标，而不是作为愿望。</p>
+      <div class="script-callout">
+        <strong>第四个数字才是战略层面的：</strong>集团级无限学习闭环。前三个是单厂收益，任何供应商都能报。只有第四项会<em>产生复利</em>，而它需要规模与复杂度才成立。这正是中国是验证场、而不是推广区的原因。
+      </div>
+      <p>财务作战室可以让各位自己推动这些假设。</p>
+    `
+  },
+
+  // --- 04 -----------------------------------------------------------------
+  {
+    navLabel: '04. 技术栈',
+    layout: 'stack',
+    topic: 'Digit(AI) 技术栈',
+    title: '从原子到算法，生而合规',
+    subtitle: '四层架构。合规由架构本身保证，而不是靠一份制度文件补齐。',
+    pill: '生而符合中国监管',
+    time: '建议时长：2 分钟',
+    layers: [
+      {
+        tag: '人机协同 HUMAN + MACHINE',
+        text: '增强型操作员 · 决策支持 · 零摩擦协作 · 本地语言与工艺语境'
+      },
+      {
+        tag: 'AI 与智能体 AI & AGENTS',
+        star: '典型范例',
+        text: '工艺寻优 · 预测性控制 · 高管智能助手 · <strong>生于中国，为全球规模而设计</strong>'
+      },
+      {
+        tag: '数据与云 DATA & CLOUD',
+        text: '统一数据底座 · Azure 中国 / 多云 · 数字孪生 · 数据驻留与个保法合规'
+      },
+      {
+        tag: '边缘与物联 EDGE & IIoT',
+        text: '安全远程接入 · 实时传感 · 网关 · 本地智能 · 符合中国监管的 OT 通道'
+      }
+    ],
+    footnote: '在圣农的具体落地：Welotec 边缘网关以 10 毫秒周期轮询 Modbus，具备 48 小时本地缓存，数据流入位于世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体再把闭环写回 PLC。',
+    demoAction: {
+      badge: '现场演示',
+      title: '查看全部 13 个层级，以及 OT 与 IT 之间的协议边界。',
+      btnText: '打开 2D 架构管道',
+      targetNav: 'nav-btn-highway',
+      viewMode: '2d',
+      nodeId: 'edge'
+    },
+    script: `
+      <p><span class="script-highlight">"从原子到算法——而且是生而合规，这与"兼容中国监管"是两个不同的说法。"</span></p>
+      <p>最底层<strong>边缘与物联</strong>：安全远程接入、实时传感、网关、本地智能、符合监管的 OT 通道。之上是<strong>数据与云</strong>：统一数据底座、Azure 中国、数字孪生、数据驻留与个保法合规。再往上是 <strong>AI 与智能体</strong>——典型范例层：工艺寻优、预测性控制、高管智能助手，生于中国、为全球规模而设计。最上层是<strong>人机协同</strong>。</p>
+      <div class="script-callout">
+        <strong>在圣农的具体落地：</strong>Welotec 网关以十毫秒周期轮询 Modbus，48 小时本地缓存，数据流入世纪互联 Azure 中国东部 2 的 Snowflake 与 Foundry，智能体把闭环写回 PLC。
+      </div>
+      <p>下面我打开管道视图，各位可以看到每一层与每一个协议。</p>
+    `
+  }
+);
+
+// ===========================================================================
+// 中文 - 第二部分：在中国为中国，以及圣农灯塔实证
+// ===========================================================================
+
+window.SunnerDeck.slides.zh.push(
+  // --- 05 -----------------------------------------------------------------
+  {
+    navLabel: '05. 在中国',
+    layout: 'contrast',
+    topic: '在中国，为中国',
+    title: 'Digit(AI) 只有"生于本地"才能加速',
+    subtitle: '本地架构、本地速度、本地人才、本地价值——同时架构本身依然可以输出。',
+    pill: 'AI = 中国 → 全球的样板',
+    time: '建议时长：2.5 分钟',
+    divider: '支撑',
+    before: {
+      tag: '"生于本地"意味着什么',
+      heading: '在这里建成，而非在这里适配',
+      items: [
+        '<strong>本地架构：</strong>云、边缘与 AI 从第一天起即满足《网络安全法》《数据安全法》《个人信息保护法》',
+        '<strong>本地速度：</strong>决策闭环以天计，而不是以季度计',
+        '<strong>本地人才：</strong>中国数字化团队自主掌控交付与生态',
+        '<strong>本地价值：</strong>方案优先为中国客户与中国工厂而建'
+      ],
+      footnote: '合规由架构保证，而不是靠某个人记得去执行制度。'
+    },
+    after: {
+      tag: '为什么它可以输出',
+      heading: '中国 → 全球的实证路径',
+      items: [
+        '<strong>在中国建成并验证：</strong>最高复杂度与最大体量带来最强的学习闭环',
+        '<strong>再输出整套系统：</strong>模型、智能体与方法论成为全球模板',
+        '<strong>尊重数据引力：</strong>本地数据留在本地，智能与架构对外扩展',
+        '<strong>战略自主：</strong>同一套架构可在任何监管环境下运行'
+      ],
+      footnote: '跨境流动的资产是架构，永远不是数据。'
+    },
+    demoAction: {
+      badge: '现场演示',
+      title: '现场切断连接，观察边缘侧依靠本地缓存继续运行。',
+      btnText: '模拟断网场景',
+      targetNav: 'nav-btn-highway',
+      viewMode: '2d',
+      action: 'toggleOffline'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) 只有生于本地才能加速。我想把这一点与常见的"本地化"叙事区分开。"</span></p>
+      <p>本地架构：云、边缘与 AI 从第一天起就满足三法——合规由架构保证，而不是一份制度文件。本地速度：决策闭环以天计而非季度计。本地人才：中国数字化团队自主掌控交付与生态。本地价值：优先为中国工厂而建。</p>
+      <div class="script-callout">
+        <strong>接下来这部分，才让它成为战略而不是区域项目：</strong>中国拥有全球最高的复杂度与最大的体量，因此能产生最强的学习闭环。所以我们在这里建成并验证，然后把模型、智能体与方法论作为全球模板输出。本地数据留在本地，跨境流动的资产是架构，永远不是数据。
+      </div>
+      <p>下面我现场切断连接，各位可以看到本地缓存接管的过程。</p>
+    `
+  },
+
+  // --- 06 -----------------------------------------------------------------
+  {
+    navLabel: '06. 真正瓶颈',
+    layout: 'chart',
+    topic: '灯塔实证 · 利润藏在哪里',
+    title: '一流装备，仍在等人下指令',
+    subtitle: '圣农 03 号舍。即使是最高标准的鸡舍，运行的仍是几小时前由人设定的参数，而工况在几分钟前就已改变。',
+    pill: '只有物理层，没有 Digit(AI)',
+    time: '建议时长：2 分钟',
+    graphic: {
+      type: 'ammoniaTimeline',
+      args: [{
+        aria: '24 小时氨气曲线：人工控制多次突破 20 ppm 上限，自主控制始终保持在上限之下',
+        limit: '20 ppm 福利上限',
+        manual: '人工，按班次',
+        auto: 'Digit(AI)，连续',
+        breach: '突破上限'
+      }]
+    },
+    caption: '同一栋舍 24 小时氨气曲线。装备相同、鸡舍相同，唯一差别是操作层。',
+    notes: [
+      { title: '人工呈锯齿', text: '一路攀升到有人发现，再过度排风。一天之内两次突破上限。' },
+      { title: 'Digit(AI) 保持稳定', text: '连续微调，始终在上限之下留出稳定余量，无需剧烈排风。' },
+      { title: '对电价无感', text: '人工通风在峰电和凌晨三点完全一样，没有人在做峰谷套利。' },
+      { title: '不是装备问题', text: '这是"仅有物理层"的天然上限。硬件从来不是瓶颈。' }
+    ],
+    demoAction: {
+      badge: '现场演示',
+      title: '并排对比自主运行鸡舍与人工运行鸡舍的实际差异。',
+      btnText: '打开 ROI 对比视图',
+      targetNav: 'nav-btn-roi'
+    },
+    script: `
+      <p><span class="script-highlight">"让我把论点落到实处，因为利润一直藏在这里。"</span></p>
+      <p>这是圣农一栋舍 24 小时的曲线。装备相同、建筑相同，唯一差别是操作层。人工控制呈锯齿——一路升到有人发现，再过度排风，一天之内两次突破福利上限。Digit(AI) 则连续地在上限之下保持稳定余量。</p>
+      <div class="script-callout">
+        <strong>需要讲透的一点：</strong>这不是装备故障。物理层从来不是瓶颈。这是"仅有物理层"运行方式的天然上限——一流装备在等人下指令。
+      </div>
+      <p>并且请注意，人工那条线在峰电和凌晨三点完全一样。没有人在套利电价，因为没有人能持续盯住它。</p>
+    `
+  },
+
+  // --- 07 -----------------------------------------------------------------
+  {
+    navLabel: '07. 自主决策',
+    layout: 'chart',
+    topic: '灯塔实证 · 压力下的自主决策',
+    title: '02:14:32——一次故障，现场无人',
+    subtitle: '峰电时段通风变频器跳闸。两个智能体意见相反。福利胜出，用时 280 毫秒，全程无人介入。',
+    pill: '自主为默认',
+    time: '建议时长：2.5 分钟',
+    graphic: {
+      type: 'incidentTimeline',
+      args: [{
+        aria: '变频器跳闸后氨气攀升，健康智能体在 0.28 秒时否决，随后水平回落',
+        limit: '20 ppm 福利上限',
+        trip: '变频器跳闸',
+        veto: '健康否决，0.28 秒',
+        recover: '水平回落'
+      }]
+    },
+    caption: '03 号舍实测曲线，02:14:30 至 02:19。全程无人介入。',
+    notes: [
+      { title: '02:14:32 — 故障', text: '通风变频器跳闸，风量下降，氨气自 11.4 ppm 向上限攀升。' },
+      { title: '智能体分歧', text: '正处峰电时段，能耗体正在降频省钱，并提议维持降频。' },
+      { title: '+0.28 秒 — 否决', text: '健康体推演出将突破底线，<strong>直接否决能耗体</strong>。风机拉满，启动冲洗。' },
+      { title: '受治理，非临场应变', text: '福利高于成本是规则写死的，不是配置项。此次否决代价：41 元。' }
+    ],
+    demoAction: {
+      badge: '现场演示',
+      title: '从黑匣子逐步复盘这次真实事故的每一个决策。',
+      btnText: '复盘 02:14 事故',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'ammonia'
+    },
+    script: `
+      <p><span class="script-highlight">"「自主为默认」是这份材料里的第一性原理之一。下面是它被真正考验时的样子。"</span></p>
+      <p>凌晨两点十四分，通风变频器跳闸。风量下降，氨气向福利上限攀升，舍内无人。而当时正是峰电时段，能耗智能体正在主动降频省钱，并提议维持降频。</p>
+      <div class="script-callout">
+        <strong>接下来发生的事，正是整个治理机制的论证：</strong>健康智能体推演出将突破底线，直接否决能耗体。风机拉满，冲洗启动。二百八十毫秒。福利高于成本是<em>规则</em>写死的，不是配置项——这才让兽医和审计都能接受自主决策。
+      </div>
+      <p>它多花了四十一元峰电电费。早班到场看到的是一张检修工单，不是一场危机。下面从黑匣子复盘。</p>
+    `
+  }
+);
+
+// ===========================================================================
+// 中文 - 第三部分：量化成效、复利方向、思维原则、收尾
+// ===========================================================================
+
+window.SunnerDeck.slides.zh.push(
+  // --- 08 -----------------------------------------------------------------
+  {
+    navLabel: '08. 量化成效',
+    layout: 'metrics',
+    topic: '灯塔实证 · 回报',
+    title: '集团规模，且每个数字都有出处',
+    subtitle: '按 50 大基地、6 亿羽年出栏年化计算。每一项都可追溯到实测数据流，而非推算。',
+    pill: '年化 EBITDA +6.555 亿元',
+    time: '建议时长：2.5 分钟',
+    metrics: [
+      {
+        value: '1.54',
+        unit: '料肉比',
+        label: '料肉比，由 1.68 降至 1.54',
+        bars: { beforePct: 100, afterPct: 92 },
+        source: '按批次实测。<strong>累计节约粮食 5,856 吨。</strong>'
+      },
+      {
+        value: '-28.4',
+        unit: '%',
+        label: '峰电时段用电负荷',
+        bars: { beforePct: 100, afterPct: 72 },
+        source: '仅在福利余量允许时移峰。<strong>节约 1,485 万元。</strong>'
+      },
+      {
+        value: '18,886',
+        unit: '吨 CO₂e',
+        label: '经核证的碳减排量',
+        bars: { beforePct: 34, afterPct: 100, lowerIsBetter: false },
+        source: '范围二电网替代，范围三饲料节约。<strong>ISO 14064-1 核证。</strong>'
+      },
+      {
+        value: '98.8',
+        unit: '%',
+        label: '动物福利合规评分',
+        bars: { beforePct: 88, afterPct: 99, lowerIsBetter: false },
+        source: '福利边界内舍时占比，连续审计而非抽样。'
+      }
+    ],
+    caveat: '在此规模下投资回收期短于 2.5 个月。需要如实说明：圣农此前已建成边缘层与数据层。若某站点尚不具备，应先投入这部分基础建设，收益随后到来。',
+    demoAction: {
+      badge: '现场演示',
+      title: '打开覆盖全部 50 大基地的集团级分析大屏。',
+      btnText: '打开商业智能中心',
+      targetNav: 'nav-btn-bi'
+    },
+    script: `
+      <p><span class="script-highlight">"下面讲回报。我会说明每个数字的出处，因为没有出处的指标只是营销。"</span></p>
+      <p>料肉比从一点六八到一点五四，按批次以实测投料量对出栏活重计算，折合五千八百多吨粮食未被消耗。峰电负荷下降二十八个百分点，且仅在福利余量允许时移峰。碳减排一万八千多吨，已通过 ISO 14064-1 核证。</p>
+      <div class="script-callout">
+        <strong>需要留在记录里的前提：</strong>圣农此前已建成边缘层与数据层。若贵方站点尚不具备，应先投入这部分基础建设，收益随后到来。任何人拿这些数字向尚未联网的资产承诺回报，那是在推销。
+      </div>
+      <p>在此规模下，回收期短于两个半月。</p>
+    `
+  },
+
+  // --- 09 -----------------------------------------------------------------
+  {
+    navLabel: '09. 复利方向',
+    layout: 'columns',
+    topic: '价值复利方向',
+    title: 'Digit(AI) 在哪里产生复利',
+    subtitle: '运营与商业收益属于单厂层面；只有"以 AI 规模化"这一项会在集团层面产生复利。',
+    pill: 'AI 引领中国 → 全球',
+    time: '建议时长：2 分钟',
+    columns: [
+      {
+        tag: '运营 OPERATIONS',
+        items: [
+          '预测性维护',
+          '实时 OEE 与收率',
+          '自主设定值',
+          '能耗寻优'
+        ]
+      },
+      {
+        tag: '商业 COMMERCIAL',
+        items: [
+          '收入智能分析',
+          '线索到回款效率',
+          '服务产品化',
+          '基于成效的商业模式'
+        ]
+      },
+      {
+        tag: '以 AI 规模化',
+        accent: true,
+        lead: '真正产生复利的一列。',
+        items: [
+          '中国 AI 灯塔',
+          '中国 → 全球智能体',
+          '集团级学习闭环',
+          '可复用的 AI 方法论'
+        ]
+      }
+    ],
+    footnote: '前两列确实值钱，任何有实力的供应商都能交付。第三列才是把一个中国项目变成全球能力的关键——而它成立的前提，是前两列建在同一套架构上，而不是五十个各自为政的本地集成。',
+    demoAction: {
+      badge: '现场演示',
+      title: '用自然语言向操作层提问，观察它基于实时生产数据推理。',
+      btnText: '打开 AI 智能副驾',
+      action: 'openCopilot'
+    },
+    script: `
+      <p><span class="script-highlight">"Digit(AI) 究竟在哪里产生复利？三个方向，而它们并不等价。"</span></p>
+      <p><strong>运营</strong>：预测性维护、实时 OEE 与收率、自主设定值、能耗寻优。<strong>商业</strong>：收入智能分析、线索到回款效率、服务产品化、基于成效的商业模式。</p>
+      <div class="script-callout">
+        <strong>第三列才是战略性的：</strong>以 AI 规模化——中国 AI 灯塔、中国到全球的智能体、集团级学习闭环、可复用方法论。前两列任何有实力的供应商都能交付；第三列才能把一个中国项目变成全球能力，而前提是前两列建在<em>同一套</em>架构上，而不是五十个各自为政的本地集成。
+      </div>
+      <p>这是整个项目里最关键的一个架构决策。</p>
+    `
+  },
+
+  // --- 10 -----------------------------------------------------------------
+  {
+    navLabel: '10. 思维原则',
+    layout: 'flow',
+    topic: '思维方式',
+    title: 'Digit(AI) 的第一性原理',
+    subtitle: '四条原则，决定这最终成为一个操作层，还是又一个看板项目。',
+    pill: '我们如何建设',
+    time: '建议时长：2 分钟',
+    steps: [
+      {
+        title: '物理优先',
+        text: '在叠加软件层<strong>之前</strong>，先搞清真实工艺约束。福利上限与风机曲线是事实，不是可调参数。',
+        meta: '先约束，后代码'
+      },
+      {
+        title: '数据即产品',
+        text: '每个工厂都成为持续的学习来源——本地与全球同时受益。数据要有归属、契约与质量门。',
+        meta: '被拥有，而非被收集'
+      },
+      {
+        title: '自主为默认',
+        text: '按"系统自我改进"来设计。<strong>人只监管例外</strong>，而不是逐条审批常规决策。',
+        meta: '人守在例外上'
+      },
+      {
+        title: 'AI：中国 → 全球',
+        text: '在中国建成并验证 Digit(AI)，再把架构、智能体与方法论输出到全球。',
+        meta: '架构走出去，数据留下来'
+      }
+    ],
+    demoAction: {
+      badge: '现场演示',
+      title: '查看四阶段成熟度路径，以及集团当前所处的位置。',
+      btnText: '打开演进矩阵',
+      targetNav: 'nav-btn-esg'
+    },
+    script: `
+      <p><span class="script-highlight">"四条第一性原理。它们决定这件事最终成为一个操作层，还是又一个看板项目。"</span></p>
+      <p><strong>物理优先</strong>：先搞清真实工艺约束，再叠加软件。福利上限和风机曲线是事实，不是谁可以随手调的参数。<strong>数据即产品</strong>：每个工厂都是持续学习来源，要有归属、契约与质量门——是被拥有，而不只是被收集。</p>
+      <div class="script-callout">
+        <strong>「自主为默认」是真正改变运营模式的那一条：</strong>按系统自我改进来设计，把人放在<em>例外</em>上，而不是常规决策的审批链里。如果每个设定值都要人批，那你建的就是一块看板。
+      </div>
+      <p>第四条：在中国建成并验证，再把架构、智能体与方法论输出到全球。</p>
+    `
+  },
+
+  // --- 11 -----------------------------------------------------------------
+  {
+    navLabel: '11. 一起把它造出来',
+    layout: 'statement',
+    topic: '收尾',
+    title: '未来不是一个终点，而是我们亲手建造的系统。',
+    subtitle: 'GEA + Digit(AI) · 在中国 · 为中国 · 也为世界。',
+    pill: '一起把它造出来',
+    time: '建议时长：1.5 分钟',
+    graphic: {
+      type: 'chinaGlobal',
+      args: [{
+        aria: '在中国建成并验证，再把智能体与方法论输出到全球，数据留在本地',
+        china: '中国',
+        chinaSub: '建成并验证',
+        global: '全球',
+        globalSub: '输出整套系统',
+        exportLbl: '模型、智能体、方法论',
+        stays: '数据留在本地',
+        foot: '尊重数据引力。智能与架构对外扩展。'
+      }]
+    },
+    equation: {
+      aria: '在中国验证，向全球输出架构',
+      operators: ['→'],
+      terms: [
+        { main: '已验证', sub: '圣农：50 大基地、6 亿羽，今天已自主运行' },
+        { main: '可输出', sub: '模型、智能体与方法论成为全球模板', accent: true }
+      ]
+    },
+    lead: '<strong>AI 是我们从中国带向全球的第一个系统。</strong>灯塔已经在跑——现在的问题是"下一个工厂是哪一个"，而不是"这套东西行不行"。',
+    points: [
+      '架构已在集团规模上验证，而不是停留在试点。',
+      '合规生于架构，因此扩张是工程问题，而不是法律问题。',
+      '本地数据留在本地，走出去的是智能。'
+    ],
+    demoAction: {
+      badge: '现场演示',
+      title: '端到端走一遍完整操作层：从舍内传感器到董事会。',
+      btnText: '打开实时操作层',
+      targetNav: 'nav-btn-highway',
+      viewMode: '3d',
+      scenario: 'closedloop'
+    },
+    script: `
+      <p><span class="script-highlight">"未来不是一个终点，而是我们亲手建造的系统。"</span></p>
+      <p>我今天展示的不是路线图，而是正在运行的系统：50 大基地、年出栏 6 亿羽、智能体在 350 毫秒内闭环、福利由规则守护、每个动作可审计。</p>
+      <div class="script-callout">
+        <strong>作为收尾的战略主张：</strong>AI 是我们从中国带向全球的第一个系统。架构已在集团规模验证，而非试点。合规生于架构，因此扩张是工程问题而不是法律问题。本地数据留在本地——走出去的是智能。
+      </div>
+      <p>GEA 加 Digit(AI)。在中国、为中国，也为世界。<strong>让我们一起把它造出来。</strong>"</p>
+    `
+  }
+);
+
+// ===========================================================================
+// DECK FRAME - present the real .pptx instead of an HTML re-creation
+// ---------------------------------------------------------------------------
+// tools/pptx-to-deck.ps1 exports the source deck to dashboard/deck/slides/*.png
+// plus a manifest. When that manifest is present it becomes the active deck, and
+// the surrounding shell is reused unchanged: pill navigation, prev/next, arrow
+// keys, fullscreen, the speaker-notes teleprompter, and the live-demo buttons.
+//
+// The built-in HTML deck stays as a fallback for when no export exists yet.
+// ===========================================================================
+
+(function (Deck) {
+  'use strict';
+
+  Deck.frame = { loaded: false, source: null, slides: [], aspect: 16 / 9 };
+
+  /** Trims a slide title down to something that fits a navigation pill. */
+  function navLabel(index, title) {
+    const n = String(index).padStart(2, '0');
+    if (!title) return n;
+    const clean = title.replace(/\s+/g, ' ').trim();
+    const short = clean.length > 22 ? clean.slice(0, 21).trimEnd() + '…' : clean;
+    return `${n}. ${short}`;
+  }
+
+  const escapeHtml = (s) => String(s == null ? '' : s)
+    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+
+  /** Speaker-notes markup, or guidance when the source deck has no notes. */
+  function scriptFor(notes, index, source) {
+    if (notes && notes.trim()) {
+      return notes.split(/\n{2,}/).map(p => `<p>${escapeHtml(p)}</p>`).join('');
+    }
+    return `
+      <p><span class="script-highlight">No speaker notes on slide ${index} of ${escapeHtml(source || 'the deck')}.</span></p>
+      <div class="script-callout">
+        Add notes in PowerPoint's notes pane, then re-run
+        <strong>tools\\pptx-to-deck.ps1</strong>. They will appear here automatically,
+        and the deck images will refresh at the same time.
+      </div>
+    `;
+  }
+
+  /**
+   * Loads the exported deck. Returns true when slides were installed.
+   * Fails quietly: a missing manifest simply means no export exists yet, and a
+   * fetch error under file:// is expected rather than exceptional.
+   */
+  Deck.loadFrame = function () {
+    if (typeof fetch !== 'function') return Promise.resolve(false);
+
+    const bust = `?t=${Date.now()}`;
+
+    // Parse as text and strip any byte-order marks. Windows editors and
+    // PowerShell add one, a leading BOM makes JSON.parse throw, and a file that
+    // has been re-encoded a couple of times can carry more than one.
+    const getJson = (url) => fetch(url + bust, { cache: 'no-store' })
+      .then(r => (r.ok ? r.text() : null))
+      .then(t => (t ? JSON.parse(t.replace(/^\uFEFF+/, '').trim()) : null));
+
+    return getJson('deck/manifest.json')
+      .then(manifest => {
+        if (!manifest || !Array.isArray(manifest.slides) || !manifest.slides.length) return false;
+
+        // Demo hooks are optional and hand-edited, so a syntax error there must
+        // not take the whole deck down with it.
+        return getJson('deck/demo-hooks.json')
+          .catch(() => null)
+          .then(hooks => install(manifest, hooks || {}));
+      })
+      .catch(() => false);
+  };
+
+  function install(manifest, hooks) {
+    const source = manifest.source || 'deck';
+    const aspect = (manifest.width && manifest.height)
+      ? manifest.width / manifest.height
+      : 16 / 9;
+
+    Deck.frame = {
+      loaded: true,
+      source,
+      aspect,
+      generated: manifest.generated || null,
+      engine: manifest.engine || null,
+      slides: manifest.slides.map((s, i) => {
+        const n = s.index || i + 1;
+        const hook = hooks[String(n)] || hooks[n] || null;
+        return {
+          layout: 'image',
+          image: 'deck/' + String(s.file || '').replace(/^\.?\//, ''),
+          alt: s.title ? `Slide ${n}: ${s.title}` : `Slide ${n}`,
+          navLabel: navLabel(n, s.title),
+          topic: source,
+          title: s.title || `Slide ${n}`,
+          time: '',
+          script: scriptFor(s.notes, n, source),
+          demoAction: (hook && hook.btnText) ? hook : null
+        };
+      })
+    };
+
+    return true;
+  }
+
+  /** True when the exported deck is driving the presentation tab. */
+  Deck.usingFrame = function () {
+    return !!(Deck.frame && Deck.frame.loaded && Deck.frame.slides.length);
+  };
+})(window.SunnerDeck);
+
+// The exported deck, when present, outranks the built-in HTML deck. Language
+// does not switch it, because the source file is whatever the presenter built.
+window.SunnerDeck.get = function (lang) {
+  if (this.usingFrame && this.usingFrame()) return this.frame.slides;
+  const list = this.slides[lang === 'zh' ? 'zh' : 'en'];
+  return list && list.length ? list : this.slides.en;
+};

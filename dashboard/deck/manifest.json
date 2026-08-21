@@ -1,0 +1,58 @@
+{
+    "source":  "GEA_IT_THE_FUTURE.pptx",
+    "engine":  "PowerPoint 16.0",
+    "generated":  "2026-08-21T11:56:53",
+    "width":  1920,
+    "height":  1080,
+    "slideCount":  8,
+    "slides":  [
+                   {
+                       "index":  1,
+                       "file":  "slides/slide-01.png",
+                       "title":  "GEA + Digit(AI)",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  2,
+                       "file":  "slides/slide-02.png",
+                       "title":  "THE THESIS",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  3,
+                       "file":  "slides/slide-03.png",
+                       "title":  "WHY THIS MATTERS",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  4,
+                       "file":  "slides/slide-04.png",
+                       "title":  "THE Digit(AI) STACK",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  5,
+                       "file":  "slides/slide-05.png",
+                       "title":  "IN CHINA FOR CHINA",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  6,
+                       "file":  "slides/slide-06.png",
+                       "title":  "IMPACT VECTORS",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  7,
+                       "file":  "slides/slide-07.png",
+                       "title":  "THE MINDSET",
+                       "notes":  ""
+                   },
+                   {
+                       "index":  8,
+                       "file":  "slides/slide-08.png",
+                       "title":  "THE FUTURE IS NOT A DESTINATION.",
+                       "notes":  ""
+                   }
+               ]
+}

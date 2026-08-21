@@ -5368,3 +5368,401 @@ body.density-presenter .hero-canvas-card:hover .floating-zoom-controls { opacity
 @media (max-width: 900px) {
   .chart-notes { grid-template-columns: 1fr; }
 }
+
+/* ================================================================= */
+/* 25. KEYNOTE DECK - Digit(AI) LAYOUTS                                */
+/* ----------------------------------------------------------------- */
+/* Layouts added for the GEA + Digit(AI) narrative: the three-pillar   */
+/* fusion thesis, the four-layer stack, and titled bullet columns.     */
+/* Plus the strap line that runs along the foot of every slide.        */
+/* ================================================================= */
+
+/* --- slide footer strap ------------------------------------------- */
+.slide-footer-rule {
+  flex-shrink: 0;
+  position: relative;
+  z-index: 1;
+  margin-top: 0.35rem;
+  padding-top: 0.5rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  font-size: 0.62rem;
+  font-weight: 500;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+/* --- layout: pillars (PHYSICAL x DIGIT x (AI)) -------------------- */
+.pillars-figure {
+  position: relative;
+  z-index: 1;
+  max-width: 24rem;
+  margin: 0 auto 0.9rem;
+}
+
+.slide-pillars {
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.4rem;
+}
+
+.pillar {
+  flex: 1 1 0;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+  padding: 0.95rem 1.05rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(2, 2, 45, 0.55);
+}
+
+.pillar.accent {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(3, 3, 139, 0.42);
+}
+
+.pillar-tag {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+}
+
+.pillar-text {
+  font-size: 0.78rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+}
+
+.pillar-join {
+  align-self: center;
+  flex-shrink: 0;
+  padding: 0 0.15rem;
+  font-size: 1.1rem;
+  font-weight: 300;
+  color: var(--accent-cyan);
+}
+
+.pillars-fusion {
+  margin-top: 0.85rem;
+  padding: 0.55rem 0.85rem;
+  border-left: 2px solid rgba(56, 189, 248, 0.5);
+  background: rgba(56, 189, 248, 0.06);
+  border-radius: var(--radius-sm);
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* --- layout: stack (the Digit(AI) stack) -------------------------- */
+.slide-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.stack-row {
+  display: grid;
+  grid-template-columns: 13rem minmax(0, 1fr);
+  gap: 0.5rem 1.1rem;
+  align-items: baseline;
+  padding: 0.6rem 0.9rem;
+  border: 1px solid var(--border-subtle);
+  border-left: 2px solid rgba(255, 255, 255, 0.18);
+  border-radius: var(--radius-md);
+  background: rgba(2, 2, 45, 0.45);
+}
+
+.stack-row.is-star {
+  border-left-color: var(--accent-cyan);
+  background: rgba(3, 3, 139, 0.45);
+}
+
+.stack-row-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  min-width: 0;
+}
+
+.stack-row-tag {
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #ffffff;
+}
+
+.stack-star {
+  font-size: 0.58rem;
+  font-weight: 600;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--accent-cyan);
+  padding: 0.1rem 0.35rem;
+  border: 1px solid rgba(56, 189, 248, 0.4);
+  border-radius: var(--radius-full);
+  white-space: nowrap;
+}
+
+.stack-row-text {
+  font-size: 0.75rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  min-width: 0;
+}
+.stack-row-text strong { color: #ffffff; font-weight: 600; }
+
+.stack-footnote {
+  margin-top: 0.6rem;
+  font-size: 0.72rem;
+  line-height: 1.55;
+  color: var(--text-muted);
+}
+
+/* --- layout: columns (impact vectors) ----------------------------- */
+.slide-columns {
+  display: grid;
+  grid-template-columns: repeat(var(--col-count, 3), minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.col-block {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  padding: 0.95rem 1.05rem;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  background: rgba(2, 2, 45, 0.5);
+  min-width: 0;
+}
+
+.col-block.accent {
+  border-color: rgba(56, 189, 248, 0.45);
+  background: rgba(3, 3, 139, 0.45);
+}
+
+.col-tag {
+  font-size: 0.66rem;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+.col-block.accent .col-tag { color: var(--accent-cyan); }
+
+.col-lead {
+  font-size: 0.72rem;
+  font-style: italic;
+  color: var(--accent-cyan);
+}
+
+.col-list { list-style: none; display: flex; flex-direction: column; gap: 0.4rem; }
+.col-list li {
+  position: relative;
+  padding-left: 0.9rem;
+  font-size: 0.79rem;
+  line-height: 1.5;
+  color: var(--text-secondary);
+}
+.col-list li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.3);
+}
+.col-block.accent .col-list li::before { background: var(--accent-cyan); }
+
+.columns-footnote {
+  margin-top: 0.8rem;
+  padding: 0.55rem 0.85rem;
+  border-left: 2px solid rgba(56, 189, 248, 0.45);
+  background: rgba(56, 189, 248, 0.06);
+  border-radius: var(--radius-sm);
+  font-size: 0.74rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+}
+
+/* --- statement figure (close slide) ------------------------------- */
+.statement-figure {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  max-width: 26rem;
+  margin: 0 auto;
+}
+
+/* --- fullscreen sizing -------------------------------------------- */
+#section-presentation-deck:fullscreen .slide-footer-rule,
+#section-presentation-deck:-webkit-full-screen .slide-footer-rule,
+#section-presentation-deck.is-fullscreen .slide-footer-rule { font-size: 0.74rem; }
+
+#section-presentation-deck:fullscreen .pillar-tag,
+#section-presentation-deck:fullscreen .col-tag,
+#section-presentation-deck:fullscreen .stack-row-tag,
+#section-presentation-deck:-webkit-full-screen .pillar-tag,
+#section-presentation-deck:-webkit-full-screen .col-tag,
+#section-presentation-deck:-webkit-full-screen .stack-row-tag,
+#section-presentation-deck.is-fullscreen .pillar-tag,
+#section-presentation-deck.is-fullscreen .col-tag,
+#section-presentation-deck.is-fullscreen .stack-row-tag {
+  font-size: clamp(0.8rem, 0.72rem + 0.2vw, 0.98rem);
+}
+
+#section-presentation-deck:fullscreen .pillar-text,
+#section-presentation-deck:fullscreen .col-list li,
+#section-presentation-deck:fullscreen .stack-row-text,
+#section-presentation-deck:-webkit-full-screen .pillar-text,
+#section-presentation-deck:-webkit-full-screen .col-list li,
+#section-presentation-deck:-webkit-full-screen .stack-row-text,
+#section-presentation-deck.is-fullscreen .pillar-text,
+#section-presentation-deck.is-fullscreen .col-list li,
+#section-presentation-deck.is-fullscreen .stack-row-text {
+  font-size: clamp(0.9rem, 0.82rem + 0.22vw, 1.08rem);
+  line-height: 1.6;
+}
+
+#section-presentation-deck:fullscreen .pillars-figure,
+#section-presentation-deck:-webkit-full-screen .pillars-figure,
+#section-presentation-deck.is-fullscreen .pillars-figure {
+  max-width: 32rem;
+  margin-bottom: 1.4rem;
+}
+
+#section-presentation-deck:fullscreen .statement-figure,
+#section-presentation-deck:-webkit-full-screen .statement-figure,
+#section-presentation-deck.is-fullscreen .statement-figure { max-width: 36rem; }
+
+#section-presentation-deck:fullscreen .pillar,
+#section-presentation-deck:fullscreen .col-block,
+#section-presentation-deck:-webkit-full-screen .pillar,
+#section-presentation-deck:-webkit-full-screen .col-block,
+#section-presentation-deck.is-fullscreen .pillar,
+#section-presentation-deck.is-fullscreen .col-block {
+  padding: 1.4rem 1.6rem;
+  gap: 0.7rem;
+}
+
+#section-presentation-deck:fullscreen .stack-row,
+#section-presentation-deck:-webkit-full-screen .stack-row,
+#section-presentation-deck.is-fullscreen .stack-row {
+  padding: 0.9rem 1.3rem;
+  grid-template-columns: 17rem minmax(0, 1fr);
+}
+
+/* --- narrower screens --------------------------------------------- */
+@media (max-width: 1280px) {
+  .slide-pillars { flex-wrap: wrap; }
+  .pillar { flex-basis: 100%; }
+  .pillar-join { display: none; }
+  .stack-row { grid-template-columns: 1fr; gap: 0.25rem; }
+  .slide-columns { grid-template-columns: 1fr; }
+}
+
+/* ================================================================= */
+/* 26. DECK FRAME - EXPORTED .pptx SLIDES                              */
+/* ----------------------------------------------------------------- */
+/* When a deck has been exported by tools/pptx-to-deck.ps1, the stage  */
+/* shows the real slide images. The card sheds its padding and its     */
+/* decorative overlay so the slide is presented untouched, and the     */
+/* image is letterboxed to preserve the source aspect ratio.           */
+/* ================================================================= */
+
+.deck-stage-card.is-image-mode {
+  padding: 0;
+  gap: 0;
+  background: #000;
+  border-color: rgba(255, 255, 255, 0.16);
+  justify-content: center;
+}
+
+/* The ambient grid and corner brackets would sit on top of the slide. */
+.deck-stage-card.is-image-mode::before,
+.deck-stage-card.is-image-mode::after {
+  display: none;
+}
+
+.slide-image-frame {
+  position: relative;
+  z-index: 1;
+  flex: 1;
+  min-height: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: inherit;
+}
+
+/* contain, not cover: never crop a slide, letterbox instead. */
+.slide-image {
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  object-fit: contain;
+  display: block;
+  user-select: none;
+  border-radius: inherit;
+}
+
+/* The demo banner sits below the slide rather than over it. */
+.slide-live-demo-banner.is-under-image {
+  flex-shrink: 0;
+  margin: 0;
+  border-radius: 0 0 var(--radius-xl) var(--radius-xl);
+  border-top: 1px solid var(--border-subtle);
+}
+
+/* Fullscreen: the slide takes the whole screen, letterboxed on black. */
+#section-presentation-deck:fullscreen .deck-stage-card.is-image-mode,
+#section-presentation-deck:-webkit-full-screen .deck-stage-card.is-image-mode,
+#section-presentation-deck.is-fullscreen .deck-stage-card.is-image-mode {
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  background: #000 !important;
+  padding: 0 !important;
+}
+
+#section-presentation-deck:fullscreen .slide-image-frame,
+#section-presentation-deck:-webkit-full-screen .slide-image-frame,
+#section-presentation-deck.is-fullscreen .slide-image-frame {
+  border-radius: 0;
+}
+
+#section-presentation-deck:fullscreen .slide-image,
+#section-presentation-deck:-webkit-full-screen .slide-image,
+#section-presentation-deck.is-fullscreen .slide-image {
+  border-radius: 0;
+}
+
+/* Fullscreen presenting: keep the demo banner but make it unobtrusive. */
+#section-presentation-deck:fullscreen .slide-live-demo-banner.is-under-image,
+#section-presentation-deck:-webkit-full-screen .slide-live-demo-banner.is-under-image,
+#section-presentation-deck.is-fullscreen .slide-live-demo-banner.is-under-image {
+  border-radius: 0;
+  opacity: 0.35;
+  transition: opacity 0.2s ease;
+}
+#section-presentation-deck:fullscreen .slide-live-demo-banner.is-under-image:hover,
+#section-presentation-deck:-webkit-full-screen .slide-live-demo-banner.is-under-image:hover,
+#section-presentation-deck.is-fullscreen .slide-live-demo-banner.is-under-image:hover {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .slide-live-demo-banner.is-under-image { transition: none; }
+}

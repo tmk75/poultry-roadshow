@@ -1,0 +1,69 @@
+{
+  "_comment": "Optional live-demo buttons, one per slide number. Delete any entry you don't want a button on. Re-running tools/pptx-to-deck.ps1 never overwrites this file. Valid targetNav: nav-btn-highway, nav-btn-warroom, nav-btn-bi, nav-btn-esg, nav-btn-barn, nav-btn-roi. Valid action: openCopilot, openDpp, toggleOffline, flir. Valid scenario: closedloop, ammonia, sap. Valid viewMode: 2d, 3d.",
+
+  "1": {
+    "badge": "LIVE DEMO",
+    "title": "See the operating layer running live across 50 complexes.",
+    "btnText": "Open the 3D data highway",
+    "targetNav": "nav-btn-highway",
+    "viewMode": "3d",
+    "scenario": "closedloop"
+  },
+
+  "2": {
+    "badge": "LIVE DEMO",
+    "title": "Watch the (AI) layer negotiate a decision and write it back to the plant floor.",
+    "btnText": "Open the agent consensus stream",
+    "targetNav": "nav-btn-highway",
+    "viewMode": "3d",
+    "scenario": "closedloop"
+  },
+
+  "3": {
+    "badge": "LIVE DEMO",
+    "title": "Stress-test the economics against feed price, tariff and mortality assumptions.",
+    "btnText": "Open the CFO war room",
+    "targetNav": "nav-btn-warroom"
+  },
+
+  "4": {
+    "badge": "LIVE DEMO",
+    "title": "Inspect all 13 tiers and the protocol boundary between OT and IT.",
+    "btnText": "Open the 2D architecture pipeline",
+    "targetNav": "nav-btn-highway",
+    "viewMode": "2d",
+    "nodeId": "edge"
+  },
+
+  "5": {
+    "badge": "LIVE DEMO",
+    "title": "Cut the connection and watch the edge keep running on its 48-hour local buffer.",
+    "btnText": "Simulate a network outage",
+    "targetNav": "nav-btn-highway",
+    "viewMode": "2d",
+    "action": "toggleOffline"
+  },
+
+  "6": {
+    "badge": "LIVE DEMO",
+    "title": "Open the fleet analytics across all 50 complexes.",
+    "btnText": "Open the BI command center",
+    "targetNav": "nav-btn-bi"
+  },
+
+  "7": {
+    "badge": "LIVE DEMO",
+    "title": "Autonomy as default, under pressure: replay the 02:14 inverter failure and the 0.28s veto.",
+    "btnText": "Replay the 02:14 incident",
+    "targetNav": "nav-btn-highway",
+    "viewMode": "3d",
+    "scenario": "ammonia"
+  },
+
+  "8": {
+    "badge": "LIVE DEMO",
+    "title": "Ask the operating layer a question in plain language, on live plant data.",
+    "btnText": "Open the AI copilot",
+    "action": "openCopilot"
+  }
+}

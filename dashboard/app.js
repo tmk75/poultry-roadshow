@@ -1570,6 +1570,9 @@ function renderPresentationSlide(index = 0) {
   // 3. Render Main Slide Stage Content & Interactive Demo Action Banner
   const stageEl = document.getElementById('deck-stage-card');
   if (stageEl && window.SunnerDeck) {
+    // Exported .pptx slides fill the stage edge to edge, so the card drops its
+    // padding and decorative overlay for them.
+    stageEl.classList.toggle('is-image-mode', slide.layout === 'image');
     stageEl.innerHTML = window.SunnerDeck.renderStage(slide, activePresentationSlide);
     // Restart the stage entry animation on every slide change.
     stageEl.classList.remove('is-entering');
@@ -3380,6 +3383,24 @@ window.inspectComplexDetails = inspectComplexDetails;
 
 // Initialize default slide
 renderPresentationSlide(0);
+
+// Then look for an exported .pptx deck. If one exists it replaces the built-in
+// HTML deck and the tab re-renders; if not, the HTML deck simply stays.
+// Served over http:// this works; under file:// the fetch is blocked and the
+// built-in deck remains, which is the intended fallback rather than an error.
+if (window.SunnerDeck && typeof window.SunnerDeck.loadFrame === 'function') {
+  window.SunnerDeck.loadFrame().then((installed) => {
+    if (!installed) return;
+    const frame = window.SunnerDeck.frame;
+    activePresentationSlide = 0;
+    renderPresentationSlide(0);
+
+    const isZh = window.i18n && window.i18n.currentLang === 'zh';
+    addAuditLog(isZh
+      ? `演讲台已加载源文件幻灯片：${frame.source}（共 ${frame.slides.length} 页）`
+      : `Keynote deck loaded from ${frame.source} (${frame.slides.length} slides)`, true);
+  });
+}
 
 // Global Dynamic Resize & Orientation Adaptation Listener
 let resizeTimeout = null;
