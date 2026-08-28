@@ -1,0 +1,58 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Sunner line telemetry snapshot",
+  "type": "object",
+  "required": ["ts", "stages", "kpis", "feed", "alerts"],
+  "properties": {
+    "ts": { "type": "string" },
+    "stages": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "value", "unit", "status"],
+        "properties": {
+          "id": { "type": "string" },
+          "value": { "type": "number" },
+          "unit": { "type": "string" },
+          "status": { "enum": ["ok", "warn", "alert"] }
+        }
+      }
+    },
+    "kpis": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["id", "value", "unit"],
+        "properties": {
+          "id": { "type": "string" },
+          "value": { "type": "string" },
+          "unit": { "type": "string" }
+        }
+      }
+    },
+    "feed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["time", "en", "zh"],
+        "properties": {
+          "time": { "type": "string" },
+          "en": { "type": "string" },
+          "zh": { "type": "string" }
+        }
+      }
+    },
+    "alerts": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["level", "en", "zh"],
+        "properties": {
+          "level": { "enum": ["warn", "alert"] },
+          "en": { "type": "string" },
+          "zh": { "type": "string" }
+        }
+      }
+    }
+  }
+}

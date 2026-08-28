@@ -1,0 +1,1830 @@
+<!DOCTYPE html><html lang="en" data-lvt-canonical="1"><head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>GEA × Digit(AI) · PFA Poultry 🐔</title>
+  <meta name="description" content="GEA × Digit(AI) PFA Poultry Plant OS — Live Line, AI Agents, Digital Twin, Roadshow">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&amp;family=Spline+Sans+Mono:wght@400;500;600&amp;display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FFFBF2;
+      --bg2: #FFF3D6;
+      --surface: #FFFFFF;
+      --card: #FFFFFF;
+      --card-hover: #FFF8E1;
+      --border: rgba(0,0,0,0.08);
+      --hairline: rgba(0,0,0,0.06);
+      --primary: #FFD54F;
+      --primary-dark: #F9A825;
+      --primary-dim: rgba(255,213,79,0.18);
+      --secondary: #E53935;
+      --secondary-dim: rgba(229,57,53,0.1);
+      --success: #66BB6A;
+      --success-dim: rgba(102,187,106,0.15);
+      --danger: #FF7043;
+      --danger-dim: rgba(255,112,67,0.12);
+      --warning: #FFA726;
+      --warning-dim: rgba(255,167,38,0.15);
+      --sky: #4FC3F7;
+      --sky-dim: rgba(79,195,247,0.15);
+      --text-primary: #3E2723;
+      --text-secondary: #6D4C41;
+      --display: "Nunito", "Quicksand", system-ui, -apple-system, sans-serif;
+      --mono: "Spline Sans Mono", "JetBrains Mono", ui-monospace, monospace;
+      --topbar-h: 64px;
+      --radius: 20px;
+      --radius-lg: 24px;
+      --shadow: 0 8px 32px rgba(62,39,35,0.10);
+      --shadow-card: 0 4px 16px rgba(62,39,35,0.08);
+      --shadow-hover: 0 12px 32px rgba(62,39,35,0.14);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: linear-gradient(160deg, var(--bg) 0%, var(--bg2) 100%);
+      background-attachment: fixed;
+      color: var(--text-primary);
+      font-family: var(--display);
+      font-size: 15px;
+      line-height: 1.6;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ─── TOPBAR ─── */
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      height: var(--topbar-h);
+      background: rgba(255,255,255,0.95);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 2px solid var(--primary);
+      box-shadow: 0 2px 16px rgba(62,39,35,0.08);
+      display: flex;
+      align-items: center;
+      padding: 0 32px;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-shrink: 0;
+    }
+    .brand-mark {
+      font-size: 17px;
+      font-weight: 900;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+      white-space: nowrap;
+    }
+    .brand-dot {
+      width: 5px; height: 5px;
+      border-radius: 50%;
+      background: var(--primary-dark);
+      flex-shrink: 0;
+    }
+    .brand-sub {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      white-space: nowrap;
+    }
+
+    /* Decorative chick in brand */
+    .brand::before {
+      content: "🐣";
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    .tabs {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex: 1;
+      justify-content: center;
+    }
+    .tab {
+      background: transparent;
+      border: 2px solid var(--border);
+      border-radius: 100px;
+      color: var(--text-secondary);
+      cursor: pointer;
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 7px 20px;
+      transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+      white-space: nowrap;
+    }
+    .tab:hover {
+      border-color: var(--primary-dark);
+      color: var(--text-primary);
+      transform: translateY(-1px);
+      background: var(--primary-dim);
+    }
+    .tab.active {
+      background: var(--primary);
+      border-color: var(--primary-dark);
+      color: var(--text-primary);
+      font-weight: 800;
+      box-shadow: 0 4px 12px rgba(249,168,37,0.35);
+    }
+
+    .topbar-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-shrink: 0;
+    }
+    .health-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: var(--success);
+      box-shadow: 0 0 0 0 rgba(102,187,106,0.5);
+      animation: pulse-dot 2s infinite;
+    }
+    @keyframes pulse-dot {
+      0%   { box-shadow: 0 0 0 0 rgba(102,187,106,0.5); }
+      70%  { box-shadow: 0 0 0 8px rgba(102,187,106,0); }
+      100% { box-shadow: 0 0 0 0 rgba(102,187,106,0); }
+    }
+    .lang-toggle {
+      background: var(--primary-dim);
+      border: 2px solid var(--primary);
+      border-radius: 100px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--display);
+      font-size: 13px;
+      font-weight: 700;
+      padding: 5px 14px;
+      transition: all 0.2s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .lang-toggle:hover {
+      background: var(--primary);
+      transform: scale(1.05);
+    }
+
+    /* ─── MAIN CONTENT ─── */
+    .content {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 32px;
+    }
+
+    /* ─── VIEWS ─── */
+    .view {
+      display: none;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 0.22s ease, transform 0.22s ease;
+    }
+    .view.active {
+      display: block;
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── HERO ─── */
+    .hero {
+      position: relative;
+      width: 100%;
+      height: 300px;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      margin-bottom: 28px;
+      display: flex;
+      align-items: center;
+      box-shadow: var(--shadow);
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to right, rgba(255,251,242,0.95) 0%, rgba(255,251,242,0.7) 45%, rgba(255,251,242,0.15) 100%);
+      z-index: 1;
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      padding: 44px 48px;
+      max-width: 620px;
+    }
+    .eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--secondary);
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .eyebrow::before { content: "🌾"; font-size: 14px; }
+    .hero-content h1 {
+      font-size: 46px;
+      font-weight: 800;
+      line-height: 1.1;
+      color: var(--text-primary);
+      margin-bottom: 14px;
+    }
+    .lede {
+      font-size: 16px;
+      font-weight: 500;
+      line-height: 1.65;
+      color: var(--text-secondary);
+      max-width: 480px;
+    }
+
+    /* ─── PANEL ─── */
+    .panel {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 28px;
+      margin-bottom: 24px;
+      box-shadow: var(--shadow-card);
+      transition: box-shadow 0.2s;
+    }
+    .panel:hover { box-shadow: var(--shadow-hover); }
+    .panel-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+    .panel-head h2 {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    /* ─── LIVE PILL ─── */
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      background: var(--primary-dim);
+      border: 2px solid var(--primary-dark);
+      border-radius: 100px;
+      color: var(--text-primary);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: 0.1em;
+      padding: 5px 12px;
+    }
+    .pulse {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary-dark);
+      animation: pulse-egg 1.4s infinite;
+    }
+    @keyframes pulse-egg {
+      0%   { box-shadow: 0 0 0 0 rgba(249,168,37,0.6); transform: scale(1); }
+      50%  { box-shadow: 0 0 0 5px rgba(249,168,37,0); transform: scale(1.2); }
+      100% { box-shadow: 0 0 0 0 rgba(249,168,37,0); transform: scale(1); }
+    }
+
+    /* ─── KPI GRID ─── */
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .kpi-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, border-color 0.2s;
+      cursor: default;
+      position: relative;
+      overflow: hidden;
+    }
+    .kpi-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 4px;
+      background: linear-gradient(to right, var(--primary), var(--primary-dark));
+      border-radius: 0 0 var(--radius) var(--radius);
+    }
+    .kpi-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+      background: var(--card-hover);
+    }
+    .kpi-icon-wrap {
+      width: 52px; height: 52px;
+      border-radius: 50%;
+      background: var(--primary-dim);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 18px;
+      border: 2px solid rgba(249,168,37,0.3);
+    }
+    .kpi-icon {
+      width: 30px; height: 30px;
+    }
+    .kpi-value {
+      font-size: 34px;
+      font-weight: 800;
+      color: var(--text-primary);
+      line-height: 1;
+      margin-bottom: 6px;
+      font-family: var(--mono);
+    }
+    .kpi-label {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 12px;
+    }
+    .kpi-trend {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 12px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+    }
+    .kpi-trend.up {
+      background: var(--success-dim);
+      color: #388E3C;
+    }
+    .kpi-trend.down-good {
+      background: var(--success-dim);
+      color: #388E3C;
+    }
+
+    /* ─── STAGE FLOW ─── */
+    .stage-flow {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      overflow-x: auto;
+      padding-bottom: 12px;
+      scrollbar-width: thin;
+      scrollbar-color: var(--primary) transparent;
+    }
+    .stage-flow::-webkit-scrollbar { height: 5px; }
+    .stage-flow::-webkit-scrollbar-track { background: var(--primary-dim); border-radius: 3px; }
+    .stage-flow::-webkit-scrollbar-thumb { background: var(--primary-dark); border-radius: 3px; }
+
+    .stage-card {
+      flex: 0 0 auto;
+      min-width: 140px;
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 14px;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), border-color 0.2s, box-shadow 0.2s;
+      cursor: default;
+      position: relative;
+    }
+    .stage-card:hover {
+      transform: translateY(-3px);
+      border-color: var(--primary);
+      box-shadow: 0 6px 20px rgba(249,168,37,0.2);
+    }
+    .stage-card.alert {
+      border-color: var(--warning);
+      background: #FFFDE7;
+    }
+    .stage-card.alert:hover {
+      border-color: var(--danger);
+    }
+
+    /* Dotted connector between stage cards */
+    .stage-connector {
+      flex: 0 0 auto;
+      width: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+    }
+    .stage-connector::after {
+      content: '';
+      display: block;
+      width: 100%;
+      height: 2px;
+      border-top: 2px dashed var(--primary-dark);
+      opacity: 0.5;
+    }
+    .stage-connector.alert-conn::after {
+      border-color: var(--warning);
+    }
+
+    .stage-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--primary);
+      color: var(--text-primary);
+      font-size: 12px;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 10px;
+      box-shadow: 0 2px 8px rgba(249,168,37,0.4);
+    }
+    .stage-card.alert .stage-num {
+      background: var(--warning);
+      box-shadow: 0 2px 8px rgba(255,167,38,0.4);
+    }
+    .stage-name {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 6px;
+    }
+    .stage-status {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .status-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+    .status-dot.normal { background: var(--success); }
+    .status-dot.alert  { background: var(--warning); animation: pulse-egg 1.5s infinite; }
+    .stage-metric {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--mono);
+    }
+
+    /* ─── TWO COL ─── */
+    .two-col {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    /* ─── FEED ─── */
+    .feed {
+      display: flex;
+      flex-direction: column;
+    }
+    .feed-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 12px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .feed-row:last-child { border-bottom: none; }
+    .feed-row::before {
+      content: "🌡️";
+      font-size: 13px;
+      flex-shrink: 0;
+      margin-top: 1px;
+    }
+    .feed-time {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      padding-top: 1px;
+      min-width: 68px;
+    }
+    .feed-msg {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* ─── ALERTS ─── */
+    .alert-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: 14px;
+      padding: 16px 18px;
+      margin-bottom: 12px;
+      transition: transform 0.2s;
+    }
+    .alert-card:last-child { margin-bottom: 0; }
+    .alert-card:hover { transform: translateY(-2px); }
+    .alert-card.danger {
+      border-left: 5px solid var(--danger);
+      background: #FFF3F0;
+      animation: wiggle 0.6s ease 0.3s 1;
+    }
+    .alert-card.amber {
+      border-left: 5px solid var(--warning);
+      background: #FFFDE7;
+    }
+    @keyframes wiggle {
+      0%   { transform: translateX(0); }
+      15%  { transform: translateX(-5px) rotate(-1deg); }
+      30%  { transform: translateX(5px) rotate(1deg); }
+      45%  { transform: translateX(-4px) rotate(-0.5deg); }
+      60%  { transform: translateX(4px) rotate(0.5deg); }
+      75%  { transform: translateX(-2px); }
+      100% { transform: translateX(0); }
+    }
+    .alert-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .alert-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .alert-card.danger .alert-title::before { content: "🚨"; font-size: 14px; }
+    .alert-card.amber  .alert-title::before { content: "⚠️"; font-size: 13px; }
+    .alert-time {
+      font-size: 11px;
+      color: var(--text-secondary);
+      font-family: var(--mono);
+    }
+    .alert-msg {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+    }
+
+    /* ─── AGENT GRID ─── */
+    .agent-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+      margin-bottom: 24px;
+    }
+    .agent-card {
+      background: var(--card);
+      border: 2px solid var(--border);
+      border-radius: var(--radius);
+      padding: 26px;
+      box-shadow: var(--shadow-card);
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.2s, border-color 0.2s;
+      cursor: default;
+    }
+    .agent-card:hover {
+      transform: translateY(-4px) scale(1.01);
+      box-shadow: var(--shadow-hover);
+      border-color: var(--primary);
+      background: var(--card-hover);
+    }
+    .agent-icon {
+      width: 52px; height: 52px;
+      margin-bottom: 16px;
+    }
+    .agent-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 8px;
+    }
+    .agent-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--text-primary);
+    }
+    .status-pill {
+      font-size: 11px;
+      font-weight: 700;
+      padding: 4px 10px;
+      border-radius: 100px;
+      letter-spacing: 0.04em;
+    }
+    .status-pill.active    { background: var(--success-dim); color: #2E7D32; border: 1px solid rgba(102,187,106,0.4); }
+    .status-pill.optimizing { background: var(--sky-dim); color: #0277BD; border: 1px solid rgba(79,195,247,0.4); }
+    .status-pill.monitoring { background: var(--primary-dim); color: var(--text-secondary); border: 1px solid rgba(255,213,79,0.4); }
+    .status-pill.standby   { background: rgba(109,76,65,0.08); color: var(--text-secondary); border: 1px solid rgba(109,76,65,0.15); }
+    .agent-role {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px;
+    }
+    .agent-desc {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    /* ─── NEGOTIATION FEED ─── */
+    .neg-row {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--hairline);
+    }
+    .neg-row:last-child { border-bottom: none; }
+    .neg-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      flex-shrink: 0;
+      margin-top: 4px;
+      box-shadow: 0 0 0 3px rgba(0,0,0,0.06);
+    }
+    .neg-time {
+      font-size: 12px;
+      font-family: var(--mono);
+      color: var(--text-secondary);
+      flex-shrink: 0;
+      min-width: 68px;
+      padding-top: 1px;
+    }
+    .neg-msg {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.5;
+    }
+
+    /* ─── DIGITAL TWIN ─── */
+    .twin-map-wrap {
+      overflow-x: auto;
+      padding: 8px 0 16px;
+    }
+    .twin-svg-container {
+      min-width: 900px;
+      position: relative;
+    }
+    .twin-legend {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      margin-top: 16px;
+    }
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+    .legend-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+    }
+    .legend-dot.teal  { background: var(--success); }
+    .legend-dot.amber { background: var(--warning); }
+
+    /* ─── ROADSHOW ─── */
+    .roadshow-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 24px;
+    }
+    .slide-deck {
+      width: 100%;
+      max-width: 1200px;
+      aspect-ratio: 16/9;
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      border: 3px solid var(--primary);
+    }
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 64px;
+    }
+    .slide.active { display: flex; }
+    .slide-bg {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      z-index: 0;
+    }
+    .slide-overlay {
+      position: absolute;
+      inset: 0;
+      z-index: 1;
+    }
+    .slide-content {
+      position: relative;
+      z-index: 2;
+      max-width: 560px;
+    }
+    .slide-eyebrow {
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.14em;
+      color: var(--secondary);
+      margin-bottom: 12px;
+    }
+    .slide-title {
+      font-size: 40px;
+      font-weight: 800;
+      line-height: 1.15;
+      color: var(--text-primary);
+      margin-bottom: 16px;
+    }
+    .slide-body {
+      font-size: 18px;
+      font-weight: 500;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+    .slide-kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin-top: 8px;
+    }
+    .slide-kpi {
+      background: rgba(255,255,255,0.88);
+      border: 2px solid var(--primary);
+      border-radius: 14px;
+      padding: 16px 20px;
+      backdrop-filter: blur(8px);
+    }
+    .slide-kpi-val {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--text-primary);
+      font-family: var(--mono);
+    }
+    .slide-kpi-lbl {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-top: 2px;
+    }
+    .slide-kpi-trend {
+      font-size: 12px;
+      font-weight: 700;
+      color: #2E7D32;
+      margin-top: 4px;
+    }
+
+    /* Slide 2-5 backgrounds */
+    .slide-gradient-bg {
+      background: linear-gradient(135deg, #FFFBF2 0%, #FFF3D6 100%);
+    }
+    .slide-gradient-bg-2 {
+      background: linear-gradient(135deg, #FFF8E1 0%, #FFFDE7 100%);
+    }
+
+    /* Roadshow controls */
+    .deck-controls {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+    }
+    .deck-btn {
+      background: var(--primary);
+      border: 2px solid var(--primary-dark);
+      border-radius: 100px;
+      color: var(--text-primary);
+      cursor: pointer;
+      font-family: var(--display);
+      font-size: 14px;
+      font-weight: 700;
+      padding: 10px 24px;
+      transition: all 0.25s cubic-bezier(0.34,1.56,0.64,1);
+      box-shadow: 0 4px 12px rgba(249,168,37,0.3);
+    }
+    .deck-btn:hover:not(:disabled) {
+      background: var(--primary-dark);
+      transform: translateY(-2px) scale(1.04);
+      box-shadow: 0 8px 20px rgba(249,168,37,0.4);
+    }
+    .deck-btn:disabled {
+      opacity: 0.35;
+      cursor: not-allowed;
+      box-shadow: none;
+    }
+    .deck-counter {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--text-secondary);
+      font-family: var(--mono);
+      min-width: 44px;
+      text-align: center;
+    }
+    .deck-dots {
+      display: flex;
+      gap: 8px;
+    }
+    .deck-dot {
+      width: 10px; height: 10px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.15);
+      cursor: pointer;
+      transition: background 0.2s, transform 0.25s cubic-bezier(0.34,1.56,0.64,1);
+    }
+    .deck-dot.active {
+      background: var(--primary-dark);
+      transform: scale(1.4);
+      box-shadow: 0 0 0 3px rgba(249,168,37,0.3);
+    }
+    .deck-note {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-align: center;
+    }
+    .deck-note::before { content: "⌨️ "; }
+
+    /* ─── RESPONSIVE ─── */
+    @media (max-width: 1024px) {
+      .content { padding: 20px; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); }
+      .agent-grid { grid-template-columns: repeat(2, 1fr); }
+      .topbar { padding: 0 20px; }
+      .brand-sub { display: none; }
+    }
+    @media (max-width: 768px) {
+      .content { padding: 16px; }
+      .topbar { padding: 0 16px; gap: 12px; }
+      .tabs { gap: 4px; }
+      .tab { font-size: 12px; padding: 6px 12px; }
+      .hero { height: 240px; }
+      .hero-content { padding: 24px 28px; }
+      .hero-content h1 { font-size: 30px; }
+      .kpi-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+      .agent-grid { grid-template-columns: 1fr; }
+      .two-col { grid-template-columns: 1fr; }
+      .slide { padding: 32px; }
+      .slide-title { font-size: 26px; }
+      .slide-body { font-size: 15px; }
+    }
+    @media (max-width: 480px) {
+      .kpi-grid { grid-template-columns: 1fr 1fr; }
+      .tabs { gap: 3px; }
+      .tab { font-size: 11px; padding: 5px 10px; }
+      .brand-mark { font-size: 14px; }
+      .brand::before { display: none; }
+    }
+    @media (max-width: 375px) {
+      .hero-content h1 { font-size: 22px; }
+      .kpi-value { font-size: 26px; }
+    }
+
+    /* ─── TWIN SVG TOOLTIP ─── */
+    .twin-tooltip {
+      position: absolute;
+      background: var(--card);
+      border: 2px solid var(--primary);
+      border-radius: 12px;
+      padding: 10px 14px;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-primary);
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.15s;
+      z-index: 10;
+      white-space: nowrap;
+      box-shadow: var(--shadow-card);
+    }
+    .twin-tooltip.visible { opacity: 1; }
+
+    /* ─── CONNECTOR PULSE ─── */
+    @keyframes connector-pulse {
+      0%, 100% { opacity: 0.25; }
+      50% { opacity: 0.8; }
+    }
+    .connector-pulse {
+      animation: connector-pulse 2.2s ease-in-out infinite;
+    }
+
+    /* ─── SCROLLBAR GLOBAL ─── */
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: var(--primary-dim); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb { background: var(--primary-dark); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: var(--secondary); }
+
+    /* ─── FLOATING DECORATION ─── */
+    @keyframes float-egg {
+      0%, 100% { transform: translateY(0) rotate(-5deg); }
+      50% { transform: translateY(-10px) rotate(5deg); }
+    }
+    .hero-deco {
+      position: absolute;
+      right: 40px;
+      bottom: 20px;
+      z-index: 2;
+      font-size: 48px;
+      opacity: 0.18;
+      animation: float-egg 4s ease-in-out infinite;
+      pointer-events: none;
+      user-select: none;
+    }
+    .hero-deco-2 {
+      position: absolute;
+      right: 120px;
+      top: 24px;
+      z-index: 2;
+      font-size: 32px;
+      opacity: 0.14;
+      animation: float-egg 5.5s ease-in-out infinite reverse;
+      pointer-events: none;
+      user-select: none;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <header class="topbar" data-lvt-eid="4afdc30d4b">
+    <div class="brand" data-lvt-eid="4d14ecb50e">
+      <span class="brand-mark" data-lvt-eid="541fe2b446">GEA × Digit(AI)</span>
+      <span class="brand-dot" data-lvt-eid="29dd6ddf75"></span>
+      <span class="brand-sub" data-i18n="brand.sub" data-lvt-eid="677223e18a">PFA Poultry · Plant OS</span>
+    </div>
+
+    <nav class="tabs" aria-label="Primary navigation" data-lvt-eid="4c8a744a82">
+      <button class="tab active" data-view="line" data-lvt-eid="d005fa1674"><span data-i18n="nav.line" data-lvt-eid="c08ca75041">Live Line</span></button>
+      <button class="tab" data-view="agents" data-lvt-eid="1c89f0de12"><span data-i18n="nav.agents" data-lvt-eid="87af203e2e">AI Agents</span></button>
+      <button class="tab" data-view="twin" data-lvt-eid="2ee683dff0"><span data-i18n="nav.twin" data-lvt-eid="0baffb8cd8">Digital Twin</span></button>
+      <button class="tab" data-view="roadshow" data-lvt-eid="defae34d49"><span data-i18n="nav.roadshow" data-lvt-eid="9ed66201ab">Roadshow</span></button>
+    </nav>
+
+    <div class="topbar-actions" data-lvt-eid="7cebcbdaae">
+      <span class="health-dot" title="Online" data-lvt-eid="84feec1303"></span>
+      <button id="langToggle" class="lang-toggle" type="button" data-lvt-eid="38bfacb735">中文</button>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="content" data-lvt-eid="eadf66620f">
+
+    <!-- ══════════════════════════════════════════════
+         LIVE LINE VIEW
+    ══════════════════════════════════════════════ -->
+    <section id="view-line" class="view active" aria-labelledby="line-title" data-lvt-eid="9ed44f805a">
+
+      <!-- Hero -->
+      <div class="hero" data-lvt-eid="3f3f13c438">
+        <div class="hero-bg" style="background-image:url('https://a.lovart.ai/artifacts/agent/ITcXKQAz5eFYb9MK.png')" data-lvt-eid="b73e044de9"></div>
+        <div class="hero-overlay" data-lvt-eid="ac1aaad6d3"></div>
+        <div class="hero-content" data-lvt-eid="8e9dad05c8">
+          <p class="eyebrow" data-i18n="line.eyebrow" data-lvt-eid="dae4fa2d37">One bird · one data thread · eight stages</p>
+          <h1 id="line-title" data-i18n="line.title" data-lvt-eid="009581e8da">The connected processing plant</h1>
+          <p class="lede" data-i18n="line.lede" data-lvt-eid="135006107c">From live receiving to packaging, every stage is sensed, connected and optimizable.</p>
+        </div>
+        <span class="hero-deco" data-lvt-eid="000c7ca449">🐔</span>
+        <span class="hero-deco-2" data-lvt-eid="9fd8fadb49">🥚</span>
+      </div>
+
+      <!-- KPI Grid -->
+      <div class="kpi-grid" data-lvt-eid="c147d8467b">
+        <!-- Throughput — chicken icon -->
+        <div class="kpi-card" data-lvt-eid="868b104545">
+          <div class="kpi-icon-wrap" data-lvt-eid="8778d6dbd0">
+            <svg class="kpi-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="5984b38292">
+              <!-- Cute chicken -->
+              <ellipse cx="15" cy="18" rx="9" ry="8" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="0d5581cd00"></ellipse>
+              <circle cx="15" cy="9" r="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="8e99b5ac29"></circle>
+              <!-- Comb -->
+              <path d="M13 5 Q14 3 15 5 Q16 3 17 5" stroke="#E53935" stroke-width="1.5" stroke-linecap="round" fill="none" data-lvt-eid="759a34b7ed"></path>
+              <!-- Beak -->
+              <path d="M17 10 L20 11 L17 12Z" fill="#FFA726" data-lvt-eid="bae2ee286b"></path>
+              <!-- Eye -->
+              <circle cx="16.5" cy="9" r="1.2" fill="#3E2723" data-lvt-eid="56ca5a6030"></circle>
+              <!-- Wing -->
+              <path d="M7 17 Q5 14 8 13 Q10 15 9 18" fill="#F9A825" stroke="#E65100" stroke-width="0.8" data-lvt-eid="b66be2f33e"></path>
+              <!-- Feet -->
+              <path d="M12 26 L11 29 M12 26 L13 29 M18 26 L17 29 M18 26 L19 29" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="1bf65d82ab"></path>
+            </svg>
+          </div>
+          <div class="kpi-value" data-lvt-eid="30b6ded32f">12,450</div>
+          <div class="kpi-label" data-lvt-eid="ed1d05ad43">birds/hr</div>
+          <span class="kpi-trend up" data-lvt-eid="845f523638">
+            <svg width="10" height="10" viewBox="0 0 10 10" data-lvt-eid="48e5b0d1c7"><path d="M5 2l4 6H1z" fill="currentColor" data-lvt-eid="6f1e954ea7"></path></svg>
+            +2.3%
+          </span>
+        </div>
+        <!-- Yield — egg icon -->
+        <div class="kpi-card" data-lvt-eid="12151c1627">
+          <div class="kpi-icon-wrap" data-lvt-eid="1ef4e9f2f3">
+            <svg class="kpi-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="3f063a49b5">
+              <!-- Egg shape -->
+              <path d="M15 4 C9 4 6 10 6 16 C6 22 10 27 15 27 C20 27 24 22 24 16 C24 10 21 4 15 4Z" fill="#FFF9C4" stroke="#F9A825" stroke-width="1.8" data-lvt-eid="8b46e9f106"></path>
+              <!-- Yolk -->
+              <circle cx="15" cy="17" r="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.2" data-lvt-eid="ac0cdcb7fa"></circle>
+              <!-- Shine -->
+              <circle cx="12" cy="14" r="1.5" fill="rgba(255,255,255,0.7)" data-lvt-eid="3fa79c0e35"></circle>
+            </svg>
+          </div>
+          <div class="kpi-value" data-lvt-eid="df6ef80420">74.8%</div>
+          <div class="kpi-label" data-lvt-eid="382ab53735">Yield</div>
+          <span class="kpi-trend up" data-lvt-eid="18129459d7">
+            <svg width="10" height="10" viewBox="0 0 10 10" data-lvt-eid="78e785717f"><path d="M5 2l4 6H1z" fill="currentColor" data-lvt-eid="7bc57cac23"></path></svg>
+            +0.5%
+          </span>
+        </div>
+        <!-- Energy/kg — feather icon -->
+        <div class="kpi-card" data-lvt-eid="18682f0889">
+          <div class="kpi-icon-wrap" data-lvt-eid="4ca4cb0c4d">
+            <svg class="kpi-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="d7d26b600a">
+              <!-- Feather -->
+              <path d="M15 26 C15 26 8 18 8 12 C8 7 11 4 15 4 C19 4 22 7 22 12 C22 18 15 26 15 26Z" fill="#FFF9C4" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="1e1a8e945f"></path>
+              <!-- Quill -->
+              <line x1="15" y1="26" x2="15" y2="4" stroke="#F9A825" stroke-width="1.2" data-lvt-eid="2c852ddd2f"></line>
+              <!-- Barbs -->
+              <path d="M15 10 L11 8 M15 13 L10 12 M15 16 L10 16 M15 10 L19 8 M15 13 L20 12 M15 16 L20 16" stroke="#FFD54F" stroke-width="1" stroke-linecap="round" data-lvt-eid="3f7a9b8117"></path>
+              <!-- Lightning bolt overlay -->
+              <path d="M17 8 L14 14 L17 14 L13 22" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" data-lvt-eid="824efc8a70"></path>
+            </svg>
+          </div>
+          <div class="kpi-value" data-lvt-eid="9868e6b24a">0.42</div>
+          <div class="kpi-label" data-lvt-eid="cc0aa18a56">kWh/kg</div>
+          <span class="kpi-trend down-good" data-lvt-eid="1bda0b9a78">
+            <svg width="10" height="10" viewBox="0 0 10 10" data-lvt-eid="b1fff19da0"><path d="M5 8L1 2h8z" fill="currentColor" data-lvt-eid="7d494d1a51"></path></svg>
+            -3.1%
+          </span>
+        </div>
+        <!-- OEE — barn/gauge icon -->
+        <div class="kpi-card" data-lvt-eid="d657d8d8a5">
+          <div class="kpi-icon-wrap" data-lvt-eid="3dd0183411">
+            <svg class="kpi-icon" viewBox="0 0 30 30" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="bd4fe6ba65">
+              <!-- Barn shape -->
+              <path d="M4 14 L15 5 L26 14 L26 27 L4 27Z" fill="#FFECB3" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="4cd6b412e7"></path>
+              <!-- Roof peak -->
+              <path d="M4 14 L15 5 L26 14" stroke="#E53935" stroke-width="2" stroke-linejoin="round" fill="none" data-lvt-eid="f846756766"></path>
+              <!-- Door -->
+              <rect x="11" y="19" width="8" height="8" rx="4" fill="#F9A825" stroke="#E65100" stroke-width="1.2" data-lvt-eid="525fb6783a"></rect>
+              <!-- Windows -->
+              <rect x="6" y="17" width="5" height="4" rx="1" fill="#4FC3F7" stroke="#0277BD" stroke-width="0.8" data-lvt-eid="de5bcb9606"></rect>
+              <rect x="19" y="17" width="5" height="4" rx="1" fill="#4FC3F7" stroke="#0277BD" stroke-width="0.8" data-lvt-eid="507a0a34a8"></rect>
+            </svg>
+          </div>
+          <div class="kpi-value" data-lvt-eid="8d41ce5822">89.2%</div>
+          <div class="kpi-label" data-lvt-eid="f901318927">OEE</div>
+          <span class="kpi-trend up" data-lvt-eid="e1f023b991">
+            <svg width="10" height="10" viewBox="0 0 10 10" data-lvt-eid="7e6c72c1e8"><path d="M5 2l4 6H1z" fill="currentColor" data-lvt-eid="2a83bde7a6"></path></svg>
+            +1.2%
+          </span>
+        </div>
+      </div>
+
+      <!-- Stage Flow -->
+      <section class="panel" data-lvt-eid="9e0d710679">
+        <div class="panel-head" data-lvt-eid="2ab2c97e6b">
+          <h2 data-i18n="line.flowTitle" data-lvt-eid="9f3e696bc7">🐣 Eight-stage data thread</h2>
+          <span class="live-pill" data-lvt-eid="afc0329d0b"><span class="pulse" data-lvt-eid="322ec04e26"></span>LIVE</span>
+        </div>
+        <div class="stage-flow" id="stageFlow" data-lvt-eid="f5213f4c8d">
+          <div class="stage-card" data-lvt-eid="f496740078">
+            <div class="stage-num" data-lvt-eid="55f9074fa6">1</div>
+            <div class="stage-name" data-lvt-eid="fb2b9bddbe">Live receiving</div>
+            <div class="stage-status" data-lvt-eid="3013a9ce2f"><span class="status-dot normal" data-lvt-eid="2b1f5a7ed3"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="e8d7205d6b">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="25dd607ba0">12,450 birds/hr</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="8fac85a7cf"></div>
+          <div class="stage-card" data-lvt-eid="7e65ee4970">
+            <div class="stage-num" data-lvt-eid="06d9805fa5">2</div>
+            <div class="stage-name" data-lvt-eid="0937aa9f42">Stunning</div>
+            <div class="stage-status" data-lvt-eid="16968d7d0c"><span class="status-dot normal" data-lvt-eid="f36dd20b18"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="ff1b77fb48">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="9b26f58bc1">99.98% effectiveness</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="b94a5408dc"></div>
+          <div class="stage-card" data-lvt-eid="b378ffa6dc">
+            <div class="stage-num" data-lvt-eid="8bdad17fbe">3</div>
+            <div class="stage-name" data-lvt-eid="1c6a9bb330">Scalding</div>
+            <div class="stage-status" data-lvt-eid="0285ea27e2"><span class="status-dot normal" data-lvt-eid="e99f8dffe7"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="b071b031a5">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="fffe9ac778">58.2 °C</div>
+          </div>
+          <div class="stage-connector alert-conn" data-lvt-eid="db95ab485f"></div>
+          <div class="stage-card alert" data-lvt-eid="810fdba0ec">
+            <div class="stage-num" data-lvt-eid="3ed576a1f1">4</div>
+            <div class="stage-name" data-lvt-eid="6b40aad88e">Plucking</div>
+            <div class="stage-status" data-lvt-eid="7b6449c735"><span class="status-dot alert" data-lvt-eid="410485fcb5"></span><span style="color:#BF360C;font-weight:700" data-lvt-eid="eb7933cc72">Needs attention</span></div>
+            <div class="stage-metric" data-lvt-eid="7cb312c419">3.2% defect rate</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="deb260938e"></div>
+          <div class="stage-card" data-lvt-eid="259f55d5e1">
+            <div class="stage-num" data-lvt-eid="71fe7966f1">5</div>
+            <div class="stage-name" data-lvt-eid="0f071fb0f3">Evisceration</div>
+            <div class="stage-status" data-lvt-eid="04fa75d3d4"><span class="status-dot normal" data-lvt-eid="9c6cd6f58c"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="3b594f9f3e">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="66b7dfcf5e">12,410 birds/hr</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="1545d26286"></div>
+          <div class="stage-card" data-lvt-eid="b4e3e5d2f0">
+            <div class="stage-num" data-lvt-eid="518a4462ef">6</div>
+            <div class="stage-name" data-lvt-eid="34471d59ce">Chilling</div>
+            <div class="stage-status" data-lvt-eid="cc64a31b7f"><span class="status-dot normal" data-lvt-eid="948216bc0c"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="12f73e5d97">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="6a07de8e7b">2.1 °C</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="8fad8d49e1"></div>
+          <div class="stage-card" data-lvt-eid="14bf6e8a2b">
+            <div class="stage-num" data-lvt-eid="86d79fe7dc">7</div>
+            <div class="stage-name" data-lvt-eid="e46e5dfa2f">Cut-up</div>
+            <div class="stage-status" data-lvt-eid="39f02c2a96"><span class="status-dot normal" data-lvt-eid="4375a9f530"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="34a9f76ac8">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="1873c46dc9">94.5% yield</div>
+          </div>
+          <div class="stage-connector" data-lvt-eid="94f0d8a895"></div>
+          <div class="stage-card" data-lvt-eid="462d0bb3f8">
+            <div class="stage-num" data-lvt-eid="9ae0c4bc40">8</div>
+            <div class="stage-name" data-lvt-eid="8a08c96eea">Packaging</div>
+            <div class="stage-status" data-lvt-eid="ee21b9e96c"><span class="status-dot normal" data-lvt-eid="cceee9d953"></span><span style="color:#2E7D32;font-weight:700" data-lvt-eid="7db5b56ca9">Normal</span></div>
+            <div class="stage-metric" data-lvt-eid="8a2ff40bf6">312 boxes/hr</div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Two-col: Telemetry + Alerts -->
+      <div class="two-col" data-lvt-eid="99dd98f1ba">
+        <section class="panel" data-lvt-eid="9e5ca4219a">
+          <div class="panel-head" data-lvt-eid="57fef46644"><h2 data-i18n="line.feedTitle" data-lvt-eid="02f0427a99">📡 Live telemetry</h2></div>
+          <div class="feed" data-lvt-eid="47dc1fb16a">
+            <div class="feed-row" data-lvt-eid="27c61f0708"><span class="feed-time" data-lvt-eid="a7e1642a52">09:42:13</span><span class="feed-msg" data-lvt-eid="525a5263a0">Scalding temperature stable at 58.2 °C</span></div>
+            <div class="feed-row" data-lvt-eid="f260cb27b4"><span class="feed-time" data-lvt-eid="edffa5637e">09:41:58</span><span class="feed-msg" data-lvt-eid="b3fe4172b2">Cut-up throughput +1.8% vs target</span></div>
+            <div class="feed-row" data-lvt-eid="8669145eb5"><span class="feed-time" data-lvt-eid="6a34cdca30">09:41:22</span><span class="feed-msg" data-lvt-eid="b96cb81500">Packaging conveyor speed optimized</span></div>
+            <div class="feed-row" data-lvt-eid="9ede70f676"><span class="feed-time" data-lvt-eid="f8ec082ed5">09:40:47</span><span class="feed-msg" data-lvt-eid="56f82b0675">Chilling energy demand down 4%</span></div>
+            <div class="feed-row" data-lvt-eid="7b182c9158"><span class="feed-time" data-lvt-eid="030256dc88">09:39:15</span><span class="feed-msg" data-lvt-eid="c45fa6a675">Live receiving queue within target</span></div>
+            <div class="feed-row" data-lvt-eid="efbaf270ce"><span class="feed-time" data-lvt-eid="a5d216f412">09:38:02</span><span class="feed-msg" data-lvt-eid="d69285ed9b">Stunning effectiveness 99.98%</span></div>
+          </div>
+        </section>
+        <section class="panel" data-lvt-eid="c266d5db50">
+          <div class="panel-head" data-lvt-eid="17247438d5"><h2 data-i18n="line.alertsTitle" data-lvt-eid="8e034d25be">🔔 Active alerts</h2></div>
+          <div data-lvt-eid="0034a8a149">
+            <div class="alert-card danger" data-lvt-eid="75ddaf7ec6">
+              <div class="alert-header" data-lvt-eid="12ace9d9e8">
+                <span class="alert-title" data-lvt-eid="f1c385b6cd">Plucking line</span>
+                <span class="alert-time" data-lvt-eid="cbad0b4d44">4 min ago</span>
+              </div>
+              <div class="alert-msg" data-lvt-eid="26e4ad9807">Defect rate 3.2%, above 3.0% threshold</div>
+            </div>
+            <div class="alert-card amber" data-lvt-eid="defd1476e8">
+              <div class="alert-header" data-lvt-eid="d2d7421625">
+                <span class="alert-title" data-lvt-eid="f39d6e8633">Chiller B</span>
+                <span class="alert-time" data-lvt-eid="4861590299">12 min ago</span>
+              </div>
+              <div class="alert-msg" data-lvt-eid="5bbd82e53e">Compressor cycle 12% longer than nominal</div>
+            </div>
+            <div class="alert-card amber" data-lvt-eid="36c2a761fd">
+              <div class="alert-header" data-lvt-eid="70a01f38db">
+                <span class="alert-title" data-lvt-eid="0ebc814694">Packaging</span>
+                <span class="alert-time" data-lvt-eid="4e15fa3664">23 min ago</span>
+              </div>
+              <div class="alert-msg" data-lvt-eid="8f69d9d5c8">Box count mismatch on lane 2</div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         AI AGENTS VIEW
+    ══════════════════════════════════════════════ -->
+    <section id="view-agents" class="view" aria-labelledby="agents-title" data-lvt-eid="e4251d0807">
+
+      <!-- Hero -->
+      <div class="hero" data-lvt-eid="0eb5119445">
+        <div class="hero-bg" style="background-image:url('https://a.lovart.ai/artifacts/agent/6x54b6X34gFn2oOr.png')" data-lvt-eid="586303fcef"></div>
+        <div class="hero-overlay" data-lvt-eid="d7e9acd20a"></div>
+        <div class="hero-content" data-lvt-eid="8dba62fb96">
+          <p class="eyebrow" data-i18n="agents.eyebrow" data-lvt-eid="b84349dab6">Agentic autonomy on the line</p>
+          <h1 id="agents-title" data-i18n="agents.title" data-lvt-eid="005c09dcff">AI agents with one shared objective</h1>
+          <p class="lede" data-i18n="agents.lede" data-lvt-eid="64c69e0a6f">Safety and biosecurity always override energy and yield targets.</p>
+        </div>
+        <span class="hero-deco" data-lvt-eid="4e06cf5110">🤖</span>
+        <span class="hero-deco-2" data-lvt-eid="1b56a7de3f">🐓</span>
+      </div>
+
+      <!-- Agent Grid -->
+      <div class="agent-grid" data-lvt-eid="fd230e0728">
+        <!-- Safety Agent — robot-chicken with shield -->
+        <div class="agent-card" data-lvt-eid="8f8a5c5cec">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="1bdd3787a7">
+            <rect width="52" height="52" rx="16" fill="#E8F5E9" data-lvt-eid="cfe7672dce"></rect>
+            <!-- Robot chicken body -->
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="19d4b18a49"></ellipse>
+            <!-- Robot head -->
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="33fedc6755"></rect>
+            <!-- Antenna -->
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="88816bcf62"></line>
+            <circle cx="26" cy="9" r="2" fill="#66BB6A" data-lvt-eid="1751e9b77f"></circle>
+            <!-- Eyes (robot) -->
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="3e5acdb6d4"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="c9d8e1f78e"></rect>
+            <!-- Shield badge -->
+            <path d="M26 38 L22 35 L22 31 L26 29 L30 31 L30 35Z" fill="#66BB6A" stroke="#2E7D32" stroke-width="1" data-lvt-eid="f6947c65c1"></path>
+            <path d="M24 33 L25.5 34.5 L28 31.5" stroke="white" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" data-lvt-eid="70e390ea50"></path>
+            <!-- Feet -->
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="9ac9ebb499"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="54868afd13">
+            <span class="agent-name" data-lvt-eid="36f3e57353">Safety Agent</span>
+            <span class="status-pill active" data-lvt-eid="4578a1dd95">Active</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="85e44d4704">Priority override</div>
+          <div class="agent-desc" data-lvt-eid="d7bf3db7c0">Stops line if human risk detected</div>
+        </div>
+        <!-- Biosecurity Agent — robot-chicken with biohazard -->
+        <div class="agent-card" data-lvt-eid="d839735cfa">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="47386350be">
+            <rect width="52" height="52" rx="16" fill="#E8F5E9" data-lvt-eid="760d5dd890"></rect>
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="93f45b081b"></ellipse>
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="e98b7758f6"></rect>
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="80f1429701"></line>
+            <circle cx="26" cy="9" r="2" fill="#66BB6A" data-lvt-eid="aa70e57fc1"></circle>
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="fb353801bb"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="8afdf22f6f"></rect>
+            <!-- Biohazard circle badge -->
+            <circle cx="26" cy="34" r="5" fill="#66BB6A" stroke="#2E7D32" stroke-width="1" data-lvt-eid="b3089acabd"></circle>
+            <circle cx="26" cy="34" r="2" fill="white" data-lvt-eid="7a0af83d4b"></circle>
+            <path d="M26 29 L26 31 M21.7 31.5 L23.4 32.5 M30.3 31.5 L28.6 32.5" stroke="white" stroke-width="1.2" stroke-linecap="round" data-lvt-eid="a1ed305687"></path>
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="c815ee391f"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="6d0fc38424">
+            <span class="agent-name" data-lvt-eid="7a242497db">Biosecurity Agent</span>
+            <span class="status-pill active" data-lvt-eid="9ef7d4ab8f">Active</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="2e904e5d3a">Priority override</div>
+          <div class="agent-desc" data-lvt-eid="6ab459e3df">Enforces wash/downtime rules</div>
+        </div>
+        <!-- Energy Agent — robot-chicken with lightning -->
+        <div class="agent-card" data-lvt-eid="d5eb3dcc38">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="c30d811ddf">
+            <rect width="52" height="52" rx="16" fill="#E3F2FD" data-lvt-eid="af7f563b5b"></rect>
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="c55de8e54e"></ellipse>
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="94db7928d6"></rect>
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="af36a57222"></line>
+            <circle cx="26" cy="9" r="2" fill="#4FC3F7" data-lvt-eid="ff402c3c0b"></circle>
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="cba3f636d8"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="7602495428"></rect>
+            <!-- Lightning bolt badge -->
+            <path d="M28 28 L24 34 L27 34 L24 40 L30 33 L27 33Z" fill="#FFA726" stroke="#E65100" stroke-width="0.8" data-lvt-eid="0b0ba5d15a"></path>
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="a06b446def"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="31b2d08da8">
+            <span class="agent-name" data-lvt-eid="d77d614bd6">Energy Agent</span>
+            <span class="status-pill optimizing" data-lvt-eid="f0c14aa1ea">Optimizing</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="1a0c5afecf">Negotiating</div>
+          <div class="agent-desc" data-lvt-eid="a2a3f80466">Balancing chillers and scalding</div>
+        </div>
+        <!-- Yield Agent — robot-chicken with chart -->
+        <div class="agent-card" data-lvt-eid="c7b4b349a7">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="2921395fbb">
+            <rect width="52" height="52" rx="16" fill="#E3F2FD" data-lvt-eid="1595127aa5"></rect>
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="5f41aa0333"></ellipse>
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="2133c8bb24"></rect>
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="5ffc856819"></line>
+            <circle cx="26" cy="9" r="2" fill="#4FC3F7" data-lvt-eid="1a5bb19d90"></circle>
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="042c42d9f8"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#4FC3F7" data-lvt-eid="a286d52cdc"></rect>
+            <!-- Chart bars badge -->
+            <rect x="21" y="37" width="3" height="4" rx="1" fill="#4FC3F7" data-lvt-eid="6e147feb21"></rect>
+            <rect x="25" y="34" width="3" height="7" rx="1" fill="#4FC3F7" data-lvt-eid="136e1fcf61"></rect>
+            <rect x="29" y="31" width="3" height="10" rx="1" fill="#4FC3F7" data-lvt-eid="9c26958919"></rect>
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="944d2a9d72"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="c852e4895d">
+            <span class="agent-name" data-lvt-eid="d0697e9ad8">Yield Agent</span>
+            <span class="status-pill active" data-lvt-eid="31e771c5b3">Active</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="bb2e3f3987">Maximizing</div>
+          <div class="agent-desc" data-lvt-eid="e8209d8969">Cut-up and deboning setpoints</div>
+        </div>
+        <!-- Quality Agent — robot-chicken with magnifier -->
+        <div class="agent-card" data-lvt-eid="fac0d8ff5f">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="5d5d06a670">
+            <rect width="52" height="52" rx="16" fill="#FFF8E1" data-lvt-eid="811f77144d"></rect>
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="1167c04c05"></ellipse>
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#FFD54F" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="387ad996ef"></rect>
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#F9A825" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="044c70a961"></line>
+            <circle cx="26" cy="9" r="2" fill="#FFA726" data-lvt-eid="a8b4150128"></circle>
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#FFA726" data-lvt-eid="17beed494a"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#FFA726" data-lvt-eid="9a13d08b5b"></rect>
+            <!-- Magnifier badge -->
+            <circle cx="24" cy="34" r="4" stroke="#FFA726" stroke-width="1.5" fill="rgba(255,167,38,0.15)" data-lvt-eid="9a2eaa8afb"></circle>
+            <line x1="27" y1="37" x2="30" y2="40" stroke="#FFA726" stroke-width="2" stroke-linecap="round" data-lvt-eid="bd4bc49ba3"></line>
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#FFA726" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="c90817e745"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="cc6fc1f167">
+            <span class="agent-name" data-lvt-eid="3af76517cc">Quality Agent</span>
+            <span class="status-pill monitoring" data-lvt-eid="f5c615d9cc">Monitoring</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="e8de2d0939">Active</div>
+          <div class="agent-desc" data-lvt-eid="dd5066255a">Vision-based defect detection</div>
+        </div>
+        <!-- Maintenance Agent — robot-chicken with wrench -->
+        <div class="agent-card" data-lvt-eid="c3eb78c528">
+          <svg class="agent-icon" viewBox="0 0 52 52" fill="none" xmlns="http://www.w3.org/2000/svg" data-lvt-eid="ade993446e">
+            <rect width="52" height="52" rx="16" fill="#EFEBE9" data-lvt-eid="bebaccca62"></rect>
+            <ellipse cx="26" cy="34" rx="12" ry="10" fill="#BCAAA4" stroke="#8D6E63" stroke-width="1.5" data-lvt-eid="d343265737"></ellipse>
+            <rect x="18" y="14" width="16" height="14" rx="5" fill="#BCAAA4" stroke="#8D6E63" stroke-width="1.5" data-lvt-eid="3a758e3b51"></rect>
+            <line x1="26" y1="14" x2="26" y2="10" stroke="#8D6E63" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="f24644d07a"></line>
+            <circle cx="26" cy="9" r="2" fill="#8D6E63" data-lvt-eid="904703b0bb"></circle>
+            <rect x="20" y="18" width="4" height="3" rx="1" fill="#6D4C41" data-lvt-eid="fe3b53ce95"></rect>
+            <rect x="28" y="18" width="4" height="3" rx="1" fill="#6D4C41" data-lvt-eid="8e4b0bf1c2"></rect>
+            <!-- Wrench badge -->
+            <path d="M22 38 A4 4 0 0 1 26 30 L28 32 L24 36Z" fill="#8D6E63" stroke="#5D4037" stroke-width="0.8" data-lvt-eid="ffaa85ec11"></path>
+            <path d="M26 36 L30 40" stroke="#8D6E63" stroke-width="2.5" stroke-linecap="round" data-lvt-eid="07dcf269c8"></path>
+            <path d="M21 44 L20 48 M21 44 L22 48 M31 44 L30 48 M31 44 L32 48" stroke="#8D6E63" stroke-width="1.5" stroke-linecap="round" data-lvt-eid="4d173d359e"></path>
+          </svg>
+          <div class="agent-header" data-lvt-eid="a5fa9073f7">
+            <span class="agent-name" data-lvt-eid="c9fe31a9e1">Maintenance Agent</span>
+            <span class="status-pill standby" data-lvt-eid="2f42ad61f4">Standby</span>
+          </div>
+          <div class="agent-role" data-lvt-eid="f3a997d9a5">Predictive</div>
+          <div class="agent-desc" data-lvt-eid="4734129d2e">Vibration model — next check 18h</div>
+        </div>
+      </div>
+
+      <!-- Negotiation Feed -->
+      <section class="panel" data-lvt-eid="6c0c712fd9">
+        <div class="panel-head" data-lvt-eid="92dc4252ac"><h2 data-i18n="agents.negotiation" data-lvt-eid="447e053c21">💬 Negotiation feed</h2></div>
+        <div class="feed" data-lvt-eid="aaec88a9ab">
+          <div class="neg-row" data-lvt-eid="83e5deb212">
+            <span class="neg-dot" style="background:var(--sky)" data-lvt-eid="49ae857c9e"></span>
+            <span class="neg-time" data-lvt-eid="e50e14cf02">09:42:01</span>
+            <span class="neg-msg" data-lvt-eid="d7b821f3ce">Energy Agent accepted 2% higher demand to protect biosecurity wash.</span>
+          </div>
+          <div class="neg-row" data-lvt-eid="6c8ff0c718">
+            <span class="neg-dot" style="background:var(--danger)" data-lvt-eid="360a2d2897"></span>
+            <span class="neg-time" data-lvt-eid="a54fbdf561">09:41:34</span>
+            <span class="neg-msg" data-lvt-eid="f17431ea61">Yield Agent proposed faster cut-up speed; Safety Agent rejected due to proximity window.</span>
+          </div>
+          <div class="neg-row" data-lvt-eid="01111dc37d">
+            <span class="neg-dot" style="background:var(--text-secondary)" data-lvt-eid="cd36d6a069"></span>
+            <span class="neg-time" data-lvt-eid="726f7c8a2d">09:40:12</span>
+            <span class="neg-msg" data-lvt-eid="3a46f8cbfa">Maintenance Agent scheduled chiller inspection during planned downtime.</span>
+          </div>
+          <div class="neg-row" data-lvt-eid="773648d71c">
+            <span class="neg-dot" style="background:var(--warning)" data-lvt-eid="7e43b8d974"></span>
+            <span class="neg-time" data-lvt-eid="544cb51839">09:38:55</span>
+            <span class="neg-msg" data-lvt-eid="f79ed1988a">Biosecurity Agent locked line for CIP until 09:45.</span>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         DIGITAL TWIN VIEW
+    ══════════════════════════════════════════════ -->
+    <section id="view-twin" class="view" aria-labelledby="twin-title" data-lvt-eid="7f04fa6827">
+
+      <!-- Hero -->
+      <div class="hero" data-lvt-eid="739a585cac">
+        <div class="hero-bg" style="background-image:url('https://a.lovart.ai/artifacts/agent/vwYO96f6jOJHo4M2.png')" data-lvt-eid="637e492c9e"></div>
+        <div class="hero-overlay" data-lvt-eid="877d00c1c9"></div>
+        <div class="hero-content" data-lvt-eid="7362d520e0">
+          <p class="eyebrow" data-i18n="twin.eyebrow" data-lvt-eid="f3759de493">Digital twin · plant floor</p>
+          <h1 id="twin-title" data-i18n="twin.title" data-lvt-eid="dc6d39d53b">Line topology at a glance</h1>
+          <p class="lede" data-i18n="twin.lede" data-lvt-eid="fd4476c1c8">A lightweight 2D view of stations and equipment health across the plant.</p>
+        </div>
+        <span class="hero-deco" data-lvt-eid="049a449bc2">🏭</span>
+        <span class="hero-deco-2" data-lvt-eid="328383d454">🐥</span>
+      </div>
+
+      <!-- Topology Panel -->
+      <section class="panel" data-lvt-eid="d4801f8cc1">
+        <div class="panel-head" data-lvt-eid="bfaeb0d876">
+          <h2 data-i18n="twin.mapTitle" data-lvt-eid="790d14a3f9">🗺️ Processing line</h2>
+          <div class="twin-legend" data-lvt-eid="bead41b963">
+            <div class="legend-item" data-lvt-eid="ec6cdcb353">
+              <span class="legend-dot teal" data-lvt-eid="199fcdd165"></span>
+              <span data-i18n="twin.normal" data-lvt-eid="4af55f2ed2">Normal</span>
+            </div>
+            <div class="legend-item" data-lvt-eid="13934763b8">
+              <span class="legend-dot amber" data-lvt-eid="9600c21e06"></span>
+              <span data-i18n="twin.alert" data-lvt-eid="6520d7b790">Needs attention</span>
+            </div>
+          </div>
+        </div>
+        <div class="twin-map-wrap" data-lvt-eid="239ecfb4cb">
+          <div class="twin-svg-container" id="twinContainer" data-lvt-eid="339ce5f12b">
+            <svg id="twinSvg" viewBox="0 0 1100 210" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:auto;display:block;" data-lvt-eid="0ae1094366">
+              <!-- Conveyor belt base -->
+              <rect x="30" y="94" width="1040" height="12" rx="6" fill="#FFECB3" stroke="#F9A825" stroke-width="1.5" data-lvt-eid="2e8adc3083"></rect>
+              <!-- Animated dashes on belt -->
+              <line x1="60" y1="100" x2="1040" y2="100" stroke="#F9A825" stroke-width="2" stroke-dasharray="18 50" class="connector-pulse" data-lvt-eid="1d84401b6c"></line>
+
+              <!-- Station 1: Receiving — normal -->
+              <g class="twin-station" data-name="Live receiving" data-metric="12,450 birds/hr" data-status="normal" data-lvt-eid="f5526a6c8d">
+                <rect x="22" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="e5bd4ea9f5"></rect>
+                <circle cx="84" cy="68" r="6" fill="#66BB6A" data-lvt-eid="0ff21ed4b2"></circle>
+                <!-- Tiny chick icon -->
+                <text x="60" y="82" text-anchor="middle" font-size="16" data-lvt-eid="bd1e813474">🐣</text>
+                <text x="60" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="66c831bd31">Receiving</text>
+                <text x="60" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="7bddd5c3cd">12,450</text>
+                <text x="60" y="124" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="7.5" fill="#6D4C41" data-lvt-eid="19473f171e">birds/hr</text>
+              </g>
+
+              <!-- Station 2: Stunning — normal -->
+              <g class="twin-station" data-name="Stunning" data-metric="99.98% effectiveness" data-status="normal" data-lvt-eid="26337fb75f">
+                <rect x="147" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="ca5f12bb62"></rect>
+                <circle cx="209" cy="68" r="6" fill="#66BB6A" data-lvt-eid="95a208feeb"></circle>
+                <text x="185" y="82" text-anchor="middle" font-size="16" data-lvt-eid="a7f729ac88">⚡</text>
+                <text x="185" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="b0493994c8">Stunning</text>
+                <text x="185" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="29df77463b">99.98%</text>
+                <text x="185" y="124" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="7.5" fill="#6D4C41" data-lvt-eid="266c60770e">effective</text>
+              </g>
+
+              <!-- Station 3: Scalding — normal -->
+              <g class="twin-station" data-name="Scalding" data-metric="58.2 °C" data-status="normal" data-lvt-eid="bd45869a2a">
+                <rect x="272" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="a1071fef47"></rect>
+                <circle cx="334" cy="68" r="6" fill="#66BB6A" data-lvt-eid="639bde0932"></circle>
+                <text x="310" y="82" text-anchor="middle" font-size="16" data-lvt-eid="df4fd2f5f8">🌡️</text>
+                <text x="310" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="af6a0b0a89">Scalding</text>
+                <text x="310" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="488d763781">58.2 °C</text>
+              </g>
+
+              <!-- Station 4: Plucking — ALERT -->
+              <g class="twin-station" data-name="Plucking" data-metric="3.2% defect rate" data-status="alert" data-lvt-eid="3035e027b9">
+                <rect x="397" y="58" width="76" height="72" rx="14" fill="#FFFDE7" stroke="#FFA726" stroke-width="2.5" data-lvt-eid="a96a17a42c"></rect>
+                <circle cx="459" cy="68" r="6" fill="#FFA726" data-lvt-eid="e2e271204b"></circle>
+                <text x="435" y="82" text-anchor="middle" font-size="16" data-lvt-eid="97dd20587a">⚠️</text>
+                <text x="435" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="82ce285d6e">Plucking</text>
+                <text x="435" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#E65100" data-lvt-eid="c7475b4e58">3.2% defect</text>
+                <text x="435" y="124" text-anchor="middle" font-family="Nunito,sans-serif" font-size="8" font-weight="700" fill="#FFA726" data-lvt-eid="f54eb32801">⚠ Alert</text>
+              </g>
+
+              <!-- Station 5: Evisceration — normal -->
+              <g class="twin-station" data-name="Evisceration" data-metric="12,410 birds/hr" data-status="normal" data-lvt-eid="d2367ad50d">
+                <rect x="522" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="2aceda50a8"></rect>
+                <circle cx="584" cy="68" r="6" fill="#66BB6A" data-lvt-eid="721d315300"></circle>
+                <text x="560" y="82" text-anchor="middle" font-size="16" data-lvt-eid="283de7c21a">🔧</text>
+                <text x="560" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="da5eb66780">Evisceration</text>
+                <text x="560" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="cd37eaef7a">12,410</text>
+                <text x="560" y="124" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="7.5" fill="#6D4C41" data-lvt-eid="5ae3647a82">birds/hr</text>
+              </g>
+
+              <!-- Station 6: Chilling — normal -->
+              <g class="twin-station" data-name="Chilling" data-metric="2.1 °C" data-status="normal" data-lvt-eid="809b2f8caa">
+                <rect x="647" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="d257816359"></rect>
+                <circle cx="709" cy="68" r="6" fill="#66BB6A" data-lvt-eid="821a3bb8ba"></circle>
+                <text x="685" y="82" text-anchor="middle" font-size="16" data-lvt-eid="6d4ae77bf6">❄️</text>
+                <text x="685" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="431bc5a66c">Chilling</text>
+                <text x="685" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="2d66162808">2.1 °C</text>
+              </g>
+
+              <!-- Station 7: Cut-up — normal -->
+              <g class="twin-station" data-name="Cut-up" data-metric="94.5% yield" data-status="normal" data-lvt-eid="287ca69967">
+                <rect x="772" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="5b109a6739"></rect>
+                <circle cx="834" cy="68" r="6" fill="#66BB6A" data-lvt-eid="b5454dc2e0"></circle>
+                <text x="810" y="82" text-anchor="middle" font-size="16" data-lvt-eid="abc498f410">✂️</text>
+                <text x="810" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="53e9cc9d7b">Cut-up</text>
+                <text x="810" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="3a5e244e42">94.5% yield</text>
+              </g>
+
+              <!-- Station 8: Packaging — normal -->
+              <g class="twin-station" data-name="Packaging" data-metric="312 boxes/hr" data-status="normal" data-lvt-eid="cd581a80dc">
+                <rect x="897" y="58" width="76" height="72" rx="14" fill="#FFFFFF" stroke="#66BB6A" stroke-width="2" data-lvt-eid="237b1477c8"></rect>
+                <circle cx="959" cy="68" r="6" fill="#66BB6A" data-lvt-eid="f420369e6d"></circle>
+                <text x="935" y="82" text-anchor="middle" font-size="16" data-lvt-eid="9f22906fff">📦</text>
+                <text x="935" y="100" text-anchor="middle" font-family="Nunito,sans-serif" font-size="9.5" font-weight="700" fill="#3E2723" data-lvt-eid="91a396ca2a">Packaging</text>
+                <text x="935" y="114" text-anchor="middle" font-family="Spline Sans Mono,monospace" font-size="8" fill="#6D4C41" data-lvt-eid="ed8827479b">312 boxes/hr</text>
+              </g>
+
+              <!-- Flow arrows -->
+              <path d="M98 94 L147 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="e4d83c60e0"></path>
+              <path d="M223 94 L272 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="479aae567c"></path>
+              <path d="M348 94 L397 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="1dd3bd7722"></path>
+              <path d="M473 94 L522 94" stroke="#FFA726" stroke-width="1.5" marker-end="url(#arrow-warn)" data-lvt-eid="2bd8c6694f"></path>
+              <path d="M598 94 L647 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="ffecfa08f0"></path>
+              <path d="M723 94 L772 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="fbda55f97f"></path>
+              <path d="M848 94 L897 94" stroke="#F9A825" stroke-width="1.5" marker-end="url(#arrow-farm)" data-lvt-eid="9ad2f4f47f"></path>
+
+              <defs data-lvt-eid="47120bfddc">
+                <marker id="arrow-farm" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" data-lvt-eid="eeedab57d3">
+                  <path d="M0,0 L7,3.5 L0,7 Z" fill="#F9A825" data-lvt-eid="31f7b4fdf7"></path>
+                </marker>
+                <marker id="arrow-warn" markerWidth="7" markerHeight="7" refX="6" refY="3.5" orient="auto" data-lvt-eid="f24560c3d1">
+                  <path d="M0,0 L7,3.5 L0,7 Z" fill="#FFA726" data-lvt-eid="f8b6d66884"></path>
+                </marker>
+              </defs>
+            </svg>
+            <!-- Tooltip -->
+            <div class="twin-tooltip" id="twinTooltip" data-lvt-eid="b1aee1cefd"></div>
+          </div>
+        </div>
+      </section>
+    </section>
+
+    <!-- ══════════════════════════════════════════════
+         ROADSHOW VIEW
+    ══════════════════════════════════════════════ -->
+    <section id="view-roadshow" class="view" aria-labelledby="roadshow-title" data-lvt-eid="61c82a07b7">
+      <div class="roadshow-wrap" data-lvt-eid="b7b3c7a4fe">
+        <!-- Deck -->
+        <div class="slide-deck" id="slideDeck" aria-live="polite" data-lvt-eid="5ff95d9d87">
+
+          <!-- Slide 1: Cover -->
+          <div class="slide active" id="slide-1" data-lvt-eid="1846d1dbe4">
+            <div class="slide-bg" style="background-image:url('https://a.lovart.ai/artifacts/agent/ECf9o8GQoh6biaX2.png')" data-lvt-eid="45ce355811"></div>
+            <div class="slide-overlay" style="background:linear-gradient(to right, rgba(255,251,242,0.92) 0%, rgba(255,251,242,0.65) 50%, rgba(255,251,242,0.15) 100%)" data-lvt-eid="49855808ca"></div>
+            <div class="slide-content" data-lvt-eid="217890419b">
+              <div class="slide-eyebrow" data-i18n="roadshow.eyebrow" data-lvt-eid="15dce727bb">The Sunner story · built with GEA</div>
+              <div class="slide-title" data-i18n="roadshow.title" data-lvt-eid="2c3d15281f">Roadshow</div>
+              <div class="slide-body" data-i18n="brand.sub" data-lvt-eid="4905e03af3">PFA Poultry · Plant OS</div>
+            </div>
+          </div>
+
+          <!-- Slide 2: The Challenge -->
+          <div class="slide" id="slide-2" data-lvt-eid="e3fd40fe3e">
+            <div class="slide-bg slide-gradient-bg" data-lvt-eid="b61c3564e0"></div>
+            <div class="slide-overlay" style="background:radial-gradient(ellipse at 80% 50%, rgba(255,213,79,0.12) 0%, transparent 60%)" data-lvt-eid="a017f23f7c"></div>
+            <div class="slide-content" data-lvt-eid="c43039589f">
+              <div class="slide-eyebrow" data-lvt-eid="b7d2355071">🌾 The Challenge</div>
+              <div class="slide-title" data-lvt-eid="1150b42739">Scaling consistent quality and efficiency across eight processing stages.</div>
+            </div>
+          </div>
+
+          <!-- Slide 3: The Solution -->
+          <div class="slide" id="slide-3" data-lvt-eid="c80488a28d">
+            <div class="slide-bg slide-gradient-bg-2" data-lvt-eid="76db820fa4"></div>
+            <div class="slide-overlay" style="background:radial-gradient(ellipse at 80% 50%, rgba(79,195,247,0.1) 0%, transparent 60%)" data-lvt-eid="b206d03e8b"></div>
+            <div class="slide-content" data-lvt-eid="47bb602937">
+              <div class="slide-eyebrow" data-lvt-eid="64e3adefbf">🐔 The Solution</div>
+              <div class="slide-title" data-lvt-eid="a878453544">One bird, one data thread, one AI operating layer — from receiving to packaging.</div>
+            </div>
+          </div>
+
+          <!-- Slide 4: The Impact -->
+          <div class="slide" id="slide-4" data-lvt-eid="ad9081e5f2">
+            <div class="slide-bg slide-gradient-bg" data-lvt-eid="674f5c8bf8"></div>
+            <div class="slide-overlay" style="background:radial-gradient(ellipse at 80% 50%, rgba(102,187,106,0.1) 0%, transparent 60%)" data-lvt-eid="64ddadc02f"></div>
+            <div class="slide-content" style="max-width:700px" data-lvt-eid="0b7d505163">
+              <div class="slide-eyebrow" data-lvt-eid="5be1c09c00">🥚 The Impact</div>
+              <div class="slide-kpi-grid" data-lvt-eid="e6cbae0c18">
+                <div class="slide-kpi" data-lvt-eid="710481f304">
+                  <div class="slide-kpi-val" data-lvt-eid="e31966e2e4">12,450</div>
+                  <div class="slide-kpi-lbl" data-lvt-eid="0fc5190722">birds/hr Throughput</div>
+                  <div class="slide-kpi-trend" data-lvt-eid="ece673ad97">↑ +2.3%</div>
+                </div>
+                <div class="slide-kpi" data-lvt-eid="e72e01a0c7">
+                  <div class="slide-kpi-val" data-lvt-eid="d224a678df">74.8%</div>
+                  <div class="slide-kpi-lbl" data-lvt-eid="a440ee2597">Yield</div>
+                  <div class="slide-kpi-trend" data-lvt-eid="5587bd7f2c">↑ +0.5%</div>
+                </div>
+                <div class="slide-kpi" data-lvt-eid="fcdb336716">
+                  <div class="slide-kpi-val" data-lvt-eid="8073a5dbff">0.42 kWh</div>
+                  <div class="slide-kpi-lbl" data-lvt-eid="88bedfc26d">Energy/kg</div>
+                  <div class="slide-kpi-trend" data-lvt-eid="b83de1d9bc">↓ -3.1%</div>
+                </div>
+                <div class="slide-kpi" data-lvt-eid="74ca9324ab">
+                  <div class="slide-kpi-val" data-lvt-eid="b9eb66cf23">89.2%</div>
+                  <div class="slide-kpi-lbl" data-lvt-eid="8e94620106">OEE</div>
+                  <div class="slide-kpi-trend" data-lvt-eid="de07e55c1a">↑ +1.2%</div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Slide 5: Next Steps -->
+          <div class="slide" id="slide-5" data-lvt-eid="de541b52cb">
+            <div class="slide-bg slide-gradient-bg-2" data-lvt-eid="30a1674b8d"></div>
+            <div class="slide-overlay" style="background:radial-gradient(ellipse at 80% 50%, rgba(255,167,38,0.1) 0%, transparent 60%)" data-lvt-eid="5dd99e374a"></div>
+            <div class="slide-content" data-lvt-eid="19352358bf">
+              <div class="slide-eyebrow" data-lvt-eid="afcbdac8ff">🚀 Next Steps</div>
+              <div class="slide-title" data-lvt-eid="bbc161a52a">See it live on the processing line.</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Controls -->
+        <div class="deck-controls" data-lvt-eid="35f192dfbb">
+          <button class="deck-btn" id="prevBtn" data-i18n="roadshow.prev" disabled="" data-lvt-eid="7e5683bd93">Previous</button>
+          <span class="deck-counter" id="deckCounter" data-lvt-eid="e62ba258d2">1 / 5</span>
+          <button class="deck-btn" id="nextBtn" data-i18n="roadshow.next" data-lvt-eid="ff04f95f92">Next</button>
+        </div>
+        <div class="deck-dots" id="deckDots" data-lvt-eid="4e484a931d">
+          <span class="deck-dot active" data-slide="0" data-lvt-eid="c6eaaefdea"></span>
+          <span class="deck-dot" data-slide="1" data-lvt-eid="2191a2cc61"></span>
+          <span class="deck-dot" data-slide="2" data-lvt-eid="9d1bf3be77"></span>
+          <span class="deck-dot" data-slide="3" data-lvt-eid="9814182abf"></span>
+          <span class="deck-dot" data-slide="4" data-lvt-eid="42569a3711"></span>
+        </div>
+        <p class="deck-note" data-i18n="roadshow.note" data-lvt-eid="720f7c5f67">Use the arrow keys to navigate.</p>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // ─── i18n ───────────────────────────────────────────────────────────────
+    const I18N = (function () {
+      const dict = {
+        en: {
+          "brand.sub": "PFA Poultry · Plant OS",
+          "nav.line": "Live Line",
+          "nav.agents": "AI Agents",
+          "nav.twin": "Digital Twin",
+          "nav.roadshow": "Roadshow",
+          "line.eyebrow": "One bird · one data thread · eight stages",
+          "line.title": "The connected processing plant",
+          "line.lede": "From live receiving to packaging, every stage is sensed, connected and optimizable.",
+          "line.flowTitle": "Eight-stage data thread",
+          "line.feedTitle": "Live telemetry",
+          "line.alertsTitle": "Active alerts",
+          "agents.eyebrow": "Agentic autonomy on the line",
+          "agents.title": "AI agents with one shared objective",
+          "agents.lede": "Safety and biosecurity always override energy and yield targets.",
+          "agents.negotiation": "Negotiation feed",
+          "twin.eyebrow": "Digital twin · plant floor",
+          "twin.title": "Line topology at a glance",
+          "twin.lede": "A lightweight 2D view of stations and equipment health across the plant.",
+          "twin.mapTitle": "Processing line",
+          "twin.normal": "Normal",
+          "twin.alert": "Needs attention",
+          "roadshow.eyebrow": "The Sunner story · built with GEA",
+          "roadshow.title": "Roadshow",
+          "roadshow.prev": "Previous",
+          "roadshow.next": "Next",
+          "roadshow.note": "Use the arrow keys to navigate."
+        },
+        zh: {
+          "brand.sub": "PFA 家禽 · 工厂操作系统",
+          "nav.line": "实时产线",
+          "nav.agents": "AI 智能体",
+          "nav.twin": "数字孪生",
+          "nav.roadshow": "路演",
+          "line.eyebrow": "一只禽 · 一条数据链 · 八道工序",
+          "line.title": "全流程互联的加工工厂",
+          "line.lede": "从活禽接收至包装，每一道工序都被感知、连接与优化。",
+          "line.flowTitle": "八道工序数据链",
+          "line.feedTitle": "实时遥测",
+          "line.alertsTitle": "当前告警",
+          "agents.eyebrow": "产线之上的智能体自治",
+          "agents.title": "围绕同一目标协同的 AI 智能体",
+          "agents.lede": "安全与生物安全始终优先于能耗与产出目标。",
+          "agents.negotiation": "协商记录",
+          "twin.eyebrow": "数字孪生 · 工厂现场",
+          "twin.title": "产线拓扑一览",
+          "twin.lede": "以轻量二维视图展示各工位与设备健康状态。",
+          "twin.mapTitle": "加工产线",
+          "twin.normal": "正常",
+          "twin.alert": "需要关注",
+          "roadshow.eyebrow": "圣农故事 · 与 GEA 共建",
+          "roadshow.title": "路演",
+          "roadshow.prev": "上一页",
+          "roadshow.next": "下一页",
+          "roadshow.note": "使用方向键翻页。"
+        }
+      };
+      let lang = 'en';
+      function apply() {
+        document.documentElement.lang = lang;
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+          const key = el.getAttribute('data-i18n');
+          if (dict[lang][key] !== undefined) el.textContent = dict[lang][key];
+        });
+        const toggle = document.getElementById('langToggle');
+        if (toggle) toggle.textContent = lang === 'en' ? '中文' : 'EN';
+      }
+      function t(key) { return dict[lang][key] ?? key; }
+      function toggle() {
+        lang = lang === 'en' ? 'zh' : 'en';
+        apply();
+        window.dispatchEvent(new CustomEvent('i18n'));
+        return lang;
+      }
+      return { apply, t, toggle, get lang() { return lang; } };
+    })();
+
+    // ─── Tab switching ───────────────────────────────────────────────────────
+    const tabs = document.querySelectorAll('.tab');
+
+    function switchView(viewId) {
+      const target = document.getElementById('view-' + viewId);
+      if (!target || target.classList.contains('active')) return;
+      const current = document.querySelector('.view.active');
+      if (current) {
+        current.style.opacity = '0';
+        current.style.transform = 'translateY(10px)';
+        setTimeout(() => {
+          current.classList.remove('active');
+          current.style.opacity = '';
+          current.style.transform = '';
+          target.classList.add('active');
+          requestAnimationFrame(() => {
+            target.style.opacity = '1';
+            target.style.transform = 'translateY(0)';
+          });
+        }, 200);
+      } else {
+        target.classList.add('active');
+      }
+      tabs.forEach(t => {
+        t.classList.toggle('active', t.dataset.view === viewId);
+      });
+    }
+
+    tabs.forEach(tab => {
+      tab.addEventListener('click', () => switchView(tab.dataset.view));
+    });
+
+    // ─── Language toggle ─────────────────────────────────────────────────────
+    document.getElementById('langToggle').addEventListener('click', () => I18N.toggle());
+    I18N.apply();
+
+    // ─── Roadshow deck ───────────────────────────────────────────────────────
+    let currentSlide = 0;
+    const TOTAL_SLIDES = 5;
+    const slides = document.querySelectorAll('.slide');
+    const prevBtn = document.getElementById('prevBtn');
+    const nextBtn = document.getElementById('nextBtn');
+    const counter = document.getElementById('deckCounter');
+    const dots = document.querySelectorAll('.deck-dot');
+
+    function goToSlide(n) {
+      if (n < 0 || n >= TOTAL_SLIDES) return;
+      slides[currentSlide].classList.remove('active');
+      dots[currentSlide].classList.remove('active');
+      currentSlide = n;
+      slides[currentSlide].classList.add('active');
+      dots[currentSlide].classList.add('active');
+      counter.textContent = (currentSlide + 1) + ' / ' + TOTAL_SLIDES;
+      prevBtn.disabled = currentSlide === 0;
+      nextBtn.disabled = currentSlide === TOTAL_SLIDES - 1;
+    }
+
+    prevBtn.addEventListener('click', () => goToSlide(currentSlide - 1));
+    nextBtn.addEventListener('click', () => goToSlide(currentSlide + 1));
+    dots.forEach(dot => {
+      dot.addEventListener('click', () => goToSlide(parseInt(dot.dataset.slide)));
+    });
+
+    document.addEventListener('keydown', e => {
+      const roadshowActive = document.getElementById('view-roadshow').classList.contains('active');
+      if (!roadshowActive) return;
+      if (e.key === 'ArrowLeft') goToSlide(currentSlide - 1);
+      if (e.key === 'ArrowRight') goToSlide(currentSlide + 1);
+    });
+
+    // ─── Digital Twin tooltip ────────────────────────────────────────────────
+    const twinContainer = document.getElementById('twinContainer');
+    const tooltip = document.getElementById('twinTooltip');
+
+    document.querySelectorAll('.twin-station').forEach(station => {
+      station.style.cursor = 'pointer';
+      station.addEventListener('mouseenter', () => {
+        const name = station.dataset.name;
+        const metric = station.dataset.metric;
+        const status = station.dataset.status;
+        const statusColor = status === 'alert' ? '#FFA726' : '#66BB6A';
+        const icon = status === 'alert' ? '⚠️' : '✅';
+        tooltip.innerHTML = `${icon} <strong style="color:${statusColor}">${name}</strong><br><span style="color:#6D4C41;font-size:11px">${metric}</span>`;
+        tooltip.classList.add('visible');
+      });
+      station.addEventListener('mousemove', e => {
+        const rect = twinContainer.getBoundingClientRect();
+        const x = e.clientX - rect.left + 14;
+        const y = e.clientY - rect.top - 48;
+        tooltip.style.left = x + 'px';
+        tooltip.style.top = y + 'px';
+      });
+      station.addEventListener('mouseleave', () => {
+        tooltip.classList.remove('visible');
+      });
+    });
+
+    // ─── Initial state ───────────────────────────────────────────────────────
+    const activeView = document.querySelector('.view.active');
+    if (activeView) {
+      activeView.style.opacity = '1';
+      activeView.style.transform = 'translateY(0)';
+    }
+  </script>
+
+
+</body></html>
