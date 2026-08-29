@@ -29,6 +29,16 @@ export default function Presentation({ t, tr, theme }) {
   }, [autoplay, slideCount]);
 
   const go = (dir) => setIndex((i) => (i + dir + slideCount) % slideCount);
+
+  useEffect(() => {
+    const onKey = (e) => {
+      if (e.key === "ArrowRight") go(1);
+      if (e.key === "ArrowLeft") go(-1);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [slideCount]);
+
   const slide = DECK[index % DECK.length];
   const heroBg = theme === "warm" ? "url('/assets/bg/warm-slide-cover.png')" : "url('/assets/bg/slide-cover.png')";
 
